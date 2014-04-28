@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SuperTagEditor", "SuperTagEditor\SuperTagEditor.vcxproj", "{E18DA30E-6AC6-4BD5-A16A-32420644345F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		PublicDebug|Win32 = PublicDebug|Win32
+		PublicRelease|Win32 = PublicRelease|Win32
+		Release|Win32 = Release|Win32
+		Template|Win32 = Template|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Debug|Win32.Build.0 = Debug|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicDebug|Win32.ActiveCfg = PublicDebug|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicDebug|Win32.Build.0 = PublicDebug|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicRelease|Win32.ActiveCfg = PublicRelease|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicRelease|Win32.Build.0 = PublicRelease|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Release|Win32.ActiveCfg = Release|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Release|Win32.Build.0 = Release|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Template|Win32.ActiveCfg = Template|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Template|Win32.Build.0 = Template|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
