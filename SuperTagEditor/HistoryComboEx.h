@@ -72,7 +72,7 @@ public:
 	void SetMaxHistoryItems(int nMaxItems) { m_nMaxHistoryItems = nMaxItems; }
 	void SaveHistory(BOOL bAddCurrentItemToHistory = TRUE);
 	CString LoadHistory(CRecentFileList* pListMRU, BOOL bSelectMostRecent = TRUE);
-	CString LoadHistory(LPCTSTR lpszSection, LPCTSTR lpszKeyPrefix, BOOL bSaveRestoreLastCurrent = TRUE, LPCTSTR lpszKeyCurItem = NULL);
+	CString LoadHistory(LPCWSTR lpszSection, LPCWSTR lpszKeyPrefix, BOOL bSaveRestoreLastCurrent = TRUE, LPCWSTR lpszKeyCurItem = NULL);
 	int InsertItem (CString strItem);
 	int InsertItem (const COMBOBOXEXITEM* pCBItem);
 	virtual ~CHistoryComboEx();

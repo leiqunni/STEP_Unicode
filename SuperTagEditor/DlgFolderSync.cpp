@@ -20,7 +20,7 @@ CDlgFolderSync::CDlgFolderSync() : COptionPage(CDlgFolderSync::IDD)
 {
 	//{{AFX_DATA_INIT(CDlgFolderSync)
 	m_bEnableFolderSync = FALSE;
-	m_strRootFolder = _T("");
+	m_strRootFolder = L"";
 	m_bMoveLyricsFile = FALSE;
 	m_bDeleteFolder = FALSE;
 	m_bSelectAlways = FALSE;
@@ -92,9 +92,9 @@ void CDlgFolderSync::OnBtRefRoot()
 	GetDlgItemText(IDC_ED_ROOT_FOLDER, strFileName);
 
 	// フォルダ選択ダイアログを開く
-	extern	BOOL SelectDirectory(char *);
+	extern	BOOL SelectDirectory(wchar_t *);
 	char	sFolderName[_MAX_PATH] = {'\0'};
-	strcpy(sFolderName, strFileName);
+	wcscpy(sFolderName, strFileName);
 	if (SelectDirectory(sFolderName) == TRUE) {
 		SetDlgItemText(IDC_ED_ROOT_FOLDER, sFolderName);
 	}
@@ -107,7 +107,7 @@ void CDlgFolderSync::OnBtResetPage()
 	((CButton *)GetDlgItem(IDC_CH_ENABLE_FOLDER_SYNC))->SetCheck(FALSE);
 
 	// root に対応するフォルダ
-	((CWnd *)GetDlgItem(IDC_ED_ROOT_FOLDER))->SetWindowText("");
+	((CWnd *)GetDlgItem(IDC_ED_ROOT_FOLDER))->SetWindowText(L"");
 	((CButton *)GetDlgItem(IDC_CH_SELECT_ALWAYS))->SetCheck(FALSE);
 
 	// 動作設定

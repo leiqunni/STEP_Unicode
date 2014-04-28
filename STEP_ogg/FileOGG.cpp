@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <windows.h>
-#include <TCHAR.h>
+#include <wchar_t.h>
 #include <stdio.h>
 #include <string.h>
 #include "FileOGG.h"
@@ -123,7 +123,7 @@ bool LoadAttributeFileOGG(FILE_INFO *pFileMP3)
 	SetTrackNumberSI(pFileMP3, strTrackNumber);
     //ƒgƒ‰ƒbƒN”Ô†
 	//if (!pFileMP3->strTrackNumber.IsEmpty()) {
-	//	pFileMP3->byTrackNumber = (BYTE)atoi(CId3tagv2::GetIntTrackNo(pFileMP3->strTrackNumber));
+	//	pFileMP3->byTrackNumber = (BYTE)_wtoi(CId3tagv2::GetIntTrackNo(pFileMP3->strTrackNumber));
 	//}
 
 //	pFileMP3->nPlayTime = fileOGG->GetTime();
@@ -210,7 +210,7 @@ bool WriteAttributeFileOGG(FILE_INFO *pFileMP3)
     int i = 0;
     while(VC[i].szField){
 		fileOGG->DelComment(VC[i].szField, 0);
-		if (strlen(*VC[i].pstrContents) > 0) {
+		if (wcslen(*VC[i].pstrContents) > 0) {
 			fileOGG->AddComment(VC[i].szField, *VC[i].pstrContents);
 		}
 		//fileOGG->ReplaceComment(VC[i].szField, *VC[i].pstrContents, 0);

@@ -67,15 +67,15 @@ public:		// ======================================
 
 	inline	void SaveAllTag(void) {OnSaveAllTag();}
 
-	bool	LoadPlayList(const char *);
-	bool	FoundFile(const char *, CSuperGridCtrl::CTreeItem * = NULL, bool = true);
-	bool	SearchFileReent(const char *, CSuperGridCtrl::CTreeItem * = NULL);
-	int		AddRequestFile(const char *, CSuperGridCtrl::CTreeItem * = NULL);
+	bool	LoadPlayList(const wchar_t *);
+	bool	FoundFile(const wchar_t *, CSuperGridCtrl::CTreeItem * = NULL, bool = true);
+	bool	SearchFileReent(const wchar_t *, CSuperGridCtrl::CTreeItem * = NULL);
+	int		AddRequestFile(const wchar_t *, CSuperGridCtrl::CTreeItem * = NULL);
 	void	ExecRequestFiles(bool = true, bool = true);
-	void	StartLoadFile(const char *);
+	void	StartLoadFile(const wchar_t *);
 	void	EndLoadFile(void);
 	void	ClearRequestFiles(void);
-	void	OpenFolder(const char *);
+	void	OpenFolder(const wchar_t *);
 	bool	CheckFileAttribute(FILE_MP3 *);
 	//追加 by Kobarin
 	//タグを更新中かどうか
@@ -84,7 +84,7 @@ public:		// ======================================
 private:	// ======================================
 			// =====     private メンバ関数     =====
 			// ======================================
-			char	*m_sTargetFile;				// 検索処理：現在のファイル
+	wchar_t	*m_sTargetFile;				// 検索処理：現在のファイル
 			CArray <FILE_MP3, const FILE_MP3 &>	m_arrayFiles;
 			CArray <FILE_STATE, const FILE_STATE &>	m_arrayRequestFiles;
 			int		m_nArrayFileCount;
@@ -122,8 +122,8 @@ private:	// ======================================
 				CString strINI = AfxGetApp()->m_pszProfileName;
 				InitProfile();
 			}
-	CTime	GetFileTime(const char *);
-	BOOL	SelectDirectory(char *);
+	CTime	GetFileTime(const wchar_t *);
+	BOOL	SelectDirectory(wchar_t *);
 
 	//追加 by Kobarin
 	//StartLoadFile/EndLoadFile は同じ回数呼び出さなければならない
@@ -149,7 +149,7 @@ public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
 	virtual BOOL CanCloseFrame(CFrameWnd* pFrame);
-	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
+	virtual BOOL OnOpenDocument(LPCWSTR lpszPathName);
 	//}}AFX_VIRTUAL
 
 // インプリメンテーション

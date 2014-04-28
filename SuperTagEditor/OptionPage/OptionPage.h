@@ -50,7 +50,7 @@ private:
 	/*!
 		\brief	Create() - Private!
 	*/
-	BOOL Create(LPCTSTR lpszTemplateName,
+	BOOL Create(LPCWSTR lpszTemplateName,
 				CWnd* pParentWnd = NULL);
 
 	/*!
@@ -119,7 +119,7 @@ public:
 									this page. If 0, the name will be taken from
 									the dialog template for this page.
 	*/
-	COptionPage(LPCTSTR lpszTemplateName, UINT nIDCaption = 0);
+	COptionPage(LPCWSTR lpszTemplateName, UINT nIDCaption = 0);
 
 	/*!
 		\brief	Creates an option page.
@@ -338,7 +338,7 @@ public:
 	/*!
 		\brief	Retrieves the option pages dialog template name
 	*/
-	LPCSTR GetTemplateName() {
+	LPCWSTR GetTemplateName() {
 		return m_lpszTemplateName;
 	}
 

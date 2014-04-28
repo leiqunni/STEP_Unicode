@@ -20,9 +20,9 @@ CDlgFileOverWrite2::CDlgFileOverWrite2(CWnd* pParent /*=NULL*/)
 	: CDialog(CDlgFileOverWrite2::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CDlgFileOverWrite2)
-	m_strFileName = _T("");
-	m_strTimeStamp = _T("");
-	m_strSize = _T("");
+	m_strFileName = L"";
+	m_strTimeStamp = L"";
+	m_strSize = L"";
 	//}}AFX_DATA_INIT
 	m_nResult = 3;
 }
@@ -70,16 +70,16 @@ void CDlgFileOverWrite2::OnBtAllOverwrite()
 
 void CDlgFileOverWrite2::OnBtRename() 
 {
-	TCHAR	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
+	wchar_t	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
 	_tsplitpath(m_strFileName, drive, dir, fname, ext);
 	CDlgFileNameChange dialog;
-	dialog.m_nMaxChar = g_nConfFileNameMaxChar - strlen(ext);
+	dialog.m_nMaxChar = g_nConfFileNameMaxChar - wcslen(ext);
 	dialog.m_strFileName = fname;
 	dialog.m_strOrgFileName = fname;
-	//dialog.m_strMsg.Format("ファイル名を %d 文字以内に変更してください", dialog.m_nMaxChar);
-	dialog.m_strMsgFormat = "ファイル名を %d(%d) 文字以内で変更してください";
+	//dialog.m_strMsg.Format(L"ファイル名を %d 文字以内に変更してください", dialog.m_nMaxChar);
+	dialog.m_strMsgFormat = L"ファイル名を %d(%d) 文字以内で変更してください";
 	if (dialog.DoModal() == IDOK) {
-		TCHAR	sDestFile[FILENAME_MAX+1];
+		wchar_t	sDestFile[FILENAME_MAX+1];
 		_tmakepath(sDestFile, drive, dir, dialog.m_strFileName, ext);
 		if (GetFileAttributes(sDestFile) == 0xFFFFFFFF) {
 			m_strFileName = sDestFile;

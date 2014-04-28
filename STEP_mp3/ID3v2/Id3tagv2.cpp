@@ -63,7 +63,7 @@ CString CId3tagv2::GetId3String(const char szId[])
 {
 	multimap<DWORD,CId3Frame>::iterator p;
 	DWORD dwId;
-	unsigned char *data;
+	wchar_t *data;
 	DWORD i;
 	switch(szId[0]){
 	case 'T':	//テキスト情報フレーム
@@ -150,9 +150,9 @@ CString CId3tagv2::GetId3String(const char szId[])
 			{
 				return "";
 			}
-			if(strlen((LPCSTR )&data[1]) < len)
+			if(wcslen((LPCSTR )&data[1]) < len)
 			{
-				len = strlen((LPCSTR )&data[1]);
+				len = wcslen((LPCSTR )&data[1]);
 			}
 			return CString((LPCSTR )&data[1],len);
 		}
@@ -301,9 +301,9 @@ CString CId3tagv2::GetId3String(const char szId[])
 			}
 			// 終端の\0を取り除く　2002-09-16
 			int len = (p->second.GetSize()-(i+1));
-			if(strlen((LPCSTR )&data[i+1]) < len)
+			if(wcslen((LPCSTR )&data[i+1]) < len)
 			{
-				len = strlen((LPCSTR )&data[i+1]);
+				len = wcslen((LPCSTR )&data[i+1]);
 			}
 			return CString((LPCSTR )&data[i+1],len);
 		}
@@ -500,9 +500,9 @@ CString CId3tagv2::GetId3String(const char szId[])
 			}
 			// 終端の\0を取り除く　2002-09-16
 			int len = p->second.GetSize()-(i+1);
-			if(strlen((LPCSTR )&data[i+1]) < len)
+			if(wcslen((LPCSTR )&data[i+1]) < len)
 			{
-				len = strlen((LPCSTR )&data[i+1]);
+				len = wcslen((LPCSTR )&data[i+1]);
 			}
 			return CString((LPCSTR )&data[i+1],len);
 //			return CString((LPCSTR )&data[1],p->second.GetSize()-1);
@@ -520,21 +520,21 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 	memcpy(&dwId,szId,sizeof(dwId));
 
 	//Loadしたファイルにフレームがなかった場合
-	if(strlen(szString) == 0)
+	if(wcslen(szString) == 0)
 	{
 		m_frames.erase(dwId);	//消す(あれば)
 		return;
 	}
 	
-	unsigned char *data;
+	wchar_t *data;
 	int size = 0;
 	switch(szId[0]){
 	case 'T':	//テキスト情報フレーム
 		switch(m_encode){
 		case ID3V2CHARENCODE_ISO_8859_1:
 		default:	// ISO-8859-1
-			size = strlen(szString)+2;
-			data = (unsigned char *)malloc(size);
+			size = wcslen(szString)+2;
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -547,7 +547,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+3;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -561,7 +561,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+3;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -577,7 +577,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+1;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -591,7 +591,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 				//Ansi -> UNICODE
 				size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 				size = size*sizeof(WCHAR);
-				unsigned char *dataUtf16 = (unsigned char *)malloc(size);
+				wchar_t *dataUtf16 = (wchar_t *)malloc(size);
 				if(!dataUtf16)
 				{
 					return;
@@ -600,7 +600,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 				// UNICODE -> UTF-8
 				size = WideCharToMultiByte(CP_UTF8,0,(WCHAR *)dataUtf16,-1,NULL,0,NULL,NULL);
 				size += 1;
-				data = (unsigned char *)malloc(size);
+				data = (wchar_t *)malloc(size);
 				if(!data)
 				{
 					free(dataUtf16);
@@ -633,8 +633,8 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 		switch(m_encode){
 		case ID3V2CHARENCODE_ISO_8859_1:
 		default:	// ISO-8859-1
-			size = strlen(szString)+3;
-			data = (unsigned char *)malloc(size);
+			size = wcslen(szString)+3;
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -648,7 +648,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+7;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -666,7 +666,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+7;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -686,7 +686,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+3;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -702,7 +702,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 				//Ansi -> UNICODE
 				size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 				size = size*sizeof(WCHAR);
-				unsigned char *dataUtf16 = (unsigned char *)malloc(size);
+				wchar_t *dataUtf16 = (wchar_t *)malloc(size);
 				if(!dataUtf16)
 				{
 					return;
@@ -711,7 +711,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 				// UNICODE -> UTF-8
 				size = WideCharToMultiByte(CP_UTF8,0,(WCHAR *)dataUtf16,-1,NULL,0,NULL,NULL);
 				size += 2;
-				data = (unsigned char *)malloc(size);
+				data = (wchar_t *)malloc(size);
 				if(!data)
 				{
 					free(dataUtf16);
@@ -749,8 +749,8 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 		switch(m_encode){
 		case ID3V2CHARENCODE_ISO_8859_1:
 		default:	// ISO-8859-1
-			size = strlen(szString)+1+5;
-			data = (unsigned char *)malloc(size);
+			size = wcslen(szString)+1+5;
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -767,7 +767,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+10;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -788,7 +788,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+10;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -811,7 +811,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 			//Ansi -> UNICODE
 			size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 			size = size*sizeof(WCHAR)+6;
-			data = (unsigned char *)malloc(size);
+			data = (wchar_t *)malloc(size);
 			if(!data)
 			{
 				return;
@@ -830,7 +830,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 				//Ansi -> UNICODE
 				size = MultiByteToWideChar(CP_ACP,0,szString,-1,0,0);
 				size = size*sizeof(WCHAR);
-				unsigned char *dataUtf16 = (unsigned char *)malloc(size);
+				wchar_t *dataUtf16 = (wchar_t *)malloc(size);
 				if(!dataUtf16)
 				{
 					return;
@@ -839,7 +839,7 @@ void CId3tagv2::SetId3String(const char szId[],const char *szString,const char *
 				// UNICODE -> UTF-8
 				size = WideCharToMultiByte(CP_UTF8,0,(WCHAR *)dataUtf16,-1,NULL,0,NULL,NULL);
 				size += 5;
-				data = (unsigned char *)malloc(size);
+				data = (wchar_t *)malloc(size);
 				if(!data)
 				{
 					free(dataUtf16);
@@ -1175,7 +1175,7 @@ CString CId3tagv2::GetGenre()
 {
 	//ジャンル
 	CString strGenre = GetId3String("TCON");
-	unsigned char *data = (unsigned char *)(LPCSTR )strGenre;
+	wchar_t *data = (wchar_t *)(LPCSTR )strGenre;
 	//最初の()を読み飛ばす処理	Fix 2001-05-20
 	while(1)
 	{
@@ -1200,7 +1200,7 @@ CString CId3tagv2::GetGenre()
 					CId3tagv1 id3tagv1(m_bScmpxGenre);
 					strGenreFromCode.Delete(index);
 					strGenreFromCode.Delete(0);
-					strGenreFromCode = id3tagv1.GenreNum2String(atoi(strGenreFromCode));
+					strGenreFromCode = id3tagv1.GenreNum2String(_wtoi(strGenreFromCode));
 					if (strGenreFromCode.GetLength() > 0) {
 						return strGenreFromCode;
 					}
@@ -1228,7 +1228,7 @@ void CId3tagv2::SetGenre(const char *szGenre)
 	2003-01-25 iTunesがジャンルコードへの参照を正しく読めないため、ジャンルコードを入れないように修正
 */
 	// 2004-05-16 "("で始まる場合は先頭に"("を追加
-	if(strlen(szGenre) &&
+	if(wcslen(szGenre) &&
 		!IsDBCSLeadByte(szGenre[0]) &&
 		(szGenre[0] == '(') )	//頭にカッコを検出
 	{
@@ -1359,10 +1359,10 @@ void CId3tagv2::SetEngineer(const char *engineer)
 	SetId3String("TPUB",engineer);
 }
 
-DWORD CId3tagv2::DecodeUnSynchronization(unsigned char *data,DWORD dwSize)
+DWORD CId3tagv2::DecodeUnSynchronization(wchar_t *data,DWORD dwSize)
 {
 	DWORD dwDecodeSize = 0;
-	unsigned char *writePtr = data;
+	wchar_t *writePtr = data;
 	BOOL bHitFF = FALSE;
 
 	for(DWORD i=0; i<dwSize; i++)
@@ -1386,10 +1386,10 @@ DWORD CId3tagv2::DecodeUnSynchronization(unsigned char *data,DWORD dwSize)
 	return dwDecodeSize;
 }
 
-DWORD CId3tagv2::EncodeUnSynchronization(unsigned char *srcData,DWORD dwSize,unsigned char *dstData)
+DWORD CId3tagv2::EncodeUnSynchronization(wchar_t *srcData,DWORD dwSize,wchar_t *dstData)
 {
 	DWORD dwDecodeSize = 0;
-	unsigned char *writePtr = dstData;
+	wchar_t *writePtr = dstData;
 	BOOL bHitFF = FALSE;
 
 	for(DWORD i=0; i<dwSize; i++)
@@ -1483,7 +1483,7 @@ DWORD CId3tagv2::Load(const char *szFileName)
 	DWORD dwId3Size = ExtractV2Size(head.size);
 
 	//全フレームの読込
-	unsigned char *buf = (unsigned char *)malloc(dwId3Size);
+	wchar_t *buf = (wchar_t *)malloc(dwId3Size);
 	if(!buf)
 	{
 		dwWin32errorCode = GetLastError();
@@ -1535,7 +1535,7 @@ DWORD CId3tagv2::Load(const char *szFileName)
 		}
 		if(!dwReadSize)
 			break;
-		unsigned char *data = frame.GetData();
+		wchar_t *data = frame.GetData();
 		if(frame.GetSize() && data)
 		{
 			switch(data[0]){
@@ -1609,7 +1609,7 @@ DWORD CId3tagv2::Save(const char *szFileName)
 
 	DWORD dwTotalFrameSize = GetTotalFrameSize();
 	//フレーム情報を書き出す準備
-	unsigned char *framedata = (unsigned char *)malloc(dwTotalFrameSize);
+	wchar_t *framedata = (wchar_t *)malloc(dwTotalFrameSize);
 	if(!framedata)
 	{
 		dwWin32errorCode = GetLastError();
@@ -1631,7 +1631,7 @@ DWORD CId3tagv2::Save(const char *szFileName)
 		}
 		WORD flags = pFrame->GetFlags();
 		WORD flagsBe = ((flags<<8)|(flags>>8));
-		unsigned char *data = pFrame->GetData();
+		wchar_t *data = pFrame->GetData();
 		if(m_wVer == 0x0200)
 		{
 			unsigned char size[3];
@@ -1688,7 +1688,7 @@ DWORD CId3tagv2::Save(const char *szFileName)
 	//非同期化
 	if(m_bUnSynchronization && !bOptNotUnSyncAlways /* STEP 003,006 */)
 	{
-		unsigned char *encData = (unsigned char *)malloc(dwTotalFrameSize*2);
+		wchar_t *encData = (wchar_t *)malloc(dwTotalFrameSize*2);
 		DWORD dwEncodeSize = EncodeUnSynchronization(framedata,dwTotalFrameSize,encData);
 //		if(dwEncodeSize != dwTotalFrameSize)
 //	2004-03-20 プロパティに非同期化スイッチをつけたため、非同期化フラグは必ず立てることにした
@@ -2079,7 +2079,7 @@ DWORD CId3tagv2::MakeTag(const char *szFileName)
 	DWORD dwPaddingSize = ID3V2_PADDING_SIZE - dwTotalFrameSize;
 
 	//フレーム情報を書き出す準備
-	unsigned char *framedata = (unsigned char *)malloc(dwTotalFrameSize);
+	wchar_t *framedata = (wchar_t *)malloc(dwTotalFrameSize);
 	if(!framedata)
 	{
 		dwWin32errorCode = GetLastError();
@@ -2095,7 +2095,7 @@ DWORD CId3tagv2::MakeTag(const char *szFileName)
 		DWORD id = pFrame->GetId();
 		WORD flags = pFrame->GetFlags();
 		WORD flagsBe = ((flags<<8)|(flags>>8));
-		unsigned char *data = pFrame->GetData();
+		wchar_t *data = pFrame->GetData();
 		if(m_wVer == 0x0200)
 		{
 			unsigned char size[3];
@@ -2137,7 +2137,7 @@ DWORD CId3tagv2::MakeTag(const char *szFileName)
 //	if(m_bUnSynchronization) /* STEP 006 */
 	if(!bOptUnSyncNew /* STEP 006 */)
 	{
-		unsigned char *encData = (unsigned char *)malloc(dwTotalFrameSize*2);
+		wchar_t *encData = (wchar_t *)malloc(dwTotalFrameSize*2);
 		DWORD dwEncodeSize = EncodeUnSynchronization(framedata,dwTotalFrameSize,encData);
 //		if(dwEncodeSize != dwTotalFrameSize)
 //	2004-09-24 プロパティに非同期化スイッチをつけたため、非同期化フラグは必ず立てることにした

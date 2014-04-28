@@ -19,7 +19,7 @@ CDlgFixedString::CDlgFixedString(CWnd* pParent /*=NULL*/)
 	: CDialog(CDlgFixedString::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CDlgFixedString)
-	m_strText = _T("");
+	m_strText = L"";
 	//}}AFX_DATA_INIT
 }
 

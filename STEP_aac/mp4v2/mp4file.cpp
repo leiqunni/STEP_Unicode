@@ -999,7 +999,7 @@ MP4TrackId MP4File::AddTrack(const char* type, u_int32_t timeScale)
 	const char* normType = MP4NormalizeTrackType(type, m_verbosity);
 
 	// sanity check for user defined types
-	if (strlen(normType) > 4) {
+	if (wcslen(normType) > 4) {
 		VERBOSE_WARNING(m_verbosity, 
 			printf("AddTrack: type truncated to four characters\n"));
 		// StringProperty::SetValue() will do the actual truncation
@@ -2513,7 +2513,7 @@ void MP4File::AppendSessionSdp(const char* sdpFragment)
 	}
 
 	char* newSdpString =
-		(char*)MP4Malloc(strlen(oldSdpString) + strlen(sdpFragment) + 1);
+		(char*)MP4Malloc(wcslen(oldSdpString) + wcslen(sdpFragment) + 1);
 	strcpy(newSdpString, oldSdpString);
 	strcat(newSdpString, sdpFragment);
 	SetSessionSdp(newSdpString);
@@ -2873,7 +2873,7 @@ void MP4File::AppendHintTrackSdp(MP4TrackId hintTrackId,
 	}
 
 	char* newSdpString =
-		(char*)MP4Malloc(strlen(oldSdpString) + strlen(sdpFragment) + 1);
+		(char*)MP4Malloc(wcslen(oldSdpString) + wcslen(sdpFragment) + 1);
 	strcpy(newSdpString, oldSdpString);
 	strcat(newSdpString, sdpFragment);
 	SetHintTrackSdp(hintTrackId, newSdpString);

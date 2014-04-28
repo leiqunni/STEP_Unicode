@@ -74,13 +74,13 @@ BOOL CDlgSetupGenre::OnInitDialog()
 	RECT	rect;
 	m_listGenre.GetClientRect(&rect);
 
-	m_listGenre.InsertColumn(1, "ジャンル", LVCFMT_LEFT, rect.right-rect.left-16, -1);
+	m_listGenre.InsertColumn(1, L"ジャンル", LVCFMT_LEFT, rect.right-rect.left-16, -1);
 	m_listGenre.DeleteAllItems();					// クリア
 
 	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		CString	strText;
-		strText.Format("%3d：%s", pGenre->byGenre, pGenre->sName);
+		strText.Format(L"%3d：%s", pGenre->byGenre, pGenre->sName);
 		m_listGenre.InsertItem(nIndex, strText);
 		//m_listGenre.SetItemData(nIndex, pGenre->byGenre);
 		m_listGenre.SetItemData(nIndex, (DWORD)pGenre);
@@ -190,7 +190,7 @@ void CDlgSetupGenre::OnOK()
 		} else {
 			pGenre->bUse = false;
 			pGenre->bAddList = false;
-			pGenre->sName = "";
+			pGenre->sName = L"";
 		}
 		nIndex++;
 	}
@@ -260,7 +260,7 @@ void CDlgSetupGenre::AddUserGenre(int nIndex)
 				break;
 			}
 		}
-		strText.Format("%s → %s", pGenre->sName, strDefaultName);
+		strText.Format(L"%s → %s", pGenre->sName, strDefaultName);
 		m_listGenre.InsertItem(nIndex, strText);
 		m_listGenre.SetItemData(nIndex, pGenre->byGenre);
 		m_listGenre.SetItemData(nIndex, (DWORD)pGenre);

@@ -3,7 +3,7 @@
 #pragma comment(lib,"Version.lib")
 
 //欠けている可能性のある２バイト文字対応
-void mbsncpy2(unsigned char *dst,unsigned char *src,int c)
+void mbsncpy2(wchar_t *dst,wchar_t *src,int c)
 {
 	int i; for(i=0; i<c; i++)
 	{
@@ -83,25 +83,25 @@ BOOL GetDLLVersion(IN LPSTR szDLLFileName,
 	
 
 	//バージョン情報を数字に分解
-	char *ptr = strtok(fileVersion,",. ");
+	char *ptr = wcstok(fileVersion,",. ");
 	if(ptr == NULL)
 		return TRUE;
-	*pdwMajor = atoi(ptr);
+	*pdwMajor = _wtoi(ptr);
 	
-	ptr = strtok(NULL,",. ");
+	ptr = wcstok(NULL,",. ");
 	if(ptr == NULL)
 		return TRUE;
-	*pdwMinor = atoi(ptr);
+	*pdwMinor = _wtoi(ptr);
 	
-	ptr = strtok(NULL,",. ");
+	ptr = wcstok(NULL,",. ");
 	if(ptr == NULL)
 		return TRUE;
-	*pdwBuildNumber1 = atoi(ptr);
+	*pdwBuildNumber1 = _wtoi(ptr);
 	
-	ptr = strtok(NULL,",. ");
+	ptr = wcstok(NULL,",. ");
 	if(ptr == NULL)
 		return TRUE;
-	*pdwBuildNumber2 = atoi(ptr);
+	*pdwBuildNumber2 = _wtoi(ptr);
 
 	return TRUE;
 }
@@ -109,8 +109,8 @@ BOOL GetDLLVersion(IN LPSTR szDLLFileName,
 //文末がYenのときTRUE
 BOOL IsTailYenSign(char *szStr)
 {
-	unsigned char *yen = _mbsrchr((unsigned char *)szStr,'\\');
-	if(yen && ((unsigned char *)&szStr[strlen(szStr)-1] == yen))
+	wchar_t *yen = _mbsrchr((wchar_t *)szStr,'\\');
+	if(yen && ((wchar_t *)&szStr[wcslen(szStr)-1] == yen))
 	{
 		return TRUE;
 	}
@@ -135,7 +135,7 @@ void AddTAilYenSigne(CString &str)
 }
 
 #ifdef _UNICODE
-#define CHAR_FUDGE 1    // one TCHAR unused is good enough
+#define CHAR_FUDGE 1    // one wchar_t unused is good enough
 #else
 #define CHAR_FUDGE 2    // two BYTES unused for case of DBC last char
 #endif
@@ -246,7 +246,7 @@ const char *getExtName(const char *szPath)
 	//ファイル名だけを分離
 	szPtr=getFileName(szPath);
 	//拡張子を含まないときは""へのポインタ
-	szPath+=strlen(szPath);
+	szPath+=wcslen(szPath);
 	while(*szPtr != '\0')
 	{
 		//２バイト文字の先頭はスキップ
@@ -472,7 +472,7 @@ CString getFileName(CString &path)
 CString divString(char *src,char c,int n)
 {
 	CString ret;
-	int cnt = (n - strlen(src)%n)%n;
+	int cnt = (n - wcslen(src)%n)%n;
 	while(*src)
 	{
 		ret += *src;

@@ -10,16 +10,16 @@ HINSTANCE hLib = NULL;
 extern "C" {
 UINT (WINAPI *STEPGetCommandID)(void);
 HMENU (WINAPI *STEPGetMenu)(UINT);
-void (WINAPI *STEPAddToolBarButton)(HBITMAP, UINT, char*);
-UINT (WINAPI *STEPRegisterExt)(UINT, LPCTSTR, HBITMAP);
-UINT (WINAPI *STEPKeyAssign)(UINT, LPCTSTR, LPCTSTR);
-const char* (WINAPI *STEPGetGenreNameSIF)(BYTE byGenre);
-BYTE (WINAPI *STEPGetGenreCode)(const char* szGenre);
-bool (WINAPI *STEPIsUserGenre)(const char* szGenre);
-int (WINAPI *STEPGetNumericTrackNumber)(const char* szTrackNumber, char* szNumericNumber, int size); /* STEP 037 */
-int (WINAPI *STEPGetIntegerTrackNumber)(const char* szTrackNumber); /* STEP 037 */
-int (WINAPI *STEPGetNumericDiskNumber)(const char* szDiskNumber, char* szNumericNumber, int size); /* STEP 037 */
-int (WINAPI *STEPGetIntegerDiskNumber)(const char* szDiskNumber); /* STEP 037 */
+void (WINAPI *STEPAddToolBarButton)(HBITMAP, UINT, wchar_t*);
+UINT (WINAPI *STEPRegisterExt)(UINT, LPCWSTR, HBITMAP);
+UINT (WINAPI *STEPKeyAssign)(UINT, LPCWSTR, LPCWSTR);
+const wchar_t* (WINAPI *STEPGetGenreNameSIF)(BYTE byGenre);
+BYTE (WINAPI *STEPGetGenreCode)(const wchar_t* szGenre);
+bool (WINAPI *STEPIsUserGenre)(const wchar_t* szGenre);
+int (WINAPI *STEPGetNumericTrackNumber)(const wchar_t* szTrackNumber, wchar_t* szNumericNumber, int size); /* STEP 037 */
+int (WINAPI *STEPGetIntegerTrackNumber)(const wchar_t* szTrackNumber); /* STEP 037 */
+int (WINAPI *STEPGetNumericDiskNumber)(const wchar_t* szDiskNumber, wchar_t* szNumericNumber, int size); /* STEP 037 */
+int (WINAPI *STEPGetIntegerDiskNumber)(const wchar_t* szDiskNumber); /* STEP 037 */
 
 bool (WINAPI *STEPGetBooleanValue)(FILE_INFO*, UINT);
 void (WINAPI *STEPSetBooleanValue)(FILE_INFO*, UINT, bool);
@@ -29,10 +29,10 @@ int (WINAPI *STEPGetIntValue)(FILE_INFO*, UINT);
 void (WINAPI *STEPSetIntValue)(FILE_INFO*, UINT, int);
 void* (WINAPI *STEPGetVoidValue)(FILE_INFO*, UINT);
 void (WINAPI *STEPSetVoidValue)(FILE_INFO*, UINT, void*);
-LPCTSTR (WINAPI *STEPGetValue)(FILE_INFO*, FIELDTYPE);
-void (WINAPI *STEPSetValue)(FILE_INFO*, FIELDTYPE, LPCTSTR);
-void (WINAPI *STEPProcessSelectedFiles)(LPCTSTR, STEPProcessSelectedFilesCB);
-void (WINAPI *STEPProcessSelectedFilesForUpdate)(LPCTSTR, STEPProcessSelectedFilesCB);
+LPCWSTR (WINAPI *STEPGetValue)(FILE_INFO*, FIELDTYPE);
+void (WINAPI *STEPSetValue)(FILE_INFO*, FIELDTYPE, LPCWSTR);
+void (WINAPI *STEPProcessSelectedFiles)(LPCWSTR, STEPProcessSelectedFilesCB);
+void (WINAPI *STEPProcessSelectedFilesForUpdate)(LPCWSTR, STEPProcessSelectedFilesCB);
 
 bool (WINAPI *STEPIsRangeSelected)(void);
 int (WINAPI *STEPGetSelectedCount)(void);
@@ -41,17 +41,17 @@ bool (WINAPI *STEPIsCurrentCellEditOK)(void);
 bool (WINAPI *STEPItemHasChildren)(int);
 bool (WINAPI *STEPGetSelectedRange)(int*, int*, int* , int*);
 bool (WINAPI *STEPIsItemFile)(int);
-void (WINAPI *STEPChangeSubItemText)(int nItem, int nColumn, LPCTSTR szText);
-const char* (WINAPI *STEPGetSubItemText)(int nItem, int nColumn);
+void (WINAPI *STEPChangeSubItemText)(int nItem, int nColumn, LPCWSTR szText);
+const wchar_t* (WINAPI *STEPGetSubItemText)(int nItem, int nColumn);
 void (WINAPI *STEPGetFileInfo)(int nItem, FILE_INFO* info);
 UINT (WINAPI *STEPGETColumnType)(int nColumn);
-bool (WINAPI *STEPIsNumeric)(const char* szText); /* STEP 037 */
+bool (WINAPI *STEPIsNumeric)(const wchar_t* szText); /* STEP 037 */
 void (WINAPI *STEPConvSiFieldToId3tag)(FILE_INFO* pFileInfo); /* STEP 037 */
 
 void (WINAPI *STEPInitDataSIF)(FILE_INFO* info);
 void (WINAPI *STEPInitDataID3)(FILE_INFO* info); /* STEP 029 */
 void (WINAPI *STEPInitData)(FILE_INFO* info);
-bool (WINAPI *STEPFileNameChange)(FILE_INFO* pFileInfo, LPCTSTR szNewFileName);
+bool (WINAPI *STEPFileNameChange)(FILE_INFO* pFileInfo, LPCWSTR szNewFileName);
 bool (WINAPI *STEPWriteTag)(FILE_INFO* pFileInfo);
 
 bool (WINAPI *STEPUpdateCellInfo)(void);
@@ -59,8 +59,8 @@ bool (WINAPI *STEPUpdateCellInfo)(void);
 
 bool Initialize(void)
 {
-	hLib = LoadLibrary("SuperTagEditor.exe");
-	if(hLib == NULL)	return false;
+	hLib = LoadLibrary(L"SuperTagEditor.exe");
+	if (hLib == NULL)	return false;
 	(FARPROC&)STEPGetCommandID = GetProcAddress(hLib, "_STEPGetCommandID@0");
 	(FARPROC&)STEPGetMenu = GetProcAddress(hLib, "_STEPGetMenu@4");
 	(FARPROC&)STEPAddToolBarButton = GetProcAddress(hLib, "_STEPAddToolBarButton@12");
@@ -119,10 +119,10 @@ void Finalize(void) {
 	}
 }
 
-LPCTSTR	GetValue(FILE_INFO* pInfo, FIELDTYPE nField) {
+LPCWSTR	GetValue(FILE_INFO* pInfo, FIELDTYPE nField) {
 	return STEPGetValue(pInfo, nField);
 }
-void	SetValue(FILE_INFO* pInfo, FIELDTYPE nField, LPCTSTR szValue) {
+void	SetValue(FILE_INFO* pInfo, FIELDTYPE nField, LPCWSTR szValue) {
 	STEPSetValue(pInfo, nField, szValue);
 }
 bool	isModify(FILE_INFO* pInfo) {
@@ -186,226 +186,226 @@ void	SetFileSpecificInfo(FILE_INFO* pInfo, void* info) {
 	STEPSetVoidValue(pInfo, 0, info);
 }
 
-inline LPCTSTR GetFullPath(FILE_INFO* info) {
+inline LPCWSTR GetFullPath(FILE_INFO* info) {
 	return GetValue(info, FIELD_FULL_PATH_NAME);
 }
-inline LPCTSTR GetFileName(FILE_INFO* info) {
+inline LPCWSTR GetFileName(FILE_INFO* info) {
 	return GetValue(info, FIELD_FILE_NAME);
 }
-inline LPCTSTR GetFilePath(FILE_INFO* info) {
+inline LPCWSTR GetFilePath(FILE_INFO* info) {
 	return GetValue(info, FIELD_FILE_PATH);
 }
-inline LPCTSTR GetVisualFormat(FILE_INFO* info) {
+inline LPCWSTR GetVisualFormat(FILE_INFO* info) {
 	return GetValue(info, FIELD_VISUAL_FORMAT);
 }
-inline LPCTSTR GetAudioFormat(FILE_INFO* info) {
+inline LPCWSTR GetAudioFormat(FILE_INFO* info) {
 	return GetValue(info, FIELD_AUDIO_FORMAT);
 }
-inline LPCTSTR GetTrackName(FILE_INFO* info) {
+inline LPCWSTR GetTrackName(FILE_INFO* info) {
 	return GetValue(info, FIELD_TRACK_NAME);
 }
-inline LPCTSTR GetArtistName(FILE_INFO* info) {
+inline LPCWSTR GetArtistName(FILE_INFO* info) {
 	return GetValue(info, FIELD_ARTIST_NAME);
 }
-inline LPCTSTR GetAlbumName(FILE_INFO* info) {
+inline LPCWSTR GetAlbumName(FILE_INFO* info) {
 	return GetValue(info, FIELD_ALBUM_NAME);
 }
-inline LPCTSTR GetComment(FILE_INFO* info) {
+inline LPCWSTR GetComment(FILE_INFO* info) {
 	return GetValue(info, FIELD_COMMENT);
 }
-inline LPCTSTR GetYear(FILE_INFO* info) {
+inline LPCWSTR GetYear(FILE_INFO* info) {
 	return GetValue(info, FIELD_YEAR);
 }
-inline LPCTSTR GetTrackNumber(FILE_INFO* info) {
+inline LPCWSTR GetTrackNumber(FILE_INFO* info) {
 	return GetValue(info, FIELD_TRACK_NUMBER);
 }
-inline LPCTSTR GetDiskNumber(FILE_INFO* info) {
+inline LPCWSTR GetDiskNumber(FILE_INFO* info) {
 	return GetValue(info, FIELD_DISK_NUMBER);
 }
-inline LPCTSTR GetGenre(FILE_INFO* info) {
+inline LPCWSTR GetGenre(FILE_INFO* info) {
 	return GetValue(info, FIELD_GENRE);
 }
-inline LPCTSTR GetTrackNameSI(FILE_INFO* info) {
+inline LPCWSTR GetTrackNameSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_TRACK_NAME_SI);
 }
-inline LPCTSTR GetArtistNameSI(FILE_INFO* info) {
+inline LPCWSTR GetArtistNameSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_ARTIST_NAME_SI);
 }
-inline LPCTSTR GetAlbumNameSI(FILE_INFO* info) {
+inline LPCWSTR GetAlbumNameSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_ALBUM_NAME_SI);
 }
-inline LPCTSTR GetCommentSI(FILE_INFO* info) {
+inline LPCWSTR GetCommentSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_COMMENT_SI);
 }
-inline LPCTSTR GetYearSI(FILE_INFO* info) {
+inline LPCWSTR GetYearSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_YEAR_SI);
 }
-inline LPCTSTR GetTrackNumberSI(FILE_INFO* info) {
+inline LPCWSTR GetTrackNumberSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_TRACK_NUMBER_SI);
 }
-inline LPCTSTR GetDiskNumberSI(FILE_INFO* info) {
+inline LPCWSTR GetDiskNumberSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_DISK_NUMBER_SI);
 }
-inline LPCTSTR GetGenreSI(FILE_INFO* info) {
+inline LPCWSTR GetGenreSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_GENRE_SI);
 }
-inline LPCTSTR GetCopyrightSI(FILE_INFO* info) {
+inline LPCWSTR GetCopyrightSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_COPYRIGHT_SI);
 }
-inline LPCTSTR GetEngineerSI(FILE_INFO* info) {
+inline LPCWSTR GetEngineerSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_ENGINEER_SI);
 }
-inline LPCTSTR GetSourceSI(FILE_INFO* info) {
+inline LPCWSTR GetSourceSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_SOURCE_SI);
 }
-inline LPCTSTR GetSoftwareSI(FILE_INFO* info) {
+inline LPCWSTR GetSoftwareSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_SOFTWARE_SI);
 }
-inline LPCTSTR GetKeywordSI(FILE_INFO* info) {
+inline LPCWSTR GetKeywordSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_KEYWORD_SI);
 }
-inline LPCTSTR GetTechnicianSI(FILE_INFO* info) {
+inline LPCWSTR GetTechnicianSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_TECHNICIAN_SI);
 }
-inline LPCTSTR GetLyricSI(FILE_INFO* info) {
+inline LPCWSTR GetLyricSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_LYRIC_SI);
 }
-inline LPCTSTR GetCommissionSI(FILE_INFO* info) {
+inline LPCWSTR GetCommissionSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_COMMISSION_SI);
 }
-inline LPCTSTR GetWriterSI(FILE_INFO* info) {
+inline LPCWSTR GetWriterSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_WRITER_SI);
 }
-inline LPCTSTR GetComposerSI(FILE_INFO* info) {
+inline LPCWSTR GetComposerSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_COMPOSER_SI);
 }
-inline LPCTSTR GetAlbumArtistSI(FILE_INFO* info) {
+inline LPCWSTR GetAlbumArtistSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_ALBM_ARTIST_SI);
 }
-inline LPCTSTR GetOrigArtistSI(FILE_INFO* info) {
+inline LPCWSTR GetOrigArtistSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_ORIG_ARTIST_SI);
 }
-inline LPCTSTR GetURLSI(FILE_INFO* info) {
+inline LPCWSTR GetURLSI(FILE_INFO* info) {
 	return GetValue(info, FIELD_URL_SI);
 }
-inline LPCTSTR GetEncodest(FILE_INFO* info) {
+inline LPCWSTR GetEncodest(FILE_INFO* info) {
 	return GetValue(info, FIELD_ENCODEST);
 }
-inline LPCTSTR GetOther(FILE_INFO* info) {
+inline LPCWSTR GetOther(FILE_INFO* info) {
 	return GetValue(info, FIELD_OTHER);
 }
-inline LPCTSTR GetFileTypeName(FILE_INFO* info) {
+inline LPCWSTR GetFileTypeName(FILE_INFO* info) {
 	return GetValue(info, FILED_FILE_TYPE_NAME);
 }
 
-inline void SetFullPathName(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetFullPathName(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_FULL_PATH_NAME, szValue);
 }
-inline void SetFileName(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetFileName(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_FILE_NAME, szValue);
 }
-inline void SetFilePath(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetFilePath(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_FILE_PATH, szValue);
 }
-inline void SetVisualFormat(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetVisualFormat(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_VISUAL_FORMAT, szValue);
 }
-inline void SetAudioFormat(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetAudioFormat(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_AUDIO_FORMAT, szValue);
 }
-inline void SetTrackName(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetTrackName(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_TRACK_NAME, szValue);
 }
-inline void SetArtistName(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetArtistName(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ARTIST_NAME, szValue);
 }
-inline void SetAlbumName(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetAlbumName(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ALBUM_NAME, szValue);
 }
-inline void SetComment(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetComment(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_COMMENT, szValue);
 }
-inline void SetYear(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetYear(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_YEAR, szValue);
 }
-inline void SetTrackNumber(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetTrackNumber(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_TRACK_NUMBER, szValue);
 }
-inline void SetDiskNumber(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetDiskNumber(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_DISK_NUMBER, szValue);
 }
-inline void SetGenre(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetGenre(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_GENRE, szValue);
 }
-inline void SetTrackNameSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetTrackNameSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_TRACK_NAME_SI, szValue);
 }
-inline void SetArtistNameSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetArtistNameSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ARTIST_NAME_SI, szValue);
 }
-inline void SetAlbumNameSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetAlbumNameSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ALBUM_NAME_SI, szValue);
 }
-inline void SetCommentSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetCommentSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_COMMENT_SI, szValue);
 }
-inline void SetYearSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetYearSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_YEAR_SI, szValue);
 }
-inline void SetTrackNumberSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetTrackNumberSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_TRACK_NUMBER_SI, szValue);
 }
-inline void SetDiskNumberSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetDiskNumberSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_DISK_NUMBER_SI, szValue);
 }
-inline void SetGenreSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetGenreSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_GENRE_SI, szValue);
 }
-inline void SetCopyrightSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetCopyrightSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_COPYRIGHT_SI, szValue);
 }
-inline void SetEngineerSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetEngineerSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ENGINEER_SI, szValue);
 }
-inline void SetSourceSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetSourceSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_SOURCE_SI, szValue);
 }
-inline void SetSoftwareSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetSoftwareSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_SOFTWARE_SI, szValue);
 }
-inline void SetKeywordSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetKeywordSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_KEYWORD_SI, szValue);
 }
-inline void SetTechnicianSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetTechnicianSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_TECHNICIAN_SI, szValue);
 }
-inline void SetLyricSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetLyricSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_LYRIC_SI, szValue);
 }
-inline void SetCommissionSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetCommissionSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_COMMISSION_SI, szValue);
 }
-inline void SetWriterSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetWriterSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_WRITER_SI, szValue);
 }
-inline void SetComposerSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetComposerSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_COMPOSER_SI, szValue);
 }
-inline void SetAlbumArtistSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetAlbumArtistSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ALBM_ARTIST_SI, szValue);
 }
-inline void SetOrigArtistSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetOrigArtistSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ORIG_ARTIST_SI, szValue);
 }
-inline void SetURLSI(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetURLSI(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_URL_SI, szValue);
 }
-inline void SetEncodest(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetEncodest(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_ENCODEST, szValue);
 }
-inline void SetOther(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetOther(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FIELD_OTHER, szValue);
 }
-inline void SetFileTypeName(FILE_INFO* info, LPCTSTR szValue) {
+inline void SetFileTypeName(FILE_INFO* info, LPCWSTR szValue) {
 	SetValue(info, FILED_FILE_TYPE_NAME, szValue);
 }

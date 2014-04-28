@@ -586,7 +586,7 @@ typedef struct {
  *
  *  For convenience, the APIs maintain a trailing NUL character at the end of
  *  \a entry which is not counted toward \a length, i.e.
- *  \code strlen(entry) == length \endcode
+ *  \code wcslen(entry) == length \endcode
  */
 typedef struct {
 	FLAC__uint32 length;

@@ -12,7 +12,7 @@ bool WriteAttributeFileWAV(FILE_INFO *pFileMP3);
 bool LoadAttributeFileWAV(FILE_INFO *pFileMP3)
 {
 	CRiffSIF riff;
-	TCHAR ext[_MAX_EXT];
+	wchar_t ext[_MAX_EXT];
 	_tsplitpath(GetFullPath(pFileMP3), NULL, NULL, NULL, ext);
     if(_strcmpi(ext, ".wav") == 0){
         if(riff.Load(GetFullPath(pFileMP3),'W','A','V','E') != ERROR_SUCCESS){
@@ -32,7 +32,7 @@ bool LoadAttributeFileWAV(FILE_INFO *pFileMP3)
     //INAM/ISBJ タイトル
     //ISBJ よりも INAM を優先
     SetTrackNameSI(pFileMP3, riff.GetField('I','N','A','M'));
-    if(strlen(GetTrackNameSI(pFileMP3)) == 0){
+    if(wcslen(GetTrackNameSI(pFileMP3)) == 0){
         SetTrackNameSI(pFileMP3, riff.GetField('I','S','B','J'));
     }
 	//IART アーティスト名
@@ -64,7 +64,7 @@ bool LoadAttributeFileWAV(FILE_INFO *pFileMP3)
 bool WriteAttributeFileWAV(FILE_INFO *pFileMP3)
 {
 	CRiffSIF riff;
-	TCHAR ext[_MAX_EXT];
+	wchar_t ext[_MAX_EXT];
 	_tsplitpath(GetFullPath(pFileMP3), NULL, NULL, NULL, ext);
     if(_strcmpi(ext, ".wav") == 0){
         if(riff.Load(GetFullPath(pFileMP3),'W','A','V','E') != ERROR_SUCCESS){

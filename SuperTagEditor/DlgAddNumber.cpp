@@ -20,13 +20,13 @@ DlgAddNumber::DlgAddNumber(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(DlgAddNumber)
 	m_nWidth = 0;
-	m_strSeparator = _T("");
+	m_strSeparator = L"";
 	m_nAddPosition = -1;
 	m_bSpaceInitNumber = TRUE;
 	m_nAddNumber = 0;
 	m_nInitNumber = 0;
-	m_strAfter = _T("");
-	m_strBefore = _T("");
+	m_strAfter = L"";
+	m_strBefore = L"";
 	//}}AFX_DATA_INIT
 }
 

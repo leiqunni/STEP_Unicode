@@ -150,10 +150,10 @@ FILENAME_REPLACE	g_fileNameReplace[FILENAME_REPLACE_MAX];
 
 FILENAME_REPLACE	g_userFileNameReplace[USER_FILENAME_REPLACE_MAX];	/* FreeFall 050 */
 
-const char *g_sRepTable[FILENAME_REPLACE_MAX][2] = {
-	{"\"", "”"}, {"*" , "＊"}, {"," , "，"}, {"/" , "／"},
-	{":" , "："}, {";" , "；"}, {"<" , "＜"}, {">" , "＞"},
-	{"?" , "？"}, {"\\", "￥"}, {"|" , "｜"}, {" " , " "},
+const wchar_t *g_sRepTable[FILENAME_REPLACE_MAX][2] = {
+	{ L"\"", L"”" }, { L"*", L"＊" }, { L",", L"，" }, { L"/", L"／" },
+	{ L":", L"：" }, { L";", L"；" }, { L"<", L"＜" }, { L">", L"＞" },
+	{ L"?", L"？" }, { L"\\", L"￥" }, { L"|", L"｜" }, { L" ", L" " },
 };
 
 CStringArray g_arFixedWords; /* STEP 040 */
@@ -173,200 +173,200 @@ KEY_CONFIG	g_listKeyConfig[] = {
 	 【注意】コマンドを追加した場合は、_APS_NEXT_COMMAND_VALUEが更新されるのでSTEP_api.cppをリコンパイルすること
 	 **/
 	// ファイル処理
-	{ID_FILE_NEW                  , 0x00000000, COMMAND_GROUP_FILE, "リストをクリア", "FileNew"},
-	{ID_OPEN_FOLDER               , HK_CTRL_O , COMMAND_GROUP_FILE, "フォルダを開く", "FileOpenFolder"},
-	{ID_SAVE_ALL_TAG              , HK_CTRL_S , COMMAND_GROUP_FILE, "タグ情報を更新", "FileSaveAllTag"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_FILE, "--------------------", NULL},
-	{ID_WRITE_LIST1               , 0x00000000, COMMAND_GROUP_FILE, "リスト出力：書式１", "WriteList1"},
-	{ID_WRITE_LIST2               , 0x00000000, COMMAND_GROUP_FILE, "リスト出力：書式２", "WriteList2"},
-	{ID_WRITE_LIST3               , 0x00000000, COMMAND_GROUP_FILE, "リスト出力：書式３", "WriteList3"},
-	{ID_WRITE_LIST4               , 0x00000000, COMMAND_GROUP_FILE, "リスト出力：書式４", "WriteList4"},
-	{ID_WRITE_LIST5               , 0x00000000, COMMAND_GROUP_FILE, "リスト出力：書式５", "WriteList5"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_FILE, "--------------------", NULL},
-	{ID_MOVE_FOLDER_01            , 0x00000000, COMMAND_GROUP_FILE, "ファイル移動：書式１", "MoveFolder1"},
-	{ID_MOVE_FOLDER_02            , 0x00000000, COMMAND_GROUP_FILE, "ファイル移動：書式２", "MoveFolder2"},
-	{ID_MOVE_FOLDER_03            , 0x00000000, COMMAND_GROUP_FILE, "ファイル移動：書式３", "MoveFolder3"},
-	{ID_MOVE_FOLDER_04            , 0x00000000, COMMAND_GROUP_FILE, "ファイル移動：書式４", "MoveFolder4"},
-	{ID_MOVE_FOLDER_05            , 0x00000000, COMMAND_GROUP_FILE, "ファイル移動：書式５", "MoveFolder5"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_FILE, "--------------------", NULL},
-	{ID_FAVORITE_FOLDER_01        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り１", "FavoriteFolder1"},
-	{ID_FAVORITE_FOLDER_02        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り２", "FavoriteFolder2"},
-	{ID_FAVORITE_FOLDER_03        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り３", "FavoriteFolder3"},
-	{ID_FAVORITE_FOLDER_04        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り４", "FavoriteFolder4"},
-	{ID_FAVORITE_FOLDER_05        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り５", "FavoriteFolder5"},
-	{ID_FAVORITE_FOLDER_06        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り６", "FavoriteFolder6"},
-	{ID_FAVORITE_FOLDER_07        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り７", "FavoriteFolder7"},
-	{ID_FAVORITE_FOLDER_08        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り８", "FavoriteFolder8"},
-	{ID_FAVORITE_FOLDER_09        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り９", "FavoriteFolder9"},
-	{ID_FAVORITE_FOLDER_10        , 0x00000000, COMMAND_GROUP_FILE, "お気に入りのフォルダ：お気に入り10", "FavoriteFolder10"},
+	{ ID_FILE_NEW, 0x00000000, COMMAND_GROUP_FILE, L"リストをクリアL", L"FileNewL" },
+	{ ID_OPEN_FOLDER, HK_CTRL_O, COMMAND_GROUP_FILE, L"フォルダを開くL", L"FileOpenFolderL" },
+	{ ID_SAVE_ALL_TAG, HK_CTRL_S, COMMAND_GROUP_FILE, L"タグ情報を更新L", L"FileSaveAllTagL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_FILE, L"--------------------L", NULL },
+	{ ID_WRITE_LIST1, 0x00000000, COMMAND_GROUP_FILE, L"リスト出力：書式１L", L"WriteList1L" },
+	{ ID_WRITE_LIST2, 0x00000000, COMMAND_GROUP_FILE, L"リスト出力：書式２L", L"WriteList2L" },
+	{ ID_WRITE_LIST3, 0x00000000, COMMAND_GROUP_FILE, L"リスト出力：書式３L", L"WriteList3L" },
+	{ ID_WRITE_LIST4, 0x00000000, COMMAND_GROUP_FILE, L"リスト出力：書式４L", L"WriteList4L" },
+	{ ID_WRITE_LIST5, 0x00000000, COMMAND_GROUP_FILE, L"リスト出力：書式５L", L"WriteList5L" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_FILE, L"--------------------L", NULL },
+	{ ID_MOVE_FOLDER_01, 0x00000000, COMMAND_GROUP_FILE, L"ファイル移動：書式１L", L"MoveFolder1L" },
+	{ ID_MOVE_FOLDER_02, 0x00000000, COMMAND_GROUP_FILE, L"ファイル移動：書式２L", L"MoveFolder2L" },
+	{ ID_MOVE_FOLDER_03, 0x00000000, COMMAND_GROUP_FILE, L"ファイル移動：書式３L", L"MoveFolder3L" },
+	{ ID_MOVE_FOLDER_04, 0x00000000, COMMAND_GROUP_FILE, L"ファイル移動：書式４L", L"MoveFolder4L" },
+	{ ID_MOVE_FOLDER_05, 0x00000000, COMMAND_GROUP_FILE, L"ファイル移動：書式５L", L"MoveFolder5L" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_FILE, L"--------------------L", NULL },
+	{ ID_FAVORITE_FOLDER_01, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り１L", L"FavoriteFolder1L" },
+	{ ID_FAVORITE_FOLDER_02, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り２L", L"FavoriteFolder2L" },
+	{ ID_FAVORITE_FOLDER_03, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り３L", L"FavoriteFolder3L" },
+	{ ID_FAVORITE_FOLDER_04, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り４L", L"FavoriteFolder4L" },
+	{ ID_FAVORITE_FOLDER_05, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り５L", L"FavoriteFolder5L" },
+	{ ID_FAVORITE_FOLDER_06, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り６L", L"FavoriteFolder6L" },
+	{ ID_FAVORITE_FOLDER_07, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り７L", L"FavoriteFolder7L" },
+	{ ID_FAVORITE_FOLDER_08, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り８L", L"FavoriteFolder8L" },
+	{ ID_FAVORITE_FOLDER_09, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り９L", L"FavoriteFolder9L" },
+	{ ID_FAVORITE_FOLDER_10, 0x00000000, COMMAND_GROUP_FILE, L"お気に入りのフォルダ：お気に入り10L", L"FavoriteFolder10L" },
 
 	// 編集処理
-	{ID_EDIT_COPY                 , HK_CTRL_C , COMMAND_GROUP_EDIT, "コピー"  , "EditCopy"},
-	{ID_EDIT_PASTE                , HK_CTRL_V , COMMAND_GROUP_EDIT, "貼り付け", "EditPaste"},
-	{ID_EDIT_CUT                  , HK_CTRL_X , COMMAND_GROUP_EDIT, "切り取り", "EditCut"},
-	{ID_EDIT_PASTE_ADD            , 0x00000000, COMMAND_GROUP_EDIT, "追加で貼り付け", "EditPasteAdd"}, /* FunnyCorn 176 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_EDIT, "----- 定型文 グループ１ -----", NULL},
-	{ID_TEIKEI_01                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-１", "TeikeiPaste1-1"}, /* SeaKnows 030 */ 
-	{ID_TEIKEI_02                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-２", "TeikeiPaste1-2"}, /* SeaKnows 030 */
-	{ID_TEIKEI_03                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-３", "TeikeiPaste1-3"}, /* SeaKnows 030 */
-	{ID_TEIKEI_04                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-４", "TeikeiPaste1-4"}, /* SeaKnows 030 */
-	{ID_TEIKEI_05                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-５", "TeikeiPaste1-5"}, /* SeaKnows 030 */
-	{ID_TEIKEI_06                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-６", "TeikeiPaste1-6"}, /* SeaKnows 030 */
-	{ID_TEIKEI_07                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-７", "TeikeiPaste1-7"}, /* SeaKnows 030 */
-	{ID_TEIKEI_08                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-８", "TeikeiPaste1-8"}, /* SeaKnows 030 */
-	{ID_TEIKEI_09                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-９", "TeikeiPaste1-9"}, /* SeaKnows 030 */
-	{ID_TEIKEI_10                 , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け１-１０", "TeikeiPaste1-10"}, /* SeaKnows 030 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_EDIT, "----- 定型文 グループ２ -----", NULL},
-	{ID_TEIKEI_2_01               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-１", "TeikeiPaste2-1"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_02               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-２", "TeikeiPaste2-2"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_03               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-３", "TeikeiPaste2-3"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_04               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-４", "TeikeiPaste2-4"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_05               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-５", "TeikeiPaste2-5"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_06               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-６", "TeikeiPaste2-6"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_07               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-７", "TeikeiPaste2-7"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_08               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-８", "TeikeiPaste2-8"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_09               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-９", "TeikeiPaste2-9"}, /* FreeFall 046 */
-	{ID_TEIKEI_2_10               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け２-１０", "TeikeiPaste2-10"}, /* FreeFall 046 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_EDIT, "----- 定型文 グループ３ -----", NULL},
-	{ID_TEIKEI_3_01               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-１", "TeikeiPaste3-1"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_02               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-２", "TeikeiPaste3-2"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_03               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-３", "TeikeiPaste3-3"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_04               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-４", "TeikeiPaste3-4"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_05               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-５", "TeikeiPaste3-5"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_06               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-６", "TeikeiPaste3-6"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_07               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-７", "TeikeiPaste3-7"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_08               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-８", "TeikeiPaste3-8"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_09               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-９", "TeikeiPaste3-9"}, /* FreeFall 046 */
-	{ID_TEIKEI_3_10               , 0x00000000, COMMAND_GROUP_EDIT, "定型文貼り付け３-１０", "TeikeiPaste3-10"}, /* FreeFall 046 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_FILE, "--------------------", NULL},
-	{ID_EDIT_COPY_FORMAT_01       , 0x00000000, COMMAND_GROUP_FILE, "書式コピー：書式１", "CopyFormat1"},
-	{ID_EDIT_COPY_FORMAT_02       , 0x00000000, COMMAND_GROUP_FILE, "書式コピー：書式２", "CopyFormat2"},
-	{ID_EDIT_COPY_FORMAT_03       , 0x00000000, COMMAND_GROUP_FILE, "書式コピー：書式３", "CopyFormat3"},
-	{ID_EDIT_COPY_FORMAT_04       , 0x00000000, COMMAND_GROUP_FILE, "書式コピー：書式４", "CopyFormat4"},
-	{ID_EDIT_COPY_FORMAT_05       , 0x00000000, COMMAND_GROUP_FILE, "書式コピー：書式５", "CopyFormat5"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_EDIT, "--------------------", NULL},
-	{ID_CELL_COPY_DOWN            , HK_CTRL_D , COMMAND_GROUP_EDIT, "下方向へコピー", "EditCopyDown"},
-	{ID_SET_NUMBER                , HK_CTRL_N , COMMAND_GROUP_EDIT, "下方向へ連番"  , "EditSetNumber"},
-	{ID_SET_NUMBER_ADD            , 0x00000000, COMMAND_GROUP_EDIT, "下方向へ連番（先頭に追加）"  , "EditSetNumberAdd"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_EDIT, "--------------------", NULL},
-	{ID_EDIT_FIND                 , 0x00000000, COMMAND_GROUP_EDIT, "検索", "EditFind"},
-	{ID_EDIT_REPLACE              , 0x00000000, COMMAND_GROUP_EDIT, "置換", "EditReplace"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_EDIT, "--------------------", NULL},
-	{ID_SELECT_DELETE_LIST        , 0x00000000, COMMAND_GROUP_EDIT, "STEのリストから削除"         , "DeleteList"},
-	{ID_SELECT_DELETE_FILE        , 0x00000000, COMMAND_GROUP_EDIT, "ファイルの削除"              , "DeleteFile"},
-	{ID_SELECT_EDIT_DESTORY       , 0x00000000, COMMAND_GROUP_EDIT, "変更前の状態に戻す"          , "EditModify"},
-	{ID_FOLDER_TREE_SYNC          , 0x00000000, COMMAND_GROUP_EDIT, "フォルダ構成の同期"          , "FolderSync"},
-	{ID_CHECK_FILE_SYNC           , 0x00000000, COMMAND_GROUP_EDIT, "フォルダ構成の同期(チェックのみ)", "CheckFileSync"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_EDIT, "--------------------", NULL},
-	{ID_DELETE_CHAR_SPACE         , 0x00000000, COMMAND_GROUP_EDIT, "先頭/末尾の空白文字を削除"   , "EditDeleteCharSpace"}, /* Rumble 192 */
-	{ID_DELETE_CHAR               , 0x00000000, COMMAND_GROUP_EDIT, "先頭/末尾のｎ文字を削除"     , "EditDeleteChar"},
+	{ ID_EDIT_COPY, HK_CTRL_C, COMMAND_GROUP_EDIT, L"コピーL", L"EditCopyL" },
+	{ ID_EDIT_PASTE, HK_CTRL_V, COMMAND_GROUP_EDIT, L"貼り付けL", L"EditPasteL" },
+	{ ID_EDIT_CUT, HK_CTRL_X, COMMAND_GROUP_EDIT, L"切り取りL", L"EditCutL" },
+	{ ID_EDIT_PASTE_ADD, 0x00000000, COMMAND_GROUP_EDIT, L"追加で貼り付けL", L"EditPasteAddL" }, /* FunnyCorn 176 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_EDIT, L"----- 定型文 グループ１ -----L", NULL },
+	{ ID_TEIKEI_01, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-１L", L"TeikeiPaste1-1L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_02, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-２L", L"TeikeiPaste1-2L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_03, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-３L", L"TeikeiPaste1-3L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_04, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-４L", L"TeikeiPaste1-4L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_05, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-５L", L"TeikeiPaste1-5L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_06, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-６L", L"TeikeiPaste1-6L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_07, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-７L", L"TeikeiPaste1-7L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_08, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-８L", L"TeikeiPaste1-8L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_09, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-９L", L"TeikeiPaste1-9L" }, /* SeaKnows 030 */
+	{ ID_TEIKEI_10, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け１-１０L", L"TeikeiPaste1-10L" }, /* SeaKnows 030 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_EDIT, L"----- 定型文 グループ２ -----L", NULL },
+	{ ID_TEIKEI_2_01, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-１L", L"TeikeiPaste2-1L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_02, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-２L", L"TeikeiPaste2-2L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_03, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-３L", L"TeikeiPaste2-3L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_04, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-４L", L"TeikeiPaste2-4L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_05, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-５L", L"TeikeiPaste2-5L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_06, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-６L", L"TeikeiPaste2-6L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_07, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-７L", L"TeikeiPaste2-7L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_08, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-８L", L"TeikeiPaste2-8L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_09, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-９L", L"TeikeiPaste2-9L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_2_10, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け２-１０L", L"TeikeiPaste2-10L" }, /* FreeFall 046 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_EDIT, L"----- 定型文 グループ３ -----L", NULL },
+	{ ID_TEIKEI_3_01, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-１L", L"TeikeiPaste3-1L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_02, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-２L", L"TeikeiPaste3-2L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_03, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-３L", L"TeikeiPaste3-3L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_04, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-４L", L"TeikeiPaste3-4L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_05, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-５L", L"TeikeiPaste3-5L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_06, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-６L", L"TeikeiPaste3-6L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_07, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-７L", L"TeikeiPaste3-7L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_08, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-８L", L"TeikeiPaste3-8L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_09, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-９L", L"TeikeiPaste3-9L" }, /* FreeFall 046 */
+	{ ID_TEIKEI_3_10, 0x00000000, COMMAND_GROUP_EDIT, L"定型文貼り付け３-１０L", L"TeikeiPaste3-10L" }, /* FreeFall 046 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_FILE, L"--------------------L", NULL },
+	{ ID_EDIT_COPY_FORMAT_01, 0x00000000, COMMAND_GROUP_FILE, L"書式コピー：書式１L", L"CopyFormat1L" },
+	{ ID_EDIT_COPY_FORMAT_02, 0x00000000, COMMAND_GROUP_FILE, L"書式コピー：書式２L", L"CopyFormat2L" },
+	{ ID_EDIT_COPY_FORMAT_03, 0x00000000, COMMAND_GROUP_FILE, L"書式コピー：書式３L", L"CopyFormat3L" },
+	{ ID_EDIT_COPY_FORMAT_04, 0x00000000, COMMAND_GROUP_FILE, L"書式コピー：書式４L", L"CopyFormat4L" },
+	{ ID_EDIT_COPY_FORMAT_05, 0x00000000, COMMAND_GROUP_FILE, L"書式コピー：書式５L", L"CopyFormat5L" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_EDIT, L"--------------------L", NULL },
+	{ ID_CELL_COPY_DOWN, HK_CTRL_D, COMMAND_GROUP_EDIT, L"下方向へコピーL", L"EditCopyDownL" },
+	{ ID_SET_NUMBER, HK_CTRL_N, COMMAND_GROUP_EDIT, L"下方向へ連番L", L"EditSetNumberL" },
+	{ ID_SET_NUMBER_ADD, 0x00000000, COMMAND_GROUP_EDIT, L"下方向へ連番（先頭に追加）L", L"EditSetNumberAddL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_EDIT, L"--------------------L", NULL },
+	{ ID_EDIT_FIND, 0x00000000, COMMAND_GROUP_EDIT, L"検索L", L"EditFindL" },
+	{ ID_EDIT_REPLACE, 0x00000000, COMMAND_GROUP_EDIT, L"置換L", L"EditReplaceL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_EDIT, L"--------------------L", NULL },
+	{ ID_SELECT_DELETE_LIST, 0x00000000, COMMAND_GROUP_EDIT, L"STEのリストから削除L", L"DeleteListL" },
+	{ ID_SELECT_DELETE_FILE, 0x00000000, COMMAND_GROUP_EDIT, L"ファイルの削除L", L"DeleteFileL" },
+	{ ID_SELECT_EDIT_DESTORY, 0x00000000, COMMAND_GROUP_EDIT, L"変更前の状態に戻すL", L"EditModifyL" },
+	{ ID_FOLDER_TREE_SYNC, 0x00000000, COMMAND_GROUP_EDIT, L"フォルダ構成の同期L", L"FolderSyncL" },
+	{ ID_CHECK_FILE_SYNC, 0x00000000, COMMAND_GROUP_EDIT, L"フォルダ構成の同期(チェックのみ)L", L"CheckFileSyncL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_EDIT, L"--------------------L", NULL },
+	{ ID_DELETE_CHAR_SPACE, 0x00000000, COMMAND_GROUP_EDIT, L"先頭/末尾の空白文字を削除L", L"EditDeleteCharSpaceL" }, /* Rumble 192 */
+	{ ID_DELETE_CHAR, 0x00000000, COMMAND_GROUP_EDIT, L"先頭/末尾のｎ文字を削除L", L"EditDeleteCharL" },
 
 	// 表示
-	{ID_ADJUST_COLUMN_WIDTH       , 0x00000000, COMMAND_GROUP_DISP, "全てのカラム幅を調整", "AdjustColumnWidth"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_DISP, "--------------------", NULL},
-	{ID_SORT_LIST                 , 0x00000000, COMMAND_GROUP_DISP, "並び替え"        , "ListSort"},
-	{ID_SORT_LIST_DIRECT          , 0x00000000, COMMAND_GROUP_DISP, "並び替えを再実行", "ListSortDirect"},
-	{ID_EXEC_CLASSIFICATION       , 0x00000000, COMMAND_GROUP_DISP, "分類表示を更新"  , "ExecClassification"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_DISP, "--------------------", NULL},
-	{ID_EDIT_FIELD_SI             , 0x00000000, COMMAND_GROUP_DISP, "SIフィールドを表示/編集"       , "EditFieldSI"},
-	{ID_EDIT_TD3_TAG              , 0x00000000, COMMAND_GROUP_DISP, "ID3 tag を表示/編集"           , "EditID3tag"},
-	{ID_EDIT_CHANGE_FIELD         , 0x00000000, COMMAND_GROUP_DISP, "[ID3 tag]<=>[SIフィールド]切替", "EditChangeField"},
+	{ ID_ADJUST_COLUMN_WIDTH, 0x00000000, COMMAND_GROUP_DISP, L"全てのカラム幅を調整L", L"AdjustColumnWidthL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_DISP, L"--------------------L", NULL },
+	{ ID_SORT_LIST, 0x00000000, COMMAND_GROUP_DISP, L"並び替えL", L"ListSortL" },
+	{ ID_SORT_LIST_DIRECT, 0x00000000, COMMAND_GROUP_DISP, L"並び替えを再実行L", L"ListSortDirectL" },
+	{ ID_EXEC_CLASSIFICATION, 0x00000000, COMMAND_GROUP_DISP, L"分類表示を更新L", L"ExecClassificationL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_DISP, L"--------------------L", NULL },
+	{ ID_EDIT_FIELD_SI, 0x00000000, COMMAND_GROUP_DISP, L"SIフィールドを表示/編集L", L"EditFieldSIL" },
+	{ ID_EDIT_TD3_TAG, 0x00000000, COMMAND_GROUP_DISP, L"ID3 tag を表示/編集L", L"EditID3tagL" },
+	{ ID_EDIT_CHANGE_FIELD, 0x00000000, COMMAND_GROUP_DISP, L"[ID3 tag]<=>[SIフィールド]切替L", L"EditChangeFieldL" },
 
 	// プレイリスト
-	{ID_LOAD_PLAYLIST             , 0x00000000, COMMAND_GROUP_PLAYLIST, "プレイリストの読み込み"        , "LoadPlayList"},
-	{ID_WRITE_PLAYLIST            , 0x00000000, COMMAND_GROUP_PLAYLIST, "プレイリストの出力"            , "WritePlayList"},
-	{ID_WRITE_TREE_PLAYLIST       , 0x00000000, COMMAND_GROUP_PLAYLIST, "ツリー分類のプレイリスト出力"  , "WriteTreePlayList"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_PLAYLIST, "--------------------", NULL},
-	{ID_ALL_FILES_CHECK           , 0x00000000, COMMAND_GROUP_PLAYLIST, "全てのファイルをチェックする"  , "AllFilesCheck"},
-	{ID_ALL_FILES_UNCHECK         , 0x00000000, COMMAND_GROUP_PLAYLIST, "全てのファイルのチェックを外す", "AllFilesUnCheck"},
-	{ID_REVERSE_CHECK             , 0x00000000, COMMAND_GROUP_PLAYLIST, "チェック状態を反転する"        , "ReverseCheck"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_PLAYLIST, "--------------------", NULL},
-	{ID_CHECK_FILES_SELECT        , 0x00000000, COMMAND_GROUP_PLAYLIST, "チェックファイルを選択"        , "CheckFilesSelect"},
-	{ID_SELECT_FILES_CHECK        , 0x00000000, COMMAND_GROUP_PLAYLIST, "選択ファイルをチェック"        , "SelectFilesCheck"},
-	{ID_SELECT_FILES_UNCHECK      , 0x00000000, COMMAND_GROUP_PLAYLIST, "選択ファイルのチェックを外す"  , "SelectFilesUnCheck"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_PLAYLIST, "--------------------", NULL},
-	{ID_CHECK_WORD                , 0x00000000, COMMAND_GROUP_PLAYLIST, "条件を指定してチェック"        , "CheckWord"},
-	{ID_CHECK_FILENAME_MAX        , 0x00000000, COMMAND_GROUP_PLAYLIST, "ファイル名の長さをチェック"    , "CheckFileNameMax"}, /* SeaKnows 037 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_PLAYLIST, "--------------------", NULL},
-	{ID_SELECT_TREE_COLUM         , 0x00000000, COMMAND_GROUP_PLAYLIST, "ツリー配下のセル一括選択"    , "SelectTreeColumn"}, /* TyphoonSwell 025 */
-	{ID_SELECT_TREE_FILE          , 0x00000000, COMMAND_GROUP_PLAYLIST, "ツリー配下のファイル一括選択"  , "SelectTreeFile"}, /* STEP 013 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_PLAYLIST, "--------------------", NULL},
-	{ID_MOVE_TO_PARENT            , 0x00000000, COMMAND_GROUP_PLAYLIST, "カーソルを親ツリーへ移動"      , "MoveToParent"}, /* STEP 014 */
-	{ID_MOVE_TO_PREVIOUS          , 0x00000000, COMMAND_GROUP_PLAYLIST, "カーソル位置を一つ上のツリーへ移動"      , "MoveToPrevious"}, /* STEP 014 */
-	{ID_MOVE_TO_NEXT              , 0x00000000, COMMAND_GROUP_PLAYLIST, "カーソル位置を一つ下のツリーへ移動"      , "MoveToNext"}, /* STEP 014 */
+	{ ID_LOAD_PLAYLIST, 0x00000000, COMMAND_GROUP_PLAYLIST, L"プレイリストの読み込みL", L"LoadPlayListL" },
+	{ ID_WRITE_PLAYLIST, 0x00000000, COMMAND_GROUP_PLAYLIST, L"プレイリストの出力L", L"WritePlayListL" },
+	{ ID_WRITE_TREE_PLAYLIST, 0x00000000, COMMAND_GROUP_PLAYLIST, L"ツリー分類のプレイリスト出力L", L"WriteTreePlayListL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_PLAYLIST, L"--------------------L", NULL },
+	{ ID_ALL_FILES_CHECK, 0x00000000, COMMAND_GROUP_PLAYLIST, L"全てのファイルをチェックするL", L"AllFilesCheckL" },
+	{ ID_ALL_FILES_UNCHECK, 0x00000000, COMMAND_GROUP_PLAYLIST, L"全てのファイルのチェックを外すL", L"AllFilesUnCheckL" },
+	{ ID_REVERSE_CHECK, 0x00000000, COMMAND_GROUP_PLAYLIST, L"チェック状態を反転するL", L"ReverseCheckL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_PLAYLIST, L"--------------------L", NULL },
+	{ ID_CHECK_FILES_SELECT, 0x00000000, COMMAND_GROUP_PLAYLIST, L"チェックファイルを選択L", L"CheckFilesSelectL" },
+	{ ID_SELECT_FILES_CHECK, 0x00000000, COMMAND_GROUP_PLAYLIST, L"選択ファイルをチェックL", L"SelectFilesCheckL" },
+	{ ID_SELECT_FILES_UNCHECK, 0x00000000, COMMAND_GROUP_PLAYLIST, L"選択ファイルのチェックを外すL", L"SelectFilesUnCheckL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_PLAYLIST, L"--------------------L", NULL },
+	{ ID_CHECK_WORD, 0x00000000, COMMAND_GROUP_PLAYLIST, L"条件を指定してチェックL", L"CheckWordL" },
+	{ ID_CHECK_FILENAME_MAX, 0x00000000, COMMAND_GROUP_PLAYLIST, L"ファイル名の長さをチェックL", L"CheckFileNameMaxL" }, /* SeaKnows 037 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_PLAYLIST, L"--------------------L", NULL },
+	{ ID_SELECT_TREE_COLUM, 0x00000000, COMMAND_GROUP_PLAYLIST, L"ツリー配下のセル一括選択L", L"SelectTreeColumnL" }, /* TyphoonSwell 025 */
+	{ ID_SELECT_TREE_FILE, 0x00000000, COMMAND_GROUP_PLAYLIST, L"ツリー配下のファイル一括選択L", L"SelectTreeFileL" }, /* STEP 013 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_PLAYLIST, L"--------------------L", NULL },
+	{ ID_MOVE_TO_PARENT, 0x00000000, COMMAND_GROUP_PLAYLIST, L"カーソルを親ツリーへ移動L", L"MoveToParentL" }, /* STEP 014 */
+	{ ID_MOVE_TO_PREVIOUS, 0x00000000, COMMAND_GROUP_PLAYLIST, L"カーソル位置を一つ上のツリーへ移動L", L"MoveToPreviousL" }, /* STEP 014 */
+	{ ID_MOVE_TO_NEXT, 0x00000000, COMMAND_GROUP_PLAYLIST, L"カーソル位置を一つ下のツリーへ移動L", L"MoveToNextL" }, /* STEP 014 */
 
 	// WinAmp 制御処理
-	{ID_WINAMP_PLAY               , 0x00000000, COMMAND_GROUP_PLAYER, "再生"                  , "WinampPlay"},
-	{ID_WINAMP_STOP               , 0x00000000, COMMAND_GROUP_PLAYER, "停止(Winampのみ有効)"  , "WinampStop"},
-	{ID_WINAMP_EXIT               , 0x00000000, COMMAND_GROUP_PLAYER, "終了"                  , "WinampExit"},
-	{ID_WINAMP_PLAY_PREV          , 0x00000000, COMMAND_GROUP_PLAYER, "前の曲(Winampのみ有効)", "WinampPlayPrev"},
-	{ID_WINAMP_PLAY_NEXT          , 0x00000000, COMMAND_GROUP_PLAYER, "次の曲(Winampのみ有効)", "WinampPlayNext"},
+	{ ID_WINAMP_PLAY, 0x00000000, COMMAND_GROUP_PLAYER, L"再生L", L"WinampPlayL" },
+	{ ID_WINAMP_STOP, 0x00000000, COMMAND_GROUP_PLAYER, L"停止(Winampのみ有効)L", L"WinampStopL" },
+	{ ID_WINAMP_EXIT, 0x00000000, COMMAND_GROUP_PLAYER, L"終了L", L"WinampExitL" },
+	{ ID_WINAMP_PLAY_PREV, 0x00000000, COMMAND_GROUP_PLAYER, L"前の曲(Winampのみ有効)L", L"WinampPlayPrevL" },
+	{ ID_WINAMP_PLAY_NEXT, 0x00000000, COMMAND_GROUP_PLAYER, L"次の曲(Winampのみ有効)L", L"WinampPlayNextL" },
 
 	// 変換処理
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "----- デフォルト書式変換 -----", NULL},
-	{ID_CONV_FILENAME_TO_TRACKNAME, 0x00000000, COMMAND_GROUP_CONV, "ファイル名 => トラック名", "ConvFileNameToTrackName"},
-	{ID_CONV_TRACKNAME_TO_FILENAME, 0x00000000, COMMAND_GROUP_CONV, "トラック名 => ファイル名", "ConvTrackNameToFileName"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "----- ユーザー指定書式変換 -----", NULL},
-	{ID_CONV_TAG2FILE_USER        , 0x00000000, COMMAND_GROUP_CONV, "タグ情報 => ファイル名", "ConvUserTagToFile"},
-	{ID_CONV_FILE2TAG_USER        , 0x00000000, COMMAND_GROUP_CONV, "ファイル名 => タグ情報", "ConvUserFileToTag"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "------ 文字変換 -----", NULL},
-	{ID_CONV_STR_HAN_ALL          , 0x00000000, COMMAND_GROUP_CONV, "全角=>半角(全て)変換"          , "ConvHanAll"},
-	{ID_CONV_STR_HAN_KIGOU        , 0x00000000, COMMAND_GROUP_CONV, "全角=>半角(記号)変換"          , "ConvHanKigou"},
-	{ID_CONV_STR_HAN_SUJI         , 0x00000000, COMMAND_GROUP_CONV, "全角=>半角(数字)変換"          , "ConvHanSuji"},
-	{ID_CONV_STR_HAN_KATA         , 0x00000000, COMMAND_GROUP_CONV, "全角=>半角(カタカナ)変換"      , "ConvHanLata"},
-	{ID_CONV_STR_HAN_ALPHA        , 0x00000000, COMMAND_GROUP_CONV, "全角=>半角(アルファベット)変換", "ConvHanAlpha"},
-	{ID_CONV_STR_ZEN_ALL          , 0x00000000, COMMAND_GROUP_CONV, "半角=>全角(全て)変換"          , "ConvZenAll"},
-	{ID_CONV_STR_ZEN_KIGOU        , 0x00000000, COMMAND_GROUP_CONV, "半角=>全角(記号)変換"          , "ConvZenKigou"},
-	{ID_CONV_STR_ZEN_SUJI         , 0x00000000, COMMAND_GROUP_CONV, "半角=>全角(数字)変換"          , "ConvZenSuji"},
-	{ID_CONV_STR_ZEN_KATA         , 0x00000000, COMMAND_GROUP_CONV, "半角=>全角(カタカナ)変換"      , "ConvZenKata"},
-	{ID_CONV_STR_ZEN_ALPHA        , 0x00000000, COMMAND_GROUP_CONV, "半角=>全角(アルファベット)変換", "ConvZenAlpha"},
-	{ID_CONV_STR_TO_UPPER         , 0x00000000, COMMAND_GROUP_CONV, "小文字=>大文字変換"            , "ConvToUpper"},
-	{ID_CONV_STR_TO_LOWER         , 0x00000000, COMMAND_GROUP_CONV, "大文字=>小文字変換"            , "ConvToLower"},
-	{ID_CONV_STR_FIRST_UPPER      , 0x00000000, COMMAND_GROUP_CONV, "単語の１文字目のみ大文字"      , "ConvFirstUpper"},
-	{ID_CONV_STR_FIXED_UPPER_LOWER, 0x00000000, COMMAND_GROUP_CONV, "大文字小文字固定"              , "ConvFIxedUpLow"}, /* STEP 040 */
-	{ID_CONV_STR_HIRA2KATA        , 0x00000000, COMMAND_GROUP_CONV, "ひらがな=>カタカナ変換"        , "ConvHira2Kata"},
-	{ID_CONV_STR_KATA2HIRA        , 0x00000000, COMMAND_GROUP_CONV, "カタカナ=>ひらがな変換"        , "ConvKata2Hira"},
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "----- 拡張書式変換 -----", NULL},
-	{ID_CONV_FORMAT_EX_01         , 0x00000000, COMMAND_GROUP_CONV, "書式１", "ConvFormatEx01"},
-	{ID_CONV_FORMAT_EX_02         , 0x00000000, COMMAND_GROUP_CONV, "書式２", "ConvFormatEx02"},
-	{ID_CONV_FORMAT_EX_03         , 0x00000000, COMMAND_GROUP_CONV, "書式３", "ConvFormatEx03"},
-	{ID_CONV_FORMAT_EX_04         , 0x00000000, COMMAND_GROUP_CONV, "書式４", "ConvFormatEx04"},
-	{ID_CONV_FORMAT_EX_05         , 0x00000000, COMMAND_GROUP_CONV, "書式５", "ConvFormatEx05"},
-	{ID_CONV_FORMAT_EX_06         , 0x00000000, COMMAND_GROUP_CONV, "書式６", "ConvFormatEx06"},
-	{ID_CONV_FORMAT_EX_07         , 0x00000000, COMMAND_GROUP_CONV, "書式７", "ConvFormatEx07"},
-	{ID_CONV_FORMAT_EX_08         , 0x00000000, COMMAND_GROUP_CONV, "書式８", "ConvFormatEx08"},
-	{ID_CONV_FORMAT_EX_09         , 0x00000000, COMMAND_GROUP_CONV, "書式９", "ConvFormatEx09"},
-	{ID_CONV_FORMAT_EX_10         , 0x00000000, COMMAND_GROUP_CONV, "書式１０", "ConvFormatEx10"},
-	{ID_CONV_EX_SETUP             , 0x00000000, COMMAND_GROUP_CONV, "拡張書式変換書式設定", "ConvUserSetup"}, /* STEP 009 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "----- ユーザー指定書式の切替 -----", NULL},
-	{ID_CONV_FORMAT_USER_01       , 0x00000000, COMMAND_GROUP_CONV, "書式１", "ConvFormatUser01"},
-	{ID_CONV_FORMAT_USER_02       , 0x00000000, COMMAND_GROUP_CONV, "書式２", "ConvFormatUser02"},
-	{ID_CONV_FORMAT_USER_03       , 0x00000000, COMMAND_GROUP_CONV, "書式３", "ConvFormatUser03"},
-	{ID_CONV_FORMAT_USER_04       , 0x00000000, COMMAND_GROUP_CONV, "書式４", "ConvFormatUser04"}, /* LastTrain 057 */
-	{ID_CONV_FORMAT_USER_05       , 0x00000000, COMMAND_GROUP_CONV, "書式５", "ConvFormatUser05"}, /* LastTrain 057 */
-	{ID_CONV_USER_SETUP           , 0x00000000, COMMAND_GROUP_CONV, "ユーザー指定書式変換書式設定", "ConvUserSetup"}, /* STEP 009 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "----- ユーザー指定書式 タグ情報 => ファイル名 -----", NULL},
-	{ID_CONV_FORMAT_USER_T2F_01   , 0x00000000, COMMAND_GROUP_CONV, "タグ情報 => ファイル名 書式１", "ConvFormatUserT2F01"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_T2F_02   , 0x00000000, COMMAND_GROUP_CONV, "タグ情報 => ファイル名 書式２", "ConvFormatUserT2F02"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_T2F_03   , 0x00000000, COMMAND_GROUP_CONV, "タグ情報 => ファイル名 書式３", "ConvFormatUserT2F03"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_T2F_04   , 0x00000000, COMMAND_GROUP_CONV, "タグ情報 => ファイル名 書式４", "ConvFormatUserT2F04"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_T2F_05   , 0x00000000, COMMAND_GROUP_CONV, "タグ情報 => ファイル名 書式５", "ConvFormatUserT2F05"}, /* STEP 030 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "----- ユーザー指定書式 ファイル名 => タグ情報 -----", NULL},
-	{ID_CONV_FORMAT_USER_F2T_01   , 0x00000000, COMMAND_GROUP_CONV, "ファイル名 => タグ情報 書式１", "ConvFormatUserF2T01"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_F2T_02   , 0x00000000, COMMAND_GROUP_CONV, "ファイル名 => タグ情報 書式２", "ConvFormatUserF2T02"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_F2T_03   , 0x00000000, COMMAND_GROUP_CONV, "ファイル名 => タグ情報 書式３", "ConvFormatUserF2T03"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_F2T_04   , 0x00000000, COMMAND_GROUP_CONV, "ファイル名 => タグ情報 書式４", "ConvFormatUserF2T04"}, /* STEP 030 */
-	{ID_CONV_FORMAT_USER_F2T_05   , 0x00000000, COMMAND_GROUP_CONV, "ファイル名 => タグ情報 書式５", "ConvFormatUserF2T05"}, /* STEP 030 */
-	{0x0000                       , 0x00000000, COMMAND_GROUP_CONV, "----- タグ情報変換 -----", NULL}, /* STEP 034 */
-	{ID_CONV_TAG_TO_TAG_01        , 0x00000000, COMMAND_GROUP_CONV, "書式１", "ConvFormatTag2Tag01"}, /* STEP 034 */
-	{ID_CONV_TAG_TO_TAG_02        , 0x00000000, COMMAND_GROUP_CONV, "書式２", "ConvFormatTag2Tag02"}, /* STEP 034 */
-	{ID_CONV_TAG_TO_TAG_03        , 0x00000000, COMMAND_GROUP_CONV, "書式３", "ConvFormatTag2Tag03"}, /* STEP 034 */
-	{ID_CONV_TAG_TO_TAG_04        , 0x00000000, COMMAND_GROUP_CONV, "書式４", "ConvFormatTag2Tag04"}, /* STEP 034 */
-	{ID_CONV_TAG_TO_TAG_05        , 0x00000000, COMMAND_GROUP_CONV, "書式５", "ConvFormatTag2Tag05"}, /* STEP 034 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"----- デフォルト書式変換 -----L", NULL },
+	{ ID_CONV_FILENAME_TO_TRACKNAME, 0x00000000, COMMAND_GROUP_CONV, L"ファイル名 => トラック名L", L"ConvFileNameToTrackNameL" },
+	{ ID_CONV_TRACKNAME_TO_FILENAME, 0x00000000, COMMAND_GROUP_CONV, L"トラック名 => ファイル名L", L"ConvTrackNameToFileNameL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"----- ユーザー指定書式変換 -----L", NULL },
+	{ ID_CONV_TAG2FILE_USER, 0x00000000, COMMAND_GROUP_CONV, L"タグ情報 => ファイル名L", L"ConvUserTagToFileL" },
+	{ ID_CONV_FILE2TAG_USER, 0x00000000, COMMAND_GROUP_CONV, L"ファイル名 => タグ情報L", L"ConvUserFileToTagL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"------ 文字変換 -----L", NULL },
+	{ ID_CONV_STR_HAN_ALL, 0x00000000, COMMAND_GROUP_CONV, L"全角=>半角(全て)変換L", L"ConvHanAlL" },
+	{ ID_CONV_STR_HAN_KIGOU, 0x00000000, COMMAND_GROUP_CONV, L"全角=>半角(記号)変換L", L"ConvHanKigouL" },
+	{ ID_CONV_STR_HAN_SUJI, 0x00000000, COMMAND_GROUP_CONV, L"全角=>半角(数字)変換L", L"ConvHanSujiL" },
+	{ ID_CONV_STR_HAN_KATA, 0x00000000, COMMAND_GROUP_CONV, L"全角=>半角(カタカナ)変換L", L"ConvHanLataL" },
+	{ ID_CONV_STR_HAN_ALPHA, 0x00000000, COMMAND_GROUP_CONV, L"全角=>半角(アルファベット)変換L", L"ConvHanAlphaL" },
+	{ ID_CONV_STR_ZEN_ALL, 0x00000000, COMMAND_GROUP_CONV, L"半角=>全角(全て)変換L", L"ConvZenAlL" },
+	{ ID_CONV_STR_ZEN_KIGOU, 0x00000000, COMMAND_GROUP_CONV, L"半角=>全角(記号)変換L", L"ConvZenKigouL" },
+	{ ID_CONV_STR_ZEN_SUJI, 0x00000000, COMMAND_GROUP_CONV, L"半角=>全角(数字)変換L", L"ConvZenSujiL" },
+	{ ID_CONV_STR_ZEN_KATA, 0x00000000, COMMAND_GROUP_CONV, L"半角=>全角(カタカナ)変換L", L"ConvZenKataL" },
+	{ ID_CONV_STR_ZEN_ALPHA, 0x00000000, COMMAND_GROUP_CONV, L"半角=>全角(アルファベット)変換L", L"ConvZenAlphaL" },
+	{ ID_CONV_STR_TO_UPPER, 0x00000000, COMMAND_GROUP_CONV, L"小文字=>大文字変換L", L"ConvToUpperL" },
+	{ ID_CONV_STR_TO_LOWER, 0x00000000, COMMAND_GROUP_CONV, L"大文字=>小文字変換L", L"ConvToLowerL" },
+	{ ID_CONV_STR_FIRST_UPPER, 0x00000000, COMMAND_GROUP_CONV, L"単語の１文字目のみ大文字L", L"ConvFirstUpperL" },
+	{ ID_CONV_STR_FIXED_UPPER_LOWER, 0x00000000, COMMAND_GROUP_CONV, L"大文字小文字固定L", L"ConvFIxedUpLowL" }, /* STEP 040 */
+	{ ID_CONV_STR_HIRA2KATA, 0x00000000, COMMAND_GROUP_CONV, L"ひらがな=>カタカナ変換L", L"ConvHira2KataL" },
+	{ ID_CONV_STR_KATA2HIRA, 0x00000000, COMMAND_GROUP_CONV, L"カタカナ=>ひらがな変換L", L"ConvKata2HiraL" },
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"----- 拡張書式変換 -----L", NULL },
+	{ ID_CONV_FORMAT_EX_01, 0x00000000, COMMAND_GROUP_CONV, L"書式１L", L"ConvFormatEx01L" },
+	{ ID_CONV_FORMAT_EX_02, 0x00000000, COMMAND_GROUP_CONV, L"書式２L", L"ConvFormatEx02L" },
+	{ ID_CONV_FORMAT_EX_03, 0x00000000, COMMAND_GROUP_CONV, L"書式３L", L"ConvFormatEx03L" },
+	{ ID_CONV_FORMAT_EX_04, 0x00000000, COMMAND_GROUP_CONV, L"書式４L", L"ConvFormatEx04L" },
+	{ ID_CONV_FORMAT_EX_05, 0x00000000, COMMAND_GROUP_CONV, L"書式５L", L"ConvFormatEx05L" },
+	{ ID_CONV_FORMAT_EX_06, 0x00000000, COMMAND_GROUP_CONV, L"書式６L", L"ConvFormatEx06L" },
+	{ ID_CONV_FORMAT_EX_07, 0x00000000, COMMAND_GROUP_CONV, L"書式７L", L"ConvFormatEx07L" },
+	{ ID_CONV_FORMAT_EX_08, 0x00000000, COMMAND_GROUP_CONV, L"書式８L", L"ConvFormatEx08L" },
+	{ ID_CONV_FORMAT_EX_09, 0x00000000, COMMAND_GROUP_CONV, L"書式９L", L"ConvFormatEx09L" },
+	{ ID_CONV_FORMAT_EX_10, 0x00000000, COMMAND_GROUP_CONV, L"書式１０L", L"ConvFormatEx10L" },
+	{ ID_CONV_EX_SETUP, 0x00000000, COMMAND_GROUP_CONV, L"拡張書式変換書式設定L", L"ConvUserSetupL" }, /* STEP 009 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"----- ユーザー指定書式の切替 -----L", NULL },
+	{ ID_CONV_FORMAT_USER_01, 0x00000000, COMMAND_GROUP_CONV, L"書式１L", L"ConvFormatUser01L" },
+	{ ID_CONV_FORMAT_USER_02, 0x00000000, COMMAND_GROUP_CONV, L"書式２L", L"ConvFormatUser02L" },
+	{ ID_CONV_FORMAT_USER_03, 0x00000000, COMMAND_GROUP_CONV, L"書式３L", L"ConvFormatUser03L" },
+	{ ID_CONV_FORMAT_USER_04, 0x00000000, COMMAND_GROUP_CONV, L"書式４L", L"ConvFormatUser04L" }, /* LastTrain 057 */
+	{ ID_CONV_FORMAT_USER_05, 0x00000000, COMMAND_GROUP_CONV, L"書式５L", L"ConvFormatUser05L" }, /* LastTrain 057 */
+	{ ID_CONV_USER_SETUP, 0x00000000, COMMAND_GROUP_CONV, L"ユーザー指定書式変換書式設定L", L"ConvUserSetupL" }, /* STEP 009 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"----- ユーザー指定書式 タグ情報 => ファイル名 -----L", NULL },
+	{ ID_CONV_FORMAT_USER_T2F_01, 0x00000000, COMMAND_GROUP_CONV, L"タグ情報 => ファイル名 書式１L", L"ConvFormatUserT2F01L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_T2F_02, 0x00000000, COMMAND_GROUP_CONV, L"タグ情報 => ファイル名 書式２L", L"ConvFormatUserT2F02L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_T2F_03, 0x00000000, COMMAND_GROUP_CONV, L"タグ情報 => ファイル名 書式３L", L"ConvFormatUserT2F03L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_T2F_04, 0x00000000, COMMAND_GROUP_CONV, L"タグ情報 => ファイル名 書式４L", L"ConvFormatUserT2F04L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_T2F_05, 0x00000000, COMMAND_GROUP_CONV, L"タグ情報 => ファイル名 書式５L", L"ConvFormatUserT2F05L" }, /* STEP 030 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"----- ユーザー指定書式 ファイル名 => タグ情報 -----L", NULL },
+	{ ID_CONV_FORMAT_USER_F2T_01, 0x00000000, COMMAND_GROUP_CONV, L"ファイル名 => タグ情報 書式１L", L"ConvFormatUserF2T01L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_F2T_02, 0x00000000, COMMAND_GROUP_CONV, L"ファイル名 => タグ情報 書式２L", L"ConvFormatUserF2T02L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_F2T_03, 0x00000000, COMMAND_GROUP_CONV, L"ファイル名 => タグ情報 書式３L", L"ConvFormatUserF2T03L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_F2T_04, 0x00000000, COMMAND_GROUP_CONV, L"ファイル名 => タグ情報 書式４L", L"ConvFormatUserF2T04L" }, /* STEP 030 */
+	{ ID_CONV_FORMAT_USER_F2T_05, 0x00000000, COMMAND_GROUP_CONV, L"ファイル名 => タグ情報 書式５L", L"ConvFormatUserF2T05L" }, /* STEP 030 */
+	{ 0x0000, 0x00000000, COMMAND_GROUP_CONV, L"----- タグ情報変換 -----L", NULL }, /* STEP 034 */
+	{ ID_CONV_TAG_TO_TAG_01, 0x00000000, COMMAND_GROUP_CONV, L"書式１L", L"ConvFormatTag2Tag01L" }, /* STEP 034 */
+	{ ID_CONV_TAG_TO_TAG_02, 0x00000000, COMMAND_GROUP_CONV, L"書式２L", L"ConvFormatTag2Tag02L" }, /* STEP 034 */
+	{ ID_CONV_TAG_TO_TAG_03, 0x00000000, COMMAND_GROUP_CONV, L"書式３L", L"ConvFormatTag2Tag03L" }, /* STEP 034 */
+	{ ID_CONV_TAG_TO_TAG_04, 0x00000000, COMMAND_GROUP_CONV, L"書式４L", L"ConvFormatTag2Tag04L" }, /* STEP 034 */
+	{ ID_CONV_TAG_TO_TAG_05, 0x00000000, COMMAND_GROUP_CONV, L"書式５L", L"ConvFormatTag2Tag05L" }, /* STEP 034 */
 
-	{0x0000, 0x00000000, -1, NULL, NULL},		// 終端コード
+	{ 0x0000, 0x00000000, -1, NULL, NULL },		// 終端コード
 	/**
-	 【注意】コマンドを追加した場合は、_APS_NEXT_COMMAND_VALUEが更新されるのでSTEP_api.cppをリコンパイルすること
+	【注意】コマンドを追加した場合は、_APS_NEXT_COMMAND_VALUEが更新されるのでSTEP_api.cppをリコンパイルすること
 	 **/
 };
 
@@ -380,7 +380,7 @@ KEY_CONFIG *SearchKeyConfigID(WORD wCmdID)
 		}
 	}
 	extern CPlugin plugins;
-	for (i=0;i<plugins.arPluginKey.GetSize();i++) {
+	for (i = 0; i < plugins.arPluginKey.GetSize(); i++) {
 		KEY_CONFIG* pKey = (KEY_CONFIG*)plugins.arPluginKey.GetAt(i);
 		if (pKey->wCmdID == wCmdID) {
 			return pKey;
@@ -395,26 +395,26 @@ static	char	*g_sKeyName[] = {
 	"RBUTTON",		// 02	マウスの右ボタン
 	"CANCEL",		// 03	コントロール ブレーク処理に使用
 	"MBUTTON",		// 04	マウスの中央ボタン (3つボタンのマウス)
-	"","","",		// 05～07	未定義
+	"", "", "",		// 05～07	未定義
 	"BS",			// 08	BackSpaceキー
 	"Tab",			// 09	Tabキー
-	"","",			// 0A､ 0B	未定義
+	"", "",			// 0A､ 0B	未定義
 	"CLEAR",		// 0C	Clearキー
 	"Enter",		// 0D	Enterキー
-	"","",			// 0E､ 0F	未定義
+	"", "",			// 0E､ 0F	未定義
 	"Shift",		// 10	Shiftキー
 	"Ctrl",			// 11	Ctrlキー
 	"Alt",			// 12	Altキー
 	"PAUSE",		// 13	Pauseキー
 	"CAPITAL",		// 14	Caps Lockキー
 	"KANA",			// 15	英数カナキー
-	"","","",		// 16～18	漢字システム用に予約
+	"", "", "",		// 16～18	漢字システム用に予約
 	"KANJI",		// 19	漢字システム用に予約
 	"",				// 1A	未定義
 	"ESC",			// 1B	Escキー
 	"CONVERT",		// 1C	漢字システム用に予約
 	"NOCONVERT",	// 1D	漢字システム用に予約
-	"","",			// 1E､ 1F	漢字システム用に予約
+	"", "",			// 1E､ 1F	漢字システム用に予約
 	"Space",		// 20	Spaceキー
 	"PageUp",		// 21	Page Upキー
 	"PageDown",		// 22	Page Downキー
@@ -441,7 +441,7 @@ static	char	*g_sKeyName[] = {
 	"7",			// 37	7キー
 	"8",			// 38	8キー
 	"9",			// 39	9キー
-	"","","","","","","",	// 3A～40	未定義
+	"", "", "", "", "", "", "",	// 3A～40	未定義
 	"A",			// 41	Aキー
 	"B",			// 42	Bキー
 	"C",			// 43	Cキー
@@ -468,7 +468,7 @@ static	char	*g_sKeyName[] = {
 	"X",			// 58	Xキー
 	"Y",			// 59	Yキー
 	"Z",			// 5A	Zキー
-	"","","","","",	// 5B～5F	未定義
+	"", "", "", "", "",	// 5B～5F	未定義
 	"NUM0",			// 60	テンキーの0キー
 	"NUM1",			// 61	テンキーの1キー
 	"NUM2",			// 62	テンキーの2キー
@@ -509,7 +509,7 @@ static	char	*g_sKeyName[] = {
 	"F22",			// 85H	F22キー
 	"F23",			// 86H	F23キー
 	"F24",			// 87H	F24キー
-	"","","","","","","","",	// 88～8F	未定義
+	"", "", "", "", "", "", "", "",	// 88～8F	未定義
 	"NUMLOCK",		// 90	Num Lockキー
 	"SCROLL",		// 91	Scroll Lockキー
 };
@@ -580,14 +580,14 @@ CSuperTagEditorApp theApp;
 // 概要  : 自アプリケーションのパスからファイル名を
 //       : フルパスで作成する
 // 引数  : sExt			= ファイル拡張子
-// 戻り値: TCHAR *		= ファイル名(NULL=失敗)
+// 戻り値: wchar_t *		= ファイル名(NULL=失敗)
 // =============================================
-TCHAR *CSuperTagEditorApp::MakeFileName(TCHAR *sExt)
+wchar_t *CSuperTagEditorApp::MakeFileName(wchar_t *sExt)
 {
-	TCHAR   drive[_MAX_DRIVE];
-	TCHAR   dir[_MAX_DIR];
-	TCHAR   fname[_MAX_FNAME];
-	TCHAR   buff[_MAX_PATH] = {'\0'};
+	wchar_t   drive[_MAX_DRIVE];
+	wchar_t   dir[_MAX_DIR];
+	wchar_t   fname[_MAX_FNAME];
+	wchar_t   buff[_MAX_PATH] = { '\0' };
 
 	//自己アプリのパス所得（大小文字識別付き）
 	GetModuleFileName(m_hInstance, buff, _MAX_PATH);
@@ -618,28 +618,27 @@ BOOL CSuperTagEditorApp::InitInstance()
 	// 設定が保存される下のレジストリ キーを変更します。
 	// TODO: この文字列を、会社名または所属など適切なものに
 	// 変更してください。
-	//SetRegistryKey(_T("MERCURY"));
+	//SetRegistryKey(L"MERCURY");
 	free((void *)m_pszProfileName);
-	m_pszProfileName = MakeFileName("ini");
+	m_pszProfileName = MakeFileName(L"ini");
 	{ /* STEP 031 */
 		BOOL bFlag = FALSE;
 		for (int i = 1; i < __argc; i++) {
-			LPCTSTR pszParam = __targv[i];
+			LPCWSTR pszParam = __wargv[i];
 			if (bFlag) {
 				free((void *)m_pszProfileName);
-				m_pszProfileName = _strdup(pszParam);
+				m_pszProfileName = _wcsdup(pszParam);
 				break;
 			}
-			if (pszParam[0] == '-' || pszParam[0] == '/')
-			{
-				if (strcmp(pszParam, "-I") == 0 || strcmp(pszParam, "/I") == 0) {
+			if (pszParam[0] == '-' || pszParam[0] == '/') {
+				if (wcscmp(pszParam, L"-I") == 0 || wcscmp(pszParam, L"/I") == 0) {
 					bFlag = TRUE;
 				}
 			}
 		}
 	}
-	//if (MyGetProfileInt("STEx", "UseRegistry", 0) ? true : false) {
-	//	SetRegistryKey(_T("MERCURY"));
+	//if (MyGetProfileInt(L"STEx", L"UseRegistry", 0) ? true : false) {
+	//	SetRegistryKey(_T(L"MERCURY"));
 	//}
 
 	// ↑ここで設定した INI ファイル名称はデストラクタで free される
@@ -651,19 +650,19 @@ BOOL CSuperTagEditorApp::InitInstance()
 
 	// 多重起動禁止処理 /* FreeFall 045 */
 	if (!g_bValidDupExec) {
-		char	*sMutexName = PROG_NAME;
+		wchar_t	*sMutexName = PROG_NAME;
 		HANDLE hPrevMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, sMutexName);
-		if(hPrevMutex){
-	//		MessageBox(NULL, "既に "PROG_NAME" は起動中です", "多重起動エラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+		if (hPrevMutex) {
+			//		MessageBox(NULL, L"既に "PROG_NAME" は起動中です", L"多重起動エラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 			// 修正 by Kobarin
 			// 起動済みの STE にファイル名・フォルダ名を渡す
-			if(__argc >= 2){
-				KbDDEClient ddeClient(NULL, "SuperTagEditor","SuperTagEditor");
+			if (__argc >= 2) {
+				KbDDEClient ddeClient(NULL, L"SuperTagEditor", L"SuperTagEditor");
 				int i;
-				for(i = 1; i < __argc; i++){
-					ddeClient.Execute(__argv[i],//ファイル名
-									  ""        //スイッチ（なし）
-									  );
+				for (i = 1; i < __argc; i++) {
+					ddeClient.Execute(__wargv[i],//ファイル名
+						L""        //スイッチ（なし）
+						);
 				}
 			}
 			CloseHandle(hPrevMutex);
@@ -686,7 +685,7 @@ BOOL CSuperTagEditorApp::InitInstance()
 
 	// DDE Execute open を使用可能にします。
 	EnableShellOpen();
-//	RegisterShellFileTypes(TRUE);
+	//	RegisterShellFileTypes(TRUE);
 
 	// DDE、file open など標準のシェル コマンドのコマンドラインを解析します。
 	CCommandLineInfo cmdInfo;
@@ -706,11 +705,10 @@ BOOL CSuperTagEditorApp::InitInstance()
 	{ /* Misirlou 140 */
 		BOOL bFirst = TRUE;
 		for (int i = 1; i < __argc; i++) {
-			LPCTSTR pszParam = __targv[i];
+			LPCWSTR pszParam = __targv[i];
 			BOOL bFlag = FALSE;
 			BOOL bLast = ((i + 1) == __argc);
-			if (pszParam[0] == '-' || pszParam[0] == '/')
-			{
+			if (pszParam[0] == '-' || pszParam[0] == '/') {
 				// remove flag specifier
 				bFlag = TRUE;
 				++pszParam;
@@ -724,28 +722,28 @@ BOOL CSuperTagEditorApp::InitInstance()
 
 	// メイン ウィンドウが初期化されたので、表示と更新を行います。
 	if (g_bMainFrameZoomed) {
-//		m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
-//		m_pMainWnd->UpdateWindow();
+		//		m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
+		//		m_pMainWnd->UpdateWindow();
 	} else if (g_bMainFrameIconic) {
-//		m_pMainWnd->ShowWindow(SW_SHOWMINIMIZED);
-//		m_pMainWnd->UpdateWindow();
+		//		m_pMainWnd->ShowWindow(SW_SHOWMINIMIZED);
+		//		m_pMainWnd->UpdateWindow();
 	} else {
 		m_pMainWnd->ShowWindow(SW_SHOW);
 		m_pMainWnd->UpdateWindow();
 	}
 
 	// ドラッグ/ドロップ オープンを許可します
-//	m_pMainWnd->DragAcceptFiles();
+	//	m_pMainWnd->DragAcceptFiles();
 
-    //追加 by Kobarin
-    //KbSTE のフルパスファイル名をレジストリに保存
-    //（KbMedia Player と連携するため）
-    //WriteKbSTEPathToRegistry();
+	//追加 by Kobarin
+	//KbSTE のフルパスファイル名をレジストリに保存
+	//（KbMedia Player と連携するため）
+	//WriteKbSTEPathToRegistry();
 
 	return TRUE;
 }
 
-int CSuperTagEditorApp::ExitInstance() 
+int CSuperTagEditorApp::ExitInstance()
 {
 	// TODO: この位置に固有の処理を追加するか、または基本クラスを呼び出してください
 	ReleaseMutex(m_hMutex);
@@ -753,7 +751,7 @@ int CSuperTagEditorApp::ExitInstance()
 	// アクセラレータテーブルの解放
 	DestroyAccelerator();
 
-	delete [] g_genreListUSER;
+	delete[] g_genreListUSER;
 
 	return CWinApp::ExitInstance();
 }
@@ -762,12 +760,11 @@ int CSuperTagEditorApp::ExitInstance()
 /////////////////////////////////////////////////////////////////////////////
 // アプリケーションのバージョン情報で使われる CAboutDlg ダイアログ
 
-class CAboutDlg : public CDialog
-{
+class CAboutDlg : public CDialog {
 public:
 	CAboutDlg();
 
-// ダイアログ データ
+	// ダイアログ データ
 	//{{AFX_DATA(CAboutDlg)
 	enum { IDD = IDD_ABOUTBOX };
 	CString	m_strVersion;
@@ -775,14 +772,14 @@ public:
 
 	// ClassWizard 仮想関数のオーバーライドを生成します。
 	//{{AFX_VIRTUAL(CAboutDlg)
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV のサポート
 	//}}AFX_VIRTUAL
 
-// インプリメンテーション
+	// インプリメンテーション
 protected:
 	//{{AFX_MSG(CAboutDlg)
-		// メッセージ ハンドラはありません。
+	// メッセージ ハンドラはありません。
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
@@ -793,8 +790,8 @@ CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
 	//}}AFX_DATA_INIT
 
 	// バージョン情報の設定
-	//m_strVersion.Format(PROG_NAME" Ver "PROG_VERSION"(Build:%d) 改", BUILDCOUNT_NUM);
-	m_strVersion.Format(PROG_NAME_ORG2" ("PROG_NAME_ORG" Ver "PROG_VERSION_ORG"改) Ver "PROG_VERSION_ORG2" 改\n\n"PROG_NAME" Version "PROG_VERSION);
+	m_strVersion.Format(PROG_NAME L" Ver " PROG_VERSION L"(Build:%d) 改", BUILDCOUNT_NUM);
+	//m_strVersion.Format(PROG_NAME_ORG2 " PROG_NAME_ORG" Ver L"PROG_VERSION_ORG"改) Ver L"PROG_VERSION_ORG2" 改\n\n"PROG_NAMEL" Version L"PROG_VERSION);
 }
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
@@ -807,7 +804,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//{{AFX_MSG_MAP(CAboutDlg)
-		// メッセージ ハンドラはありません。
+	// メッセージ ハンドラはありません。
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -820,249 +817,249 @@ void CSuperTagEditorApp::OnAppAbout()
 
 /////////////////////////////////////////////////////////////////////////////
 // CSuperTagEditorApp メッセージ ハンドラ
-static	char	*sSectionOption			= "Option";
-static	char	*sKeyVersion			= "Version";
-static	char	*sKeyCurrentDir			= "CurrentDir";
-static	char	*sKeyCurrentPlayList	= "CurrentPlayList";
-static	char	*sKeyEnterBeginEdit		= "EnterBeginEdit";
-static	char	*sKeyESCEditCancel		= "ESCEditCancel";
-static	char	*sKeyEnableEditCursorExit= "EnableEditCursorExit";
-static	char	*sKeyEditOkDown			= "EditOkDown";
-static	char	*sKeyKeepTimeStamp		= "KeepTimeStamp";
-static	char	*sKeySyncCreateTime		= "SyncCreateTime";
-static	char	*sKeyChangeFileExt		= "ChangeFileExt";
-static	char	*sKeyLoadFileChecked	= "LoadFileChecked";
-static	char	*sKeyHideMP3ListFile	= "HideMP3ListFile";
-static	char	*sKeyDropSearchSubFolder	= "DropSearchSubFolder";	/* TyphoonSwell 026 */
-static	char	*sKeyShowZenSpace	= "ShowZenSpace";	/* BeachMonster 107 */
-static	char	*sKeyShowOtherChar	= "ShowOtherChar";	/* BeachMonster 107 */
-static	char	*sKeySortIgnoreCase	= "SortIgnoreCase";	/* BeachMonster4 114 */
-static	char	*sKeySortIgnoreZenHan	= "SortIgnoreZenHan";	/* BeachMonster4 114 */
-static	char	*sKeySortIgnoreKataHira	= "SortIgnoreKataHira";	/* FunnyCorn 179 */
-static	char	*sKeyShowTotalParent	= "ShowTotalParent";	/* RockDance 128 */
-static	char	*sKeyShowTips	= "ShowTips";	/* Rumble 188 */
-static	char	*sKeyChangeTextFile		= "ChangeTextFile";
-static	char	*sKeyEditFiledSIF		= "EditFiledSI";
-static	char	*sKeyAutoOpenFolder		= "AutoOpenFolder";
-static	char	*sKeyLoadFileAdjustColumn	= "LoadFileAdjustColumn";
-static	char	*sKeySetLyricsDir		= "SetLyricsDir";
-static	char	*sKeySearchLyricsSubDir	= "SearchLyricsSubDir";
-static	char	*sKeyEnableSearchSubDir	= "EnableSearchSubDir";
-static	char	*sKeyLyricsPath			= "LyricsPath";
-static	char	*sKeyCheckFileName		= "CheckFileName";
-static	char	*sKeyPlayerType			= "PlayerType";
-static	char	*sKeyWinAmpPath			= "WinAmpPath";
+static	wchar_t	*sSectionOption = L"Option";
+static	wchar_t	*sKeyVersion = L"Version";
+static	wchar_t	*sKeyCurrentDir = L"CurrentDir";
+static	wchar_t	*sKeyCurrentPlayList = L"CurrentPlayList";
+static	wchar_t	*sKeyEnterBeginEdit = L"EnterBeginEdit";
+static	wchar_t	*sKeyESCEditCancel = L"ESCEditCance";
+static	wchar_t	*sKeyEnableEditCursorExit = L"EnableEditCursorExit";
+static	wchar_t	*sKeyEditOkDown = L"EditOkDown";
+static	wchar_t	*sKeyKeepTimeStamp = L"KeepTimeStamp";
+static	wchar_t	*sKeySyncCreateTime = L"SyncCreateTime";
+static	wchar_t	*sKeyChangeFileExt = L"ChangeFileExt";
+static	wchar_t	*sKeyLoadFileChecked = L"LoadFileChecked";
+static	wchar_t	*sKeyHideMP3ListFile = L"HideMP3ListFile";
+static	wchar_t	*sKeyDropSearchSubFolder = L"DropSearchSubFolder";	/* TyphoonSwell 026 */
+static	wchar_t	*sKeyShowZenSpace = L"ShowZenSpace";	/* BeachMonster 107 */
+static	wchar_t	*sKeyShowOtherChar = L"ShowOtherwchar_t";	/* BeachMonster 107 */
+static	wchar_t	*sKeySortIgnoreCase = L"SortIgnoreCase";	/* BeachMonster4 114 */
+static	wchar_t	*sKeySortIgnoreZenHan = L"SortIgnoreZenHan";	/* BeachMonster4 114 */
+static	wchar_t	*sKeySortIgnoreKataHira = L"SortIgnoreKataHira";	/* FunnyCorn 179 */
+static	wchar_t	*sKeyShowTotalParent = L"ShowTotalParent";	/* RockDance 128 */
+static	wchar_t	*sKeyShowTips = L"ShowTips";	/* Rumble 188 */
+static	wchar_t	*sKeyChangeTextFile = L"ChangeTextFile";
+static	wchar_t	*sKeyEditFiledSIF = L"EditFiledSI";
+static	wchar_t	*sKeyAutoOpenFolder = L"AutoOpenFolder";
+static	wchar_t	*sKeyLoadFileAdjustColumn = L"LoadFileAdjustColumn";
+static	wchar_t	*sKeySetLyricsDir = L"SetLyricsDir";
+static	wchar_t	*sKeySearchLyricsSubDir = L"SearchLyricsSubDir";
+static	wchar_t	*sKeyEnableSearchSubDir = L"EnableSearchSubDir";
+static	wchar_t	*sKeyLyricsPath = L"LyricsPath";
+static	wchar_t	*sKeyCheckFileName = L"CheckFileName";
+static	wchar_t	*sKeyPlayerType = L"PlayerType";
+static	wchar_t	*sKeyWinAmpPath = L"WinAmpPath";
 
-static	char	*sKeyID3v2GenreAddNumber	= "ID3v2GenreAddNumber";
-static	char	*sKeyFileNameMaxCheck	= "FileNameMaxCheck";
-static	char	*sKeyFileNameMaxChar	= "FileNameMaxChar";
-static	char	*sKeyFileNameMaxCellColor	= "FileNameMaxCellColor";
+static	wchar_t	*sKeyID3v2GenreAddNumber = L"ID3v2GenreAddNumber";
+static	wchar_t	*sKeyFileNameMaxCheck = L"FileNameMaxCheck";
+static	wchar_t	*sKeyFileNameMaxChar = L"FileNameMaxwchar_t";
+static	wchar_t	*sKeyFileNameMaxCellColor = L"FileNameMaxCellColor";
 
-static	char	*sSectionFolderSync			= "FolderSync";
-static	char	*sKeyEnableFolderSync		= "EnableFolderSync";
-static	char	*sKeySyncRootFolder			= "RootFolder";
-static	char	*sKeySyncSelectAlways		= "SelectAlways";
-static	char	*sKeySyncDeleteFolder		= "DeleteFolder";
-static	char	*sKeySyncLyricsFileMove		= "LyricsFileMove";
+static	wchar_t	*sSectionFolderSync = L"FolderSync";
+static	wchar_t	*sKeyEnableFolderSync = L"EnableFolderSync";
+static	wchar_t	*sKeySyncRootFolder = L"RootFolder";
+static	wchar_t	*sKeySyncSelectAlways = L"SelectAlways";
+static	wchar_t	*sKeySyncDeleteFolder = L"DeleteFolder";
+static	wchar_t	*sKeySyncLyricsFileMove = L"LyricsFileMove";
 
-static	char	*sSectionConfMessage	= "ConfMessage";
-static	char	*sKeyConfConvMP3		= "ConvMP3";
-static	char	*sKeyConfConvRMP		= "ConvRMP";
-static	char	*sKeyConfConvID3v2		= "ConvID3v2";
-static	char	*sKeyConfDeleteFile		= "DeleteFile";
-static	char	*sKeyConfDeleteList		= "DeleteList";
-static	char	*sKeyConfEditModify		= "EditModify";
-static	char	*sKeyConfFolderSync		= "FolderSync";
+static	wchar_t	*sSectionConfMessage = L"ConfMessage";
+static	wchar_t	*sKeyConfConvMP3 = L"ConvMP3";
+static	wchar_t	*sKeyConfConvRMP = L"ConvRMP";
+static	wchar_t	*sKeyConfConvID3v2 = L"ConvID3v2";
+static	wchar_t	*sKeyConfDeleteFile = L"DeleteFile";
+static	wchar_t	*sKeyConfDeleteList = L"DeleteList";
+static	wchar_t	*sKeyConfEditModify = L"EditModify";
+static	wchar_t	*sKeyConfFolderSync = L"FolderSync";
 
-static	char	*sSectionLoadPlayList	= "LoadPlayList";
-static	char	*sKeyClearList			= "ClearList";
-static	char	*sKeyClearCheck			= "ClearCheck";
-static	char	*sKeyAddList			= "AddList";
-static	char	*sKeyFileCheck			= "FileCheck";
+static	wchar_t	*sSectionLoadPlayList = L"LoadPlayList";
+static	wchar_t	*sKeyClearList = L"ClearList";
+static	wchar_t	*sKeyClearCheck = L"ClearCheck";
+static	wchar_t	*sKeyAddList = L"AddList";
+static	wchar_t	*sKeyFileCheck = L"FileCheck";
 
-static	char	*sSectionCheckWord[CHECK_STATE_MAX]	= {"CheckWord", "ReplaceWord"};
-static	char	*sKeySearchWord		= "SearchWord";
-static	char	*sKeyReplaceWord	= "ReplaceWord";
-static	char	*sKeyTargetColumn	= "TargetColumn";
-static	char	*sKeyCheckDiffUL	= "CheckDiffUL";
-static	char	*sKeyRegExp			= "RegExp";
-static	char	*sKeyRangeSelected	= "RangeSelected";
-static	char	*sKeyMatchComplete	= "MatchComplete";
-static	char	*sKeyMatchSelected	= "MatchSelected";
+static	wchar_t	*sSectionCheckWord[CHECK_STATE_MAX] = { L"CheckWord", L"ReplaceWord" };
+static	wchar_t	*sKeySearchWord = L"SearchWord";
+static	wchar_t	*sKeyReplaceWord = L"ReplaceWord";
+static	wchar_t	*sKeyTargetColumn = L"TargetColumn";
+static	wchar_t	*sKeyCheckDiffUL = L"CheckDiffU";
+static	wchar_t	*sKeyRegExp = L"RegExp";
+static	wchar_t	*sKeyRangeSelected = L"RangeSelected";
+static	wchar_t	*sKeyMatchComplete = L"MatchComplete";
+static	wchar_t	*sKeyMatchSelected = L"MatchSelected";
 
 // ユーザー書式変換
-static	char	*sSectionUserConvFormat	= "UserConvFormat";
-static	char	*sKeyConvFormatType		= "ConvFormatType";
-static	char	*sKeyUserFormName		= "Name";
-static	char	*sKeyUserFormTag2File	= "TagToFile";
-static	char	*sKeyUserFormFile2Tag	= "FileToTag";
+static	wchar_t	*sSectionUserConvFormat = L"UserConvFormat";
+static	wchar_t	*sKeyConvFormatType = L"ConvFormatType";
+static	wchar_t	*sKeyUserFormName = L"Name";
+static	wchar_t	*sKeyUserFormTag2File = L"TagToFile";
+static	wchar_t	*sKeyUserFormFile2Tag = L"FileToTag";
 
 // 拡張版書式変換
-static	char	*sSectionConvFormatEx	= "ConvFormatEx";
-//static	char	*sKeyUserFormName		= "Name";
-static	char	*sKeyUserFormat			= "Format";
-static	char	*sKeyUserFixString		= "FixString";
-static	char	*sKeyUserInitNumber		= "InitNumber";
-static	char	*sKeyUserAddNumber		= "AddNumber";
-static	char	*sKeyUserColumnCount	= "ColumnCount";
-static	char	*sKeyUserSpaceInit		= "SpaceInit";
+static	wchar_t	*sSectionConvFormatEx = L"ConvFormatEx";
+//static	wchar_t	*sKeyUserFormName		= L"Name";
+static	wchar_t	*sKeyUserFormat = L"Format";
+static	wchar_t	*sKeyUserFixString = L"FixString";
+static	wchar_t	*sKeyUserInitNumber = L"InitNumber";
+static	wchar_t	*sKeyUserAddNumber = L"AddNumber";
+static	wchar_t	*sKeyUserColumnCount = L"ColumnCount";
+static	wchar_t	*sKeyUserSpaceInit = L"SpaceInit";
 
 // 移動先フォルダ書式
-static	char	*sSectionMoveFolder		= "MoveFolderFormat";
-//static	char	*sKeyUserFormName		= "Name";
-static	char	*sKeyMoveFolderFormat	= "Format";
-static	char	*sKeyMoveFolderFixString	= "FixString";
-static	char	*sKeyMoveFolderCopy		= "Copy";
-static	char	*sKeyMoveFolderInitFolder	= "InitFolder";
+static	wchar_t	*sSectionMoveFolder = L"MoveFolderFormat";
+//static	wchar_t	*sKeyUserFormName		= L"Name";
+static	wchar_t	*sKeyMoveFolderFormat = L"Format";
+static	wchar_t	*sKeyMoveFolderFixString = L"FixString";
+static	wchar_t	*sKeyMoveFolderCopy = L"Copy";
+static	wchar_t	*sKeyMoveFolderInitFolder = L"InitFolder";
 
 // 書式コピー /* FunnyCorn 175 */
-static	char	*sSectionCopyFormat		= "CopyFormatFormat";
-//static	char	*sKeyUserFormName		= "Name";
-static	char	*sKeyCopyFormatFormat	= "Format";
-static	char	*sKeyCopyFormatFixString	= "FixString";
+static	wchar_t	*sSectionCopyFormat = L"CopyFormatFormat";
+//static	wchar_t	*sKeyUserFormName		= L"Name";
+static	wchar_t	*sKeyCopyFormatFormat = L"Format";
+static	wchar_t	*sKeyCopyFormatFixString = L"FixString";
 
 // タグ情報変換 /* STEP 034 */
-static	char	*sSectionConvFormatTag2Tag	= "ConvFormatTag2Tag";
-static	char	*sKeyUserTag2TagFormName	= "Name";
-static	char	*sKeyUserTagTagFormat		= "Format";
+static	wchar_t	*sSectionConvFormatTag2Tag = L"ConvFormatTag2Tag";
+static	wchar_t	*sKeyUserTag2TagFormName = L"Name";
+static	wchar_t	*sKeyUserTagTagFormat = L"Format";
 
 // 定型文貼り付け /* SeaKnows 030 */
-static	char	*sSectionTeikei			= "Teikei";
-static	char	*sSectionTeikeiGroupName	= "TeikeiGroupName";
-static	char	*sSectionTeikeiPaste		= "TeikeiPaste";
-static	char	*sSectionTeikeiAddSpace		= "TeikeiAddSpace";
-static	char	*sSectionTeikeiAddChar		= "TeikeiAddChar";
-static	char	*sSectionTeikeiFront		= "TeikeiAddFront";
-static	char	*sSectionTeikeiBack			= "TeikeiAddBack";
-static	char	*sSectionTeikeiShowDialog	= "TeikeiShowDialog";
+static	wchar_t	*sSectionTeikei = L"Teikei";
+static	wchar_t	*sSectionTeikeiGroupName = L"TeikeiGroupName";
+static	wchar_t	*sSectionTeikeiPaste = L"TeikeiPaste";
+static	wchar_t	*sSectionTeikeiAddSpace = L"TeikeiAddSpace";
+static	wchar_t	*sSectionTeikeiAddChar = L"TeikeiAddwchar_t";
+static	wchar_t	*sSectionTeikeiFront = L"TeikeiAddFront";
+static	wchar_t	*sSectionTeikeiBack = L"TeikeiAddBack";
+static	wchar_t	*sSectionTeikeiShowDialog = L"TeikeiShowDialog";
 
 // フォルダ単一選択 /* SeaKnows 033 */
-static	char	*sSectionValidFolderSelect	= "ValidFolderSelect";
+static	wchar_t	*sSectionValidFolderSelect = L"ValidFolderSelect";
 // 多重起動を許可する /* FreeFall 045 */
-static	char	*sSectionValidDupExec	= "ValidDupExec";
+static	wchar_t	*sSectionValidDupExec = L"ValidDupExec";
 // 最近使ったフォルダの数
-static	char	*sSectionRecentFolderNum	= "RecentFolderNum";
+static	wchar_t	*sSectionRecentFolderNum = L"RecentFolderNum";
 // 検索・置換ダイアログの位置を記憶する
-static	char	*sSectionSaveRepDlgPos	= "SaveRepDlgPos";
-static	char	*sSectionSaveRepDlgPosX	= "SaveRepDlgPosX";
-static	char	*sSectionSaveRepDlgPosY	= "SaveRepDlgPosY";
+static	wchar_t	*sSectionSaveRepDlgPos = L"SaveRepDlgPos";
+static	wchar_t	*sSectionSaveRepDlgPosX = L"SaveRepDlgPosX";
+static	wchar_t	*sSectionSaveRepDlgPosY = L"SaveRepDlgPosY";
 // 下方向に連番を追加ダイアログの設定 /* Baja 159 */
-static	char	*sSectionAddNumberWidth = "AddNumberWidth";
-static	char	*sSectionAddNumberPos	= "AddNumberPos";
-static	char	*sSectionAddNumberSep	= "AddNumberSep";
-static	char	*sSectionAddNumberBef	= "AddNumberBef"; /* Conspiracy 194 */
-static	char	*sSectionAddNumberAft	= "AddNumberAft"; /* Conspiracy 194 */
+static	wchar_t	*sSectionAddNumberWidth = L"AddNumberWidth";
+static	wchar_t	*sSectionAddNumberPos = L"AddNumberPos";
+static	wchar_t	*sSectionAddNumberSep = L"AddNumberSep";
+static	wchar_t	*sSectionAddNumberBef = L"AddNumberBef"; /* Conspiracy 194 */
+static	wchar_t	*sSectionAddNumberAft = L"AddNumberAft"; /* Conspiracy 194 */
 // Audio Listに表示されるフォルダ名などの分類をセルサイズを無視して(実際は隣３セル分まで)表示する
-static	char	*sSectionAudioListShow	= "AudioListShow"; /* Conspiracy 199 */
+static	wchar_t	*sSectionAudioListShow = L"AudioListShow"; /* Conspiracy 199 */
 
 // フォント設定
-static	char	*sSectionFont			= "Font";
-static	char	*sKeyFontFace			= "Face";
-static	char	*sKeyFontHeight			= "Height";
-static	char	*sKeyFontWidth			= "Width";
-static	char	*sKeyFontEscapement		= "Escapement";
-static	char	*sKeyFontOrientation	= "Orientation";
-static	char	*sKeyFontWeight			= "Weight";
-static	char	*sKeyFontItalic			= "Italic";
-static	char	*sKeyFontUnderline		= "Underline";
-static	char	*sKeyFontStrikeOut		= "StrikeOut";
-static	char	*sKeyFontCharSet		= "CharSet";
-static	char	*sKeyFontOutPrecision	= "OutPrecision";
-static	char	*sKeyFontClipPrecision	= "ClipPrecision";
-static	char	*sKeyFontQuality		= "Quality";
-static	char	*sKeyFontPitchAndFamily	= "PitchAndFamily";
+static	wchar_t	*sSectionFont = L"Font";
+static	wchar_t	*sKeyFontFace = L"Face";
+static	wchar_t	*sKeyFontHeight = L"Height";
+static	wchar_t	*sKeyFontWidth = L"Width";
+static	wchar_t	*sKeyFontEscapement = L"Escapement";
+static	wchar_t	*sKeyFontOrientation = L"Orientation";
+static	wchar_t	*sKeyFontWeight = L"Weight";
+static	wchar_t	*sKeyFontItalic = L"Italic";
+static	wchar_t	*sKeyFontUnderline = L"Underline";
+static	wchar_t	*sKeyFontStrikeOut = L"StrikeOut";
+static	wchar_t	*sKeyFontCharSet = L"wchar_tSet";
+static	wchar_t	*sKeyFontOutPrecision = L"OutPrecision";
+static	wchar_t	*sKeyFontClipPrecision = L"ClipPrecision";
+static	wchar_t	*sKeyFontQuality = L"Quality";
+static	wchar_t	*sKeyFontPitchAndFamily = L"PitchAndFamily";
 
 // リスト出力書式
-static	char	*sSectionWriteFormat	= "WriteFormat";
-static	char	*sKeyWriteFormName		= "Name";
-static	char	*sKeyWriteFileName		= "FileName";
-static	char	*sKeyWriteExtName		= "ExtName";
-static	char	*sKeyWriteSelected		= "WriteSelected";
-static	char	*sKeyWriteCurrentFile	= "CurrentFile";
-static	char	*sKeyWriteIsHtml		= "IsHtml";
-static	char	*sKeyWriteHtml			= "WriteHtml"; /* BeachMonster5 120 */
+static	wchar_t	*sSectionWriteFormat = L"WriteFormat";
+static	wchar_t	*sKeyWriteFormName = L"Name";
+static	wchar_t	*sKeyWriteFileName = L"FileName";
+static	wchar_t	*sKeyWriteExtName = L"ExtName";
+static	wchar_t	*sKeyWriteSelected = L"WriteSelected";
+static	wchar_t	*sKeyWriteCurrentFile = L"CurrentFile";
+static	wchar_t	*sKeyWriteIsHtml = L"IsHtm";
+static	wchar_t	*sKeyWriteHtml = L"WriteHtm"; /* BeachMonster5 120 */
 
-static	char	*sSectionRepFileName	= "RepFileName";
-static	char	*sKeyRepCharAfter		= "RepCharAfter";
-static	char	*sKeyRepCharBefore		= "RepCharBefore";	/* FreeFall 050 */
+static	wchar_t	*sSectionRepFileName = L"RepFileName";
+static	wchar_t	*sKeyRepCharAfter = L"Repwchar_tAfter";
+static	wchar_t	*sKeyRepCharBefore = L"Repwchar_tBefore";	/* FreeFall 050 */
 
-static	char	*sSectionSort		= "Sort";
-static	char	*sKeySortColumn		= "Column";
-static	char	*sKeySortType		= "Type";
+static	wchar_t	*sSectionSort = L"Sort";
+static	wchar_t	*sKeySortColumn = L"Column";
+static	wchar_t	*sKeySortType = L"Type";
 
-static	char	*sSectionClass		= "Class";
-static	char	*sKeyClassType		= "Type";
-static	char	*sKeyClassColumn	= "Column";
+static	wchar_t	*sSectionClass = L"Class";
+static	wchar_t	*sKeyClassType = L"Type";
+static	wchar_t	*sKeyClassColumn = L"Column";
 
-static	char	*sSectionWindow		= "Window";
-static	char	*sKeyWinZoomed		= "Zoomed";
-static	char	*sKeyWinIconic		= "Iconic";
-static	char	*sKeyMainWindow		= "MainWindow";
-static	char	*sKeySplitSize		= "SplitSize";
+static	wchar_t	*sSectionWindow = L"Window";
+static	wchar_t	*sKeyWinZoomed = L"Zoomed";
+static	wchar_t	*sKeyWinIconic = L"Iconic";
+static	wchar_t	*sKeyMainWindow = L"MainWindow";
+static	wchar_t	*sKeySplitSize = L"SplitSize";
 
-static	char	*sSectionKeyConfig	= "KeyConfig";
+static	wchar_t	*sSectionKeyConfig = L"KeyConfig";
 
-static	char	*sSectionGenreList	= "GenreList";
-static	char	*sSectionUserGenreList	= "UserGenreList";
-static	char	*sKeyUserGenreAddList	= "AddList";
-static	char	*sKeyUserGenreNo	= "No";
-static	char	*sKeyUserGenreName	= "Name";
+static	wchar_t	*sSectionGenreList = L"GenreList";
+static	wchar_t	*sSectionUserGenreList = L"UserGenreList";
+static	wchar_t	*sKeyUserGenreAddList = L"AddList";
+static	wchar_t	*sKeyUserGenreNo = L"No";
+static	wchar_t	*sKeyUserGenreName = L"Name";
 
 // 文字種統一 /* StartInaction 054 */
-static	char	*sKeyUnifyAlpha	= "UnifyAlpha";
-static	char	*sKeyUnifyHiraKata	= "UnifyHiraKata";
-static	char	*sKeyUnifyKata	= "UnifyKata";
-static	char	*sKeyUnifyKigou	= "UnifyKigou";
-static	char	*sKeyUnifySuji	= "UnifySuji";
-static	char	*sKeyUnifyUpLow	= "UnifyUpLow";
-static	char	*sKeyUnifyFixedUpLow	= "UnifyFixedUpLow"; /* STEP 040 */
+static	wchar_t	*sKeyUnifyAlpha = L"UnifyAlpha";
+static	wchar_t	*sKeyUnifyHiraKata = L"UnifyHiraKata";
+static	wchar_t	*sKeyUnifyKata = L"UnifyKata";
+static	wchar_t	*sKeyUnifyKigou = L"UnifyKigou";
+static	wchar_t	*sKeyUnifySuji = L"UnifySuji";
+static	wchar_t	*sKeyUnifyUpLow = L"UnifyUpLow";
+static	wchar_t	*sKeyUnifyFixedUpLow = L"UnifyFixedUpLow"; /* STEP 040 */
 
 // 拡張子統一 /* STE 007 */
-static	char	*sKeyFileExtChange = "FileExtChange";
+static	wchar_t	*sKeyFileExtChange = L"FileExtChange";
 
 // ファイル名文字種統一 /* LastTrain 058 */
-static	char	*sKeyFileUnifyAlpha	= "FileUnifyAlpha";
-static	char	*sKeyFileUnifyHiraKata	= "FileUnifyHiraKata";
-static	char	*sKeyFileUnifyKata	= "FileUnifyKata";
-static	char	*sKeyFileUnifyKigou	= "FileUnifyKigou";
-static	char	*sKeyFileUnifySuji	= "FileUnifySuji";
-static	char	*sKeyFileUnifyUpLow	= "FileUnifyUpLow";
+static	wchar_t	*sKeyFileUnifyAlpha = L"FileUnifyAlpha";
+static	wchar_t	*sKeyFileUnifyHiraKata = L"FileUnifyHiraKata";
+static	wchar_t	*sKeyFileUnifyKata = L"FileUnifyKata";
+static	wchar_t	*sKeyFileUnifyKigou = L"FileUnifyKigou";
+static	wchar_t	*sKeyFileUnifySuji = L"FileUnifySuji";
+static	wchar_t	*sKeyFileUnifyUpLow = L"FileUnifyUpLow";
 
 // プレイリスト入力設定ダイアログを表示する /* RockDance 126 */
-static	char	*sKeyShowLoadPlaylistDlg = "ShowLoadPlaylistDlg";
+static	wchar_t	*sKeyShowLoadPlaylistDlg = L"ShowLoadPlaylistDlg";
 
 // お気に入りのフォルダ /* RockDance 129 */
-static	char	*sSectionFavorites			= "Favorites";
+static	wchar_t	*sSectionFavorites = L"Favorites";
 
-static	char	*sKeyFirstUpperIgnoreWord = "FistUpperIgnoreWord";
-static	char	*sKeyFirstUpperIgnoreWords = "FistUpperIgnoreWords";
-static	char	*sKeyFirstUpperSentenceSeparator = "FistUpperSentenceSeparator";
-static	char	*sKeyUserConvAddMenu = "UserConvAddMenu";
-static	char	*sKeyZenHanKigouKana = "ZenHanKigouKana";
+static	wchar_t	*sKeyFirstUpperIgnoreWord = L"FistUpperIgnoreWord";
+static	wchar_t	*sKeyFirstUpperIgnoreWords = L"FistUpperIgnoreWords";
+static	wchar_t	*sKeyFirstUpperSentenceSeparator = L"FistUpperSentenceSeparator";
+static	wchar_t	*sKeyUserConvAddMenu = L"UserConvAddMenu";
+static	wchar_t	*sKeyZenHanKigouKana = L"ZenHanKigouKana";
 
-void CSuperTagEditorApp::ReadWindowStatus(char *sKey, RECT *rect)
+void CSuperTagEditorApp::ReadWindowStatus(wchar_t *sKey, RECT *rect)
 {
-	static	char	*sDefault = "0 0 0 0";
+	static	wchar_t	*sDefault = L"0 0 0 0";
 	CString	str;
-	LPCSTR	sBuffer;
+	LPCWSTR	sBuffer;
 	CString strINI = m_pszProfileName;
 	//Profile_Initialize(strINI, TRUE);
 	str = MyGetProfileString(sSectionWindow, sKey, sDefault);
-	sBuffer = (LPCSTR)str;
-	sscanf(sBuffer, "%d %d %d %d", &rect->left,
-								   &rect->top,
-								   &rect->right,
-								   &rect->bottom);
+	sBuffer = (LPCWSTR)str;
+	swscanf(sBuffer, L"%d %d %d %d", &rect->left,
+		&rect->top,
+		&rect->right,
+		&rect->bottom);
 	//Profile_Free();
 }
 
-void CSuperTagEditorApp::WriteWindowStatus(char *sKey, RECT *rect)
+void CSuperTagEditorApp::WriteWindowStatus(wchar_t *sKey, RECT *rect)
 {
 	CString	str;
-	str.Format("%d %d %d %d", rect->left,
-							  rect->top,
-							  rect->right,
-							  rect->bottom);
+	str.Format(L"%d %d %d %d", rect->left,
+		rect->top,
+		rect->right,
+		rect->bottom);
 	CString strINI = m_pszProfileName;
 	//Profile_Initialize(strINI, TRUE);
 	MyWriteProfileString(sSectionWindow, sKey, str);
@@ -1077,106 +1074,106 @@ void CSuperTagEditorApp::ReadRegistry(void)
 
 	// 各種設定を読み込む
 	CString	strVersion;
-	strVersion = MyGetProfileString(sSectionOption, sKeyVersion, "");
-	g_bIsVersionUp = strcmp(strVersion, PROG_VERSION) ? true : false;
+	strVersion = MyGetProfileString(sSectionOption, sKeyVersion, L"");
+	g_bIsVersionUp = wcscmp(strVersion, PROG_VERSION) ? true : false;
 
-	g_strCurrentDirectory	= MyGetProfileString(sSectionOption, sKeyCurrentDir, "");
-	g_strCurrentPlayList	= MyGetProfileString(sSectionOption, sKeyCurrentPlayList, "*.m3u");
+	g_strCurrentDirectory = MyGetProfileString(sSectionOption, sKeyCurrentDir, L"");
+	g_strCurrentPlayList = MyGetProfileString(sSectionOption, sKeyCurrentPlayList, L"*.m3u");
 
 	// 一般 - ユーザーインターフェース
-	g_bOptESCEditCancel			= MyGetProfileInt(sSectionOption, sKeyESCEditCancel, 0) ? true : false;
-	g_bOptEnableEditCursorExit	= MyGetProfileInt(sSectionOption, sKeyEnableEditCursorExit, 1) ? true : false;
-	g_bOptEditOkDown		= MyGetProfileInt(sSectionOption, sKeyEditOkDown, 1) ? true : false;
-	g_bOptEnterBeginEdit	= MyGetProfileInt(sSectionOption, sKeyEnterBeginEdit, 0) ? true : false;
+	g_bOptESCEditCancel = MyGetProfileInt(sSectionOption, sKeyESCEditCancel, 0) ? true : false;
+	g_bOptEnableEditCursorExit = MyGetProfileInt(sSectionOption, sKeyEnableEditCursorExit, 1) ? true : false;
+	g_bOptEditOkDown = MyGetProfileInt(sSectionOption, sKeyEditOkDown, 1) ? true : false;
+	g_bOptEnterBeginEdit = MyGetProfileInt(sSectionOption, sKeyEnterBeginEdit, 0) ? true : false;
 
 	// 一般 - 動作設定
-	g_bOptKeepTimeStamp		= MyGetProfileInt(sSectionOption, sKeyKeepTimeStamp, 0) ? true : false;
-	g_bOptSyncCreateTime	= MyGetProfileInt(sSectionOption, sKeySyncCreateTime, 0) ? true : false;
-	g_bOptChangeFileExt		= MyGetProfileInt(sSectionOption, sKeyChangeFileExt, 0) ? true : false;
-	g_bOptAutoOpenFolder	= MyGetProfileInt(sSectionOption, sKeyAutoOpenFolder, 0) ? true : false;
-	g_bOptLoadFileAdjustColumn	= MyGetProfileInt(sSectionOption, sKeyLoadFileAdjustColumn, 1) ? true : false;
-	g_bOptLoadFileChecked	= MyGetProfileInt(sSectionOption, sKeyLoadFileChecked, 1) ? true : false;
-	g_bOptHideMP3ListFile	= MyGetProfileInt(sSectionOption, sKeyHideMP3ListFile, 0) ? true : false;
+	g_bOptKeepTimeStamp = MyGetProfileInt(sSectionOption, sKeyKeepTimeStamp, 0) ? true : false;
+	g_bOptSyncCreateTime = MyGetProfileInt(sSectionOption, sKeySyncCreateTime, 0) ? true : false;
+	g_bOptChangeFileExt = MyGetProfileInt(sSectionOption, sKeyChangeFileExt, 0) ? true : false;
+	g_bOptAutoOpenFolder = MyGetProfileInt(sSectionOption, sKeyAutoOpenFolder, 0) ? true : false;
+	g_bOptLoadFileAdjustColumn = MyGetProfileInt(sSectionOption, sKeyLoadFileAdjustColumn, 1) ? true : false;
+	g_bOptLoadFileChecked = MyGetProfileInt(sSectionOption, sKeyLoadFileChecked, 1) ? true : false;
+	g_bOptHideMP3ListFile = MyGetProfileInt(sSectionOption, sKeyHideMP3ListFile, 0) ? true : false;
 
 	// 一般 - 歌詞ファイル
-	g_bOptChangeTextFile		= MyGetProfileInt(sSectionOption, sKeyChangeTextFile, 1) ? true : false;
-	g_bOptSetLyricsDir			= MyGetProfileInt(sSectionOption, sKeySetLyricsDir, 0) ? true : false;
-	g_bOptSearchLyricsSubDir	= MyGetProfileInt(sSectionOption, sKeySearchLyricsSubDir, 0) ? true : false;
-	g_strOptLyricsPath			= MyGetProfileString(sSectionOption, sKeyLyricsPath, "");
+	g_bOptChangeTextFile = MyGetProfileInt(sSectionOption, sKeyChangeTextFile, 1) ? true : false;
+	g_bOptSetLyricsDir = MyGetProfileInt(sSectionOption, sKeySetLyricsDir, 0) ? true : false;
+	g_bOptSearchLyricsSubDir = MyGetProfileInt(sSectionOption, sKeySearchLyricsSubDir, 0) ? true : false;
+	g_strOptLyricsPath = MyGetProfileString(sSectionOption, sKeyLyricsPath, L"");
 
-	// 
-	g_bOptEditFieldSIF		= MyGetProfileInt(sSectionOption, sKeyEditFiledSIF, 1) ? true : false;
-	g_nOptCheckFileName		= MyGetProfileInt(sSectionOption, sKeyCheckFileName, FILENAME_CONV_MULTIBYTE);
-	g_bEnableSearchSubDir	= MyGetProfileInt(sSectionOption, sKeyEnableSearchSubDir, 1) ? true : false;
+	//
+	g_bOptEditFieldSIF = MyGetProfileInt(sSectionOption, sKeyEditFiledSIF, 1) ? true : false;
+	g_nOptCheckFileName = MyGetProfileInt(sSectionOption, sKeyCheckFileName, FILENAME_CONV_MULTIBYTE);
+	g_bEnableSearchSubDir = MyGetProfileInt(sSectionOption, sKeyEnableSearchSubDir, 1) ? true : false;
 
 	// フォルダの同期
-	g_bEnableFolderSync		= MyGetProfileInt(sSectionFolderSync, sKeyEnableFolderSync, 0) ? true : false;
-	g_strRootFolder			= MyGetProfileString(sSectionFolderSync, sKeySyncRootFolder, "");
-	g_bSyncSelectAlways		= MyGetProfileInt(sSectionFolderSync, sKeySyncSelectAlways, 0) ? true : false;
-	g_bSyncDeleteFolder		= MyGetProfileInt(sSectionFolderSync, sKeySyncDeleteFolder, 1) ? true : false;
-	g_bSyncLyricsFileMove	= MyGetProfileInt(sSectionFolderSync, sKeySyncLyricsFileMove, 1) ? true : false;
+	g_bEnableFolderSync = MyGetProfileInt(sSectionFolderSync, sKeyEnableFolderSync, 0) ? true : false;
+	g_strRootFolder = MyGetProfileString(sSectionFolderSync, sKeySyncRootFolder, L"");
+	g_bSyncSelectAlways = MyGetProfileInt(sSectionFolderSync, sKeySyncSelectAlways, 0) ? true : false;
+	g_bSyncDeleteFolder = MyGetProfileInt(sSectionFolderSync, sKeySyncDeleteFolder, 1) ? true : false;
+	g_bSyncLyricsFileMove = MyGetProfileInt(sSectionFolderSync, sKeySyncLyricsFileMove, 1) ? true : false;
 
 	// 確認メッセージ表示
-	g_bConfDeleteFile	= MyGetProfileInt(sSectionConfMessage, sKeyConfDeleteFile, 1) ? true : false;
-	g_bConfDeleteList	= MyGetProfileInt(sSectionConfMessage, sKeyConfDeleteList, 1) ? true : false;
-	g_bConfEditModify	= MyGetProfileInt(sSectionConfMessage, sKeyConfEditModify, 1) ? true : false;
-	g_bConfFolderSync	= MyGetProfileInt(sSectionConfMessage, sKeyConfFolderSync, 1) ? true : false;
+	g_bConfDeleteFile = MyGetProfileInt(sSectionConfMessage, sKeyConfDeleteFile, 1) ? true : false;
+	g_bConfDeleteList = MyGetProfileInt(sSectionConfMessage, sKeyConfDeleteList, 1) ? true : false;
+	g_bConfEditModify = MyGetProfileInt(sSectionConfMessage, sKeyConfEditModify, 1) ? true : false;
+	g_bConfFolderSync = MyGetProfileInt(sSectionConfMessage, sKeyConfFolderSync, 1) ? true : false;
 
 	// プレイリスト
-	g_bPlayListClearList	= MyGetProfileInt(sSectionLoadPlayList, sKeyClearList, 0) ? true : false;
-	g_bPlayListClearCheck	= MyGetProfileInt(sSectionLoadPlayList, sKeyClearCheck, 1) ? true : false;
-	g_bPlayListAddList		= MyGetProfileInt(sSectionLoadPlayList, sKeyAddList, 0) ? true : false;
-	g_bPlayListFileCheck	= MyGetProfileInt(sSectionLoadPlayList, sKeyFileCheck, 1) ? true : false;
+	g_bPlayListClearList = MyGetProfileInt(sSectionLoadPlayList, sKeyClearList, 0) ? true : false;
+	g_bPlayListClearCheck = MyGetProfileInt(sSectionLoadPlayList, sKeyClearCheck, 1) ? true : false;
+	g_bPlayListAddList = MyGetProfileInt(sSectionLoadPlayList, sKeyAddList, 0) ? true : false;
+	g_bPlayListFileCheck = MyGetProfileInt(sSectionLoadPlayList, sKeyFileCheck, 1) ? true : false;
 
 	// 条件チェックの状態
 	for (i = 0; i < CHECK_STATE_MAX; i++) {
 		CHECK_WORD_STATE	*pState = &g_chkWord[i];
-		char	*sSectionName = sSectionCheckWord[i];
-		pState->strSearchWord	= MyGetProfileString(sSectionName, sKeySearchWord, "");
-		pState->strReplaceWord	= MyGetProfileString(sSectionName, sKeyReplaceWord, "");
-		pState->nTargetColumn	= MyGetProfileInt(sSectionName, sKeyTargetColumn, -1);
-		pState->bCheckDiffUL	= MyGetProfileInt(sSectionName, sKeyCheckDiffUL, 0) ? true : false;
-		pState->bRegExp			= MyGetProfileInt(sSectionName, sKeyRegExp, 0) ? true : false;
-		pState->bRangeSelected	= MyGetProfileInt(sSectionName, sKeyRangeSelected, 0) ? true : false;
-		pState->bMatchComplete	= MyGetProfileInt(sSectionName, sKeyMatchComplete, 0) ? true : false;
-		pState->bMatchSelected	= MyGetProfileInt(sSectionName, sKeyMatchSelected, 0) ? true : false;
+		wchar_t 	*sSectionName = sSectionCheckWord[i];
+		pState->strSearchWord = MyGetProfileString(sSectionName, sKeySearchWord, L"");
+		pState->strReplaceWord = MyGetProfileString(sSectionName, sKeyReplaceWord, L"");
+		pState->nTargetColumn = MyGetProfileInt(sSectionName, sKeyTargetColumn, -1);
+		pState->bCheckDiffUL = MyGetProfileInt(sSectionName, sKeyCheckDiffUL, 0) ? true : false;
+		pState->bRegExp = MyGetProfileInt(sSectionName, sKeyRegExp, 0) ? true : false;
+		pState->bRangeSelected = MyGetProfileInt(sSectionName, sKeyRangeSelected, 0) ? true : false;
+		pState->bMatchComplete = MyGetProfileInt(sSectionName, sKeyMatchComplete, 0) ? true : false;
+		pState->bMatchSelected = MyGetProfileInt(sSectionName, sKeyMatchSelected, 0) ? true : false;
 	}
 
 	// ユーザー変換書式
-	const char *sDefFormatTag2File = "%ARTIST_NAME%-%ALBUM_NAME%-%TRACK_NAME%";
-	const char *sDefFormatFile2Tag = sDefFormatTag2File;
+	const wchar_t *sDefFormatTag2File = L"%ARTIST_NAME%-%ALBUM_NAME%-%TRACK_NAME%";
+	const wchar_t *sDefFormatFile2Tag = sDefFormatTag2File;
 	//g_nUserConvFormatType	= MyGetProfileInt(sSectionUserConvFormat, sKeyConvFormatType, 0);
 	{ /* 数を増やしたので本家併用時に影響を与えないように LastTrain 057 */
 		CString		strSectionName;
-		strSectionName = "haseta\\";
+		strSectionName = L"haseta\\";
 		strSectionName += sSectionUserConvFormat;
-		g_nUserConvFormatType	= MyGetProfileInt(strSectionName, sKeyConvFormatType, 0);
+		g_nUserConvFormatType = MyGetProfileInt(strSectionName, sKeyConvFormatType, 0);
 	}
 	for (i = 0; i < USER_CONV_FORMAT_MAX; i++) {
 		CString		strKeyName;
 		// 名称
-		strKeyName.Format("%s%d", sKeyUserFormName, i);
-		g_userConvFormat[i].strName = MyGetProfileString(sSectionUserConvFormat, strKeyName, "名称未設定");
+		strKeyName.Format(L"%s%d", sKeyUserFormName, i);
+		g_userConvFormat[i].strName = MyGetProfileString(sSectionUserConvFormat, strKeyName, L"名称未設定");
 		// タグ情報 => ファイル名
-		strKeyName.Format("%s%d", sKeyUserFormTag2File, i);
+		strKeyName.Format(L"%s%d", sKeyUserFormTag2File, i);
 		g_userConvFormat[i].strTag2File = MyGetProfileString(sSectionUserConvFormat, strKeyName, sDefFormatTag2File);
 		// ファイル名 => タグ情報
-		strKeyName.Format("%s%d", sKeyUserFormFile2Tag, i);
+		strKeyName.Format(L"%s%d", sKeyUserFormFile2Tag, i);
 		g_userConvFormat[i].strFile2Tag = MyGetProfileString(sSectionUserConvFormat, strKeyName, sDefFormatFile2Tag);
 		// ２つ目以降はデフォルト文字列はクリア
-		sDefFormatTag2File = sDefFormatFile2Tag = "";
+		sDefFormatTag2File = sDefFormatFile2Tag = L"";
 	}
 
 	// 拡張版ユーザー変換書式
 	for (i = 0; i < USER_CONV_FORMAT_EX_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("%s%d", sSectionConvFormatEx, i);
+		strSectionName.Format(L"%s%d", sSectionConvFormatEx, i);
 		// 名称
-		g_userConvFormatEx[i].strName = MyGetProfileString(strSectionName, sKeyUserFormName, "名称未設定");
+		g_userConvFormatEx[i].strName = MyGetProfileString(strSectionName, sKeyUserFormName, L"名称未設定");
 		// 書式
-		g_userConvFormatEx[i].strFormat = MyGetProfileString(strSectionName, sKeyUserFormat, "");
+		g_userConvFormatEx[i].strFormat = MyGetProfileString(strSectionName, sKeyUserFormat, L"");
 		// 固定文字列
-		g_userConvFormatEx[i].strFixString = MyGetProfileString(strSectionName, sKeyUserFixString, "");
+		g_userConvFormatEx[i].strFixString = MyGetProfileString(strSectionName, sKeyUserFixString, L"");
 		// 連番：初期値
 		g_userConvFormatEx[i].nInitNumber = MyGetProfileInt(strSectionName, sKeyUserInitNumber, 1);
 		// 連番：加算値
@@ -1190,114 +1187,114 @@ void CSuperTagEditorApp::ReadRegistry(void)
 	// 移動先フォルダ書式
 	for (i = 0; i < USER_MOVE_FODLER_FORMAT_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("haseta\\%s%d", sSectionMoveFolder, i);
+		strSectionName.Format(L"haseta\\%s%d", sSectionMoveFolder, i);
 		// 名称
-		g_userMoveFolder[i].strName = MyGetProfileString(strSectionName, sKeyUserFormName, "名称未設定");
+		g_userMoveFolder[i].strName = MyGetProfileString(strSectionName, sKeyUserFormName, L"名称未設定");
 		// 書式
-		g_userMoveFolder[i].strFormat = MyGetProfileString(strSectionName, sKeyMoveFolderFormat, "");
+		g_userMoveFolder[i].strFormat = MyGetProfileString(strSectionName, sKeyMoveFolderFormat, L"");
 		// 固定文字列
-		g_userMoveFolder[i].strFixString = MyGetProfileString(strSectionName, sKeyMoveFolderFixString, "");
+		g_userMoveFolder[i].strFixString = MyGetProfileString(strSectionName, sKeyMoveFolderFixString, L"");
 		// コピー
 		g_userMoveFolder[i].bCopy = MyGetProfileInt(strSectionName, sKeyMoveFolderCopy, 0) ? true : false;
 		// 初期フォルダ
-		g_userMoveFolder[i].strInitFolder = MyGetProfileString(strSectionName, sKeyMoveFolderInitFolder, ""); /* STEP 022 */
+		g_userMoveFolder[i].strInitFolder = MyGetProfileString(strSectionName, sKeyMoveFolderInitFolder, L""); /* STEP 022 */
 	}
 
 	// 書式コピー /* FunnyCorn 175 */
 	for (i = 0; i < USER_COPY_FORMAT_FORMAT_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("haseta\\%s%d", sSectionCopyFormat, i);
+		strSectionName.Format(L"haseta\\%s%d", sSectionCopyFormat, i);
 		// 名称
-		g_userCopyFormat[i].strName = MyGetProfileString(strSectionName, sKeyUserFormName, "名称未設定");
+		g_userCopyFormat[i].strName = MyGetProfileString(strSectionName, sKeyUserFormName, L"名称未設定");
 		// 書式
-		g_userCopyFormat[i].strFormat = MyGetProfileString(strSectionName, sKeyCopyFormatFormat, "");
+		g_userCopyFormat[i].strFormat = MyGetProfileString(strSectionName, sKeyCopyFormatFormat, L"");
 		// 固定文字列
-		g_userCopyFormat[i].strFixString = MyGetProfileString(strSectionName, sKeyCopyFormatFixString, "");
+		g_userCopyFormat[i].strFixString = MyGetProfileString(strSectionName, sKeyCopyFormatFixString, L"");
 	}
 
 	// タグ情報変換 /* STEP 034 */
 	for (i = 0; i < USER_CONV_FORMAT_TAG2TAG_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("haseta\\%s%d", sSectionConvFormatTag2Tag, i);
+		strSectionName.Format(L"haseta\\%s%d", sSectionConvFormatTag2Tag, i);
 		// 名称
-		g_userConvFormatTag2Tag[i].strName = MyGetProfileString(strSectionName, sKeyUserTag2TagFormName, "名称未設定");
+		g_userConvFormatTag2Tag[i].strName = MyGetProfileString(strSectionName, sKeyUserTag2TagFormName, L"名称未設定");
 		// 書式
-		g_userConvFormatTag2Tag[i].strFormat = MyGetProfileString(strSectionName, sKeyUserTagTagFormat, "");
+		g_userConvFormatTag2Tag[i].strFormat = MyGetProfileString(strSectionName, sKeyUserTagTagFormat, L"");
 	}
 
 	{
 		CString		sSectionOption;
-		sSectionOption = "haseta";
+		sSectionOption = L"haseta";
 		//g_bOptID3v2GenreAddNumber	= MyGetProfileInt(sSectionOption, sKeyID3v2GenreAddNumber, 1) ? true : false;
-		g_bConfFileNameMaxCheck	= MyGetProfileInt(sSectionOption, sKeyFileNameMaxCheck, 0) ? true : false;
-		g_bFileNameMaxCellColor	= MyGetProfileInt(sSectionOption, sKeyFileNameMaxCellColor, 0) ? true : false; /* SeaKnows 036 */
-		g_nConfFileNameMaxChar	= MyGetProfileInt(sSectionOption, sKeyFileNameMaxChar, 255);
-		g_bOptDropSearchSubFolder	= MyGetProfileInt(sSectionOption, sKeyDropSearchSubFolder, 0) ? true : false;	/* TyphoonSwell 026 */
-		g_bOptShowZenSpace	= MyGetProfileInt(sSectionOption, sKeyShowZenSpace, 1) ? true : false;	/* BeachMonster 107 */
-		g_sOptShowOtherChar = MyGetProfileString(sSectionOption, sKeyShowOtherChar, "");
-		g_bOptSortIgnoreCase	= MyGetProfileInt(sSectionOption, sKeySortIgnoreCase, 0) ? true : false;	/* BeachMonster4 114 */
-		g_bOptSortIgnoreZenHan	= MyGetProfileInt(sSectionOption, sKeySortIgnoreZenHan, 0) ? true : false;	/* BeachMonster4 114 */
-		g_bOptSortIgnoreKataHira= MyGetProfileInt(sSectionOption, sKeySortIgnoreKataHira, 0) ? true : false;	/* FunnyCorn 179 */
-		g_bOptShowTotalParent	= MyGetProfileInt(sSectionOption, sKeyShowTotalParent, 0) ? true : false;	/* RockDance 128 */
-		g_bOptShowTips	= MyGetProfileInt(sSectionOption, sKeyShowTips, 1) ? true : false;	/* Rumble 188 */
+		g_bConfFileNameMaxCheck = MyGetProfileInt(sSectionOption, sKeyFileNameMaxCheck, 0) ? true : false;
+		g_bFileNameMaxCellColor = MyGetProfileInt(sSectionOption, sKeyFileNameMaxCellColor, 0) ? true : false; /* SeaKnows 036 */
+		g_nConfFileNameMaxChar = MyGetProfileInt(sSectionOption, sKeyFileNameMaxChar, 255);
+		g_bOptDropSearchSubFolder = MyGetProfileInt(sSectionOption, sKeyDropSearchSubFolder, 0) ? true : false;	/* TyphoonSwell 026 */
+		g_bOptShowZenSpace = MyGetProfileInt(sSectionOption, sKeyShowZenSpace, 1) ? true : false;	/* BeachMonster 107 */
+		g_sOptShowOtherChar = MyGetProfileString(sSectionOption, sKeyShowOtherChar, L"");
+		g_bOptSortIgnoreCase = MyGetProfileInt(sSectionOption, sKeySortIgnoreCase, 0) ? true : false;	/* BeachMonster4 114 */
+		g_bOptSortIgnoreZenHan = MyGetProfileInt(sSectionOption, sKeySortIgnoreZenHan, 0) ? true : false;	/* BeachMonster4 114 */
+		g_bOptSortIgnoreKataHira = MyGetProfileInt(sSectionOption, sKeySortIgnoreKataHira, 0) ? true : false;	/* FunnyCorn 179 */
+		g_bOptShowTotalParent = MyGetProfileInt(sSectionOption, sKeyShowTotalParent, 0) ? true : false;	/* RockDance 128 */
+		g_bOptShowTips = MyGetProfileInt(sSectionOption, sKeyShowTips, 1) ? true : false;	/* Rumble 188 */
 	}
 	// 定型文貼り付け /* SeaKnows 030 *//* FreeFall 046 */
-	for (int k=0;k<3;k++) {
+	for (int k = 0; k < 3; k++) {
 		CString		sSectionOption;
 		CString		strSectionName;
-		sSectionOption = "haseta";
-		strSectionName.Format("%s%d", sSectionTeikeiGroupName, k);
-		g_strTeikeiGroupName[k] = MyGetProfileString(sSectionOption, strSectionName, "名称未設定");
+		sSectionOption = L"haseta";
+		strSectionName.Format(L"%s%d", sSectionTeikeiGroupName, k);
+		g_strTeikeiGroupName[k] = MyGetProfileString(sSectionOption, strSectionName, L"名称未設定");
 		for (i = 0; i < 10; i++) {
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikei, i);
+				strSectionName.Format(L"%s%d", sSectionTeikei, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikei, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikei, k, i);
 			}
-			g_teikeiInfo[i+k*10].strTeikei/* STEP 035 */ = MyGetProfileString(sSectionOption, strSectionName, "");
+			g_teikeiInfo[i + k * 10].strTeikei/* STEP 035 */ = MyGetProfileString(sSectionOption, strSectionName, L"");
 			/* STEP 035 */
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiPaste, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiPaste, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiPaste, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiPaste, k, i);
 			}
-			g_teikeiInfo[i+k*10].nTeikeiPaste = MyGetProfileInt(sSectionOption, strSectionName, 0);
+			g_teikeiInfo[i + k * 10].nTeikeiPaste = MyGetProfileInt(sSectionOption, strSectionName, 0);
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiAddSpace, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiAddSpace, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiAddSpace, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiAddSpace, k, i);
 			}
-			g_teikeiInfo[i+k*10].bAddSpace = MyGetProfileInt(sSectionOption, strSectionName, 0) ? true : false;
+			g_teikeiInfo[i + k * 10].bAddSpace = MyGetProfileInt(sSectionOption, strSectionName, 0) ? true : false;
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiAddChar, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiAddChar, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiAddChar, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiAddChar, k, i);
 			}
-			g_teikeiInfo[i+k*10].bAddChar = MyGetProfileInt(sSectionOption, strSectionName, 0) ? true : false;
+			g_teikeiInfo[i + k * 10].bAddChar = MyGetProfileInt(sSectionOption, strSectionName, 0) ? true : false;
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiFront, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiFront, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiFront, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiFront, k, i);
 			}
-			g_teikeiInfo[i+k*10].strFront = MyGetProfileString(sSectionOption, strSectionName, "");
+			g_teikeiInfo[i + k * 10].strFront = MyGetProfileString(sSectionOption, strSectionName, L"");
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiBack, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiBack, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiBack, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiBack, k, i);
 			}
-			g_teikeiInfo[i+k*10].strBack = MyGetProfileString(sSectionOption, strSectionName, "");
+			g_teikeiInfo[i + k * 10].strBack = MyGetProfileString(sSectionOption, strSectionName, L"");
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiShowDialog, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiShowDialog, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiShowDialog, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiShowDialog, k, i);
 			}
-			g_teikeiInfo[i+k*10].bShowDialog = MyGetProfileInt(sSectionOption, strSectionName, 1) ? true : false;
+			g_teikeiInfo[i + k * 10].bShowDialog = MyGetProfileInt(sSectionOption, strSectionName, 1) ? true : false;
 		}
 	}
 	// ソフトウェア他 /* SeaKnows 031 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		g_bValidFolderSelect = MyGetProfileInt(strSectionName, sSectionValidFolderSelect, 0) ? true : false;
 		g_bValidDupExec = MyGetProfileInt(strSectionName, sSectionValidDupExec, 0) ? true : false; /* FreeFall 045 */
 		g_nRecentFolder = MyGetProfileInt(strSectionName, sSectionRecentFolderNum, 5); /* MyWriteProfileInt 053 */
@@ -1306,30 +1303,30 @@ void CSuperTagEditorApp::ReadRegistry(void)
 		g_nSaveRepDlgPosY = MyGetProfileInt(strSectionName, sSectionSaveRepDlgPosY, -1); /* WildCherry4 086 */
 		g_nAddNumberWidth = MyGetProfileInt(strSectionName, sSectionAddNumberWidth, 2); /* Baja 159 */
 		g_nAddNumberPos = MyGetProfileInt(strSectionName, sSectionAddNumberPos, 0); /* Baja 159 */
-		g_strAddNumberSep = MyGetProfileString(strSectionName, sSectionAddNumberSep, ""); /* Baja 159 */
-		g_strAddNumberBef = MyGetProfileString(strSectionName, sSectionAddNumberBef, ""); /* Conspiracy 194 */
-		g_strAddNumberAft = MyGetProfileString(strSectionName, sSectionAddNumberAft, ""); /* Conspiracy 194 */
+		g_strAddNumberSep = MyGetProfileString(strSectionName, sSectionAddNumberSep, L""); /* Baja 159 */
+		g_strAddNumberBef = MyGetProfileString(strSectionName, sSectionAddNumberBef, L""); /* Conspiracy 194 */
+		g_strAddNumberAft = MyGetProfileString(strSectionName, sSectionAddNumberAft, L""); /* Conspiracy 194 */
 		g_bAudioListShow = MyGetProfileInt(strSectionName, sSectionAudioListShow, 0) ? true : false; /* Conspiracy 199 */
 	}
 
 	// リスト出力書式
 	for (i = 0; i < WRITE_FORMAT_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("%s%d", sSectionWriteFormat, i);
+		strSectionName.Format(L"%s%d", sSectionWriteFormat, i);
 		// 名称
-		g_writeFormat[i].strName = MyGetProfileString(strSectionName, sKeyWriteFormName, "名称未設定");
+		g_writeFormat[i].strName = MyGetProfileString(strSectionName, sKeyWriteFormName, L"名称未設定");
 		// 書式ファイル名
-		g_writeFormat[i].strFileName = MyGetProfileString(strSectionName, sKeyWriteFileName, "");
+		g_writeFormat[i].strFileName = MyGetProfileString(strSectionName, sKeyWriteFileName, L"");
 		// 拡張子
-		g_writeFormat[i].strExtName = MyGetProfileString(strSectionName, sKeyWriteExtName, ".txt");
+		g_writeFormat[i].strExtName = MyGetProfileString(strSectionName, sKeyWriteExtName, L".txt");
 		// 選択ファイルのみ出力
 		g_writeFormat[i].bWriteSelected = MyGetProfileInt(strSectionName, sKeyWriteSelected, 0) ? true : false;
 		// カレントファイル名
-		g_writeFormat[i].strCurrentFile = MyGetProfileString(strSectionName, sKeyWriteCurrentFile, "");
+		g_writeFormat[i].strCurrentFile = MyGetProfileString(strSectionName, sKeyWriteCurrentFile, L"");
 		// HTML ファイル出力用(空の場合に全角スペースを出力)
 		g_writeFormat[i].bIsHtml = MyGetProfileInt(strSectionName, sKeyWriteIsHtml, 0) ? true : false;
 		{ /* BeachMonster5 120 */
-			g_writeFormat[i].bWriteHtml = MyGetProfileInt("haseta\\" + strSectionName, sKeyWriteHtml, 0) ? true : false;
+			g_writeFormat[i].bWriteHtml = MyGetProfileInt(L"haseta\\" + strSectionName, sKeyWriteHtml, 0) ? true : false;
 		}
 	}
 
@@ -1338,23 +1335,23 @@ void CSuperTagEditorApp::ReadRegistry(void)
 		FILENAME_REPLACE	*pRep = &g_fileNameReplace[i];
 		CString		strKeyName;
 		// 置換後文字列
-		strKeyName.Format("%s%d", sKeyRepCharAfter, i);
+		strKeyName.Format(L"%s%d", sKeyRepCharAfter, i);
 		pRep->strBefore = g_sRepTable[i][0];
 		pRep->strAfter = MyGetProfileString(sSectionRepFileName, strKeyName, g_sRepTable[i][1]);
 	}
 	// ユーザファイル名置換文字 /* FreeFall 050 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta\\User";
+		strSectionName = L"haseta\\User";
 		strSectionName += sSectionRepFileName;
 		for (i = 0; i < USER_FILENAME_REPLACE_MAX; i++) {
 			FILENAME_REPLACE	*pRep = &g_userFileNameReplace[i];
 			CString		strKeyName;
 			// 置換後文字列
-			strKeyName.Format("%s%d", sKeyRepCharBefore, i);
-			pRep->strBefore = MyGetProfileString(strSectionName, strKeyName, "");
-			strKeyName.Format("%s%d", sKeyRepCharAfter, i);
-			pRep->strAfter = MyGetProfileString(strSectionName, strKeyName, "");
+			strKeyName.Format(L"%s%d", sKeyRepCharBefore, i);
+			pRep->strBefore = MyGetProfileString(strSectionName, strKeyName, L"");
+			strKeyName.Format(L"%s%d", sKeyRepCharAfter, i);
+			pRep->strAfter = MyGetProfileString(strSectionName, strKeyName, L"");
 		}
 	}
 
@@ -1363,7 +1360,7 @@ void CSuperTagEditorApp::ReadRegistry(void)
 	for (i = 0; i < CLASS_MAX; i++) {
 		CString		strKeyName;
 		// カラム番号
-		strKeyName.Format("%s%d", sKeyClassColumn, i);
+		strKeyName.Format(L"%s%d", sKeyClassColumn, i);
 		g_classInfo.nColumn[i] = MyGetProfileInt(sSectionClass, strKeyName, -1);
 	}
 
@@ -1372,47 +1369,47 @@ void CSuperTagEditorApp::ReadRegistry(void)
 		CString		strKeyName;
 		SORT_STATE	*state = &g_sortState[i];
 		// キー(カラム)
-		strKeyName.Format("%s%d", sKeySortColumn, i);
+		strKeyName.Format(L"%s%d", sKeySortColumn, i);
 		state->nKeyColumn = MyGetProfileInt(sSectionSort, strKeyName, -1);
 		// タイプ
-		strKeyName.Format("%s%d", sKeySortType, i);
+		strKeyName.Format(L"%s%d", sKeySortType, i);
 		state->nType = MyGetProfileInt(sSectionSort, strKeyName, 0);
 	}
 
 	// ウィンドウのフォントを読み込む
 	CString	strFont;
-	strFont = MyGetProfileString(sSectionFont, sKeyFontFace, "");
-	strcpy(g_fontReport.lfFaceName, (const char *)strFont);
-	g_fontReport.lfHeight			= MyGetProfileInt(sSectionFont, sKeyFontHeight, 0);
-	g_fontReport.lfWidth			= MyGetProfileInt(sSectionFont, sKeyFontWidth, 0);
-	g_fontReport.lfEscapement		= MyGetProfileInt(sSectionFont, sKeyFontEscapement, 0);
-	g_fontReport.lfOrientation		= MyGetProfileInt(sSectionFont, sKeyFontOrientation, 0);
-	g_fontReport.lfWeight			= MyGetProfileInt(sSectionFont, sKeyFontWeight, 0);
-	g_fontReport.lfItalic			= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontItalic, 0);
-	g_fontReport.lfUnderline		= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontUnderline, 0);
-	g_fontReport.lfStrikeOut		= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontStrikeOut, 0);
-	g_fontReport.lfCharSet			= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontCharSet, 0);
-	g_fontReport.lfOutPrecision		= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontOutPrecision, 0);
-	g_fontReport.lfClipPrecision	= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontClipPrecision, 0);
-	g_fontReport.lfQuality			= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontQuality, 0);
-	g_fontReport.lfPitchAndFamily	= (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontPitchAndFamily, 0);
+	strFont = MyGetProfileString(sSectionFont, sKeyFontFace, L"");
+	wcscpy(g_fontReport.lfFaceName, (const wchar_t *)strFont);
+	g_fontReport.lfHeight = MyGetProfileInt(sSectionFont, sKeyFontHeight, 0);
+	g_fontReport.lfWidth = MyGetProfileInt(sSectionFont, sKeyFontWidth, 0);
+	g_fontReport.lfEscapement = MyGetProfileInt(sSectionFont, sKeyFontEscapement, 0);
+	g_fontReport.lfOrientation = MyGetProfileInt(sSectionFont, sKeyFontOrientation, 0);
+	g_fontReport.lfWeight = MyGetProfileInt(sSectionFont, sKeyFontWeight, 0);
+	g_fontReport.lfItalic = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontItalic, 0);
+	g_fontReport.lfUnderline = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontUnderline, 0);
+	g_fontReport.lfStrikeOut = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontStrikeOut, 0);
+	g_fontReport.lfCharSet = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontCharSet, 0);
+	g_fontReport.lfOutPrecision = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontOutPrecision, 0);
+	g_fontReport.lfClipPrecision = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontClipPrecision, 0);
+	g_fontReport.lfQuality = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontQuality, 0);
+	g_fontReport.lfPitchAndFamily = (unsigned char)MyGetProfileInt(sSectionFont, sKeyFontPitchAndFamily, 0);
 
 	//g_nOptPlayerType		= MyGetProfileInt(sSectionOption, sKeyPlayerType, PLAYER_WINAMP);
-	//g_sOptWinAmpPath		= MyGetProfileString(sSectionOption, sKeyWinAmpPath, "");
+	//g_sOptWinAmpPath		= MyGetProfileString(sSectionOption, sKeyWinAmpPath, L"");
 	{ /* 数を増やしたので本家併用時に影響を与えないように WildCherry 070 */
 		CString		strSectionName;
-		strSectionName = "haseta\\";
+		strSectionName = L"haseta\\";
 		strSectionName += sSectionOption;
-		g_nOptPlayerType	= MyGetProfileInt(strSectionName, sKeyPlayerType, PLAYER_WINAMP);
-		g_sOptWinAmpPath		= MyGetProfileString(strSectionName, sKeyWinAmpPath, "");
+		g_nOptPlayerType = MyGetProfileInt(strSectionName, sKeyPlayerType, PLAYER_WINAMP);
+		g_sOptWinAmpPath = MyGetProfileString(strSectionName, sKeyWinAmpPath, L"");
 	}
 	if (g_sOptWinAmpPath.IsEmpty()) {
 		// WinAmp のパスを取得
 		GetWinampPath();
 	}
 
-	g_bMainFrameZoomed		= MyGetProfileInt(sSectionWindow, sKeyWinZoomed, FALSE);
-	g_bMainFrameIconic		= MyGetProfileInt(sSectionWindow, sKeyWinIconic, FALSE);
+	g_bMainFrameZoomed = MyGetProfileInt(sSectionWindow, sKeyWinZoomed, FALSE);
+	g_bMainFrameIconic = MyGetProfileInt(sSectionWindow, sKeyWinIconic, FALSE);
 	ReadWindowStatus(sKeyMainWindow, &g_rectMainWindow);
 
 	// ユーザ指定ジャンル
@@ -1423,7 +1420,7 @@ void CSuperTagEditorApp::ReadRegistry(void)
 	// 文字種の統一 /* StartInaction 054 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		g_nUnifyAlpha = MyGetProfileInt(strSectionName, sKeyUnifyAlpha, 0);
 		g_nUnifyHiraKata = MyGetProfileInt(strSectionName, sKeyUnifyHiraKata, 0);
 		g_nUnifyKata = MyGetProfileInt(strSectionName, sKeyUnifyKata, 0);
@@ -1436,7 +1433,7 @@ void CSuperTagEditorApp::ReadRegistry(void)
 	// ファイル名文字種の統一 /* LastTrain 058 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		g_nFileUnifyAlpha = MyGetProfileInt(strSectionName, sKeyFileUnifyAlpha, 0);
 		g_nFileUnifyHiraKata = MyGetProfileInt(strSectionName, sKeyFileUnifyHiraKata, 0);
 		g_nFileUnifyKata = MyGetProfileInt(strSectionName, sKeyFileUnifyKata, 0);
@@ -1448,14 +1445,14 @@ void CSuperTagEditorApp::ReadRegistry(void)
 	// 拡張子の統一 /* STEP 006 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		g_nFileExtChange = MyGetProfileInt(strSectionName, sKeyFileExtChange, 0);
 	}
 
 	// プレイリスト入力設定ダイアログを表示する /* RockDance 126 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		g_bShowLoadPlaylistDlg = MyGetProfileInt(strSectionName, sKeyShowLoadPlaylistDlg, 1) ? true : false;
 	}
 
@@ -1463,19 +1460,19 @@ void CSuperTagEditorApp::ReadRegistry(void)
 	{
 		CString		sSectionOption;
 		CString		strSectionName;
-		sSectionOption = "haseta";
+		sSectionOption = L"haseta";
 		for (i = 0; i < 10; i++) {
-			strSectionName.Format("%s%d", sSectionFavorites, i);
-			g_strFavorite[i] = MyGetProfileString(sSectionOption, strSectionName, "");
+			strSectionName.Format(L"%s%d", sSectionFavorites, i);
+			g_strFavorite[i] = MyGetProfileString(sSectionOption, strSectionName, L"");
 		}
 	}
 
 	{ /* STEP 026 */
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		g_bFirstUpperIgnoreWord = MyGetProfileInt(strSectionName, sKeyFirstUpperIgnoreWord, 0) ? true : false;
-		g_strFirstUpperIgnoreWords = MyGetProfileString(sSectionOption, sKeyFirstUpperIgnoreWords, "a,an,and,at,by,for,in,into,of,on,or,the,to,with");
-		g_strFirstUpperSentenceSeparator = MyGetProfileString(sSectionOption, sKeyFirstUpperSentenceSeparator, ".");
+		g_strFirstUpperIgnoreWords = MyGetProfileString(sSectionOption, sKeyFirstUpperIgnoreWords, L"a,an,and,at,by,for,in,into,of,on,or,the,to,with");
+		g_strFirstUpperSentenceSeparator = MyGetProfileString(sSectionOption, sKeyFirstUpperSentenceSeparator, L".");
 		g_bUserConvAddMenu = MyGetProfileInt(strSectionName, sKeyUserConvAddMenu, 0) ? true : false;
 		g_bZenHanKigouKana = MyGetProfileInt(strSectionName, sKeyZenHanKigouKana, 0) ? true : false;
 	}
@@ -1493,36 +1490,36 @@ void CSuperTagEditorApp::WriteRegistry(void)
 
 	// 各種設定を書き込む
 
-	MyWriteProfileString(sSectionOption, sKeyVersion        , CString(PROG_VERSION) + CString("M"));
-	MyWriteProfileString(sSectionOption, sKeyCurrentDir     , g_strCurrentDirectory);
+	MyWriteProfileString(sSectionOption, sKeyVersion, CString(PROG_VERSION) + CString(L"M"));
+	MyWriteProfileString(sSectionOption, sKeyCurrentDir, g_strCurrentDirectory);
 	MyWriteProfileString(sSectionOption, sKeyCurrentPlayList, g_strCurrentPlayList);
 	//dlgLoadProgress.SetPos(5);
 
 	// 一般 - ユーザーインターフェース
-	MyWriteProfileInt(sSectionOption, sKeyESCEditCancel       , g_bOptESCEditCancel ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyESCEditCancel, g_bOptESCEditCancel ? 1 : 0);
 	MyWriteProfileInt(sSectionOption, sKeyEnableEditCursorExit, g_bOptEnableEditCursorExit ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeyEditOkDown          , g_bOptEditOkDown ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeyEnterBeginEdit      , g_bOptEnterBeginEdit ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyEditOkDown, g_bOptEditOkDown ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyEnterBeginEdit, g_bOptEnterBeginEdit ? 1 : 0);
 	//dlgLoadProgress.SetPos(10);
-	
+
 	// 一般 - 動作設定
-	MyWriteProfileInt(sSectionOption, sKeyKeepTimeStamp       , g_bOptKeepTimeStamp ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeySyncCreateTime      , g_bOptSyncCreateTime ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeyChangeFileExt       , g_bOptChangeFileExt ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeyAutoOpenFolder      , g_bOptAutoOpenFolder ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyKeepTimeStamp, g_bOptKeepTimeStamp ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeySyncCreateTime, g_bOptSyncCreateTime ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyChangeFileExt, g_bOptChangeFileExt ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyAutoOpenFolder, g_bOptAutoOpenFolder ? 1 : 0);
 	MyWriteProfileInt(sSectionOption, sKeyLoadFileAdjustColumn, g_bOptLoadFileAdjustColumn ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeyLoadFileChecked     , g_bOptLoadFileChecked ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeyHideMP3ListFile     , g_bOptHideMP3ListFile ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyLoadFileChecked, g_bOptLoadFileChecked ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyHideMP3ListFile, g_bOptHideMP3ListFile ? 1 : 0);
 	//dlgLoadProgress.SetPos(15);
 
 	// 一般 - 歌詞ファイル
-	MyWriteProfileInt(sSectionOption, sKeyChangeTextFile    , g_bOptChangeTextFile ? 1 : 0);
-	MyWriteProfileInt(sSectionOption, sKeySetLyricsDir      , g_bOptSetLyricsDir ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeyChangeTextFile, g_bOptChangeTextFile ? 1 : 0);
+	MyWriteProfileInt(sSectionOption, sKeySetLyricsDir, g_bOptSetLyricsDir ? 1 : 0);
 	MyWriteProfileInt(sSectionOption, sKeySearchLyricsSubDir, g_bOptSearchLyricsSubDir ? 1 : 0);
-	MyWriteProfileString(sSectionOption, sKeyLyricsPath     , g_strOptLyricsPath);
+	MyWriteProfileString(sSectionOption, sKeyLyricsPath, g_strOptLyricsPath);
 	//dlgLoadProgress.SetPos(20);
 
-	// 
+	//
 	MyWriteProfileInt(sSectionOption, sKeyEditFiledSIF, g_bOptEditFieldSIF ? 1 : 0);
 	MyWriteProfileInt(sSectionOption, sKeyCheckFileName, g_nOptCheckFileName);
 	MyWriteProfileInt(sSectionOption, sKeyEnableSearchSubDir, g_bEnableSearchSubDir ? 1 : 0);
@@ -1544,21 +1541,21 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	//dlgLoadProgress.SetPos(35);
 
 	// プレイリスト
-	MyWriteProfileInt(sSectionLoadPlayList, sKeyClearList , g_bPlayListClearList ? 1 : 0);
+	MyWriteProfileInt(sSectionLoadPlayList, sKeyClearList, g_bPlayListClearList ? 1 : 0);
 	MyWriteProfileInt(sSectionLoadPlayList, sKeyClearCheck, g_bPlayListClearCheck ? 1 : 0);
-	MyWriteProfileInt(sSectionLoadPlayList, sKeyAddList   , g_bPlayListAddList ? 1 : 0);
-	MyWriteProfileInt(sSectionLoadPlayList, sKeyFileCheck , g_bPlayListFileCheck ? 1 : 0);
+	MyWriteProfileInt(sSectionLoadPlayList, sKeyAddList, g_bPlayListAddList ? 1 : 0);
+	MyWriteProfileInt(sSectionLoadPlayList, sKeyFileCheck, g_bPlayListFileCheck ? 1 : 0);
 	//dlgLoadProgress.SetPos(40);
 
 	// 条件チェックの状態
 	for (i = 0; i < CHECK_STATE_MAX; i++) {
 		CHECK_WORD_STATE	*pState = &g_chkWord[i];
-		char	*sSectionName = sSectionCheckWord[i];
+		wchar_t	*sSectionName = sSectionCheckWord[i];
 		MyWriteProfileString(sSectionName, sKeySearchWord, pState->strSearchWord);
 		MyWriteProfileString(sSectionName, sKeyReplaceWord, pState->strReplaceWord);
-		MyWriteProfileInt(sSectionName, sKeyTargetColumn , pState->nTargetColumn);
-		MyWriteProfileInt(sSectionName, sKeyCheckDiffUL  , pState->bCheckDiffUL ? 1 : 0);
-		MyWriteProfileInt(sSectionName, sKeyRegExp       , pState->bRegExp ? 1 : 0);
+		MyWriteProfileInt(sSectionName, sKeyTargetColumn, pState->nTargetColumn);
+		MyWriteProfileInt(sSectionName, sKeyCheckDiffUL, pState->bCheckDiffUL ? 1 : 0);
+		MyWriteProfileInt(sSectionName, sKeyRegExp, pState->bRegExp ? 1 : 0);
 		MyWriteProfileInt(sSectionName, sKeyRangeSelected, pState->bRangeSelected ? 1 : 0);
 		MyWriteProfileInt(sSectionName, sKeyMatchComplete, pState->bMatchComplete ? 1 : 0);
 		MyWriteProfileInt(sSectionName, sKeyMatchSelected, pState->bMatchSelected ? 1 : 0);
@@ -1570,22 +1567,22 @@ void CSuperTagEditorApp::WriteRegistry(void)
 		FILENAME_REPLACE	*pRep = &g_fileNameReplace[i];
 		CString		strKeyName;
 		// 置換後文字列
-		strKeyName.Format("%s%d", sKeyRepCharAfter, i);
+		strKeyName.Format(L"%s%d", sKeyRepCharAfter, i);
 		MyWriteProfileString(sSectionRepFileName, strKeyName, pRep->strAfter);
 	}
 	//dlgLoadProgress.SetPos(50);
 	// ユーザファイル名置換文字 /* FreeFall 050 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta\\User";
+		strSectionName = L"haseta\\User";
 		strSectionName += sSectionRepFileName;
 		for (i = 0; i < USER_FILENAME_REPLACE_MAX; i++) {
 			FILENAME_REPLACE	*pRep = &g_userFileNameReplace[i];
 			CString		strKeyName;
 			// 置換後文字列
-			strKeyName.Format("%s%d", sKeyRepCharBefore, i);
+			strKeyName.Format(L"%s%d", sKeyRepCharBefore, i);
 			MyWriteProfileString(strSectionName, strKeyName, pRep->strBefore);
-			strKeyName.Format("%s%d", sKeyRepCharAfter, i);
+			strKeyName.Format(L"%s%d", sKeyRepCharAfter, i);
 			MyWriteProfileString(strSectionName, strKeyName, pRep->strAfter);
 		}
 	}
@@ -1595,7 +1592,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	//MyWriteProfileInt(sSectionUserConvFormat, sKeyConvFormatType, g_nUserConvFormatType);
 	{ /* 数を増やしたので本家併用時に影響を与えないように LastTrain 057 */
 		CString		strSectionName;
-		strSectionName = "haseta\\";
+		strSectionName = L"haseta\\";
 		strSectionName += sSectionUserConvFormat;
 		MyWriteProfileInt(strSectionName, sKeyConvFormatType, g_nUserConvFormatType);
 	}
@@ -1603,13 +1600,13 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	for (i = 0; i < USER_CONV_FORMAT_MAX; i++) {
 		CString		strKeyName;
 		// 名称
-		strKeyName.Format("%s%d", sKeyUserFormName, i);
+		strKeyName.Format(L"%s%d", sKeyUserFormName, i);
 		MyWriteProfileString(sSectionUserConvFormat, strKeyName, g_userConvFormat[i].strName);
 		// タグ情報 => ファイル名
-		strKeyName.Format("%s%d", sKeyUserFormTag2File, i);
+		strKeyName.Format(L"%s%d", sKeyUserFormTag2File, i);
 		MyWriteProfileString(sSectionUserConvFormat, strKeyName, g_userConvFormat[i].strTag2File);
 		// ファイル名 => タグ情報
-		strKeyName.Format("%s%d", sKeyUserFormFile2Tag, i);
+		strKeyName.Format(L"%s%d", sKeyUserFormFile2Tag, i);
 		MyWriteProfileString(sSectionUserConvFormat, strKeyName, g_userConvFormat[i].strFile2Tag);
 	}
 	//dlgLoadProgress.SetPos(65);
@@ -1617,7 +1614,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// 拡張版ユーザー変換書式
 	for (i = 0; i < USER_CONV_FORMAT_EX_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("%s%d", sSectionConvFormatEx, i);
+		strSectionName.Format(L"%s%d", sSectionConvFormatEx, i);
 		// 名称
 		MyWriteProfileString(strSectionName, sKeyUserFormName, g_userConvFormatEx[i].strName);
 		// 書式
@@ -1638,7 +1635,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// 移動先フォルダ書式
 	for (i = 0; i < USER_MOVE_FODLER_FORMAT_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("haseta\\%s%d", sSectionMoveFolder, i);
+		strSectionName.Format(L"haseta\\%s%d", sSectionMoveFolder, i);
 		// 名称
 		MyWriteProfileString(strSectionName, sKeyUserFormName, g_userMoveFolder[i].strName);
 		// 書式
@@ -1654,7 +1651,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// タグ情報変換 /* STEP 034 */
 	for (i = 0; i < USER_CONV_FORMAT_TAG2TAG_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("haseta\\%s%d", sSectionConvFormatTag2Tag, i);
+		strSectionName.Format(L"haseta\\%s%d", sSectionConvFormatTag2Tag, i);
 		// 名称
 		MyWriteProfileString(strSectionName, sKeyUserTag2TagFormName, g_userConvFormatTag2Tag[i].strName);
 		// 書式
@@ -1665,7 +1662,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// 書式コピー /* FunnyCorn 175 */
 	for (i = 0; i < USER_COPY_FORMAT_FORMAT_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("haseta\\%s%d", sSectionCopyFormat, i);
+		strSectionName.Format(L"haseta\\%s%d", sSectionCopyFormat, i);
 		// 名称
 		MyWriteProfileString(strSectionName, sKeyUserFormName, g_userCopyFormat[i].strName);
 		// 書式
@@ -1676,8 +1673,8 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	//dlgLoadProgress.SetPos(80);
 	{
 		CString		sSectionOption;
-		sSectionOption = "haseta";
-//		MyWriteProfileInt(sSectionOption, sKeyID3v2GenreAddNumber, g_bOptID3v2GenreAddNumber ? 1 : 0);
+		sSectionOption = L"haseta";
+		//		MyWriteProfileInt(sSectionOption, sKeyID3v2GenreAddNumber, g_bOptID3v2GenreAddNumber ? 1 : 0);
 		MyWriteProfileInt(sSectionOption, sKeyFileNameMaxCheck, g_bConfFileNameMaxCheck ? 1 : 0);
 		MyWriteProfileInt(sSectionOption, sKeyFileNameMaxCellColor, g_bFileNameMaxCellColor ? 1 : 0);
 		MyWriteProfileInt(sSectionOption, sKeyFileNameMaxChar, g_nConfFileNameMaxChar);
@@ -1692,63 +1689,63 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	}
 	//dlgLoadProgress.SetPos(85);
 	// 定型文貼り付け /* SeaKnows 030 */
-	for (int k=0;k<3;k++) {
+	for (int k = 0; k < 3; k++) {
 		CString		sSectionOption;
 		CString		strSectionName;
-		sSectionOption = "haseta";
-		strSectionName.Format("%s%d", sSectionTeikeiGroupName, k);
+		sSectionOption = L"haseta";
+		strSectionName.Format(L"%s%d", sSectionTeikeiGroupName, k);
 		MyWriteProfileString(sSectionOption, strSectionName, g_strTeikeiGroupName[k]);
 		for (i = 0; i < 10; i++) {
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikei, i);
+				strSectionName.Format(L"%s%d", sSectionTeikei, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikei, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikei, k, i);
 			}
-			MyWriteProfileString(sSectionOption, strSectionName, g_teikeiInfo[i+k*10].strTeikei/* STEP 035 */);
+			MyWriteProfileString(sSectionOption, strSectionName, g_teikeiInfo[i + k * 10].strTeikei/* STEP 035 */);
 			/* STEP 035 */
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiPaste, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiPaste, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiPaste, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiPaste, k, i);
 			}
-			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i+k*10].nTeikeiPaste);
+			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i + k * 10].nTeikeiPaste);
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiAddSpace, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiAddSpace, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiAddSpace, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiAddSpace, k, i);
 			}
-			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i+k*10].bAddSpace ? 1 : 0);
+			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i + k * 10].bAddSpace ? 1 : 0);
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiAddChar, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiAddChar, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiAddChar, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiAddChar, k, i);
 			}
-			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i+k*10].bAddChar ? 1 : 0);
+			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i + k * 10].bAddChar ? 1 : 0);
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiFront, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiFront, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiFront, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiFront, k, i);
 			}
-			MyWriteProfileString(sSectionOption, strSectionName, g_teikeiInfo[i+k*10].strFront);
+			MyWriteProfileString(sSectionOption, strSectionName, g_teikeiInfo[i + k * 10].strFront);
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiBack, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiBack, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiBack, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiBack, k, i);
 			}
-			MyWriteProfileString(sSectionOption, strSectionName, g_teikeiInfo[i+k*10].strBack);
+			MyWriteProfileString(sSectionOption, strSectionName, g_teikeiInfo[i + k * 10].strBack);
 			if (k == 0) {
-				strSectionName.Format("%s%d", sSectionTeikeiShowDialog, i);
+				strSectionName.Format(L"%s%d", sSectionTeikeiShowDialog, i);
 			} else {
-				strSectionName.Format("%s%d-%d", sSectionTeikeiShowDialog, k, i);
+				strSectionName.Format(L"%s%d-%d", sSectionTeikeiShowDialog, k, i);
 			}
-			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i+k*10].bShowDialog ? 1 : 0);
+			MyWriteProfileInt(sSectionOption, strSectionName, g_teikeiInfo[i + k * 10].bShowDialog ? 1 : 0);
 		}
 	}
 
 	// その他 /* SeaKnows 031,033 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		MyWriteProfileInt(strSectionName, sSectionValidFolderSelect, g_bValidFolderSelect ? 1 : 0);
 		MyWriteProfileInt(strSectionName, sSectionValidDupExec, g_bValidDupExec ? 1 : 0); /* FreeFall 045 */
 		MyWriteProfileInt(strSectionName, sSectionRecentFolderNum, g_nRecentFolder); /* MyWriteProfileInt 053 */
@@ -1766,7 +1763,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// リスト出力書式
 	for (i = 0; i < WRITE_FORMAT_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("%s%d", sSectionWriteFormat, i);
+		strSectionName.Format(L"%s%d", sSectionWriteFormat, i);
 		// 名称
 		MyWriteProfileString(strSectionName, sKeyWriteFormName, g_writeFormat[i].strName);
 		// 書式ファイル名
@@ -1780,7 +1777,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 		// HTML ファイル出力用(空の場合に全角スペースを出力)
 		MyWriteProfileInt(strSectionName, sKeyWriteIsHtml, g_writeFormat[i].bIsHtml ? 1 : 0);
 		{ /* BeachMonster5 120 */
-			MyWriteProfileInt("haseta\\" + strSectionName, sKeyWriteHtml, g_writeFormat[i].bWriteHtml ? 1 : 0);
+			MyWriteProfileInt(L"haseta\\" + strSectionName, sKeyWriteHtml, g_writeFormat[i].bWriteHtml ? 1 : 0);
 		}
 	}
 	//dlgLoadProgress.SetPos(90);
@@ -1790,7 +1787,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	for (i = 0; i < CLASS_MAX; i++) {
 		CString		strKeyName;
 		// カラム番号
-		strKeyName.Format("%s%d", sKeyClassColumn, i);
+		strKeyName.Format(L"%s%d", sKeyClassColumn, i);
 		MyWriteProfileInt(sSectionClass, strKeyName, g_classInfo.nColumn[i]);
 	}
 
@@ -1799,34 +1796,34 @@ void CSuperTagEditorApp::WriteRegistry(void)
 		CString		strKeyName;
 		SORT_STATE	*state = &g_sortState[i];
 		// キー(カラム)
-		strKeyName.Format("%s%d", sKeySortColumn, i);
+		strKeyName.Format(L"%s%d", sKeySortColumn, i);
 		MyWriteProfileInt(sSectionSort, strKeyName, state->nKeyColumn);
 		// タイプ
-		strKeyName.Format("%s%d", sKeySortType, i);
+		strKeyName.Format(L"%s%d", sKeySortType, i);
 		MyWriteProfileInt(sSectionSort, strKeyName, state->nType);
 	}
 
 	// ウィンドウのフォントを書き込む
 	MyWriteProfileString(sSectionFont, sKeyFontFace, g_fontReport.lfFaceName);
-	MyWriteProfileInt(sSectionFont, sKeyFontHeight		, g_fontReport.lfHeight);
-	MyWriteProfileInt(sSectionFont, sKeyFontWidth 		, g_fontReport.lfWidth);
-	MyWriteProfileInt(sSectionFont, sKeyFontEscapement	, g_fontReport.lfEscapement);
-	MyWriteProfileInt(sSectionFont, sKeyFontOrientation	, g_fontReport.lfOrientation);
-	MyWriteProfileInt(sSectionFont, sKeyFontWeight		, g_fontReport.lfWeight);
-	MyWriteProfileInt(sSectionFont, sKeyFontItalic		, g_fontReport.lfItalic);
-	MyWriteProfileInt(sSectionFont, sKeyFontUnderline 	, g_fontReport.lfUnderline);
-	MyWriteProfileInt(sSectionFont, sKeyFontStrikeOut 	, g_fontReport.lfStrikeOut);
-	MyWriteProfileInt(sSectionFont, sKeyFontCharSet		, g_fontReport.lfCharSet);
-	MyWriteProfileInt(sSectionFont, sKeyFontOutPrecision	, g_fontReport.lfOutPrecision);
-	MyWriteProfileInt(sSectionFont, sKeyFontClipPrecision , g_fontReport.lfClipPrecision);
-	MyWriteProfileInt(sSectionFont, sKeyFontQuality		, g_fontReport.lfQuality);
+	MyWriteProfileInt(sSectionFont, sKeyFontHeight, g_fontReport.lfHeight);
+	MyWriteProfileInt(sSectionFont, sKeyFontWidth, g_fontReport.lfWidth);
+	MyWriteProfileInt(sSectionFont, sKeyFontEscapement, g_fontReport.lfEscapement);
+	MyWriteProfileInt(sSectionFont, sKeyFontOrientation, g_fontReport.lfOrientation);
+	MyWriteProfileInt(sSectionFont, sKeyFontWeight, g_fontReport.lfWeight);
+	MyWriteProfileInt(sSectionFont, sKeyFontItalic, g_fontReport.lfItalic);
+	MyWriteProfileInt(sSectionFont, sKeyFontUnderline, g_fontReport.lfUnderline);
+	MyWriteProfileInt(sSectionFont, sKeyFontStrikeOut, g_fontReport.lfStrikeOut);
+	MyWriteProfileInt(sSectionFont, sKeyFontCharSet, g_fontReport.lfCharSet);
+	MyWriteProfileInt(sSectionFont, sKeyFontOutPrecision, g_fontReport.lfOutPrecision);
+	MyWriteProfileInt(sSectionFont, sKeyFontClipPrecision, g_fontReport.lfClipPrecision);
+	MyWriteProfileInt(sSectionFont, sKeyFontQuality, g_fontReport.lfQuality);
 	MyWriteProfileInt(sSectionFont, sKeyFontPitchAndFamily, g_fontReport.lfPitchAndFamily);
 
 	//MyWriteProfileInt(sSectionOption, sKeyPlayerType, (int)g_nOptPlayerType);
 	//MyWriteProfileString(sSectionOption, sKeyWinAmpPath, g_sOptWinAmpPath);
 	{ /* 数を増やしたので本家併用時に影響を与えないように WildCherry 070 */
 		CString		strSectionName;
-		strSectionName = "haseta\\";
+		strSectionName = L"haseta\\";
 		strSectionName += sSectionOption;
 		MyWriteProfileInt(strSectionName, sKeyPlayerType, (int)g_nOptPlayerType);
 		MyWriteProfileString(strSectionName, sKeyWinAmpPath, g_sOptWinAmpPath);
@@ -1841,7 +1838,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// 文字種の統一 /* StartInaction 054 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		MyWriteProfileInt(strSectionName, sKeyUnifyAlpha, g_nUnifyAlpha);
 		MyWriteProfileInt(strSectionName, sKeyUnifyHiraKata, g_nUnifyHiraKata);
 		MyWriteProfileInt(strSectionName, sKeyUnifyKata, g_nUnifyKata);
@@ -1854,7 +1851,7 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// ファイル名文字種の統一 /* LastTrain 058 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		MyWriteProfileInt(strSectionName, sKeyFileUnifyAlpha, g_nFileUnifyAlpha);
 		MyWriteProfileInt(strSectionName, sKeyFileUnifyHiraKata, g_nFileUnifyHiraKata);
 		MyWriteProfileInt(strSectionName, sKeyFileUnifyKata, g_nFileUnifyKata);
@@ -1866,13 +1863,13 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	// 拡張子の統一 /* STEP 006 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		MyWriteProfileInt(strSectionName, sKeyFileExtChange, g_nFileExtChange);
 	}
 	// プレイリスト入力設定ダイアログを表示する /* RockDance 126 */
 	{
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		MyWriteProfileInt(strSectionName, sKeyShowLoadPlaylistDlg, g_bShowLoadPlaylistDlg ? 1 : 0);
 	}
 	//dlgLoadProgress.SetPos(100);
@@ -1880,16 +1877,16 @@ void CSuperTagEditorApp::WriteRegistry(void)
 	{
 		CString		sSectionOption;
 		CString		strSectionName;
-		sSectionOption = "haseta";
+		sSectionOption = L"haseta";
 		for (i = 0; i < 10; i++) {
-			strSectionName.Format("%s%d", sSectionFavorites, i);
+			strSectionName.Format(L"%s%d", sSectionFavorites, i);
 			MyWriteProfileString(sSectionOption, strSectionName, g_strFavorite[i]);
 		}
 	}
 
 	{ /* STEP 026 */
 		CString		strSectionName;
-		strSectionName = "haseta";
+		strSectionName = L"haseta";
 		MyWriteProfileInt(strSectionName, sKeyFirstUpperIgnoreWord, g_bFirstUpperIgnoreWord ? 1 : 0);
 		MyWriteProfileString(sSectionOption, sKeyFirstUpperIgnoreWords, g_strFirstUpperIgnoreWords);
 		MyWriteProfileString(sSectionOption, sKeyFirstUpperSentenceSeparator, g_strFirstUpperSentenceSeparator);
@@ -1899,13 +1896,13 @@ void CSuperTagEditorApp::WriteRegistry(void)
 
 	/*
 	if (dlgLoadProgress.GetSafeHwnd() != NULL) {
-		dlgLoadProgress.DestroyWindow();
-		dlgLoadProgress.SetCanceled(FALSE);
+	dlgLoadProgress.DestroyWindow();
+	dlgLoadProgress.SetCanceled(FALSE);
 	}
 	*/
 	SaveProfile();
 	FreeProfile();
-//	m_pRecentFileList->WriteList();
+	//	m_pRecentFileList->WriteList();
 }
 
 // キー割り当ての読み込み
@@ -1925,7 +1922,7 @@ void CSuperTagEditorApp::ReadKeyConfig(bool bUpdate)
 	}
 
 	extern CPlugin plugins;
-	for (i=0;i<plugins.arPluginKey.GetSize();i++) {
+	for (i = 0; i < plugins.arPluginKey.GetSize(); i++) {
 		KEY_CONFIG* pKey = (KEY_CONFIG*)plugins.arPluginKey.GetAt(i);
 		if (pKey->wCmdID != 0x0000) {
 			pKey->dwKeyCode = (DWORD)MyGetProfileInt(sSectionKeyConfig, pKey->sRegName, pKey->dwKeyCode);
@@ -1950,7 +1947,7 @@ void CSuperTagEditorApp::WriteKeyConfig(bool bUpdate)
 	for (i = 0; g_listKeyConfig[i].sName != NULL; i++) {
 		KEY_CONFIG	*pKey = &g_listKeyConfig[i];
 		if (pKey->wCmdID != 0x0000) {
-			//sValue.Format("%d", pKey->dwKeyCode);
+			//sValue.Format(L"%d", pKey->dwKeyCode);
 			//WritePrivateProfileString(sSectionKeyConfig, pKey->sRegName, sValue, strINI);
 			//Profile_WriteInt(sSectionKeyConfig, pKey->sRegName, pKey->dwKeyCode, strINI);
 			MyWriteProfileInt(sSectionKeyConfig, pKey->sRegName, pKey->dwKeyCode);
@@ -1959,10 +1956,10 @@ void CSuperTagEditorApp::WriteKeyConfig(bool bUpdate)
 	}
 
 	extern CPlugin plugins;
-	for (i=0;i<plugins.arPluginKey.GetSize();i++) {
+	for (i = 0; i < plugins.arPluginKey.GetSize(); i++) {
 		KEY_CONFIG* pKey = (KEY_CONFIG*)plugins.arPluginKey.GetAt(i);
 		if (pKey->wCmdID != 0x0000) {
-			//sValue.Format("%ld", pKey->dwKeyCode);
+			//sValue.Format(L"%ld", pKey->dwKeyCode);
 			//WritePrivateProfileString(sSectionKeyConfig, pKey->sRegName, sValue, strINI);
 			//Profile_WriteInt(sSectionKeyConfig, pKey->sRegName, pKey->dwKeyCode, strINI);
 			MyWriteProfileInt(sSectionKeyConfig, pKey->sRegName, pKey->dwKeyCode);
@@ -2024,19 +2021,19 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 	if (pMenu != NULL && g_bUserConvAddMenu) {
 		CMenu* pUConvMenu = NULL;
 		int nCount = pMenu->GetMenuItemCount();
-		int j; for (int j=0;j<nCount;j++) {
+		int j; for (int j = 0; j < nCount; j++) {
 			CString strTitle;
 			pMenu->GetMenuString(j, strTitle, MF_BYPOSITION);
-			if (strTitle == "変換(&C)") {
+			if (strTitle == L"変換(&C)") {
 				pMenu = pMenu->GetSubMenu(j);
 				break;
 			}
 		}
 		nCount = pMenu->GetMenuItemCount();
-		for (j=0;j<nCount;j++) {
+		for (j = 0; j < nCount; j++) {
 			CString strTitle;
 			pMenu->GetMenuString(j, strTitle, MF_BYPOSITION);
-			if (strTitle == "ユーザー指定変換(&U)") {
+			if (strTitle == L"ユーザー指定変換(&U)") {
 				pUConvMenu = pMenu->GetSubMenu(j);
 				break;
 			}
@@ -2069,9 +2066,9 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 				wModifiers = HIWORD(pKey->dwKeyCode);
 				pAccel = &m_accelTable[nCount];
 				pAccel->fVirt = FNOINVERT | FVIRTKEY;
-				if (wModifiers & HOTKEYF_ALT    ) pAccel->fVirt |= FALT;
+				if (wModifiers & HOTKEYF_ALT) pAccel->fVirt |= FALT;
 				if (wModifiers & HOTKEYF_CONTROL) pAccel->fVirt |= FCONTROL;
-				if (wModifiers & HOTKEYF_SHIFT  ) pAccel->fVirt |= FSHIFT;
+				if (wModifiers & HOTKEYF_SHIFT) pAccel->fVirt |= FSHIFT;
 				pAccel->key = LOWORD(pKey->dwKeyCode);
 				pAccel->cmd = pKey->wCmdID;
 				nCount++;
@@ -2081,241 +2078,241 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 			if (pMenu != NULL) {
 				CString	strName;
 				// メニュー項目名を取得
-				switch(pKey->wCmdID) {
+				switch (pKey->wCmdID) {
 				case ID_CONV_FORMAT_EX_01:
-					strName.Format("01：%s", g_userConvFormatEx[0].strName);
+					strName.Format(L"01：%s", g_userConvFormatEx[0].strName);
 					break;
 				case ID_CONV_FORMAT_EX_02:
-					strName.Format("02：%s", g_userConvFormatEx[1].strName);
+					strName.Format(L"02：%s", g_userConvFormatEx[1].strName);
 					break;
 				case ID_CONV_FORMAT_EX_03:
-					strName.Format("03：%s", g_userConvFormatEx[2].strName);
+					strName.Format(L"03：%s", g_userConvFormatEx[2].strName);
 					break;
 				case ID_CONV_FORMAT_EX_04:
-					strName.Format("04：%s", g_userConvFormatEx[3].strName);
+					strName.Format(L"04：%s", g_userConvFormatEx[3].strName);
 					break;
 				case ID_CONV_FORMAT_EX_05:
-					strName.Format("05：%s", g_userConvFormatEx[4].strName);
+					strName.Format(L"05：%s", g_userConvFormatEx[4].strName);
 					break;
 				case ID_CONV_FORMAT_EX_06:
-					strName.Format("06：%s", g_userConvFormatEx[5].strName);
+					strName.Format(L"06：%s", g_userConvFormatEx[5].strName);
 					break;
 				case ID_CONV_FORMAT_EX_07:
-					strName.Format("07：%s", g_userConvFormatEx[6].strName);
+					strName.Format(L"07：%s", g_userConvFormatEx[6].strName);
 					break;
 				case ID_CONV_FORMAT_EX_08:
-					strName.Format("08：%s", g_userConvFormatEx[7].strName);
+					strName.Format(L"08：%s", g_userConvFormatEx[7].strName);
 					break;
 				case ID_CONV_FORMAT_EX_09:
-					strName.Format("09：%s", g_userConvFormatEx[8].strName);
+					strName.Format(L"09：%s", g_userConvFormatEx[8].strName);
 					break;
 				case ID_CONV_FORMAT_EX_10:
-					strName.Format("10：%s", g_userConvFormatEx[9].strName);
+					strName.Format(L"10：%s", g_userConvFormatEx[9].strName);
 					break;
 				case ID_WRITE_LIST1:
-					strName.Format("01：%s", g_writeFormat[0].strName);
+					strName.Format(L"01：%s", g_writeFormat[0].strName);
 					break;
 				case ID_WRITE_LIST2:
-					strName.Format("02：%s", g_writeFormat[1].strName);
+					strName.Format(L"02：%s", g_writeFormat[1].strName);
 					break;
 				case ID_WRITE_LIST3:
-					strName.Format("03：%s", g_writeFormat[2].strName);
+					strName.Format(L"03：%s", g_writeFormat[2].strName);
 					break;
 				case ID_WRITE_LIST4:
-					strName.Format("04：%s", g_writeFormat[3].strName);
+					strName.Format(L"04：%s", g_writeFormat[3].strName);
 					break;
 				case ID_WRITE_LIST5:
-					strName.Format("05：%s", g_writeFormat[4].strName);
+					strName.Format(L"05：%s", g_writeFormat[4].strName);
 					break;
 				case ID_MOVE_FOLDER_01:
-					strName.Format("01：%s", g_userMoveFolder[0].strName);
+					strName.Format(L"01：%s", g_userMoveFolder[0].strName);
 					break;
 				case ID_MOVE_FOLDER_02:
-					strName.Format("02：%s", g_userMoveFolder[1].strName);
+					strName.Format(L"02：%s", g_userMoveFolder[1].strName);
 					break;
 				case ID_MOVE_FOLDER_03:
-					strName.Format("03：%s", g_userMoveFolder[2].strName);
+					strName.Format(L"03：%s", g_userMoveFolder[2].strName);
 					break;
 				case ID_MOVE_FOLDER_04:
-					strName.Format("04：%s", g_userMoveFolder[3].strName);
+					strName.Format(L"04：%s", g_userMoveFolder[3].strName);
 					break;
 				case ID_MOVE_FOLDER_05:
-					strName.Format("05：%s", g_userMoveFolder[4].strName);
+					strName.Format(L"05：%s", g_userMoveFolder[4].strName);
 					break;
 				case ID_CONV_FORMAT_USER_01: /* TyphoonSwell 027 */
 				case ID_CONV_FORMAT_USER_T2F_01: /* STEP 030 */
 				case ID_CONV_FORMAT_USER_F2T_01: /* STEP 030 */
-					strName.Format("01：%s", g_userConvFormat[0].strName);
+					strName.Format(L"01：%s", g_userConvFormat[0].strName);
 					break;
 				case ID_CONV_FORMAT_USER_02: /* TyphoonSwell 027 */
 				case ID_CONV_FORMAT_USER_T2F_02: /* STEP 030 */
 				case ID_CONV_FORMAT_USER_F2T_02: /* STEP 030 */
-					strName.Format("02：%s", g_userConvFormat[1].strName);
+					strName.Format(L"02：%s", g_userConvFormat[1].strName);
 					break;
 				case ID_CONV_FORMAT_USER_03: /* TyphoonSwell 027 */
 				case ID_CONV_FORMAT_USER_T2F_03: /* STEP 030 */
 				case ID_CONV_FORMAT_USER_F2T_03: /* STEP 030 */
-					strName.Format("03：%s", g_userConvFormat[2].strName);
+					strName.Format(L"03：%s", g_userConvFormat[2].strName);
 					break;
 				case ID_CONV_FORMAT_USER_04: /* LastTrain 057 */
 				case ID_CONV_FORMAT_USER_T2F_04: /* STEP 030 */
 				case ID_CONV_FORMAT_USER_F2T_04: /* STEP 030 */
-					strName.Format("04：%s", g_userConvFormat[3].strName);
+					strName.Format(L"04：%s", g_userConvFormat[3].strName);
 					break;
 				case ID_CONV_FORMAT_USER_05: /* LastTrain 057 */
 				case ID_CONV_FORMAT_USER_T2F_05: /* STEP 030 */
 				case ID_CONV_FORMAT_USER_F2T_05: /* STEP 030 */
-					strName.Format("05：%s", g_userConvFormat[4].strName);
+					strName.Format(L"05：%s", g_userConvFormat[4].strName);
 					break;
 				case ID_TEIKEI_01: /* SeaKnows 030 */
-					strName.Format("01: %s", shortString(g_teikeiInfo[0].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"01: %s", shortString(g_teikeiInfo[0].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_02: /* SeaKnows 030 */
-					strName.Format("02: %s", shortString(g_teikeiInfo[1].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"02: %s", shortString(g_teikeiInfo[1].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_03: /* SeaKnows 030 */
-					strName.Format("03: %s", shortString(g_teikeiInfo[2].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"03: %s", shortString(g_teikeiInfo[2].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_04: /* SeaKnows 030 */
-					strName.Format("04: %s", shortString(g_teikeiInfo[3].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"04: %s", shortString(g_teikeiInfo[3].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_05: /* SeaKnows 030 */
-					strName.Format("05: %s", shortString(g_teikeiInfo[4].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"05: %s", shortString(g_teikeiInfo[4].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_06: /* SeaKnows 030 */
-					strName.Format("06: %s", shortString(g_teikeiInfo[5].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"06: %s", shortString(g_teikeiInfo[5].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_07: /* SeaKnows 030 */
-					strName.Format("07: %s", shortString(g_teikeiInfo[6].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"07: %s", shortString(g_teikeiInfo[6].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_08: /* SeaKnows 030 */
-					strName.Format("08: %s", shortString(g_teikeiInfo[7].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"08: %s", shortString(g_teikeiInfo[7].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_09: /* SeaKnows 030 */
-					strName.Format("09: %s", shortString(g_teikeiInfo[8].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"09: %s", shortString(g_teikeiInfo[8].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_10: /* SeaKnows 030 */
-					strName.Format("10: %s", shortString(g_teikeiInfo[9].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"10: %s", shortString(g_teikeiInfo[9].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_01: /* FreeFall 046 */
-					strName.Format("01: %s", shortString(g_teikeiInfo[10].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"01: %s", shortString(g_teikeiInfo[10].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_02: /* FreeFall 046 */
-					strName.Format("02: %s", shortString(g_teikeiInfo[11].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"02: %s", shortString(g_teikeiInfo[11].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_03: /* FreeFall 046 */
-					strName.Format("03: %s", shortString(g_teikeiInfo[12].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"03: %s", shortString(g_teikeiInfo[12].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_04: /* FreeFall 046 */
-					strName.Format("04: %s", shortString(g_teikeiInfo[13].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"04: %s", shortString(g_teikeiInfo[13].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_05: /* FreeFall 046 */
-					strName.Format("05: %s", shortString(g_teikeiInfo[14].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"05: %s", shortString(g_teikeiInfo[14].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_06: /* FreeFall 046 */
-					strName.Format("06: %s", shortString(g_teikeiInfo[15].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"06: %s", shortString(g_teikeiInfo[15].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_07: /* FreeFall 046 */
-					strName.Format("07: %s", shortString(g_teikeiInfo[16].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"07: %s", shortString(g_teikeiInfo[16].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_08: /* FreeFall 046 */
-					strName.Format("08: %s", shortString(g_teikeiInfo[17].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"08: %s", shortString(g_teikeiInfo[17].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_09: /* FreeFall 046 */
-					strName.Format("09: %s", shortString(g_teikeiInfo[18].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"09: %s", shortString(g_teikeiInfo[18].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_2_10: /* FreeFall 046 */
-					strName.Format("10: %s", shortString(g_teikeiInfo[19].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"10: %s", shortString(g_teikeiInfo[19].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_01: /* FreeFall 046 */
-					strName.Format("01: %s", shortString(g_teikeiInfo[20].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"01: %s", shortString(g_teikeiInfo[20].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_02: /* FreeFall 046 */
-					strName.Format("02: %s", shortString(g_teikeiInfo[21].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"02: %s", shortString(g_teikeiInfo[21].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_03: /* FreeFall 046 */
-					strName.Format("03: %s", shortString(g_teikeiInfo[22].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"03: %s", shortString(g_teikeiInfo[22].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_04: /* FreeFall 046 */
-					strName.Format("04: %s", shortString(g_teikeiInfo[23].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"04: %s", shortString(g_teikeiInfo[23].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_05: /* FreeFall 046 */
-					strName.Format("05: %s", shortString(g_teikeiInfo[24].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"05: %s", shortString(g_teikeiInfo[24].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_06: /* FreeFall 046 */
-					strName.Format("06: %s", shortString(g_teikeiInfo[25].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"06: %s", shortString(g_teikeiInfo[25].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_07: /* FreeFall 046 */
-					strName.Format("07: %s", shortString(g_teikeiInfo[26].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"07: %s", shortString(g_teikeiInfo[26].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_08: /* FreeFall 046 */
-					strName.Format("08: %s", shortString(g_teikeiInfo[27].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"08: %s", shortString(g_teikeiInfo[27].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_09: /* FreeFall 046 */
-					strName.Format("09: %s", shortString(g_teikeiInfo[28].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"09: %s", shortString(g_teikeiInfo[28].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_TEIKEI_3_10: /* FreeFall 046 */
-					strName.Format("10: %s", shortString(g_teikeiInfo[29].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
+					strName.Format(L"10: %s", shortString(g_teikeiInfo[29].strTeikei/* STEP 035 */, TEIKEI_MENU_STRING_MAX) /* FreeFall 051 */);
 					break;
 				case ID_FAVORITE_FOLDER_01: /* RockDance 129 */
-					strName.Format("&1 %s", shortFavorite(g_strFavorite[0]));
+					strName.Format(L"&1 %s", shortFavorite(g_strFavorite[0]));
 					break;
 				case ID_FAVORITE_FOLDER_02: /* RockDance 129 */
-					strName.Format("&2 %s", shortFavorite(g_strFavorite[1]));
+					strName.Format(L"&2 %s", shortFavorite(g_strFavorite[1]));
 					break;
 				case ID_FAVORITE_FOLDER_03: /* RockDance 129 */
-					strName.Format("&3 %s", shortFavorite(g_strFavorite[2]));
+					strName.Format(L"&3 %s", shortFavorite(g_strFavorite[2]));
 					break;
 				case ID_FAVORITE_FOLDER_04: /* RockDance 129 */
-					strName.Format("&4 %s", shortFavorite(g_strFavorite[3]));
+					strName.Format(L"&4 %s", shortFavorite(g_strFavorite[3]));
 					break;
 				case ID_FAVORITE_FOLDER_05: /* RockDance 129 */
-					strName.Format("&5 %s", shortFavorite(g_strFavorite[4]));
+					strName.Format(L"&5 %s", shortFavorite(g_strFavorite[4]));
 					break;
 				case ID_FAVORITE_FOLDER_06: /* RockDance 129 */
-					strName.Format("&6 %s", shortFavorite(g_strFavorite[5]));
+					strName.Format(L"&6 %s", shortFavorite(g_strFavorite[5]));
 					break;
 				case ID_FAVORITE_FOLDER_07: /* RockDance 129 */
-					strName.Format("&7 %s", shortFavorite(g_strFavorite[6]));
+					strName.Format(L"&7 %s", shortFavorite(g_strFavorite[6]));
 					break;
 				case ID_FAVORITE_FOLDER_08: /* RockDance 129 */
-					strName.Format("&8 %s", shortFavorite(g_strFavorite[7]));
+					strName.Format(L"&8 %s", shortFavorite(g_strFavorite[7]));
 					break;
 				case ID_FAVORITE_FOLDER_09: /* RockDance 129 */
-					strName.Format("&9 %s", shortFavorite(g_strFavorite[8]));
+					strName.Format(L"&9 %s", shortFavorite(g_strFavorite[8]));
 					break;
 				case ID_FAVORITE_FOLDER_10: /* RockDance 129 */
-					strName.Format("&0 %s", shortFavorite(g_strFavorite[9]));
+					strName.Format(L"&0 %s", shortFavorite(g_strFavorite[9]));
 					break;
 				case ID_EDIT_COPY_FORMAT_01: /* FunnyCorn 175 */
-					strName.Format("01：%s", g_userCopyFormat[0].strName);
+					strName.Format(L"01：%s", g_userCopyFormat[0].strName);
 					break;
 				case ID_EDIT_COPY_FORMAT_02: /* FunnyCorn 175 */
-					strName.Format("02：%s", g_userCopyFormat[1].strName);
+					strName.Format(L"02：%s", g_userCopyFormat[1].strName);
 					break;
 				case ID_EDIT_COPY_FORMAT_03: /* FunnyCorn 175 */
-					strName.Format("03：%s", g_userCopyFormat[2].strName);
+					strName.Format(L"03：%s", g_userCopyFormat[2].strName);
 					break;
 				case ID_EDIT_COPY_FORMAT_04: /* FunnyCorn 175 */
-					strName.Format("04：%s", g_userCopyFormat[3].strName);
+					strName.Format(L"04：%s", g_userCopyFormat[3].strName);
 					break;
 				case ID_EDIT_COPY_FORMAT_05: /* FunnyCorn 175 */
-					strName.Format("05：%s", g_userCopyFormat[4].strName);
+					strName.Format(L"05：%s", g_userCopyFormat[4].strName);
 					break;
 				case ID_CONV_TAG_TO_TAG_01: /* STEP 034 */
-					strName.Format("01：%s", g_userConvFormatTag2Tag[0].strName);
+					strName.Format(L"01：%s", g_userConvFormatTag2Tag[0].strName);
 					break;
 				case ID_CONV_TAG_TO_TAG_02: /* STEP 034 */
-					strName.Format("02：%s", g_userConvFormatTag2Tag[1].strName);
+					strName.Format(L"02：%s", g_userConvFormatTag2Tag[1].strName);
 					break;
 				case ID_CONV_TAG_TO_TAG_03: /* STEP 034 */
-					strName.Format("03：%s", g_userConvFormatTag2Tag[2].strName);
+					strName.Format(L"03：%s", g_userConvFormatTag2Tag[2].strName);
 					break;
 				case ID_CONV_TAG_TO_TAG_04: /* STEP 034 */
-					strName.Format("04：%s", g_userConvFormatTag2Tag[3].strName);
+					strName.Format(L"04：%s", g_userConvFormatTag2Tag[3].strName);
 					break;
 				case ID_CONV_TAG_TO_TAG_05: /* STEP 034 */
-					strName.Format("05：%s", g_userConvFormatTag2Tag[4].strName);
+					strName.Format(L"05：%s", g_userConvFormatTag2Tag[4].strName);
 					break;
 				default:
 					pMenu->GetMenuString((UINT)pKey->wCmdID, strName, MF_BYCOMMAND);
@@ -2331,25 +2328,25 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 				if (pAccel != NULL) {
 					// 新しいアクセラレータキー部分を追加
 					strName += '\t';
-					if (wModifiers & HOTKEYF_ALT    ) strName += _T("Alt+");
-					if (wModifiers & HOTKEYF_CONTROL) strName += _T("Ctrl+");
-					if (wModifiers & HOTKEYF_SHIFT  ) strName += _T("Shift+");
+					if (wModifiers & HOTKEYF_ALT) strName += L"Alt+";
+					if (wModifiers & HOTKEYF_CONTROL) strName += L"Ctrl+";
+					if (wModifiers & HOTKEYF_SHIFT) strName += L"Shift+";
 					// キー部分を追加
 					if (pAccel->key <= 0x91) {
 						strName += g_sKeyName[pAccel->key];
 					} else {
-						strName += _T("?");
+						strName += L"?";
 					}
 				}
 
 				// メニュー文字列を更新
-				pMenu->ModifyMenu((UINT)pKey->wCmdID, MF_BYCOMMAND, pKey->wCmdID, (LPCTSTR)strName);
+				pMenu->ModifyMenu((UINT)pKey->wCmdID, MF_BYCOMMAND, pKey->wCmdID, (LPCWSTR)strName);
 			}
 		}
 	}
 
 	extern CPlugin plugins;
-	for (i=0;i<plugins.arPluginKey.GetSize();i++) {
+	for (i = 0; i < plugins.arPluginKey.GetSize(); i++) {
 		KEY_CONFIG* pKey = (KEY_CONFIG*)plugins.arPluginKey.GetAt(i);
 		if (pKey->wCmdID != 0x0000) {
 			// アクセラレータの作成
@@ -2359,9 +2356,9 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 				wModifiers = HIWORD(pKey->dwKeyCode);
 				pAccel = &m_accelTable[nCount];
 				pAccel->fVirt = FNOINVERT | FVIRTKEY;
-				if (wModifiers & HOTKEYF_ALT    ) pAccel->fVirt |= FALT;
+				if (wModifiers & HOTKEYF_ALT) pAccel->fVirt |= FALT;
 				if (wModifiers & HOTKEYF_CONTROL) pAccel->fVirt |= FCONTROL;
-				if (wModifiers & HOTKEYF_SHIFT  ) pAccel->fVirt |= FSHIFT;
+				if (wModifiers & HOTKEYF_SHIFT) pAccel->fVirt |= FSHIFT;
 				pAccel->key = LOWORD(pKey->dwKeyCode);
 				pAccel->cmd = pKey->wCmdID;
 				nCount++;
@@ -2381,19 +2378,19 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 				if (pAccel != NULL) {
 					// 新しいアクセラレータキー部分を追加
 					strName += '\t';
-					if (wModifiers & HOTKEYF_ALT    ) strName += _T("Alt+");
-					if (wModifiers & HOTKEYF_CONTROL) strName += _T("Ctrl+");
-					if (wModifiers & HOTKEYF_SHIFT  ) strName += _T("Shift+");
+					if (wModifiers & HOTKEYF_ALT) strName += L"Alt+";
+					if (wModifiers & HOTKEYF_CONTROL) strName += L"Ctrl+";
+					if (wModifiers & HOTKEYF_SHIFT) strName += L"Shift+";
 					// キー部分を追加
 					if (pAccel->key <= 0x91) {
 						strName += g_sKeyName[pAccel->key];
 					} else {
-						strName += _T("?");
+						strName += L"?";
 					}
 				}
 
 				// メニュー文字列を更新
-				pMenu->ModifyMenu((UINT)pKey->wCmdID, MF_BYCOMMAND, pKey->wCmdID, (LPCTSTR)strName);
+				pMenu->ModifyMenu((UINT)pKey->wCmdID, MF_BYCOMMAND, pKey->wCmdID, (LPCWSTR)strName);
 			}
 		}
 	}
@@ -2405,19 +2402,19 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 	if (pMenu != NULL) {
 		CMenu* pTeikeiMenu = NULL;
 		int nCount = pMenu->GetMenuItemCount();
-		int j; for (int j=0;j<nCount;j++) {
+		int j; for (int j = 0; j < nCount; j++) {
 			CString strTitle;
 			pMenu->GetMenuString(j, strTitle, MF_BYPOSITION);
-			if (strTitle == "編集(&E)") {
+			if (strTitle == L"編集(&E)") {
 				pMenu = pMenu->GetSubMenu(j);
 				break;
 			}
 		}
 		nCount = pMenu->GetMenuItemCount();
-		for (j=0;j<nCount;j++) {
+		for (j = 0; j < nCount; j++) {
 			CString strTitle;
 			pMenu->GetMenuString(j, strTitle, MF_BYPOSITION);
-			if (strTitle == "定型文貼り付け") {
+			if (strTitle == L"定型文貼り付け") {
 				pTeikeiMenu = pMenu->GetSubMenu(j);
 				break;
 			}
@@ -2425,7 +2422,7 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 		for (int k = 0; k < 3 && pTeikeiMenu; k++) {
 			CMenu* pSubMenu = pTeikeiMenu->GetSubMenu(0);
 			pTeikeiMenu->RemoveMenu(0, MF_BYPOSITION);
-			pTeikeiMenu->AppendMenu(MF_POPUP , (UINT)pSubMenu->GetSafeHmenu(), (LPCTSTR)g_strTeikeiGroupName[k]);
+			pTeikeiMenu->AppendMenu(MF_POPUP, (UINT)pSubMenu->GetSafeHmenu(), (LPCWSTR)g_strTeikeiGroupName[k]);
 		}
 	}
 }
@@ -2436,9 +2433,9 @@ void CSuperTagEditorApp::UpdateAccelerator(int nTableMax)
 void CSuperTagEditorApp::GetWinampPath(void)
 {
 	HKEY	hKey;
-	CString strKeyString = "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Winamp.exe";
+	CString strKeyString = L"Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Winamp.exe";
 
-	g_sOptWinAmpPath = "";
+	g_sOptWinAmpPath = L"";
 
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, strKeyString, 0, KEY_EXECUTE, &hKey) == ERROR_SUCCESS) {
 		DWORD	dwValueType;
@@ -2446,7 +2443,7 @@ void CSuperTagEditorApp::GetWinampPath(void)
 		unsigned char	sValue[FILENAME_MAX];
 
 		/* レジストリ値の取得 */
-		RegQueryValueEx(hKey, "", NULL, &dwValueType, &sValue[0], &dwValueSize);
+		RegQueryValueEx(hKey, L"", NULL, &dwValueType, &sValue[0], &dwValueSize);
 
 		/* 結果の表示 */
 		if (dwValueType == REG_SZ) g_sOptWinAmpPath = sValue;
@@ -2464,12 +2461,12 @@ void CSuperTagEditorApp::ReadGenreList(void)
 	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		CString	strName;
-		strName.Format("%d", pGenre->byGenre);
+		strName.Format(L"%d", pGenre->byGenre);
 		pGenre->bAddList = (DWORD)MyGetProfileInt(sSectionGenreList, strName, 1) ? true : false;
 	}
 	int i; for (i = 0; i < USER_GENRE_LIST_MAX; i++) {
 		CString		strSectionName;
-		strSectionName.Format("haseta\\%s\\%d", sSectionUserGenreList, i);
+		strSectionName.Format(L"haseta\\%s\\%d", sSectionUserGenreList, i);
 		g_genreListUSER[i].bAddList = MyGetProfileInt(strSectionName, sKeyUserGenreAddList, 0) == 0 ? false : true;
 		g_genreListUSER[i].byGenre = (BYTE)MyGetProfileInt(strSectionName, sKeyUserGenreNo, 255);
 		g_genreListUSER[i].sName = MyGetProfileString(strSectionName, sKeyUserGenreName, NULL);
@@ -2490,13 +2487,13 @@ void CSuperTagEditorApp::WriteGenreList(void)
 	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		CString	strName;
-		strName.Format("%d", pGenre->byGenre);
+		strName.Format(L"%d", pGenre->byGenre);
 		MyWriteProfileInt(sSectionGenreList, strName, pGenre->bAddList ? 1 : 0);
 	}
 	if (g_genreListUSER != NULL) {
 		int i; for (i = 0; i < USER_GENRE_LIST_MAX; i++) {
 			CString		strSectionName;
-			strSectionName.Format("haseta\\%s\\%d", sSectionUserGenreList, i);
+			strSectionName.Format(L"haseta\\%s\\%d", sSectionUserGenreList, i);
 			MyWriteProfileInt(strSectionName, sKeyUserGenreAddList, g_genreListUSER[i].bAddList == true ? 1 : 0);
 			MyWriteProfileInt(strSectionName, sKeyUserGenreNo, g_genreListUSER[i].byGenre);
 			MyWriteProfileString(strSectionName, sKeyUserGenreName, g_genreListUSER[i].sName);
@@ -2512,7 +2509,7 @@ void CSuperTagEditorApp::LoadStdProfileSettings(UINT nMaxMRU)  /* StartInaction 
 	ASSERT(m_pRecentFileList == NULL);
 
 	if (nMaxMRU != 0) {
-		m_pRecentFileList = new CMyRecentFileList(0, "haseta\\MRU", "MRUFolder%d", nMaxMRU, 60);
+		m_pRecentFileList = new CMyRecentFileList(0, L"haseta\\MRU", L"MRUFolder%d", nMaxMRU, 60);
 		m_pRecentFileList->ReadList();
 	}
 }
@@ -2523,11 +2520,11 @@ void CSuperTagEditorApp::OnUpdateFileMruFile(CCmdUI* pCmdUI) /* StartInaction 05
 	m_pRecentFileList->UpdateMenu(pCmdUI);
 }
 
-void CSuperTagEditorApp::AddToRecentFileList(LPCTSTR lpszPathName) /* StartInaction 053 */
+void CSuperTagEditorApp::AddToRecentFileList(LPCWSTR lpszPathName) /* StartInaction 053 */
 {
 	CString strPath = lpszPathName; /* WildCherry2 079 */
 	if (IsFolderName(lpszPathName) == true) {
-		strPath.Delete(strPath.GetLength()-1);
+		strPath.Delete(strPath.GetLength() - 1);
 	}
 	m_pRecentFileList->Add(strPath);
 }
@@ -2538,8 +2535,8 @@ BOOL CSuperTagEditorApp::OnOpenRecentFile(UINT nID) /* BeachMonster 104 */
 	int nIndex = nID - ID_FILE_MRU_FILE1;
 	ASSERT((*m_pRecentFileList)[nIndex].GetLength() != 0);
 
-	TRACE2("MRU: open file (%d) '%s'.\n", (nIndex) + 1,
-			(LPCTSTR)(*m_pRecentFileList)[nIndex]);
+	TRACE2("MRU: open file (%d) '%s'.\n", (nIndex)+1,
+		(LPCWSTR)(*m_pRecentFileList)[nIndex]);
 
 	POSITION pos = GetFirstDocTemplatePosition();
 	if (pos != NULL) {
@@ -2689,59 +2686,59 @@ void CSuperTagEditorApp::OnFavoriteFolder10() /* RockDance 124 */
 
 void CSuperTagEditorApp::ReadFixedWordList()
 {
-	TCHAR   drive[_MAX_DRIVE];
-	TCHAR   dir[_MAX_DIR];
-	TCHAR   buff[_MAX_PATH] = {'\0'};
+	wchar_t   drive[_MAX_DRIVE];
+	wchar_t   dir[_MAX_DIR];
+	wchar_t   buff[_MAX_PATH] = { '\0' };
 
 	//自己アプリのパス所得（大小文字識別付き）
 	GetModuleFileName(m_hInstance, buff, _MAX_PATH);
 	_tsplitpath(buff, drive, dir, NULL, NULL);
-	_tmakepath(buff, drive, dir, "FixedWordList", "ini");
+	_tmakepath(buff, drive, dir, L"FixedWordList", L"ini");
 
 	g_arFixedWords.RemoveAll();
-	TRY {
+	TRY{
 		CFile	file;
-		if (file.Open(buff, CFile::modeRead|CFile::shareDenyNone)) {
+		if (file.Open(buff, CFile::modeRead | CFile::shareDenyNone)) {
 			CArchive	ar(&file, CArchive::load);
 			CString strLine;
-			while(ar.ReadString(strLine)) {
+			while (ar.ReadString(strLine)) {
 				g_arFixedWords.Add(strLine);
 			}
 		}
 	}
-	CATCH( CFileException, e) {
-		CString	str;
-		str.Format("%s の読み込みに失敗しました", buff);
-		MessageBox(NULL, str, "ファイルエラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+		CATCH(CFileException, e) {
+			CString	str;
+			str.Format(L"%s の読み込みに失敗しました", buff);
+			MessageBox(NULL, str, L"ファイルエラー", MB_ICONSTOP | MB_OK | MB_TOPMOST);
 	}
 	END_CATCH
 }
 
 void CSuperTagEditorApp::WriteFixedWordList()
 {
-	TCHAR   drive[_MAX_DRIVE];
-	TCHAR   dir[_MAX_DIR];
-	TCHAR   buff[_MAX_PATH] = {'\0'};
+	wchar_t   drive[_MAX_DRIVE];
+	wchar_t   dir[_MAX_DIR];
+	wchar_t   buff[_MAX_PATH] = { '\0' };
 
 	//自己アプリのパス所得（大小文字識別付き）
 	GetModuleFileName(m_hInstance, buff, _MAX_PATH);
 	_tsplitpath(buff, drive, dir, NULL, NULL);
-	_tmakepath(buff, drive, dir, "FixedWordList", "ini");
+	_tmakepath(buff, drive, dir, L"FixedWordList", L"ini");
 
-	TRY {
+	TRY{
 		CFile	file;
-		if (file.Open(buff, CFile::modeCreate|CFile::modeWrite)) {
+		if (file.Open(buff, CFile::modeCreate | CFile::modeWrite)) {
 			CArchive	ar(&file, CArchive::store);
 			CString strLine;
-			for (int i=0;i<g_arFixedWords.GetSize();i++) {
+			for (int i = 0; i < g_arFixedWords.GetSize(); i++) {
 				ar.WriteString(g_arFixedWords.GetAt(i) + "\n");
 			}
 		}
 	}
-	CATCH( CFileException, e) {
-		CString	str;
-		str.Format("%s の書き込みに失敗しました", buff);
-		MessageBox(NULL, str, "ファイルエラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+		CATCH(CFileException, e) {
+			CString	str;
+			str.Format(L"%s の書き込みに失敗しました", buff);
+			MessageBox(NULL, str, L"ファイルエラー", MB_ICONSTOP | MB_OK | MB_TOPMOST);
 	}
 	END_CATCH
 }

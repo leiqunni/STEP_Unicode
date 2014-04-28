@@ -19,7 +19,7 @@ IMPLEMENT_DYNCREATE(CDlgFixedUpperLower, COptionPage)
 CDlgFixedUpperLower::CDlgFixedUpperLower() : COptionPage(CDlgFixedUpperLower::IDD)
 {
 	//{{AFX_DATA_INIT(CDlgFixedUpperLower)
-	m_strFixedWord = _T("");
+	m_strFixedWord = L"";
 	//}}AFX_DATA_INIT
 }
 
@@ -79,7 +79,7 @@ BOOL CDlgFixedUpperLower::OnInitDialog()
 	
 	RECT	rect;
 	m_listUpperLower.GetClientRect(&rect);
-	m_listUpperLower.InsertColumn(1, "固定単語", LVCFMT_LEFT, rect.right-rect.left-16, -1);
+	m_listUpperLower.InsertColumn(1, L"固定単語", LVCFMT_LEFT, rect.right-rect.left-16, -1);
 	m_listUpperLower.DeleteAllItems();					// クリア
 	for (int i=0;i<m_arFixedWords.GetSize();i++) {
 		m_listUpperLower.InsertItem(i, m_arFixedWords.GetAt(i));

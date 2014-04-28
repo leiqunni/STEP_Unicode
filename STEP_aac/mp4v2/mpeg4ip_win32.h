@@ -75,7 +75,7 @@ static inline int snprintf(char *buffer, size_t count,
   }
   return ret;
 }
-#define strncasecmp _strnicmp
+#define strncasecmp _wcsnicmp
 #define strcasecmp _stricmp
 #define localtime_r(a,b) localtime_s(b,a)
 #define printf printf_s

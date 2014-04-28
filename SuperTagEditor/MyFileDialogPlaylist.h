@@ -20,10 +20,10 @@ public:
 	IFileDialogCustomize* custom;
 	BOOL m_bShowLoadPlaylistDlg;
 	CMyFileDialogPlaylist(BOOL bOpenFileDialog, // TRUE Ç»ÇÁÇŒ FileOpenÅA FALSE Ç»ÇÁÇŒ FileSaveAs
-		LPCTSTR lpszDefExt = NULL,
-		LPCTSTR lpszFileName = NULL,
+		LPCWSTR lpszDefExt = NULL,
+		LPCWSTR lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
-		LPCTSTR lpszFilter = NULL,
+		LPCWSTR lpszFilter = NULL,
 		CWnd* pParentWnd = NULL);
 
 protected:

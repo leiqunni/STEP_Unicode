@@ -35,7 +35,7 @@ void CVqf::Release()
 	m_dwSamplingFrequency = 0;
 }
 
-BOOL CVqf::SetField(char id1,char id2,char id3,char id4,const unsigned char *szData,DWORD dwSize)
+BOOL CVqf::SetField(char id1,char id2,char id3,char id4,const wchar_t *szData,DWORD dwSize)
 {
 	DWORD id = MakeKey(id1,id2,id3,id4);
 	m_fields.erase(id);
@@ -51,7 +51,7 @@ BOOL CVqf::SetField(char id1,char id2,char id3,char id4,const unsigned char *szD
 	if(p != m_fields.end())
 	{
 		p->second.SetData(szData,dwSize);
-		unsigned char *data = p->second.GetData();
+		wchar_t *data = p->second.GetData();
 		if(!data)
 		{
 			//空のフィールドは作らない
@@ -65,7 +65,7 @@ BOOL CVqf::SetField(char id1,char id2,char id3,char id4,const unsigned char *szD
 	return TRUE;
 }
 
-unsigned char *CVqf::GetField(char id1,char id2,char id3,char id4,DWORD *pdwSize)
+wchar_t *CVqf::GetField(char id1,char id2,char id3,char id4,DWORD *pdwSize)
 {
 	map<DWORD,CVqfTag>::iterator p = m_fields.find(MakeKey(id1,id2,id3,id4));
 	if(p == m_fields.end())
@@ -193,7 +193,7 @@ DWORD CVqf::Load(const char *szFileName)
 		}
 
 		//mapに追加
-		SetField(id1,id2,id3,id4,(const unsigned char *)&HeadBuf[lHeadSize-lRemainSize],lSize);
+		SetField(id1,id2,id3,id4,(const wchar_t *)&HeadBuf[lHeadSize-lRemainSize],lSize);
 
 		lRemainSize -= lSize;
 	}
@@ -203,7 +203,7 @@ DWORD CVqf::Load(const char *szFileName)
 	map<DWORD,CVqfTag>::iterator p = m_fields.find(MakeKey('C','O','M','M'));
 	if(p != m_fields.end())
 	{
-		unsigned char *data = p->second.GetData();
+		wchar_t *data = p->second.GetData();
 		DWORD size = p->second.GetSize();
 		if(size >= 12)
 		{
@@ -225,7 +225,7 @@ DWORD CVqf::Load(const char *szFileName)
 	p = m_fields.find(MakeKey('D','S','I','Z'));
 	if(p != m_fields.end())
 	{
-		unsigned char *data = p->second.GetData();
+		wchar_t *data = p->second.GetData();
 		DWORD size = p->second.GetSize();
 		if(size >= 4)
 		{
@@ -397,7 +397,7 @@ DWORD CVqf::Save(HWND hWnd,const char *szFileName)
 	{
 		DWORD id = p->first;
 		DWORD len = p->second.GetSize();
-		unsigned char *data = p->second.GetData();
+		wchar_t *data = p->second.GetData();
 		MakeBeSize(id,szTmp);
 		if(WriteFile(hFile,szTmp,4,&dwWritten,NULL) == 0)
 		{

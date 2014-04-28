@@ -60,14 +60,14 @@ public:
 	}
 	CId3Frame(const CId3Frame &obj)	//コピーコンストラクタ
 	{
-		m_data = (unsigned char *)malloc(obj.m_dwSize+1/* STEP */);
+		m_data = (wchar_t *)malloc(obj.m_dwSize+1/* STEP */);
 		ZeroMemory(m_data, obj.m_dwSize+1); /* STEP */
 		memcpy(m_data,obj.m_data,obj.m_dwSize);
 		m_dwId = obj.m_dwId;
 		m_dwSize = obj.m_dwSize;
 		m_wFlags = obj.m_wFlags;
 	};
-	DWORD LoadFrame2_4(unsigned char *pData,DWORD dwSize)
+	DWORD LoadFrame2_4(wchar_t *pData,DWORD dwSize)
 	{
 		Release();
 		if(dwSize < 10)
@@ -89,7 +89,7 @@ public:
 		{
 			return 0;	//無効なフレームID
 		}
-		m_data = (unsigned char *)malloc(size+1/* STEP */);
+		m_data = (wchar_t *)malloc(size+1/* STEP */);
 		if(!m_data)
 		{
 			return 0;	//メモリを確保できなかった
@@ -101,7 +101,7 @@ public:
 		memcpy(m_data,&pData[10],size);
 		return (size + 10);
 	};
-	DWORD LoadFrame2_3(unsigned char *pData,DWORD dwSize)
+	DWORD LoadFrame2_3(wchar_t *pData,DWORD dwSize)
 	{
 		Release();
 		if(dwSize < 10)
@@ -127,7 +127,7 @@ public:
 		{
 			return 0;	//無効なフレームID
 		}
-		m_data = (unsigned char *)malloc(size+1/* STEP */);
+		m_data = (wchar_t *)malloc(size+1/* STEP */);
 		if(!m_data)
 		{
 			return 0;	//メモリを確保できなかった
@@ -140,7 +140,7 @@ public:
 		memcpy(m_data,&pData[10],size);
 		return (size + 10);
 	};
-	DWORD LoadFrame2_2(unsigned char *pData,DWORD dwSize)
+	DWORD LoadFrame2_2(wchar_t *pData,DWORD dwSize)
 	{
 		Release();
 		if(dwSize < 6)
@@ -320,7 +320,7 @@ public:
 			return 0;
 		}
 
-		m_data = (unsigned char *)malloc(size+1/* STEP */);
+		m_data = (wchar_t *)malloc(size+1/* STEP */);
 		if(!m_data)
 		{
 			return 0;	//メモリを確保できなかった
@@ -337,14 +337,14 @@ public:
 	void SetSize(DWORD size){m_dwSize = size;};
 	WORD GetFlags(){return m_wFlags;};
 	void SetFlags(WORD flags){m_wFlags = flags;};
-	unsigned char *GetData(){return m_data;};
-	void SetData(unsigned char *data,DWORD size)
+	wchar_t *GetData(){return m_data;};
+	void SetData(wchar_t *data,DWORD size)
 	{
 		if(m_data)
 		{
 			free(m_data);
 		}
-		m_data = (unsigned char *)malloc(size+1/* STEP */);
+		m_data = (wchar_t *)malloc(size+1/* STEP */);
 		if(!m_data)
 		{
 			return;	//メモリを確保できなかった
@@ -436,8 +436,8 @@ public:
 	DWORD MakeTag(const char *szFileName);
 
 private:
-	DWORD DecodeUnSynchronization(unsigned char *data,DWORD dwSize);
-	DWORD EncodeUnSynchronization(unsigned char *srcData,DWORD dwSize,unsigned char *dstData);
+	DWORD DecodeUnSynchronization(wchar_t *data,DWORD dwSize);
+	DWORD EncodeUnSynchronization(wchar_t *srcData,DWORD dwSize,wchar_t *dstData);
 	DWORD ExtractV2Size(const unsigned char size[4]);
 	void MakeV2Size(DWORD dwSize,unsigned char size[4]);
 	CString GetId3String(const char szId[]);

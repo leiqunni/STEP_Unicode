@@ -37,7 +37,7 @@ COptionPage::COptionPage(UINT nIDTemplate, UINT nIDCaption )
 	CommonConstruct(nIDCaption);
 }
 
-COptionPage::COptionPage(LPCTSTR lpszTemplateName, UINT nIDCaption)
+COptionPage::COptionPage(LPCWSTR lpszTemplateName, UINT nIDCaption)
 : CDialog(lpszTemplateName)
 {
 	CommonConstruct(nIDCaption);
@@ -104,7 +104,7 @@ void COptionPage::CommonConstruct(UINT nIDCaption)
 
 
 
-BOOL COptionPage::Create(LPCTSTR lpszTemplateName, CWnd* pParentWnd)
+BOOL COptionPage::Create(LPCWSTR lpszTemplateName, CWnd* pParentWnd)
 {
 	return CDialog::Create(lpszTemplateName, pParentWnd);
 }
@@ -153,7 +153,7 @@ BOOL COptionPage::Create(CRect &rect, CWnd *pParentWnd)
 	ASSERT_KINDOF(CWnd, pParentWnd);
 
 
-	LPCSTR			pTmplName;
+	LPCWSTR			pTmplName;
 	BOOL			result;
 	LPDLGTEMPLATE	pTemplate;
 	CDialogTemplate tmpl;
@@ -295,7 +295,7 @@ BOOL COptionPage::OnSetActive()
 	ASSERT_VALID(this);
 	if (!UpdateData(FALSE))
 	{
-		TRACE0("UpdateData failed during page activation\n");
+		TRACE0(L"UpdateData failed during page activation\n");
 		return FALSE;
 	}
 	return TRUE;
@@ -308,7 +308,7 @@ BOOL COptionPage::OnKillActive()
 	ASSERT_VALID(this);
 	if (!UpdateData())
 	{
-		TRACE0("UpdateData failed during page deactivation\n");
+		TRACE0(L"UpdateData failed during page deactivation\n");
 		return FALSE;
 	}
 	OnOK(); /* 2005.09.08 add */

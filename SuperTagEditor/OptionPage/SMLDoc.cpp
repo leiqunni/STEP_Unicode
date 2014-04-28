@@ -81,7 +81,7 @@ static DWORD headerFontSizes[5] = {8, 10, 12, 14, 18};
 ///////////////////////////////////////////////////////////////////////////////
 
 /* Skip whitespaces and return a pointer to the first non-whitespace character */
-static LPCSTR SkipWS(LPCSTR ptr)
+static LPCWSTR SkipWS(LPCWSTR ptr)
 {
 	while(0 != *ptr && *ptr <= ' ') {
 		ptr++;
@@ -92,11 +92,11 @@ static LPCSTR SkipWS(LPCSTR ptr)
 
 
 /* Parses a literal string enclosed in quotes from the markup stream */
-static LPCSTR GetString(LPCSTR str, CString &output)
+static LPCWSTR GetString(LPCWSTR str, CString &output)
 {
 	ASSERT('"' == *str);
-	LPCSTR end;
-	LPCSTR start;
+	LPCWSTR end;
+	LPCWSTR start;
 	
 	str++;
 	start = str;
@@ -119,9 +119,9 @@ static LPCSTR GetString(LPCSTR str, CString &output)
 
 	/* Calculate the length and allocate a conversion buffer */
 	DWORD length = end - start;
-	char *newstr = output.GetBuffer(length + 1);
-	LPCSTR src = start;
-	char *dst = newstr;
+	wchar_t *newstr = output.GetBuffer(length + 1);
+	LPCWSTR src = start;
+	wchar_t *dst = newstr;
 
 	// Copy over the new string and convert carriage returns to spaces
 	while(src < end) {
@@ -159,11 +159,11 @@ static LPCSTR GetString(LPCSTR str, CString &output)
 	Returns:
 		Pointer to the first character after the tag or string literal.
 */
-static LPCSTR GetID(LPCSTR src, CString &tagString, BOOL &isString)
+static LPCWSTR GetID(LPCWSTR src, CString &tagString, BOOL &isString)
 {
 	DWORD length;
-	LPCSTR retVal;
-	LPCSTR end;
+	LPCWSTR retVal;
+	LPCWSTR end;
 
 	/* Skip the the beginning of the text to parse */
 	src = SkipWS(src);
@@ -185,7 +185,7 @@ static LPCSTR GetID(LPCSTR src, CString &tagString, BOOL &isString)
 
 		// Store the tag ID into the string buffer
 		length = end - src;
-		char *tmp = tagString.GetBuffer(length + 1);
+		wchar_t *tmp = tagString.GetBuffer(length + 1);
 		memcpy(tmp, src, length);
 		tmp[length] = 0;
 		tagString.ReleaseBuffer(length);
@@ -247,7 +247,7 @@ void CSMLDoc::CSMLTagOptionList::Reset()
 }
 
 
-CString *CSMLDoc::CSMLTagOptionList::GetParam(LPCSTR param) {
+CString *CSMLDoc::CSMLTagOptionList::GetParam(LPCWSTR param) {
 	POSITION pos;
 
 	// Get the head of the list
@@ -271,24 +271,24 @@ CString CSMLDoc::CSMLTagOptionList::GetParamTypeface(CString &defaultFace) {
 	CString *value;
 
 	// Get the 'face' param
-	value = GetParam(_T("face"));
+	value = GetParam(_T(L"face"));
 
 	if(NULL != value) {
-		LPCSTR faceStr = *value;
+		LPCWSTR faceStr = *value;
 		UINT id = 0;
 
 		// Translate the typeface
-		if(0 == _stricmp(faceStr, "ANSI_FIXED_FONT")) {
+		if(0 == _stricmp(faceStr, L"ANSI_FIXED_FONT")) {
 			id = ANSI_FIXED_FONT;
-		} else if(0 == _stricmp(faceStr, "ANSI_VAR_FONT")) {
+		} else if(0 == _stricmp(faceStr, L"ANSI_VAR_FONT")) {
 			id = ANSI_VAR_FONT;
-		} else if(0 == _stricmp(faceStr, "DEFAULT_GUI_FONT")) {
+		} else if(0 == _stricmp(faceStr, L"DEFAULT_GUI_FONT")) {
 			id = DEFAULT_GUI_FONT;
-		} else if(0 == _stricmp(faceStr, "OEM_FIXED_FONT")) {
+		} else if(0 == _stricmp(faceStr, L"OEM_FIXED_FONT")) {
 			id = OEM_FIXED_FONT;
-		} else if(0 == _stricmp(faceStr, "SYSTEM_FONT")) {
+		} else if(0 == _stricmp(faceStr, L"SYSTEM_FONT")) {
 			id = SYSTEM_FONT;
-		} else if(0 == _stricmp(faceStr, "SYSTEM_FIXED_FONT")) {
+		} else if(0 == _stricmp(faceStr, L"SYSTEM_FIXED_FONT")) {
 			id = SYSTEM_FIXED_FONT;
 		}
 
@@ -313,10 +313,10 @@ DWORD CSMLDoc::CSMLTagOptionList::GetParamSize(DWORD defaultSize)
 	CString *value;
 
 	// Find the 'size' parameter
-	value = GetParam(_T("size"));
+	value = GetParam(_T(L"size"));
 	if(NULL != value) {
 		// It was found, so translate it to a number
-		defaultSize = atoi(*value);
+		defaultSize = _wtoi(*value);
 	}
 
 	return defaultSize;
@@ -342,76 +342,76 @@ static BOOL GetHexNibble(char ch, UCHAR *out)
 }
 
 // Translate a color value or windows system color into an RGB value 
-static COLORREF ConvertColor(COLORREF defaultColor, const char *srcTxt)
+static COLORREF ConvertColor(COLORREF defaultColor, const wchar_t *srcTxt)
 {
-	if(0 == _strnicmp(srcTxt, _T("COLOR_"), 6)) {
+	if(0 == _wcsnicmp(srcTxt, _T(L"COLOR_"), 6)) {
 		srcTxt = &(srcTxt[6]);
-		if(0 == _stricmp(srcTxt, "3DDKSHADOW")) {
+		if(0 == _stricmp(srcTxt, L"3DDKSHADOW")) {
 			defaultColor = COLOR_3DDKSHADOW;
-		} else if(0 == _stricmp(srcTxt, "3DFACE")) {
+		} else if(0 == _stricmp(srcTxt, L"3DFACE")) {
 			defaultColor = COLOR_3DFACE;
-		} else if(0 == _stricmp(srcTxt, "BTNFACE")) {
+		} else if(0 == _stricmp(srcTxt, L"BTNFACE")) {
 			defaultColor = COLOR_BTNFACE;
-		} else if(0 == _stricmp(srcTxt, "3DHILIGHT")) {
+		} else if(0 == _stricmp(srcTxt, L"3DHILIGHT")) {
 			defaultColor = COLOR_3DHILIGHT;
-		} else if(0 == _stricmp(srcTxt, "3DLIGHT")) {
+		} else if(0 == _stricmp(srcTxt, L"3DLIGHT")) {
 			defaultColor = COLOR_3DLIGHT;
-		} else if(0 == _stricmp(srcTxt, "3DSHADOW")) {
+		} else if(0 == _stricmp(srcTxt, L"3DSHADOW")) {
 			defaultColor = COLOR_3DSHADOW;
-		} else if(0 == _stricmp(srcTxt, "ACTIVEBORDER")) {
+		} else if(0 == _stricmp(srcTxt, L"ACTIVEBORDER")) {
 			defaultColor = COLOR_ACTIVEBORDER;
-		} else if(0 == _stricmp(srcTxt, "ACTIVECAPTION")) {
+		} else if(0 == _stricmp(srcTxt, L"ACTIVECAPTION")) {
 			defaultColor = COLOR_ACTIVECAPTION;
-		} else if(0 == _stricmp(srcTxt, "APPWORKSPACE")) {
+		} else if(0 == _stricmp(srcTxt, L"APPWORKSPACE")) {
 			defaultColor = COLOR_APPWORKSPACE;
-		} else if(0 == _stricmp(srcTxt, "BACKGROUND")) {
+		} else if(0 == _stricmp(srcTxt, L"BACKGROUND")) {
 			defaultColor = COLOR_BACKGROUND;
-		} else if(0 == _stricmp(srcTxt, "BTNTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"BTNTEXT")) {
 			defaultColor = COLOR_BTNTEXT;
-		} else if(0 == _stricmp(srcTxt, "CAPTIONTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"CAPTIONTEXT")) {
 			defaultColor = COLOR_CAPTIONTEXT;
 #ifdef COLOR_GRADIENTACTIVECAPTION
-		} else if(0 == _stricmp(srcTxt, "GRADIENTACTIVECAPTION")) {
+		} else if(0 == _stricmp(srcTxt, L"GRADIENTACTIVECAPTION")) {
 			defaultColor = COLOR_GRADIENTACTIVECAPTION;
 #endif
 #ifdef GRADIENTINACTIVECAPTION
-		} else if(0 == _stricmp(srcTxt, "GRADIENTINACTIVECAPTION")) {
+		} else if(0 == _stricmp(srcTxt, L"GRADIENTINACTIVECAPTION")) {
 			defaultColor = COLOR_GRADIENTINACTIVECAPTION;
 #endif
-		} else if(0 == _stricmp(srcTxt, "GRAYTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"GRAYTEXT")) {
 			defaultColor = COLOR_GRAYTEXT;
-		} else if(0 == _stricmp(srcTxt, "HIGHLIGHT")) {
+		} else if(0 == _stricmp(srcTxt, L"HIGHLIGHT")) {
 			defaultColor = COLOR_HIGHLIGHT;
-		} else if(0 == _stricmp(srcTxt, "HIGHLIGHTTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"HIGHLIGHTTEXT")) {
 			defaultColor = COLOR_HIGHLIGHTTEXT;
 #ifdef HOTLIGHT
-		} else if(0 == _stricmp(srcTxt, "HOTLIGHT")) {
+		} else if(0 == _stricmp(srcTxt, L"HOTLIGHT")) {
 			defaultColor = COLOR_HOTLIGHT;
 #endif
-		} else if(0 == _stricmp(srcTxt, "INACTIVEBORDER")) {
+		} else if(0 == _stricmp(srcTxt, L"INACTIVEBORDER")) {
 			defaultColor = COLOR_INACTIVEBORDER;
-		} else if(0 == _stricmp(srcTxt, "INACTIVECAPTION")) {
+		} else if(0 == _stricmp(srcTxt, L"INACTIVECAPTION")) {
 			defaultColor = COLOR_INACTIVECAPTION;
-		} else if(0 == _stricmp(srcTxt, "INACTIVECAPTIONTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"INACTIVECAPTIONTEXT")) {
 			defaultColor = COLOR_INACTIVECAPTIONTEXT;
-		} else if(0 == _stricmp(srcTxt, "INFOBK")) {
+		} else if(0 == _stricmp(srcTxt, L"INFOBK")) {
 			defaultColor = COLOR_INFOBK;
-		} else if(0 == _stricmp(srcTxt, "INFOTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"INFOTEXT")) {
 			defaultColor = COLOR_INFOTEXT;
-		} else if(0 == _stricmp(srcTxt, "MENU")) {
+		} else if(0 == _stricmp(srcTxt, L"MENU")) {
 			defaultColor = COLOR_MENU;
-		} else if(0 == _stricmp(srcTxt, "MENUTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"MENUTEXT")) {
 			defaultColor = COLOR_MENUTEXT;
-		} else if(0 == _stricmp(srcTxt, "SCROLLBAR")) {
+		} else if(0 == _stricmp(srcTxt, L"SCROLLBAR")) {
 			defaultColor = COLOR_SCROLLBAR;
-		} else if(0 == _stricmp(srcTxt, "WINDOW")) {
+		} else if(0 == _stricmp(srcTxt, L"WINDOW")) {
 			defaultColor = COLOR_WINDOW;
-		} else if(0 == _stricmp(srcTxt, "WINDOWFRAME")) {
+		} else if(0 == _stricmp(srcTxt, L"WINDOWFRAME")) {
 			defaultColor = COLOR_WINDOWFRAME;
-		} else if(0 == _stricmp(srcTxt, "WINDOWTEXT")) {
+		} else if(0 == _stricmp(srcTxt, L"WINDOWTEXT")) {
 			defaultColor = COLOR_WINDOWTEXT;
 		} else {
-			TRACE1("Unknown system color %s\n", srcTxt);
+			TRACE1(L"Unknown system color %s\n", srcTxt);
 			return defaultColor;
 		}
 
@@ -460,7 +460,7 @@ COLORREF CSMLDoc::CSMLTagOptionList::GetParamColor(COLORREF defaultColor)
 	CString *value;
 
 	// Get the color argument
-	value = GetParam(_T("color"));
+	value = GetParam(_T(L"color"));
 
 	if(NULL != value) {
 		// Go translate the color
@@ -476,7 +476,7 @@ DWORD CSMLDoc::CSMLTagOptionList::GetBkgndColor(COLORREF defaultColor)
 	CString *value;
 
 	// Get the background color argument
-	value = GetParam(_T("bgcolor"));
+	value = GetParam(_T(L"bgcolor"));
 
 	if(NULL != value) {
 		// Trnaslate the color
@@ -506,7 +506,7 @@ CSMLDoc::CSMLFontInfo::CSMLFontInfo()
 	m_Size = 12;
 	m_Style = 0;
 	m_Color = RGB(0,0,0);
-	m_Face = _T("");
+	m_Face = L"";
 }
 
 
@@ -528,7 +528,7 @@ CSMLDoc::CSMLFontInfo::CSMLFontInfo(DWORD size, DWORD style, COLORREF color, CSt
 }
 
 
-CSMLDoc::CSMLFontInfo::CSMLFontInfo(DWORD size, DWORD style, COLORREF color, LPCSTR face)
+CSMLDoc::CSMLFontInfo::CSMLFontInfo(DWORD size, DWORD style, COLORREF color, LPCWSTR face)
 {
 	m_Size = size;
 	m_Style = style;
@@ -554,7 +554,7 @@ CSMLDoc::CSMLFontInfo::CSMLFontInfo(DWORD size, DWORD style, COLORREF color, LPC
 //
 //
 ///////////////////////////////////////////////////////////////////////////////
-CSMLDoc::CSMLTextGroup::CSMLTextBlock::CSMLTextBlock(LPCSTR text, CSMLDoc::CSMLFontInfo *info)
+CSMLDoc::CSMLTextGroup::CSMLTextBlock::CSMLTextBlock(LPCWSTR text, CSMLDoc::CSMLFontInfo *info)
 {
 	ASSERT(NULL != text);
 	ASSERT(NULL != info);
@@ -735,13 +735,13 @@ void CSMLDoc::AddGroup(CSMLDoc::CSMLTextGroup &line)
 //////////////////////////////////////////////////////////////////////////////
 //	Parsing
 //////////////////////////////////////////////////////////////////////////////
-LPCSTR CSMLDoc::ParseTag(LPCSTR src, CString &tagText, DWORD &tagID, CSMLDoc::CSMLTagOptionList &paramList)
+LPCWSTR CSMLDoc::ParseTag(LPCWSTR src, CString &tagText, DWORD &tagID, CSMLDoc::CSMLTagOptionList &paramList)
 {
 	ASSERT(NULL != src);
 	ASSERT('<' == *src);
 
 	BOOL isString;
-	LPCSTR retVal;
+	LPCWSTR retVal;
 	bool endingTag;
 
 	// Determine if this is a termination tag
@@ -839,7 +839,7 @@ BOOL CSMLDoc::ParseSMLText(UINT nID)
 	hInst = AfxGetInstanceHandle();
 
 	// Find the resource
-	hSrc = FindResource(hInst, MAKEINTRESOURCE(nID), "SMLDOC");
+	hSrc = FindResource(hInst, MAKEINTRESOURCE(nID), L"SMLDOC");
 	if(NULL == hSrc) {
 		return FALSE;
 	}
@@ -860,15 +860,15 @@ BOOL CSMLDoc::ParseSMLText(UINT nID)
 }
 
 
-BOOL CSMLDoc::ParseSMLText(LPCSTR src)
+BOOL CSMLDoc::ParseSMLText(LPCWSTR src)
 {
 	ASSERT(NULL != src);
 
 	CSMLFontInfo		*fontInfo;
 	DWORD			length;
 	DWORD			tagID;
-	LPCSTR			start;
-	LPCSTR			end;
+	LPCWSTR			start;
+	LPCWSTR			end;
 	CString			tagString;
 	CSMLTextGroup		textGroup;
 	CSMLFontInfoList	fontInfoStack;
@@ -913,7 +913,7 @@ BOOL CSMLDoc::ParseSMLText(LPCSTR src)
 			// Process the tag
 			switch(tagID) {
 			case TAG_UNKNOWN:
-				TRACE1("Unknown tag: \"%s\"\n", tagString.GetBuffer(0));
+				TRACE1(L"Unknown tag: \"%s\"\n", tagString.GetBuffer(0));
 				break;
 
 			case HEADER1:
@@ -1053,8 +1053,8 @@ BOOL CSMLDoc::ParseSMLText(LPCSTR src)
 
 			// Make sure we are in the text body before adding anything
 			if(true == inBody && length > 0) {
-				char *txtBuf = new char[length + 1];
-				char *dst = txtBuf;
+				wchar_t *txtBuf = new char[length + 1];
+				wchar_t *dst = txtBuf;
 
 				// Collect and convert the text stream
 				while(src < end) {

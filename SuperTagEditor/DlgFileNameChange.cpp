@@ -20,9 +20,9 @@ CDlgFileNameChange::CDlgFileNameChange(CWnd* pParent /*=NULL*/)
 {
 	m_nMaxChar = 255;
 	//{{AFX_DATA_INIT(CDlgFileNameChange)
-	m_strFileName = _T("");
-	m_strMsg = _T("");
-	m_strOrgFileName = _T("");
+	m_strFileName = L"";
+	m_strMsg = L"";
+	m_strOrgFileName = L"";
 	//}}AFX_DATA_INIT
 }
 

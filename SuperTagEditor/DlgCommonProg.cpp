@@ -95,7 +95,7 @@ END_MESSAGE_MAP()
 void CDlgCommonProgress::OnCancel()
 {
 	//追加 by Kobarin
-	if (MessageBox("中断してもよろしいですか？", "処理の中断", MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2|MB_TOPMOST) == IDYES) {
+	if (MessageBox(L"中断してもよろしいですか？", L"処理の中断", MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2|MB_TOPMOST) == IDYES) {
 		m_bCanceled = TRUE;
 	}
 }
@@ -180,7 +180,7 @@ void CDlgCommonProgress::UpdatePercent(int nNewPos)
 
     // パーセンテージを表示します。
     CString strBuf;
-    strBuf.Format(_T("%d%c"),nPercent,_T('%'));
+    strBuf.Format(_T(L"%d%c"),nPercent,_T('%'));
 
 	CString strCur; // 現在のパーセンテージを取得
     pWndPercent->GetWindowText(strCur);

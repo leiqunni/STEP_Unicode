@@ -61,7 +61,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDlgUserConvFormat メッセージ ハンドラ
 
-void CDlgUserConvFormat::OutputFormatString(const char *sText)
+void CDlgUserConvFormat::OutputFormatString(const wchar_t *sText)
 {
 	CEdit	*pEdit = m_nOutputFormatType ? &m_editTag2File : &m_editFile2Tag;
 	pEdit->ReplaceSel(sText, FALSE);
@@ -70,42 +70,42 @@ void CDlgUserConvFormat::OutputFormatString(const char *sText)
 
 void CDlgUserConvFormat::OnBtTrackName() 
 {
-	OutputFormatString("%TRACK_NAME%");
+	OutputFormatString(L"%TRACK_NAME%");
 }
 
 void CDlgUserConvFormat::OnBtArtistName() 
 {
-	OutputFormatString("%ARTIST_NAME%");
+	OutputFormatString(L"%ARTIST_NAME%");
 }
 
 void CDlgUserConvFormat::OnBtAlbumName() 
 {
-	OutputFormatString("%ALBUM_NAME%");
+	OutputFormatString(L"%ALBUM_NAME%");
 }
 
 void CDlgUserConvFormat::OnBtReleaseYear() 
 {
-	OutputFormatString("%RELEASE_YEAR%");
+	OutputFormatString(L"%RELEASE_YEAR%");
 }
 
 void CDlgUserConvFormat::OnBtTrackNumber() 
 {
-	OutputFormatString("%TRACK_NUMBER%");
+	OutputFormatString(L"%TRACK_NUMBER%");
 }
 
 void CDlgUserConvFormat::OnBtTrackNumber2() 
 {
-	OutputFormatString("%TRACK_NUMBER2%");
+	OutputFormatString(L"%TRACK_NUMBER2%");
 }
 
 void CDlgUserConvFormat::OnBtTrackNumber3() 
 {
-	OutputFormatString("%TRACK_NUMBER3%");
+	OutputFormatString(L"%TRACK_NUMBER3%");
 }
 
 void CDlgUserConvFormat::OnBtComment() 
 {
-	OutputFormatString("%COMMENT%");
+	OutputFormatString(L"%COMMENT%");
 }
 
 void CDlgUserConvFormat::OnSetfocusEdFormatFile2tag() 
@@ -132,7 +132,7 @@ void CDlgUserConvFormat::OnBtNameChange()
 		m_listFormatType.ResetContent();
 		int i; for (i = 0; i < USER_CONV_FORMAT_MAX; i++) {
 			CString	strName;
-			strName.Format("%d: %s", i+1, m_userFormat[i].strName);
+			strName.Format(L"%d: %s", i+1, m_userFormat[i].strName);
 			m_listFormatType.AddString(strName);
 		}
 		// 選択しなおす
@@ -159,7 +159,7 @@ BOOL CDlgUserConvFormat::OnInitDialog()
 	m_listFormatType.ResetContent();
 	for (i = 0; i < USER_CONV_FORMAT_MAX; i++) {
 		CString	strName;
-		strName.Format("%d: %s", i+1, m_userFormat[i].strName);
+		strName.Format(L"%d: %s", i+1, m_userFormat[i].strName);
 		m_listFormatType.AddString(strName);
 	}
 

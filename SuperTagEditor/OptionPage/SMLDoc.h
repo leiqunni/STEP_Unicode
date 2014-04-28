@@ -56,7 +56,7 @@ private:
 	public:
 		virtual ~CSMLTagOptionList();
 		void Reset();
-		CString *GetParam(LPCSTR param);
+		CString *GetParam(LPCWSTR param);
 		CString GetParamTypeface(CString &defaultFace);
 		DWORD GetParamSize(DWORD defaultSize);
 		DWORD GetParamColor(DWORD defaultColor);
@@ -68,7 +68,7 @@ private:
 		CSMLFontInfo();
 		CSMLFontInfo(CSMLFontInfo *info);
 		CSMLFontInfo(DWORD size, DWORD style, COLORREF color, CString &face);
-		CSMLFontInfo(DWORD size, DWORD style, COLORREF color, LPCSTR face);
+		CSMLFontInfo(DWORD size, DWORD style, COLORREF color, LPCWSTR face);
 
 		DWORD		m_Size;
 		DWORD		m_Style;
@@ -105,7 +105,7 @@ public:
 				\param	text	Pointer to the text for the block
 				\param	info	Pointer to the font formatting information for the block.
 			*/
-			CSMLTextBlock(LPCSTR text, CSMLFontInfo *info);
+			CSMLTextBlock(LPCWSTR text, CSMLFontInfo *info);
 
 			/*!
 				\brief	Retrieves the typeface used by the text block
@@ -232,7 +232,7 @@ private:
 
 		\return	A pointer to the character immediately AFTER the entire tag.
 	*/
-	LPCSTR ParseTag(LPCSTR src, CString &tagText, DWORD &tagID, CSMLTagOptionList &paramList);
+	LPCWSTR ParseTag(LPCWSTR src, CString &tagText, DWORD &tagID, CSMLTagOptionList &paramList);
 
 	/*!
 		\brief	Adds a text group to the document.
@@ -287,7 +287,7 @@ public:
 		\retval	TRUE	Operation was successful.
 		\retval FALSE	Operation failed.
 	*/
-	BOOL ParseSMLText(LPCSTR stream);
+	BOOL ParseSMLText(LPCWSTR stream);
 
 	/*!
 		\brief	Parses a "hypertext" stream.

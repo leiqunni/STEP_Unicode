@@ -251,8 +251,8 @@ int InsertTagField ( const char* item, size_t itemsize, const char* value, size_
 {
     size_t  i;
 
-    if ( itemsize  == 0 ) itemsize  = strlen ( item  );                     // autodetect size
-    if ( valuesize == 0 ) valuesize = strlen ( value );                     // autodetect size
+    if ( itemsize  == 0 ) itemsize  = wcslen ( item  );                     // autodetect size
+    if ( valuesize == 0 ) valuesize = wcslen ( value );                     // autodetect size
 
     for ( i = 0; i < Info->tagitem_count; i++ ) {
         // are items case sensitive?
@@ -268,8 +268,8 @@ int InsertTagFieldLonger ( const char* item, size_t itemsize, const char* value,
 {
     size_t  i;
 
-    if ( itemsize  == 0 ) itemsize  = strlen ( item  );                     // autodetect size
-    if ( valuesize == 0 ) valuesize = strlen ( value );                     // autodetect size
+    if ( itemsize  == 0 ) itemsize  = wcslen ( item  );                     // autodetect size
+    if ( valuesize == 0 ) valuesize = wcslen ( value );                     // autodetect size
 
     for ( i = 0; i < Info->tagitem_count; i++ ) {
         // are items case sensitive?
@@ -339,7 +339,7 @@ int utf8ToUnicode ( const char* lpMultiByteStr, WCHAR* lpWideCharStr, int cmbCha
     if ( cmbChars >= 0 ) {
         pmbe = pmb + cmbChars;
     } else {
-        pmbe = (unsigned char *)((size_t)-1);
+        pmbe = (wchar_t *)((size_t)-1);
     }
 
     while ( pmb < pmbe ) {
@@ -390,7 +390,7 @@ int ConvertANSIToUTF8 ( const char* ansi, char* utf8 )
     if ( ansi == NULL )
         return 0;
 
-    ansi_len = strlen ( ansi );
+    ansi_len = wcslen ( ansi );
 
     if ( (wszValue = (WCHAR *)malloc ( (ansi_len + 1) * 2 )) == NULL )
         return 1;
@@ -424,7 +424,7 @@ int ConvertUTF8ToANSI ( const char* utf8, char* ansi )
     if ( utf8 == NULL )
         return 0;
 
-    utf8_len = strlen ( utf8 );
+    utf8_len = wcslen ( utf8 );
 
     if ( (wszValue = (WCHAR *)malloc ( (utf8_len + 1) * 2 )) == NULL )
         return 1;
@@ -565,8 +565,8 @@ int ReplaceListSeparator ( const char* old_sep, const char* new_sep, StreamInfo*
     if ( Info->tagitems[itemnum].Flags & 1<<1 )                             // data in binary
         return 0;
 
-    os_len = strlen ( old_sep );
-    ns_len = strlen ( new_sep );
+    os_len = wcslen ( old_sep );
+    ns_len = wcslen ( new_sep );
     if ( os_len == 0 ) os_len = 1;                                          // allow null character
     if ( ns_len == 0 ) ns_len = 1;
 
@@ -584,7 +584,7 @@ int ReplaceListSeparator ( const char* old_sep, const char* new_sep, StreamInfo*
         return 0;
 
     new_len = Info->tagitems[itemnum].ValueSize - (count * os_len) + (count * ns_len);
-    if ( (new_value = (unsigned char *)malloc ( new_len )) == NULL )
+    if ( (new_value = (wchar_t *)malloc ( new_len )) == NULL )
         return 1;
 
     p = new_value;
@@ -761,19 +761,19 @@ int GuessTagFromName ( const char* filename, const char* naming_scheme, StreamIn
     unsigned int i;
 
     strcpy ( name, filename );
-    for ( i = 0; i < strlen (name) - 5; i++ ) {
+    for ( i = 0; i < wcslen (name) - 5; i++ ) {
         if ( name[i] != '\\' && name[i] != '/' ) continue;
 
-        if ( _strnicmp ( (char *)(name+i+1), "(CD", 3 ) == 0 || _strnicmp ( (char *)(name+i+1), "(DVD", 4 ) == 0 )
+        if ( _wcsnicmp ( (char *)(name+i+1), "(CD", 3 ) == 0 || _wcsnicmp ( (char *)(name+i+1), "(DVD", 4 ) == 0 )
             name[i] = ' ';
     }
 
     _splitpath( name, NULL, dir, fname, NULL );
 
-    if ( strlen ( fname ) == 0 || strlen (naming_scheme) >= _MAX_PATH )
+    if ( wcslen ( fname ) == 0 || wcslen (naming_scheme) >= _MAX_PATH )
         return 1;
 
-    for ( i = 0; i <= strlen (naming_scheme); i++ ) {
+    for ( i = 0; i <= wcslen (naming_scheme); i++ ) {
         char c = naming_scheme[i];
         if ( c == '\\' || c == '/' ) {
             c = '\\';
@@ -784,7 +784,7 @@ int GuessTagFromName ( const char* filename, const char* naming_scheme, StreamIn
     }
 
     if ( paths > 0 ) {
-        int path_pos = strlen ( dir ) - 1;
+        int path_pos = wcslen ( dir ) - 1;
 
         while ( paths > 0 && path_pos >= 0 ) {
             if ( dir[--path_pos] == '\\' ) paths--;
@@ -793,10 +793,10 @@ int GuessTagFromName ( const char* filename, const char* naming_scheme, StreamIn
 
         strcpy ( name, (char *)(dir+path_pos) );
         strcat ( name, fname );
-        len = strlen ( name );
+        len = wcslen ( name );
     } else {
         strcpy ( name, fname );
-        len = strlen ( name );
+        len = wcslen ( name );
     }
 
     Title  [0] = '\0';
@@ -807,12 +807,12 @@ int GuessTagFromName ( const char* filename, const char* naming_scheme, StreamIn
     Year   [0] = '\0';
     Comment[0] = '\0';
 
-    for ( s_pos = 0; s_pos < strlen (scheme) + 1; s_pos++ ) {
+    for ( s_pos = 0; s_pos < wcslen (scheme) + 1; s_pos++ ) {
         if ( scheme[s_pos] == '%' ) {
             s_pos++;
             sep = (char *)(scheme+s_pos+1);
             s_len = 0;
-            while ( (sep < (char *)(scheme+strlen(scheme)+1)) && ((*(sep+s_len) != '%' && *(sep+s_len) != '\0')) ) s_len++;
+            while ( (sep < (char *)(scheme+wcslen(scheme)+1)) && ((*(sep+s_len) != '%' && *(sep+s_len) != '\0')) ) s_len++;
             if ( s_len == 0 ) s_len = 1;
 
             switch ( scheme[s_pos] ) {
@@ -903,8 +903,8 @@ int GuessTagFromName ( const char* filename, const char* naming_scheme, StreamIn
     fix_percentage_sequences ( Year    );
     fix_percentage_sequences ( Comment );
 
-    if ( strlen ( Album ) > 6 && Year[0] == '\0' ) {
-        int l = strlen ( Album );
+    if ( wcslen ( Album ) > 6 && Year[0] == '\0' ) {
+        int l = wcslen ( Album );
         if ( (Album[l-6] == '(' || Album[l-6] == '[') && (Album[l-1] == ')' || Album[l-1] == ']') &&
             ((Album[l-5] == '1' && Album[l-4] == '9') || (Album[l-5] == '2' && Album[l-4] == '0')) &&
             (Album[l-3] >= '0' && Album[l-3] <= '9' && Album[l-2] >= '0' && Album[l-2] <= '9') ) {
@@ -973,19 +973,19 @@ int GuessTagFromName_Test ( const char* filename, const char* naming_scheme, cha
     unsigned int i;
     return 0;
     strcpy ( name, filename );
-    for ( i = 0; i < strlen (name) - 5; i++ ) {
+    for ( i = 0; i < wcslen (name) - 5; i++ ) {
         if ( name[i] != '\\' && name[i] != '/' ) continue;
 
-        if ( _strnicmp ( (char *)(name+i+1), "(CD", 3 ) == 0 || _strnicmp ( (char *)(name+i+1), "(DVD", 4 ) == 0 )
+        if ( _wcsnicmp ( (char *)(name+i+1), "(CD", 3 ) == 0 || _wcsnicmp ( (char *)(name+i+1), "(DVD", 4 ) == 0 )
             name[i] = ' ';
     }
 
     _splitpath( name, NULL, dir, fname, NULL );
 
-    if ( strlen ( fname ) == 0 || strlen (naming_scheme) >= _MAX_PATH )
+    if ( wcslen ( fname ) == 0 || wcslen (naming_scheme) >= _MAX_PATH )
         return 1;
 
-    for ( i = 0; i <= strlen (naming_scheme); i++ ) {
+    for ( i = 0; i <= wcslen (naming_scheme); i++ ) {
         char c = naming_scheme[i];
         if ( c == '\\' || c == '/' ) {
             c = '\\';
@@ -996,7 +996,7 @@ int GuessTagFromName_Test ( const char* filename, const char* naming_scheme, cha
     }
 
     if ( paths > 0 ) {
-        int path_pos = strlen ( dir ) - 1;
+        int path_pos = wcslen ( dir ) - 1;
 
         while ( paths > 0 && path_pos >= 0 ) {
             if ( dir[--path_pos] == '\\' ) paths--;
@@ -1005,10 +1005,10 @@ int GuessTagFromName_Test ( const char* filename, const char* naming_scheme, cha
 
         strcpy ( name, (char *)(dir+path_pos) );
         strcat ( name, fname );
-        len = strlen ( name );
+        len = wcslen ( name );
     } else {
         strcpy ( name, fname );
-        len = strlen ( name );
+        len = wcslen ( name );
     }
 
     *pattern = '\0';
@@ -1018,12 +1018,12 @@ int GuessTagFromName_Test ( const char* filename, const char* naming_scheme, cha
         s_pos++;
     }
 
-    for ( ; s_pos < strlen (scheme) + 1; s_pos++ ) {
+    for ( ; s_pos < wcslen (scheme) + 1; s_pos++ ) {
         if ( scheme[s_pos] == '%' ) {
             s_pos++;
             sep = (char *)(scheme+s_pos+1);
             s_len = 0;
-            while ( (sep < (char *)(scheme+strlen(scheme)+1)) && ((*(sep+s_len) != '%' && *(sep+s_len) != '\0')) ) s_len++;
+            while ( (sep < (char *)(scheme+wcslen(scheme)+1)) && ((*(sep+s_len) != '%' && *(sep+s_len) != '\0')) ) s_len++;
             if ( s_len == 0 ) s_len = 1;
 
             switch ( scheme[s_pos] ) {
@@ -1078,7 +1078,7 @@ int GuessTagFromName_Test ( const char* filename, const char* naming_scheme, cha
             if ( name[f_pos] == sep[0] ) f_pos += s_len;
             while ( name[f_pos] == ' ' ) f_pos++;
             strncat ( pattern, sep, s_len );
-            pat_p = strlen ( pattern );
+            pat_p = wcslen ( pattern );
             dest = NULL;
         }
     }
@@ -1100,15 +1100,15 @@ int FindBestGuess ( const char* filename )
         GuessTagFromName_Test ( filename, SchemeList[i], test );
 
         k = 0;
-        for ( j = 0; j <= strlen ( SchemeList[i]); j++ ) {
+        for ( j = 0; j <= wcslen ( SchemeList[i]); j++ ) {
             if ( SchemeList[i][j] == '%' ) continue;
             scheme[k++] = SchemeList[i][j];
         }
 
-        if ( strlen ( test ) == strlen ( scheme ) ) {
+        if ( wcslen ( test ) == wcslen ( scheme ) ) {
             int match = 1;
 
-            for ( j = 0; j < strlen ( test ); j++ ) {
+            for ( j = 0; j < wcslen ( test ); j++ ) {
                 int is_identifier = 0;
                 int tc = test[j];
                 int sc = scheme[j];
@@ -1219,7 +1219,7 @@ int StreamInfo::ReadID3v1Tag ( Reader* fp)
 
     if ( tmp[125] == 0 ) {
         sprintf ( value, "%d", tmp[126] );
-        if ( value[0] != '\0' && atoi (value) != 0 ) {
+        if ( value[0] != '\0' && _wtoi (value) != 0 ) {
             ConvertANSIToUTF8 ( value, utf8 );
             InsertTagFieldLonger ( APE_TAG_FIELD_TRACK, 0, utf8, 0, 0, this, ID3v1 );
         }
@@ -1303,9 +1303,9 @@ StreamInfo::ReadAPE1Tag ( Reader* fp  )
     TagCount = Read_LE_Uint32 (T.TagCount);
     end = buff + TagLen - sizeof (T);
     for ( p = buff; p < end /*&& *p */ &&  TagCount--; ) {
-        vsize = Read_LE_Uint32 ( (unsigned char *) p ); p += 4;
-        flags = Read_LE_Uint32 ( (unsigned char *) p ); p += 4;
-        isize = strlen (p);
+        vsize = Read_LE_Uint32 ( (wchar_t *) p ); p += 4;
+        flags = Read_LE_Uint32 ( (wchar_t *) p ); p += 4;
+        isize = wcslen (p);
 
         if ( vsize > 0 ) {
             if ( (utf8 = (char*)malloc ( (vsize + 1) * 3 )) == NULL ) {
@@ -1368,7 +1368,7 @@ StreamInfo::ReadAPE2Tag ( Reader* fp )
     for ( p = buff; p < end /*&& *p */ &&  TagCount--; ) {
         vsize = Read_LE_Uint32 ( (unsigned char*)p ); p += 4;
         flags = Read_LE_Uint32 ( (unsigned char*)p ); p += 4;
-        isize = strlen (p);
+        isize = wcslen (p);
 
         if ( vsize > 0 )
             InsertTagFieldLonger ( p, isize, p + isize + 1, vsize, flags, this, APE2 );
@@ -1405,7 +1405,7 @@ StreamInfo::ReadAPE2Tag ( Reader* fp )
 
 BOOL _validForID3 ( const char* string, int maxsize )
 {
-    const unsigned char* p = (unsigned char *)string;
+    const unsigned char* p = (wchar_t *)string;
 
     while ( *p ) {
         if ( *p++ >= 0x80 ) return FALSE;           // only ASCII characters are reliable in ID3v1
@@ -1436,8 +1436,8 @@ int CheckID3V1TagDataLoss ( const StreamInfo* Info )
             if ( *p < '0' || *p > '9' ) return 1;                   // not a number
             p++;
         }
-        if ( atoi (value) <   0 ||                                  // number won't fit in byte
-             atoi (value) > 255 )
+        if ( _wtoi (value) <   0 ||                                  // number won't fit in byte
+             _wtoi (value) > 255 )
             return 1;
     }
 
@@ -1523,7 +1523,7 @@ int WriteID3V1Tag ( Reader* fp, StreamInfo* Info )
     // if track# is used, write ID3v1.1 format
     if ( TagValue ( APE_TAG_FIELD_TRACK, Info ) && TagValue ( APE_TAG_FIELD_TRACK, Info )[0] != '\0' ) {
         CopyTagValue ( tmp +  97, APE_TAG_FIELD_COMMENT, Info, 28 );
-        tmp[126] = atoi ( TagValue ( APE_TAG_FIELD_TRACK, Info ) );
+        tmp[126] = _wtoi ( TagValue ( APE_TAG_FIELD_TRACK, Info ) );
     } else {
         CopyTagValue ( tmp +  97, APE_TAG_FIELD_COMMENT, Info, 30 );
     }

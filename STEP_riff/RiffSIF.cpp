@@ -31,7 +31,7 @@ void CRiffSIF::Release()
 BOOL CRiffSIF::SetField(char id1,char id2,char id3,char id4,const char *szData)
 {
 	m_fields.erase(mmioFOURCC(id1,id2,id3,id4));
-	if(strlen(szData))
+	if(wcslen(szData))
 	{
 		m_fields.insert(pair<FOURCC,CString>(mmioFOURCC(id1,id2,id3,id4),szData));
 	}

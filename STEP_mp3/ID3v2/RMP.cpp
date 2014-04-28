@@ -82,7 +82,7 @@ CString CRMP::ReadChunk(HMMIO hmmio,MMCKINFO mmckinfo,FOURCC id)
 			(char )(((LPCSTR )retString)[0]) = '_';	//とりあえず'_'を入れておく(後で\0に戻す)
 		}
 		//長さを修正
-		retString.GetBufferSetLength(strlen((LPCSTR )retString));
+		retString.GetBufferSetLength(wcslen((LPCSTR )retString));
 		mmioAscend(hmmio,&mmckOutinfoSubchunk,0);
 	}
 	return retString;
@@ -219,7 +219,7 @@ DWORD CRMP::Save(HWND hWnd,const char *szFileName)
 	DWORD		dwWritten;
 
 	//予想される増加サイズ
-	dwNewSize = lstrlen("LIST----INFO");
+	dwNewSize = lwcslen("LIST----INFO");
 	dwNewSize += m_strNAM.GetLength()+2+4+4;//+2はワードアラインメントを考慮しての数値
 	dwNewSize += m_strART.GetLength()+2+4+4;
 	dwNewSize += m_strPRD.GetLength()+2+4+4;

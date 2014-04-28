@@ -47,7 +47,7 @@ public:
 		if(iSubItem >= 0 && iSubItem < m_SubItems.GetSize())
 			return m_SubItems.GetAt(iSubItem);
 		else
-			return _T("");
+			return L"";
 	}
 	int GetItemCount(void) const { return m_SubItems.GetSize(); }
 
@@ -428,7 +428,7 @@ protected:
 	void MakeColumnVisible(int nCol);
 	//hmm
 private:
-	int MyDrawText(CDC* pDC, LPCTSTR lpszString, int nCount, LPRECT lpRect, UINT nFormat ); /* BeachMonster 107 */
+	int MyDrawText(CDC* pDC, LPCWSTR lpszString, int nCount, LPRECT lpRect, UINT nFormat ); /* BeachMonster 107 */
 	//imagelist for subitems
 	CImageList m_iSubItemImage;
 	//list of rootItems
@@ -439,7 +439,7 @@ private:
 	//hmm
 	void DrawTreeItem(CDC* pDC, CTreeItem* pSelItem, int nListItem, const CRect& rcBounds);
 	//makes the dot ... thing
-	LPCTSTR MakeShortString(CDC* pDC, LPCTSTR lpszLong, int nColumnLen, int nOffset);
+	LPCWSTR MakeShortString(CDC* pDC, LPCWSTR lpszLong, int nColumnLen, int nOffset);
 	//set the hideflag from pItem and all its children
 	void HideChildren(CTreeItem *pItem, BOOL bHide, int iIndent);
 	//checks whether a column is visible, if not scrolls to it

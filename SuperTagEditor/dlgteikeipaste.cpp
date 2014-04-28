@@ -21,8 +21,8 @@ CDlgTeikeiPaste::CDlgTeikeiPaste(CWnd* pParent /*=NULL*/)
 	//{{AFX_DATA_INIT(CDlgTeikeiPaste)
 	m_nTeikeiPaste = -1;
 	m_bAddSpace = FALSE;
-	m_strFront = _T("");
-	m_strBack = _T("");
+	m_strFront = L"";
+	m_strBack = L"";
 	m_bAddChar = FALSE;
 	m_bShowDialog = FALSE;
 	//}}AFX_DATA_INIT

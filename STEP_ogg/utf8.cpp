@@ -146,7 +146,7 @@ int UTF8ToWideChar(LPWSTR target, LPCSTR utf8)
 	int wcount = 0;
 	int conv;
 	unsigned int ucs4;
-	int count = lstrlenA(utf8) +1;
+	int count = lwcslenA(utf8) +1;
 
 	while (count != 0)
 	{

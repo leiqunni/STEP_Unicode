@@ -150,20 +150,20 @@ enum	{CONV_SUJI=1, CONV_ALPHA=2, CONV_KATA=4, CONV_KIGOU=8, CONV_ALL=15};
 extern "C" {
 #endif
 
-extern	int conv_han2zens(unsigned char *, const unsigned char *, int);
-extern	int conv_zen2hans(unsigned char *, const unsigned char *, int);
-extern	void conv_kata2hira(unsigned char *);
-extern	void conv_kata_erase_dakuon(unsigned char *);
-extern	void conv_hira2kata(unsigned char *);
-extern	void conv_upper(unsigned char *);
-extern	void conv_lower(unsigned char *);
-extern	void conv_first_upper(unsigned char *);
-//extern	DWORD conv_kan2hira(HWND, unsigned char *, DWORD);
-//extern	void conv_romaji(HWND hwnd, unsigned char *str, unsigned char *sRomaji);
+extern	int conv_han2zens(wchar_t *, const wchar_t *, int);
+extern	int conv_zen2hans(wchar_t *, const wchar_t *, int);
+extern	void conv_kata2hira(wchar_t *);
+extern	void conv_kata_erase_dakuon(wchar_t *);
+extern	void conv_hira2kata(wchar_t *);
+extern	void conv_upper(wchar_t *);
+extern	void conv_lower(wchar_t *);
+extern	void conv_first_upper(wchar_t *);
+//extern	DWORD conv_kan2hira(HWND, wchar_t *, DWORD);
+//extern	void conv_romaji(HWND hwnd, wchar_t *str, wchar_t *sRomaji);
 #ifdef __cplusplus
 }
 #endif
-CString conv_kan2hira(HWND hWnd, unsigned char * str)
+CString conv_kan2hira(HWND hWnd, wchar_t * str)
 {
 	CString strText = str;
 	// MS-IME2000ではうまく動いたが、ATOK16ではだめ。単語単位であればできる...
@@ -198,7 +198,7 @@ CString conv_kan2hira(HWND hWnd, unsigned char * str)
 	return strText;
 }
 
-CString conv_romaji(HWND hwnd, unsigned char *str)
+CString conv_romaji(HWND hwnd, wchar_t *str)
 {
 	static const char *romaji[] = {
 		"っきゃ", "KKYA", "っきゅ", "KKYU", "っきょ", "KYO",
@@ -270,9 +270,9 @@ CString conv_romaji(HWND hwnd, unsigned char *str)
 	while (romaji[nRomaji*2] != NULL) {
 		while((nPos = strWork.Find(romaji[nRomaji*2])) != -1) {
 			int		nLenOrg = strWork.GetLength();
-			int		nLenKey = strlen(romaji[nRomaji*2]);
+			int		nLenKey = wcslen(romaji[nRomaji*2]);
 			strRep = romaji[nRomaji*2+1];
-			conv_lower((unsigned char *)strRep.GetBuffer(0));
+			conv_lower((wchar_t *)strRep.GetBuffer(0));
 			strRep.ReleaseBuffer();
 			strWork.Format("%s%s%s", strWork.Left(nPos), strRep, strWork.Right(nLenOrg-(nPos+nLenKey)));
 		}
@@ -286,18 +286,18 @@ CString conv_romaji(HWND hwnd, unsigned char *str)
 	while (romaji[nRomaji*2] != NULL) {
 		while((nPos = strWork.Find(romaji[nRomaji*2])) != -1) {
 			int		nLenOrg = strWork.GetLength();
-			int		nLenKey = strlen(romaji[nRomaji*2]);
+			int		nLenKey = wcslen(romaji[nRomaji*2]);
 			strRep = romaji[nRomaji*2+1];
-			conv_lower((unsigned char *)strRep.GetBuffer(0));
+			conv_lower((wchar_t *)strRep.GetBuffer(0));
 			strRep.ReleaseBuffer();
-			conv_first_upper((unsigned char *)strRep.GetBuffer(0));
+			conv_first_upper((wchar_t *)strRep.GetBuffer(0));
 			strRep.ReleaseBuffer();
 			strWork.Format("%s%s%s", strWork.Left(nPos), strRep, strWork.Right(nLenOrg-(nPos+nLenKey)));
 		}
 		nRomaji++;
 	}
 
-	conv_zen2hans((unsigned char *)strRep.GetBuffer(strWork.GetLength()*2+1), (const unsigned char *)(const char *)strWork, CONV_ALL);
+	conv_zen2hans((wchar_t *)strRep.GetBuffer(strWork.GetLength()*2+1), (const wchar_t *)(const char *)strWork, CONV_ALL);
 	strWork.ReleaseBuffer();
 	strRep.ReleaseBuffer();
 	return strRep;

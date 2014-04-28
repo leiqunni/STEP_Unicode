@@ -45,7 +45,7 @@ CDlgEnvSheet::CDlgEnvSheet(UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage)
 {
 }
 
-CDlgEnvSheet::CDlgEnvSheet(LPCTSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
+CDlgEnvSheet::CDlgEnvSheet(LPCWSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
 	:COptionSheet(pszCaption, pParentWnd, iSelectPage)
 {
 }

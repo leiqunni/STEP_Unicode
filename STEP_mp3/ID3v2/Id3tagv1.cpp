@@ -187,10 +187,10 @@ void CId3tagv1::SetTrackNo(unsigned char cTrackNo)
 
 void CId3tagv1::SetTrackNo(const char *szTrackNo)
 {
-	if(strlen(szTrackNo) == 0)
+	if(wcslen(szTrackNo) == 0)
 		m_cTrackNo = 0;
 	else
-		m_cTrackNo = atoi(szTrackNo);
+		m_cTrackNo = _wtoi(szTrackNo);
 }
 
 CString CId3tagv1::GetComment()
@@ -219,7 +219,7 @@ CString CId3tagv1::GenreNum2String(unsigned char cGenre)
 long CId3tagv1::GenreString2Num(const char *szGenre)
 {
 	long cGenre = -1;
-	if(strlen(szGenre) == 0)
+	if(wcslen(szGenre) == 0)
 	{
 		if(m_bScmpxGenre)
 			return SCMPX_GENRE_NULL;
@@ -270,7 +270,7 @@ DWORD CId3tagv1::Load(const char *szFileName)
 	char *p;
 	int i;
 	p = szTmp+3;
-	mbsncpy2((unsigned char *)m_szTitle,(unsigned char *)p,30);
+	mbsncpy2((wchar_t *)m_szTitle,(wchar_t *)p,30);
 	m_szTitle[30] = '\0';
 	for(i=29; i>=0; i--)
 	{
@@ -280,7 +280,7 @@ DWORD CId3tagv1::Load(const char *szFileName)
 			break;
 	}
 	p += 30;
-	mbsncpy2((unsigned char *)m_szArtist,(unsigned char *)p,30);
+	mbsncpy2((wchar_t *)m_szArtist,(wchar_t *)p,30);
 	m_szArtist[30] = '\0';
 	for(i=29; i>=0; i--)
 	{
@@ -290,7 +290,7 @@ DWORD CId3tagv1::Load(const char *szFileName)
 			break;
 	}
 	p+=30;
-	mbsncpy2((unsigned char *)m_szAlbum,(unsigned char *)p,30);
+	mbsncpy2((wchar_t *)m_szAlbum,(wchar_t *)p,30);
 	m_szAlbum[30] = '\0';
 	for(i=29; i>=0; i--)
 	{
@@ -300,7 +300,7 @@ DWORD CId3tagv1::Load(const char *szFileName)
 			break;
 	}
 	p+=30;
-	mbsncpy2((unsigned char *)m_szYear,(unsigned char *)p,4);
+	mbsncpy2((wchar_t *)m_szYear,(wchar_t *)p,4);
 	m_szYear[4] = '\0';
 	for(i=3; i>=0; i--)
 	{
@@ -313,7 +313,7 @@ DWORD CId3tagv1::Load(const char *szFileName)
 	if((szTmp[125] == '\0') && szTmp[126])
 	{
 		m_cTrackNo = szTmp[126];
-		mbsncpy2((unsigned char *)m_szComment,(unsigned char *)p,28);
+		mbsncpy2((wchar_t *)m_szComment,(wchar_t *)p,28);
 		m_szComment[28] = '\0';
 		for(i=27; i>=0; i--)
 		{
@@ -326,7 +326,7 @@ DWORD CId3tagv1::Load(const char *szFileName)
 	else
 	{
 		m_cTrackNo = 0;
-		mbsncpy2((unsigned char *)m_szComment,(unsigned char *)p,30);
+		mbsncpy2((wchar_t *)m_szComment,(wchar_t *)p,30);
 		m_szComment[30] = '\0';
 		for(i=29; i>=0; i--)
 		{
@@ -414,15 +414,15 @@ DWORD CId3tagv1::Save(HWND hWnd,const char *szFileName)
 	//èÓïÒÇÃï€ë∂
 	p = szTmp;
 	memset(p,0x00,128-3);
-	strncpy(p,m_szTitle,strlen(m_szTitle));
+	strncpy(p,m_szTitle,wcslen(m_szTitle));
 	p += 30;
-	strncpy(p,m_szArtist,strlen(m_szArtist));
+	strncpy(p,m_szArtist,wcslen(m_szArtist));
 	p += 30;
-	strncpy(p,m_szAlbum,strlen(m_szAlbum));
+	strncpy(p,m_szAlbum,wcslen(m_szAlbum));
 	p += 30;
-	strncpy(p,m_szYear,strlen(m_szYear));
+	strncpy(p,m_szYear,wcslen(m_szYear));
 	p += 4;
-	strncpy(p,m_szComment,strlen(m_szComment));
+	strncpy(p,m_szComment,wcslen(m_szComment));
 	p += 28;
 	if(m_cTrackNo)
 	{

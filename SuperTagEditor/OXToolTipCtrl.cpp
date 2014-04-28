@@ -41,7 +41,7 @@ static char THIS_FILE[] = __FILE__;
 // TODO: Add message handlers (eg TTM_SETTIPBKCOLOR) and point them 
 //       to the correct functions.
 
-LPCTSTR COXToolTipCtrl::m_szArrowSpace = _T("@");
+LPCWSTR COXToolTipCtrl::m_szArrowSpace = _T(L"@");
 
 /////////////////////////////////////////////////////////////////////////////
 // COXToolTipCtrl construction
@@ -206,7 +206,7 @@ void COXToolTipCtrl::OnTimer(UINT nIDEvent)
 	}
     if (!m_pCurrentToolTip || m_bTipCancelled)
     {
-		TRACE0("COXToolTipCtrl::OnTimer Kill&Pop\n");
+		TRACE0(L"COXToolTipCtrl::OnTimer Kill&Pop\n");
         KillTimer(nIDEvent);
         Pop();
         return;
@@ -259,12 +259,12 @@ void COXToolTipCtrl::OnTimer(UINT nIDEvent)
             {
                 if (IsCursorInToolTip())
                 {
-                    //TRACE0("Cursor in tooltip - will check later\n");
+                    //TRACE0(L"Cursor in tooltip - will check later\n");
                     //SetTimer(eIDCheckToolEvent, m_nCheckInterval, NULL);
                 }
                 else
                 {
-                    //TRACE0("Not in tool or tooltip anymore, or expired. Destroying\n");
+                    //TRACE0(L"Not in tool or tooltip anymore, or expired. Destroying\n");
                     KillTimer(eIDCheckToolEvent);
                     Pop();
                     //m_pCurrentToolTip = NULL;
@@ -272,7 +272,7 @@ void COXToolTipCtrl::OnTimer(UINT nIDEvent)
             }
             else
             {
-                //TRACE0("Everything's OK - will check later\n");
+                //TRACE0(L"Everything's OK - will check later\n");
                 //SetTimer(eIDCheckToolEvent, m_nCheckInterval, NULL);
             }
             
@@ -292,20 +292,20 @@ void COXToolTipCtrl::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 {
     // Sometimes a click comes through the pipeline after the tool
     // has already been removed
-	TRACE0("COXToolTipCtrl::OnLButtonDown\n");
+	TRACE0(L"COXToolTipCtrl::OnLButtonDown\n");
     if (!m_pCurrentToolTip || m_bTipCancelled)
         return;
 
-	TRACE0("COXToolTipCtrl::OnLButtonDown2\n");
+	TRACE0(L"COXToolTipCtrl::OnLButtonDown2\n");
     if (TRUE/*m_bHasExtendedText*/)
     {
-	TRACE0("COXToolTipCtrl::OnLButtonDown3\n");
+	TRACE0(L"COXToolTipCtrl::OnLButtonDown3\n");
         CRect rect;
         GetWindowRect(rect);
         DisplayToolTip(rect.TopLeft(), !m_bExtended);
     }
 
-	TRACE0("COXToolTipCtrl::OnLButtonDown4\n");
+	TRACE0(L"COXToolTipCtrl::OnLButtonDown4\n");
     if (m_hOldFocusWnd)
         ::SetFocus(m_hOldFocusWnd);
 
@@ -349,7 +349,7 @@ void COXToolTipCtrl::OnDestroy()
 // --- Returns :
 // --- Effect : If the tooltip font has not been overriden, this updates the
 //              font with the new system tooltip font
-void COXToolTipCtrl::OnSettingChange(UINT uFlags, LPCTSTR lpszSection) 
+void COXToolTipCtrl::OnSettingChange(UINT uFlags, LPCWSTR lpszSection) 
 {
 	CWnd::OnSettingChange(uFlags, lpszSection);
 	
@@ -398,7 +398,7 @@ BOOL COXToolTipCtrl::Create(CWnd* pParentWnd)
     CString szClassName = AfxRegisterWndClass(CS_CLASSDC|CS_SAVEBITS, 
                                               LoadCursor(NULL, IDC_ARROW));
     // Create the window - just don't show it yet.
-    if (!CWnd::CreateEx(WS_EX_TOPMOST, szClassName, _T(""), 
+    if (!CWnd::CreateEx(WS_EX_TOPMOST, szClassName, L"", 
                         WS_POPUP, 
                         0, 0, 10, 10, // size & position updated when needed
                         pParentWnd->GetSafeHwnd(), 0, NULL))
@@ -509,10 +509,10 @@ BOOL COXToolTipCtrl::AddTool(CWnd* pWnd, UINT nIDText, LPCRECT lpRectTool /*=NUL
 {
     CString str;
     str.LoadString(nIDText);
-    return AddTool(pWnd, (LPCTSTR) str, lpRectTool, nIDTool);
+    return AddTool(pWnd, (LPCWSTR) str, lpRectTool, nIDTool);
 }
 
-BOOL COXToolTipCtrl::AddTool(CWnd* pWnd, LPCTSTR lpszText, 
+BOOL COXToolTipCtrl::AddTool(CWnd* pWnd, LPCWSTR lpszText, 
                              LPCRECT lpRectTool,
                              UINT nIDTool)
 {
@@ -785,8 +785,8 @@ void COXToolTipCtrl::SetToolInfo(OXTOOLINFO* pToolInfo)
 
 CString COXToolTipCtrl::GetTooltipText(COXToolTipInfo *pToolTip)
 {
-	TRACE0("COXToolTipCtrl::GetTooltipText\n");
-    CString strTooltipText(_T(""));
+	TRACE0(L"COXToolTipCtrl::GetTooltipText\n");
+    CString strTooltipText(L"");
 
     if (!pToolTip)
         return strTooltipText;
@@ -806,7 +806,7 @@ CString COXToolTipCtrl::GetTooltipText(COXToolTipInfo *pToolTip)
 
         if (nmtt.hinst != NULL)
         {
-		    TCHAR sz[512];
+		    wchar_t sz[512];
 		    UINT nLen = ::LoadString(nmtt.hinst, (UINT) nmtt.lpszText, sz, 512);
     		ASSERT(nLen < 511);
             if (nLen > 0)
@@ -837,7 +837,7 @@ CString COXToolTipCtrl::GetTooltipText(COXToolTipInfo *pToolTip)
             strTooltipText = GetFieldFromString(strTooltipText, 0, _T('\r')) + m_szArrowSpace;
     }
 
-	TRACE1("COXToolTipCtrl::GetTooltipText [%s]\n", strTooltipText);
+	TRACE1(L"COXToolTipCtrl::GetTooltipText [%s]\n", strTooltipText);
     return strTooltipText;
 }
 
@@ -900,7 +900,7 @@ CRect COXToolTipCtrl::GetBoundsRect(CString strText, int nWidth) const
         int nStart = 0, nNumLines = 0;
 		CString strTextCopy=strText;
         do {
-            nStart = strTextCopy.Find(_T("\n"));
+            nStart = strTextCopy.Find(_T(L"\n"));
 
             // skip found character 
             if (nStart >= 0)
@@ -912,7 +912,7 @@ CRect COXToolTipCtrl::GetBoundsRect(CString strText, int nWidth) const
         // Find the widest line
         int i; for (i = 0; i < nNumLines; i++)
         {
-            CString strLine = GetFieldFromString(strText, i, _T('\n')) + _T("  ");
+            CString strLine = GetFieldFromString(strText, i, _T('\n')) + _T(L"  ");
             nLineWidth = max(nLineWidth, dc.GetTextExtent(strLine).cx);
         }
     }
@@ -963,7 +963,7 @@ CRect COXToolTipCtrl::CalculateInfoBoxRect(CPoint& pt, COXToolTipInfo* pToolTip,
 
 void COXToolTipCtrl::StartNewTool(COXToolTipInfo* pToolInfo)
 {
-	TRACE0("COXToolTipCtrl::StartNewTool\n");
+	TRACE0(L"COXToolTipCtrl::StartNewTool\n");
     KillTimer(eIDDisplayToolEvent);
     KillTimer(eIDCheckToolEvent);
 
@@ -1067,7 +1067,7 @@ CWnd* COXToolTipCtrl::GetChildWindowFromPoint(POINT& point) const
 
 void COXToolTipCtrl::DisplayToolTip(CPoint& pt, BOOL bExtended /*= FALSE*/)
 {
-	TRACE0("COXToolTipCtrl::DisplayToolTip\n");
+	TRACE0(L"COXToolTipCtrl::DisplayToolTip\n");
     ASSERT(::IsWindow(m_hWnd));
 
     if (!m_bActivated || !m_pCurrentToolTip)
@@ -1098,11 +1098,11 @@ void COXToolTipCtrl::DisplayToolTip(CPoint& pt, BOOL bExtended /*= FALSE*/)
 //	ShowWindow(SW_SHOWNA);
 }    
 
-CString COXToolTipCtrl::GetFieldFromString(CString ref, int nIndex, TCHAR ch) const
+CString COXToolTipCtrl::GetFieldFromString(CString ref, int nIndex, wchar_t ch) const
 {
     CString strReturn;
-    LPCTSTR pstrStart = ref.LockBuffer();
-    LPCTSTR pstrBuffer = pstrStart;
+    LPCWSTR pstrStart = ref.LockBuffer();
+    LPCWSTR pstrBuffer = pstrStart;
     int nCurrent = 0;
     int nStart = 0;
     int nEnd = 0;
@@ -1131,7 +1131,7 @@ CString COXToolTipCtrl::GetFieldFromString(CString ref, int nIndex, TCHAR ch) co
 
     if (nCurrent < nIndex) 
     {
-        //TRACE1("Warning: GetStringField - Couldn't find field %d.\n", nIndex);
+        //TRACE1(L"Warning: GetStringField - Couldn't find field %d.\n", nIndex);
         return strReturn;
     }
     return ref.Mid(nOldStart, nEnd-nOldStart-1);

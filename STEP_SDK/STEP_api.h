@@ -134,25 +134,25 @@ typedef struct _FILE_INFO {
 /**--------------------------------------------------------------------**/
 /* プラグインに必ず実装しなければいけない関数 */
 extern "C" {
-STEP_API bool WINAPI STEPInit(UINT pID, LPCTSTR szPluginFolder);
+STEP_API bool WINAPI STEPInit(UINT pID, LPCWSTR szPluginFolder);
 STEP_API void WINAPI STEPFinalize();
 STEP_API UINT WINAPI STEPGetAPIVersion(void);
-STEP_API LPCTSTR WINAPI STEPGetPluginName(void);
-STEP_API LPCTSTR WINAPI STEPGetPluginInfo(void);
+STEP_API LPCWSTR WINAPI STEPGetPluginName(void);
+STEP_API LPCWSTR WINAPI STEPGetPluginInfo(void);
 }
 
 /* プラグインがタグの読み書きをサポートする場合に実装しなければいけない関数 */
 extern "C" {
 STEP_API CONTROLTYPE WINAPI STEPGetControlType(UINT, COLUMNTYPE, bool);
 STEP_API UINT WINAPI STEPGetColumnMax(UINT, COLUMNTYPE, bool);
-STEP_API UINT WINAPI STEPLoad(FILE_INFO*, LPCTSTR);
+STEP_API UINT WINAPI STEPLoad(FILE_INFO*, LPCWSTR);
 STEP_API UINT WINAPI STEPSave(FILE_INFO*);
 }
 
 /* プラグインに実装できる関数 */
 extern "C" {
-STEP_API LPCTSTR WINAPI STEPGetToolTipText(UINT nID);
-STEP_API LPCTSTR WINAPI STEPGetStatusMessage(UINT nID);
+STEP_API LPCWSTR WINAPI STEPGetToolTipText(UINT nID);
+STEP_API LPCWSTR WINAPI STEPGetStatusMessage(UINT nID);
 STEP_API bool WINAPI STEPOnUpdateCommand(UINT nID);
 STEP_API bool WINAPI STEPOnCommand(UINT nID, HWND hWnd);
 STEP_API bool WINAPI STEPSupportSIF(UINT nFormat);
@@ -161,7 +161,7 @@ STEP_API bool WINAPI STEPSupportGenreSIF(UINT nFormat);
 STEP_API void WINAPI STEPShowOptionDialog(HWND);
 STEP_API void WINAPI STEPOnLoadMenu(HMENU, UINT);
 STEP_API void WINAPI STEPOnLoadMainMenu();
-STEP_API LPCTSTR WINAPI STEPGetColumnName(UINT, COLUMNTYPE);
+STEP_API LPCWSTR WINAPI STEPGetColumnName(UINT, COLUMNTYPE);
 STEP_API bool WINAPI STEPHasSpecificColumnName(UINT);
 STEP_API void WINAPI STEPInitFileSpecificInfo(FILE_INFO*);
 STEP_API bool WINAPI STEPOnConvSiFieldToId3tag(FILE_INFO*);

@@ -179,7 +179,7 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
 
 	char* iodBase64 = MP4ToBase64(pBytes, numBytes);
 
-	uint sdpBufLen = strlen(iodBase64) + 256;
+	uint sdpBufLen = wcslen(iodBase64) + 256;
 	uint used;
 	char* sdpBuf = (char*)MP4Calloc(sdpBufLen);
 
@@ -187,7 +187,7 @@ void MP4File::MakeIsmaCompliant(bool addIsmaComplianceSdp)
 	  strncpy(sdpBuf, "a=isma-compliance:1,1.0,1\015\012", sdpBufLen);
 	}
 
-	used = strlen(sdpBuf);
+	used = wcslen(sdpBuf);
 	sdpBufLen -= used;
 	snprintf(&sdpBuf[used], sdpBufLen, 
 		"a=mpeg4-iod: \042data:application/mpeg4-iod;base64,%s\042\015\012",
@@ -280,7 +280,7 @@ void MP4File::CreateIsmaIodFromFile(
 
 	char* odCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
-	uint urlBufLen = strlen(odCmdBase64) + 64;
+	uint urlBufLen = wcslen(odCmdBase64) + 64;
 	char* urlBuf = (char*)MP4Malloc(urlBufLen);
 
 	snprintf(urlBuf, urlBufLen,
@@ -353,8 +353,8 @@ void MP4File::CreateIsmaIodFromFile(
 
 	char *sceneCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
-	urlBuf = (char*)MP4Malloc(strlen(sceneCmdBase64) + 64);
-	snprintf(urlBuf, strlen(sceneCmdBase64) + 64,
+	urlBuf = (char*)MP4Malloc(wcslen(sceneCmdBase64) + 64);
+	snprintf(urlBuf, wcslen(sceneCmdBase64) + 64,
 	  "data:application/mpeg4-bifs-au;base64,%s",
 	  sceneCmdBase64);
 
@@ -461,8 +461,8 @@ void MP4File::CreateIsmaIodFromParams(
 	char* sceneCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
 	char* urlBuf = 
-		(char*)MP4Malloc(strlen(sceneCmdBase64) + 64);
-	  snprintf(urlBuf, strlen(sceneCmdBase64) + 64,
+		(char*)MP4Malloc(wcslen(sceneCmdBase64) + 64);
+	  snprintf(urlBuf, wcslen(sceneCmdBase64) + 64,
 		  "data:application/mpeg4-bifs-au;base64,%s",
 		  sceneCmdBase64);
 	  
@@ -539,9 +539,9 @@ void MP4File::CreateIsmaIodFromParams(
 
 	char* odCmdBase64 = MP4ToBase64(pBytes, numBytes);
 
-	urlBuf = (char*)MP4Malloc(strlen(odCmdBase64) + 64);
+	urlBuf = (char*)MP4Malloc(wcslen(odCmdBase64) + 64);
 	if (urlBuf != NULL) {
-	  snprintf(urlBuf, strlen(odCmdBase64) + 64,
+	  snprintf(urlBuf, wcslen(odCmdBase64) + 64,
 		  "data:application/mpeg4-od-au;base64,%s",
 		  odCmdBase64);
 

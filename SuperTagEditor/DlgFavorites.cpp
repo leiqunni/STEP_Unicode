@@ -12,7 +12,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-extern BOOL SelectDirectory(char *sLocal);
+extern BOOL SelectDirectory(wchar_t *sLocal);
 
 /////////////////////////////////////////////////////////////////////////////
 // CDlgFavorites ダイアログ
@@ -24,7 +24,7 @@ CDlgFavorites::CDlgFavorites(CWnd* pParent /*=NULL*/)
 	//{{AFX_DATA_INIT(CDlgFavorites)
 	//}}AFX_DATA_INIT
 	for (int i=0;i<10;i++) {
-		m_strFavirites[i] = _T("");
+		m_strFavirites[i] = L"";
 	}
 }
 
@@ -150,7 +150,7 @@ void CDlgFavorites::OnBtRefFavorites(CString &strFavorite)
 {
 	// フォルダ選択ダイアログを開く
 	char	sFolderName[_MAX_PATH] = {'\0'};
-	strcpy(sFolderName, strFavorite);
+	wcscpy(sFolderName, strFavorite);
 	if (SelectDirectory(sFolderName) == TRUE) {
 		strFavorite = sFolderName;
 	}

@@ -16,10 +16,10 @@ class CMyFileDialog : public CFileDialog
 
 public:
 	CMyFileDialog(BOOL bOpenFileDialog, // TRUE Ç»ÇÁÇŒ FileOpenÅA FALSE Ç»ÇÁÇŒ FileSaveAs
-		LPCTSTR lpszDefExt = NULL,
-		LPCTSTR lpszFileName = NULL,
+		LPCWSTR lpszDefExt = NULL,
+		LPCWSTR lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
-		LPCTSTR lpszFilter = NULL,
+		LPCWSTR lpszFilter = NULL,
 		CWnd* pParentWnd = NULL);
 
 	BOOL	m_bIsWriteAppend;

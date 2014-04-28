@@ -14,12 +14,12 @@
 
 #include "resource.h"       // メイン シンボル
 
-#define PROG_NAME		"STEP_M"/*"SuperTagEditor"*/	// プログラム名
-#define PROG_VERSION	"1.054 f"/*"2.00β7"*/			// バージョン
-#define PROG_NAME_ORG		"SuperTagEditor"	// プログラム名
-#define PROG_VERSION_ORG	"2.00β"			// バージョン
-#define PROG_NAME_ORG2		"STEP"				// プログラム名
-#define PROG_VERSION_ORG2	"1.02"				// バージョン
+#define PROG_NAME		L"STEP_M"/*"SuperTagEditor"*/	// プログラム名
+#define PROG_VERSION	L"1.054 f"/*"2.00β7"*/			// バージョン
+#define PROG_NAME_ORG		L"SuperTagEditor"	// プログラム名
+#define PROG_VERSION_ORG	L"2.00β"			// バージョン
+#define PROG_NAME_ORG2		L"STEP"				// プログラム名
+#define PROG_VERSION_ORG2	L"1.02"				// バージョン
 
 #define WM_USER_SET_STATUS_POS		WM_USER+1
 #define WM_USER_SET_STATUS_SIZE		WM_USER+2
@@ -72,8 +72,8 @@ struct	KEY_CONFIG	{				// キー割り当て
 	WORD	wCmdID;					// メニューリソースＩＤ
 	DWORD	dwKeyCode;				// ホットキー
 	int		nGroupID;				// グループ名
-	char	*sName;					// 項目名
-	char	*sRegName;				// レジストリ名
+	wchar_t	*sName;					// 項目名
+	wchar_t	*sRegName;				// レジストリ名
 };
 extern	KEY_CONFIG	g_listKeyConfig[];
 
@@ -83,7 +83,7 @@ struct	FILENAME_REPLACE {			// ファイル名置換
 	CString	strBefore;				// 置換前の文字
 	CString	strAfter;				// 置換後の文字
 };
-extern	const char *g_sRepTable[FILENAME_REPLACE_MAX][2];
+extern	const wchar_t *g_sRepTable[FILENAME_REPLACE_MAX][2];
 
 #define USER_CONV_FORMAT_MAX		5 /*3 LastTrain 057 */
 struct	USER_CONV_FORMAT	{		// ユーザー変換書式
@@ -321,11 +321,11 @@ protected:
 	int		m_nAccelTable;		// アクセラレータテーブル数 /* STEP 030 }\
 
 public:
-	void AddToRecentFileList(LPCTSTR lpszPathName);
+	void AddToRecentFileList(LPCWSTR lpszPathName);
 	inline	HACCEL	GetAccelHandle(void) {return(m_hAccel);}
-	TCHAR	*MakeFileName(TCHAR *);
-	void	ReadWindowStatus(char *, RECT *);
-	void	WriteWindowStatus(char *, RECT *);
+	wchar_t	*MakeFileName(wchar_t *);
+	void	ReadWindowStatus(wchar_t *, RECT *);
+	void	WriteWindowStatus(wchar_t *, RECT *);
 	void	ReadRegistry(void);
 	void	WriteRegistry(void);
 	void	ReadKeyConfig(bool = false);

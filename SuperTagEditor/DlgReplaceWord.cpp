@@ -27,8 +27,8 @@ CDlgReplaceWord::CDlgReplaceWord(CWnd* pParent /*=NULL*/)
 	m_bRangeSelected = FALSE;
 	m_nTargetColumn = -1;
 	m_bRegExp = FALSE;
-	m_strReplaceWord = _T("");
-	m_strSearchWord = _T("");
+	m_strReplaceWord = L"";
+	m_strSearchWord = L"";
 	//}}AFX_DATA_INIT
 	m_pList = NULL;
 }
@@ -84,11 +84,11 @@ BOOL CDlgReplaceWord::OnInitDialog()
 
 	// TODO: この位置に初期化の補足処理を追加してください
 	extern	const char	***g_sNameList;
-	// m_listTargetColumn.AddString("全ての項目");
+	// m_listTargetColumn.AddString(L"全ての項目");
 	for (int i = 2; g_sNameList[0][i] != NULL; i++) {
 		m_listTargetColumn.AddString(g_sNameList[0][i]);
 	}
-	/*m_listTargetColumn.AddString("(全項目)");*/
+	/*m_listTargetColumn.AddString(L"(全項目)");*/
 	m_listTargetColumn.SetCurSel(m_nTargetColumn);
 
 	SetWindowText(m_bModeReplace ? "置換" : "検索");
@@ -102,11 +102,11 @@ BOOL CDlgReplaceWord::OnInitDialog()
 	}
 
 	{ /* BeachMonster 088 */
-		m_strSearchWord = "";
-		m_strReplaceWord = "";
+		m_strSearchWord = L"";
+		m_strReplaceWord = L"";
 		UpdateData(FALSE);
-		m_listSearchWord.LoadHistory("haseta\\history", "SearchWord");
-		m_listReplaceWord.LoadHistory("haseta\\history", "ReplaceWord");
+		m_listSearchWord.LoadHistory(L"haseta\\history", L"SearchWord");
+		m_listReplaceWord.LoadHistory(L"haseta\\history", L"ReplaceWord");
 		m_bAddCurrentItemtoHistory = false;
 	}
 	return TRUE;  // コントロールにフォーカスを設定しないとき、戻り値は TRUE となります
@@ -121,7 +121,7 @@ void CDlgReplaceWord::UpdateStatus(void)
 	if (m_nTargetColumn >= 0) {
 		CString strSelText;
 		m_listTargetColumn.GetLBText(m_nTargetColumn, strSelText);
-		if (strSelText == "(全項目)") {
+		if (strSelText == L"(全項目)") {
 			m_nTargetColumn = -1;
 			UpdateData(FALSE);
 		}
@@ -196,7 +196,7 @@ void CDlgReplaceWord::ExecSearch(bool bNext)
 			m_pList->SetRedraw(TRUE);
 #endif
 		} else {
-			MessageBox("見つかりませんでした", "検索失敗", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+			MessageBox(L"見つかりませんでした", L"検索失敗", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 		}
 	}
 }

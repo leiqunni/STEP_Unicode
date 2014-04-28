@@ -349,7 +349,7 @@ public:
 		Use this member function to construct a COptionSheet object. To
 		display the option sheet, call DoModal. 
 	*/
-	COptionSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
+	COptionSheet(LPCWSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
 
 	/**
 		\brief	Construct a COptionSheet object
@@ -448,7 +448,7 @@ public:
 	}
 </pre></code>
 	*/
-	void Construct(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
+	void Construct(LPCWSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
 
 	/*!
 		\brief	COptionSheet constructor
@@ -576,7 +576,7 @@ public:
 		By default, an option sheet uses the caption in the option sheet's
 		dialog resource.
 	*/
-	void SetTitle( LPCTSTR lpszText, UINT nStyle = 0 );
+	void SetTitle( LPCWSTR lpszText, UINT nStyle = 0 );
 
 	/*!
 		\brief	Sets the caption of the option sheet.
@@ -609,7 +609,7 @@ public:
 		\param	lpszText	Points to the text to be displayed on the Finish
 							command button.
 	*/
-	void SetFinishText(LPCSTR lpszText);
+	void SetFinishText(LPCWSTR lpszText);
 
 	
 	/*!
@@ -1008,7 +1008,7 @@ private:
 		\param	id		The control ID of the button.
 		\param	showBut	If TRUE, shows the button when created.
 	*/
-	void AddButton(char *txt, int x, int w, UINT id, BOOL showBut = TRUE);
+	void AddButton(wchar_t *txt, int x, int w, UINT id, BOOL showBut = TRUE);
 
 	/*!
 		\brief	Adds standard buttons to the window.

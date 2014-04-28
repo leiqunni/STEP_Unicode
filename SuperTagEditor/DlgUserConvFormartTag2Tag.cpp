@@ -56,7 +56,7 @@ END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CDlgUserConvFormartTag2Tag メッセージ ハンドラ
-void CDlgUserConvFormartTag2Tag::OutputFormatString(const char *sText)
+void CDlgUserConvFormartTag2Tag::OutputFormatString(const wchar_t *sText)
 {
 	m_editFormat.ReplaceSel(sText, FALSE);
 	m_editFormat.SetFocus();
@@ -64,42 +64,42 @@ void CDlgUserConvFormartTag2Tag::OutputFormatString(const char *sText)
 
 void CDlgUserConvFormartTag2Tag::OnBtAlbumName() 
 {
-	OutputFormatString("%ALBUM_NAME%");
+	OutputFormatString(L"%ALBUM_NAME%");
 }
 
 void CDlgUserConvFormartTag2Tag::OnBtArtistName() 
 {
-	OutputFormatString("%ARTIST_NAME%");
+	OutputFormatString(L"%ARTIST_NAME%");
 }
 
 void CDlgUserConvFormartTag2Tag::OnBtComment() 
 {
-	OutputFormatString("%COMMENT%");
+	OutputFormatString(L"%COMMENT%");
 }
 
 void CDlgUserConvFormartTag2Tag::OnBtReleaseYear() 
 {
-	OutputFormatString("%RELEASE_YEAR%");
+	OutputFormatString(L"%RELEASE_YEAR%");
 }
 
 void CDlgUserConvFormartTag2Tag::OnBtTrackName() 
 {
-	OutputFormatString("%TRACK_NAME%");
+	OutputFormatString(L"%TRACK_NAME%");
 }
 
 void CDlgUserConvFormartTag2Tag::OnBtTrackNumber() 
 {
-	OutputFormatString("%TRACK_NUMBER%");
+	OutputFormatString(L"%TRACK_NUMBER%");
 }
 
 void CDlgUserConvFormartTag2Tag::OnBtTrackNumber2() 
 {
-	OutputFormatString("%TRACK_NUMBER2%");
+	OutputFormatString(L"%TRACK_NUMBER2%");
 }
 
 void CDlgUserConvFormartTag2Tag::OnBtTrackNumber3() 
 {
-	OutputFormatString("%TRACK_NUMBER3%");
+	OutputFormatString(L"%TRACK_NUMBER3%");
 }
 
 BOOL CDlgUserConvFormartTag2Tag::OnInitDialog() 
@@ -110,7 +110,7 @@ BOOL CDlgUserConvFormartTag2Tag::OnInitDialog()
 	m_listFormatType.ResetContent();
 	for (i = 0; i < USER_CONV_FORMAT_TAG2TAG_MAX; i++) {
 		CString	strName;
-		strName.Format("%d: %s", i+1, m_userFormatTag2Tag[i].strName);
+		strName.Format(L"%d: %s", i+1, m_userFormatTag2Tag[i].strName);
 		m_listFormatType.AddString(strName);
 	}
 
@@ -135,7 +135,7 @@ void CDlgUserConvFormartTag2Tag::OnBtNameChange()
 		m_listFormatType.ResetContent();
 		int i; for (i = 0; i < USER_CONV_FORMAT_MAX; i++) {
 			CString	strName;
-			strName.Format("%d: %s", i+1, m_userFormatTag2Tag[i].strName);
+			strName.Format(L"%d: %s", i+1, m_userFormatTag2Tag[i].strName);
 			m_listFormatType.AddString(strName);
 		}
 		// 選択しなおす

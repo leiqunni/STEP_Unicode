@@ -54,9 +54,9 @@ void CMyRecentFileList::UpdateMenu(CCmdUI* pCmdUI) /* StartInaction 053 */
     }
 
 
-    TCHAR szCurDir[_MAX_PATH];
+    wchar_t szCurDir[_MAX_PATH];
     GetCurrentDirectory(_MAX_PATH, szCurDir);
-    int nCurDir = lstrlen(szCurDir);
+    int nCurDir = wcslen(szCurDir);
     ASSERT(nCurDir >= 0);
     szCurDir[nCurDir] = '\\';
     szCurDir[++nCurDir] = '\0';
@@ -66,7 +66,7 @@ void CMyRecentFileList::UpdateMenu(CCmdUI* pCmdUI) /* StartInaction 053 */
     for (iMRU = 0; iMRU < m_nSize; iMRU++) {
         if (!GetDisplayName(strName, iMRU, szCurDir, nCurDir)) break;
         // double up any '&' characters so they are not underlined
-        LPCTSTR lpszSrc = strName;
+        LPCWSTR lpszSrc = strName;
 
         LPTSTR lpszDest = strTemp.GetBuffer(strName.GetLength()*2);
 
@@ -82,8 +82,8 @@ void CMyRecentFileList::UpdateMenu(CCmdUI* pCmdUI) /* StartInaction 053 */
         strTemp.ReleaseBuffer();
 
         // insert mnemonic + the file name
-        TCHAR buf[10];
-        wsprintf(buf, _T("&%d "), (iMRU+1+m_nStart) % 10);
+        wchar_t buf[10];
+        wsprintf(buf, _T(L"&%d "), (iMRU+1+m_nStart) % 10);
 
         // Note we use our pMenu which may not be pCmdUI->m_pMenu
         pMenu->InsertMenu(pCmdUI->m_nIndex++,
@@ -98,7 +98,7 @@ void CMyRecentFileList::UpdateMenu(CCmdUI* pCmdUI) /* StartInaction 053 */
     pCmdUI->m_bEnableChanged = TRUE;    // all the added items are enabled
 }
 
-void CMyRecentFileList::Add(LPCTSTR lpszPathName)
+void CMyRecentFileList::Add(LPCWSTR lpszPathName)
 {
 	// ディレクトリ以外の場合は無視する /* BeachMonster 095 */
 	DWORD dwAttr = GetFileAttributes(lpszPathName);

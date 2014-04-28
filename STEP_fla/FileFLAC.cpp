@@ -170,7 +170,7 @@ char* convert_to_utf8(const char* SJIS)
 /*
  * Read tag data from a FLAC file.
  * Note:
- *  - if field is found but contains no info (strlen(str)==0), we don't read it
+ *  - if field is found but contains no info (wcslen(str)==0), we don't read it
  */
 boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
 {
@@ -231,7 +231,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num++];
         field_value = (char*)memchr(field->entry, '=', field->length);
       
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -241,7 +241,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
             if (FileTag->title==NULL)
                 FileTag->title = strdup(string);
             else {
-				char * multi = (char*)malloc(strlen(FileTag->title) + strlen(MULTIFIELD_SEPARATOR) + strlen(string) + 1);
+				char * multi = (char*)malloc(wcslen(FileTag->title) + wcslen(MULTIFIELD_SEPARATOR) + wcslen(string) + 1);
 				strcpy(multi, FileTag->title);
 				free(FileTag->title);
 				FileTag->title = multi;
@@ -263,7 +263,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num++];
         field_value = (char*)memchr(field->entry, '=', field->length);
       
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -273,7 +273,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
             if (FileTag->artist==NULL)
                 FileTag->artist = strdup(string);
             else {
-				char * multi = (char*)malloc(strlen(FileTag->artist) + strlen(MULTIFIELD_SEPARATOR) + strlen(string) + 1);
+				char * multi = (char*)malloc(wcslen(FileTag->artist) + wcslen(MULTIFIELD_SEPARATOR) + wcslen(string) + 1);
 				strcpy(multi, FileTag->artist);
 				free(FileTag->artist);
 				FileTag->artist = multi;
@@ -295,7 +295,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num++];
         field_value = (char*)memchr(field->entry, '=', field->length);
       
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -305,7 +305,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
             if (FileTag->album==NULL)
                 FileTag->album = strdup(string);
             else {
-				char * multi = (char*)malloc(strlen(FileTag->album) + strlen(MULTIFIELD_SEPARATOR) + strlen(string) + 1);
+				char * multi = (char*)malloc(wcslen(FileTag->album) + wcslen(MULTIFIELD_SEPARATOR) + wcslen(string) + 1);
 				strcpy(multi, FileTag->album);
 				free(FileTag->album);
 				FileTag->album = multi;
@@ -326,7 +326,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num];
         field_value = (char*)memchr(field->entry, '=', field->length);
         
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -348,7 +348,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num];
         field_value = (char*)memchr(field->entry, '=', field->length);
         
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -377,7 +377,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num++];
         field_value = (char*)memchr(field->entry, '=', field->length);
         
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -387,7 +387,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
             if (FileTag->genre==NULL)
                 FileTag->genre = strdup(string);
             else {
-				char * multi = (char*)malloc(strlen(FileTag->genre) + strlen(MULTIFIELD_SEPARATOR) + strlen(string) + 1);
+				char * multi = (char*)malloc(wcslen(FileTag->genre) + wcslen(MULTIFIELD_SEPARATOR) + wcslen(string) + 1);
 				strcpy(multi, FileTag->genre);
 				free(FileTag->genre);
 				FileTag->genre = multi;
@@ -409,7 +409,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num++];
         field_value = (char*)memchr(field->entry, '=', field->length);
         
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -419,7 +419,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
             if (FileTag->comment==NULL)
                 FileTag->comment = strdup(string);
             else {
-				char * multi = (char*)malloc(strlen(FileTag->comment) + strlen(MULTIFIELD_SEPARATOR) + strlen(string) + 1);
+				char * multi = (char*)malloc(wcslen(FileTag->comment) + wcslen(MULTIFIELD_SEPARATOR) + wcslen(string) + 1);
 				strcpy(multi, FileTag->comment);
 				free(FileTag->comment);
 				FileTag->comment = multi;
@@ -441,7 +441,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num++];
         field_value = (char*)memchr(field->entry, '=', field->length);
         
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -451,7 +451,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
             if (FileTag->composer==NULL)
                 FileTag->composer = strdup(string);
             else {
-				char * multi = (char*)malloc(strlen(FileTag->composer) + strlen(MULTIFIELD_SEPARATOR) + strlen(string) + 1);
+				char * multi = (char*)malloc(wcslen(FileTag->composer) + wcslen(MULTIFIELD_SEPARATOR) + wcslen(string) + 1);
 				strcpy(multi, FileTag->composer);
 				free(FileTag->composer);
 				FileTag->composer = multi;
@@ -473,7 +473,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
         field = &vc->comments[field_num++];
         field_value = (char*)memchr(field->entry, '=', field->length);
         
-        if ( field_value && strlen(field_value)>0 )
+        if ( field_value && wcslen(field_value)>0 )
         {
             field_value++;
             field_len = field->length - (field_value - (char*) field->entry);
@@ -483,7 +483,7 @@ boolean Flac_Tag_Read_File_Tag (const char *filename, File_Tag *FileTag)
             if (FileTag->performer==NULL)
                 FileTag->performer = strdup(string);
             else {
-				char * multi = (char*)malloc(strlen(FileTag->performer) + strlen(MULTIFIELD_SEPARATOR) + strlen(string) + 1);
+				char * multi = (char*)malloc(wcslen(FileTag->performer) + wcslen(MULTIFIELD_SEPARATOR) + wcslen(string) + 1);
 				strcpy(multi, FileTag->performer);
 				free(FileTag->performer);
 				FileTag->performer = multi;
@@ -695,14 +695,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Title *
      *********/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "title");
-    if ( FileTag->title && strlen(FileTag->title) > 0 )
+    if ( FileTag->title && wcslen(FileTag->title) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "title=");
         strcat(string, FileTag->title);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -712,14 +712,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Artist *
      **********/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "artist");
-    if ( FileTag->artist && strlen(FileTag->artist) > 0 )
+    if ( FileTag->artist && wcslen(FileTag->artist) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "artist=");
         strcat(string, FileTag->artist);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -729,14 +729,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Album *
      *********/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "album");
-    if ( FileTag->album && strlen(FileTag->album) > 0 )
+    if ( FileTag->album && wcslen(FileTag->album) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "album=");
         strcat(string, FileTag->album);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -746,14 +746,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Year *
      ********/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "date");
-    if ( FileTag->year && strlen(FileTag->year) > 0 )
+    if ( FileTag->year && wcslen(FileTag->year) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "date=");
         strcat(string, FileTag->year);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -763,11 +763,11 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Track and Total Track *
      *************************/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "tracknumber");
-    if ( FileTag->str_track /*FileTag->track*/ && strlen(FileTag->str_track) > 0)
+    if ( FileTag->str_track /*FileTag->track*/ && wcslen(FileTag->str_track) > 0)
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
 		/*
-        if ( FileTag->track_total && strlen(FileTag->track_total)>0 ) {
+        if ( FileTag->track_total && wcslen(FileTag->track_total)>0 ) {
             strcpy(string, "tracknumber=");
             strcat(string, FileTag->track);
             strcat(string, "/");
@@ -781,7 +781,7 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
         strcat(string, FileTag->str_track);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -791,14 +791,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Genre *
      *********/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "genre");
-    if ( FileTag->genre && strlen(FileTag->genre) > 0 )
+    if ( FileTag->genre && wcslen(FileTag->genre) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "genre=");
         strcat(string, FileTag->genre);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -809,14 +809,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      ***********/
     // We write the comment using the "both" format
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "comment");
-    if ( FileTag->comment && strlen(FileTag->comment) > 0 )
+    if ( FileTag->comment && wcslen(FileTag->comment) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "comment=");
         strcat(string, FileTag->comment);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -826,14 +826,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Composer*
      ***********/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "composer");
-    if ( FileTag->composer && strlen(FileTag->composer) > 0 )
+    if ( FileTag->composer && wcslen(FileTag->composer) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "composer=");
         strcat(string, FileTag->composer);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -843,14 +843,14 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
      * Performer*
      ***********/
 	FLAC__metadata_object_vorbiscomment_remove_entry_matching(vc_block, "performer");
-    if ( FileTag->performer && strlen(FileTag->performer) > 0 )
+    if ( FileTag->performer && wcslen(FileTag->performer) > 0 )
     {
 		string = (char*)malloc(1024+1);//すべてのタグで入力できる最大+1
         strcpy(string, "performer=");
         strcat(string, FileTag->performer);
         string1 = convert_to_utf8(string);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
         free(string);
         free(string1);
@@ -864,7 +864,7 @@ boolean Flac_Tag_Write_File_Tag (const char *filename, File_Tag *FileTag)
     {
         string1 = (char*)FileTag->other->GetAt(i);
         field.entry = (unsigned char*)string1;
-        field.length = strlen(string1);
+        field.length = wcslen(string1);
         FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
     }
 	*/
@@ -926,14 +926,14 @@ bool LoadFileFLAC(FILE_INFO *pFile)
 	SetAlbumNameSI(pFile, FileTag.album);
 	char trackNo[10] = { 0 };
 	if (FileTag.track_total != NULL) {
-		if (atoi(FileTag.track_total) > 0) {
-			sprintf(trackNo, "%d/%d", atoi(FileTag.track), atoi(FileTag.track_total));
+		if (_wtoi(FileTag.track_total) > 0) {
+			sprintf(trackNo, "%d/%d", _wtoi(FileTag.track), _wtoi(FileTag.track_total));
 		} else {
-			sprintf(trackNo, "%d", atoi(FileTag.track));
+			sprintf(trackNo, "%d", _wtoi(FileTag.track));
 		}
 	} else {
 		if (FileTag.track != NULL) {
-			sprintf(trackNo, "%d", atoi(FileTag.track));
+			sprintf(trackNo, "%d", _wtoi(FileTag.track));
 		}
 	}
 	SetTrackNumberSI(pFile, trackNo);

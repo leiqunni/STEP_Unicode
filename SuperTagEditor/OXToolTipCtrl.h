@@ -53,7 +53,7 @@ eg. (In a formview or dialog)
 
      tooltip.Create(this)
      tooltip.AddTool(GetDlgItem(IDC_CONTROL), 
-			_T("Tooltip text\rThis is the extended\ntooltip text"));
+			_T(L"Tooltip text\rThis is the extended\ntooltip text"));
 
 where ID_CONTROL is the ID of a control.
 
@@ -90,7 +90,7 @@ eg. In you view or form
         
         if (nID == IDC_CONTROL) Fill in the text buffer
         {
-            _tcscpy(pTTT->szText, _T("Tooltip text\rExtended tooltip text"));
+            _tcscpy(pTTT->szText, _T(L"Tooltip text\rExtended tooltip text"));
             return TRUE;
         }
         
@@ -106,7 +106,7 @@ resource
 
 or by supplying a pointer to the text:
         
-            pTTT->lpszText = _T("Tooltip text\rExtended tooltip text");
+            pTTT->lpszText = _T(L"Tooltip text\rExtended tooltip text");
             return TRUE;
 
 Newline characters ('\n') can be embedded anywhere within the text or extended
@@ -210,7 +210,7 @@ public:
     HWND      hWnd;         // Window handle of the control
     UINT      nIDTool;      // ID of tool   
     CRect     rectBounds;   // Bounding rect for toolinfo to be displayed
-    LPCTSTR   szText;       // Either LPSTR_TEXTCALLBACK or NULL
+    LPCWSTR   szText;       // Either LPSTR_TEXTCALLBACK or NULL
     CString   strText;      // Tooltip text if szText is NULL, or empty.
     int       nWidth;       // Width of box, or 0 for default
     COLORREF  clrTextColor; // text color
@@ -266,7 +266,7 @@ inline void OXTOOLINFO::operator=(COXToolTipInfo& RHS)
     if (RHS.szText == LPSTR_TEXTCALLBACK)
         lpszText = LPSTR_TEXTCALLBACK;
     else
-        lpszText = (LPTSTR)(LPCTSTR) RHS.strText;
+        lpszText = (LPTSTR)(LPCWSTR) RHS.strText;
     lParam       = RHS.lParam;
     nWidth       = RHS.nWidth;
     clrTextColor = RHS.clrTextColor;
@@ -495,7 +495,7 @@ public:
 	//				is on the tool.
     BOOL AddTool(CWnd* pWnd, UINT nIDText, 
                  LPCRECT lpRectTool = NULL, UINT nIDTool = 0);
-    BOOL AddTool(CWnd* pWnd, LPCTSTR lpszText, 
+    BOOL AddTool(CWnd* pWnd, LPCWSTR lpszText, 
                  LPCRECT lpRectTool = NULL, UINT nIDTool = 0);
     
 	// --- In:		pWnd	-	Pointer to the window that contains the tool
@@ -652,7 +652,7 @@ protected:
 	// --- Effect:	This routine breaks a supplied string into substrings, 
 	//				each delimited by 'ch', and returns the substring number given 
 	//				by nIndex
-	CString GetFieldFromString(CString ref, int nIndex, TCHAR ch) const;
+	CString GetFieldFromString(CString ref, int nIndex, wchar_t ch) const;
 
     
 	// --- In:		lpLogFont	-	A pointer to a LOGFONT structure (the new font)
@@ -694,7 +694,7 @@ protected:
     HWND   m_hOldFocusWnd;              // window that had focus before the tooltip
                                         // was clicked on
 
-    static LPCTSTR m_szArrowSpace;      // Spaces (' ') added to allow room for arrow in text
+    static LPCWSTR m_szArrowSpace;      // Spaces (' ') added to allow room for arrow in text
     BOOL   m_bExtended;                 // Is the tip displaying extended info?
 
 protected:
@@ -711,7 +711,7 @@ protected:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	afx_msg void OnDestroy();
-	afx_msg void OnSettingChange(UINT uFlags, LPCTSTR lpszSection);
+	afx_msg void OnSettingChange(UINT uFlags, LPCWSTR lpszSection);
 	afx_msg int OnMouseActivate(CWnd* pDesktopWnd, UINT nHitTest, UINT message);
 	//}}AFX_MSG
     afx_msg LRESULT OnSetFont(WPARAM hFont, LPARAM lParam);

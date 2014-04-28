@@ -4,7 +4,7 @@
 //
 
 #include "stdafx.h"
-#include <TCHAR.h>
+#include <wchar_t.h>
 #include <stdio.h>
 #include <string.h>
 #include "wmsdk.h"
@@ -70,28 +70,28 @@ void SetAttribute(LPCWSTR pwszName, WMT_ATTR_DATATYPE type, BYTE* pValue, DWORD 
 //			pFileMP3->nPlayTime = (int)((*((QWORD *)pValue) / (QWORD)10000000));
 //		} else if (strcmp(strName, "Bitrate") == 0) {
 //			// ビットレート
-//			pFileMP3->nBitRate = atoi(strData) / 1000;
+//			pFileMP3->nBitRate = _wtoi(strData) / 1000;
 		} else if (_strcmpi(strName, "WM/Track") == 0) {
 			// トラック番号
-			//SetBTrackNumber(pFileMP3, (BYTE)atoi(strData) + 1);
+			//SetBTrackNumber(pFileMP3, (BYTE)_wtoi(strData) + 1);
 			CString strTrack;
-			strTrack.Format("%d", atoi(strData) + 1);
+			strTrack.Format("%d", _wtoi(strData) + 1);
 			SetTrackNumberSI(pFileMP3, strTrack);
 		} else if (_strcmpi(strName, "WM/TrackNumber") == 0) {
 			// トラック番号
-			if (atoi(strData) == 0) {
+			if (_wtoi(strData) == 0) {
 				//SetBTrackNumber(pFileMP3, (BYTE)0xFF);
 				SetTrackNumberSI(pFileMP3, "");
 			} else {
-				//SetBTrackNumber(pFileMP3, (BYTE)atoi(strData));
+				//SetBTrackNumber(pFileMP3, (BYTE)_wtoi(strData));
 				CString strTrack;
-				strTrack.Format("%d", atoi(strData));
+				strTrack.Format("%d", _wtoi(strData));
 				SetTrackNumberSI(pFileMP3, strTrack);
 			}
 		} else if (_strcmpi(strName, "WM/PartOfSet") == 0) {
 			// ディスク番号
 			CString strDisk;
-			strDisk.Format("%d", atoi(strData));
+			strDisk.Format("%d", _wtoi(strData));
 			SetDiskNumberSI(pFileMP3, strDisk);
 		}  else if (_strcmpi(strName, "WM/Year") == 0) {
 			// リリース
@@ -164,7 +164,7 @@ void SetAttribute(LPCWSTR pwszName, WMT_ATTR_DATATYPE type, BYTE* pValue, DWORD 
 			SetOther(pFileMP3, strData);
 		} else if (_strcmpi(strName, "Is_Protected") == 0) {
 			// DRM が有効なデータ
-			*pIsProtected = (atoi(strData) == 1) ? TRUE : FALSE;
+			*pIsProtected = (_wtoi(strData) == 1) ? TRUE : FALSE;
 		} else if (_strcmpi(strName, "WM/OriginalArtist") == 0) {
 			if (bAppend) {
 				strPrev = GetOrigArtistSI(pFileMP3);
@@ -352,26 +352,26 @@ bool WriteAttributeStr(IWMHeaderInfo3 *pHeaderInfo, LPCWSTR pwszAttrName, LPCSTR
 	CString strData = sValue;
 	int nIndex = 0;
 	while (strData.GetLength() > 0) {
-		CString strToken;
+		CString wcstoken;
 		if (bSeparate) {
-			strToken = strData.SpanExcluding(";");
+			wcstoken = strData.SpanExcluding(";");
 		} else {
-			strToken = strData;
+			wcstoken = strData;
 		}
 		LPWSTR	pwszValue = NULL;
-		hr = ConvertMBtoWC(strToken, &pwszValue);
+		hr = ConvertMBtoWC(wcstoken, &pwszValue);
 		if (FAILED(hr)) return(false);
 
 		if (wCount > nIndex) {
 			hr = pHeaderInfo->ModifyAttribute(STREAM_NUM, wIndices[nIndex], WMT_TYPE_STRING, 0,
 											(LPBYTE)pwszValue, (wcslen(pwszValue)+1) * sizeof(WCHAR));
 			TRACE( _T( "ModifyAttribute #%d for Attribute name %ws value %s #%02x (hr=0x%08x).\n" ), nIndex+1,
-																pwszAttrName, strToken, wIndices[nIndex], hr) ;
+																pwszAttrName, wcstoken, wIndices[nIndex], hr) ;
 		} else {
 			hr = pHeaderInfo->AddAttribute(STREAM_NUM, pwszAttrName, NULL, WMT_TYPE_STRING, 0,
 											(LPBYTE)pwszValue, (wcslen(pwszValue)+1) * sizeof(WCHAR));
 			TRACE( _T( "AddAttribute #%d for Attribute name %ws value %s (hr=0x%08x).\n" ), nIndex+1, 
-																pwszAttrName, strToken, hr) ;
+																pwszAttrName, wcstoken, hr) ;
 		}
 
 		delete[] pwszValue;
@@ -381,10 +381,10 @@ bool WriteAttributeStr(IWMHeaderInfo3 *pHeaderInfo, LPCWSTR pwszAttrName, LPCSTR
 			TRACE( _T( "AddAttribute/ModifyAttribute failed for Attribute name %ws (hr=0x%08x).\n" ), pwszAttrName, hr) ;
 			break;
 		}
-		if (strData == strToken) {
+		if (strData == wcstoken) {
 			strData.Empty();
 		} else {
-			strData = strData.Mid(strToken.GetLength() + 1);
+			strData = strData.Mid(wcstoken.GetLength() + 1);
 		}
 		nIndex++;
 	}

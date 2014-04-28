@@ -243,7 +243,7 @@ public:
 	//	int nCompressionLevel
 	//		the compression level for the APE file (fast - extra high)
 	//		(note: extra-high is much slower for little gain)
-	//	const unsigned char * pHeaderData
+	//	const wchar_t * pHeaderData
 	//		a pointer to a buffer containing the WAV header (data before the data block in the WAV)
 	//		(note: use NULL for on-the-fly encoding... see next parameter)
 	//	int nHeaderBytes
@@ -254,11 +254,11 @@ public:
 
 	virtual int Start(const char * pOutputFilename, const WAVEFORMATEX * pwfeInput, 
 		int nMaxAudioBytes = MAX_AUDIO_BYTES_UNKNOWN, int nCompressionLevel = COMPRESSION_LEVEL_NORMAL, 
-		const unsigned char * pHeaderData = NULL, int nHeaderBytes = CREATE_WAV_HEADER_ON_DECOMPRESSION) = 0;
+		const wchar_t * pHeaderData = NULL, int nHeaderBytes = CREATE_WAV_HEADER_ON_DECOMPRESSION) = 0;
 
 	virtual int StartEx(CIO * pioOutput, const WAVEFORMATEX * pwfeInput, 
 		int nMaxAudioBytes = MAX_AUDIO_BYTES_UNKNOWN, int nCompressionLevel = COMPRESSION_LEVEL_NORMAL, 
-		const unsigned char * pHeaderData = NULL, int nHeaderBytes = CREATE_WAV_HEADER_ON_DECOMPRESSION) = 0;
+		const wchar_t * pHeaderData = NULL, int nHeaderBytes = CREATE_WAV_HEADER_ON_DECOMPRESSION) = 0;
 	
 	/*********************************************************************************************
 	* Add / Compress Data
@@ -272,12 +272,12 @@ public:
 	// AddData(...) - adds data to the encoder
 	// 
 	// Parameters:
-	//	unsigned char * pData
+	//	wchar_t * pData
 	//		a pointer to a buffer containing the raw audio data
 	//	int nBytes
 	//		the number of bytes in the buffer
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	virtual int AddData(unsigned char * pData, int nBytes) = 0;
+	virtual int AddData(wchar_t * pData, int nBytes) = 0;
 	
 	
 	
@@ -297,7 +297,7 @@ public:
 	// Return:
 	//	pointer to the buffer (add at that location)
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	virtual unsigned char * LockBuffer(int * pBytesAvailable) = 0;
+	virtual wchar_t * LockBuffer(int * pBytesAvailable) = 0;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	// UnlockBuffer(...) - releases the buffer
@@ -332,7 +332,7 @@ public:
 	// Finish(...) - ends encoding and finalizes the file
 	// 
 	// Parameters:
-	//	unsigned char * pTerminatingData
+	//	wchar_t * pTerminatingData
 	//		a pointer to a buffer containing the information to place at the end of the APE file
 	//		(comprised of the WAV terminating data (data after the data block in the WAV) followed
 	//		by any tag information)
@@ -342,7 +342,7 @@ public:
 	//		the number of bytes of the terminating data buffer that should be appended to a decoded
 	//		WAV file (it's basically nTerminatingBytes - the bytes that make up the tag)
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	virtual int Finish(unsigned char * pTerminatingData, int nTerminatingBytes, int nWAVTerminatingBytes) = 0;
+	virtual int Finish(wchar_t * pTerminatingData, int nTerminatingBytes, int nWAVTerminatingBytes) = 0;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	// Kill(...) - stops encoding and deletes the output file

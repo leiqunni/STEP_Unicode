@@ -10,7 +10,7 @@ class CToolBarInfo
 {
 public:
 	TBBUTTON		 tbButton;		// information regarding the button
-	LPCTSTR			 btnText;		// text for the button
+	LPCWSTR			 btnText;		// text for the button
 };
 
 class CPluginToolBarInfo
@@ -37,8 +37,8 @@ public:
 						DWORD dwStyle = WS_CHILD | WS_VISIBLE | CBRS_TOP,
 						UINT nID = AFX_IDW_TOOLBAR,
 						CToolBarInfo *tbInfo = NULL,
-						CString regSubKey = "",
-						CString regValue = "",
+						CString regSubKey = L"",
+						CString regValue = L"",
 						HKEY regKey = HKEY_CURRENT_USER);
 
 					// overridden LoadToolBar allows automatic restoration
@@ -84,7 +84,7 @@ public:
 
 public:
 	void UpdatePluginButton();
-	BOOL InsertButton( int nIndex, LPTBBUTTON lpButton, char* lpszRegName);
+	BOOL InsertButton( int nIndex, LPTBBUTTON lpButton, wchar_t* lpszRegName);
 	void Customize();
 	void UpdateButtonImage();
 	int				nDyImageIndex;

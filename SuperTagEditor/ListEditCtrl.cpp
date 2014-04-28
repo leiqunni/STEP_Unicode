@@ -72,7 +72,7 @@ BOOL CListEditCtrl::PreTranslateMessage(MSG* pMsg)
 			return 1;
 		}
 	}
-	//TRACE1("CListEditCtrl::PreTranslateMessage %x\n", pMsg->message);
+	//TRACE1(L"CListEditCtrl::PreTranslateMessage %x\n", pMsg->message);
 	return CEdit::PreTranslateMessage(pMsg);
 }
 
@@ -97,7 +97,7 @@ void CListEditCtrl::OnKillFocus(CWnd* pNewWnd)
 	lvDispInfo.item.mask = LVIF_TEXT;
 	lvDispInfo.item.iItem = m_iItem;
 	lvDispInfo.item.iSubItem = m_iSubItem;
-	lvDispInfo.item.pszText = m_bVK_ESCAPE ? NULL : LPTSTR((LPCTSTR)str);
+	lvDispInfo.item.pszText = m_bVK_ESCAPE ? NULL : LPTSTR((LPCWSTR)str);
 	lvDispInfo.item.cchTextMax = str.GetLength();
 	GetParent()->GetParent()->SendMessage( WM_NOTIFY, GetParent()->GetDlgCtrlID(),(LPARAM)&lvDispInfo);
 	DestroyWindow();
@@ -136,7 +136,7 @@ void CListEditCtrl::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 		if (g_bOptESCEditCancel == false) {
 			// Œ»ÝA‰½‚©“ü—Í‚³‚ê‚Ä‚¢‚éê‡‚ÍA•¶Žš‚ðƒNƒŠƒA‚·‚é
 			if (LineLength() != 0) {
-				SetWindowText(_T(""));
+				SetWindowText(L"");
 				return;
 			}
 		}
@@ -200,13 +200,13 @@ bool CListEditCtrl::CalculateSize(CRect& rect) /* BeachMonster 089 */
 		size.cy = size.cx = 0;
 		while (true) { // ƒzƒ“ƒg‚Í‚Ps‚Ã‚Âˆ—‚µ‚½‚­‚È‚¢‚Ì‚¾‚ªDrawText‚ª‰¡•‚ðŸŽè‚ÉL‚°‚Äc‚ª‘«‚è‚È‚­‚È‚é‚Ì‚ÅŽ©•ª‚Å‚â‚é
 			bool bEmpty = false;
-			int nIndex = str.Find("\r");
+			int nIndex = str.Find(L"\r");
 			CString line = str;
 			if (nIndex >= 0) {
 				line = str.Left(nIndex);
 			}
 			if (line.IsEmpty()) {
-				line = " ";
+				line = L" ";
 				bEmpty = true;
 			}
 			while (true) {
@@ -250,8 +250,8 @@ bool CListEditCtrl::CalculateSize(CRect& rect) /* BeachMonster 089 */
 			if (str.IsEmpty()) {
 				break;
 			}
-			str.TrimLeft("\r");// "\r\n"‚Ì‘©‚ª“Z‚ß‚ÄTrim‚³‚ê‚È‚¢‚æ‚¤‚É‚í‚¯‚Ä‚â‚é
-			str.TrimLeft("\n");
+			str.TrimLeft(L"\r");// "\r\n"‚Ì‘©‚ª“Z‚ß‚ÄTrim‚³‚ê‚È‚¢‚æ‚¤‚É‚í‚¯‚Ä‚â‚é
+			str.TrimLeft(L"\n");
 		}
 		size.cy += 5;
 		size.cx += 5;

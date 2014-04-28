@@ -195,7 +195,7 @@ bool LoadAttributeFileMPC(FILE_INFO *pFileMP3)
 	strFormat.Format("%d kb/s %d Hz, Profile:%s(SV%d)", MPCinfo.simple.Bitrate/1000, (int)MPCinfo.simple.SampleFreq,
 						MPCinfo.simple.ProfileName, MPCinfo.simple.StreamVersion);
 	SetAudioFormat(pFileMP3, strFormat);
-	if (strlen(MPCinfo.simple.Encoder) > 0) {
+	if (wcslen(MPCinfo.simple.Encoder) > 0) {
 		SetEncodest(pFileMP3, MPCinfo.simple.Encoder);
 	}
 	SetPlayTime(pFileMP3, MPCinfo.simple.Duration/1000);
@@ -222,7 +222,7 @@ bool WriteAttributeFileMPC(FILE_INFO *pFileMP3)
     };
     int i = 0;
     while(mc[i].cszName){
-        char *utf8 = (char*)malloc(strlen((*mc[i].getFunc)(pFileMP3))*2+1);
+        char *utf8 = (char*)malloc(wcslen((*mc[i].getFunc)(pFileMP3))*2+1);
         utf8[0] = 0;
         if(ConvertANSIToUTF8((*mc[i].getFunc)(pFileMP3), utf8 ) != 0 ) {
             utf8[0] = 0;

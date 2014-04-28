@@ -83,13 +83,13 @@ void VorbisComments::addTag(LPCSTR name, LPCWSTR value)
 	}
 
 	// Add the name
-	len = lstrlenA(name);
+	len = lwcslenA(name);
 	tags[count].name = new CHAR[len +1];
 	lstrcpyA(tags[count].name, name);
 	CharUpperA(tags[count].name);
 
 	// Add the value
-	len = lstrlenW(value);
+	len = lwcslenW(value);
 	tags[count].value = new WCHAR[len +1];
 	memcpy(tags[count].value, value, sizeof(WCHAR)*(len +1));
 
@@ -143,7 +143,7 @@ void VorbisComments::retrieve(const vorbis_comment *vc)
 		if (equalpos == NULL)
 		{
 			// The comments do not follow the comment spec!
-			len = lstrlenA("COMMENT");
+			len = lwcslenA("COMMENT");
 			name = new CHAR[len +1];
 			lstrcpyA(name, "COMMENT");
 			valuepos = comment;
@@ -151,7 +151,7 @@ void VorbisComments::retrieve(const vorbis_comment *vc)
 		else
 		{
 			*equalpos = 0;
-			len = strlen(comment);
+			len = wcslen(comment);
 			name = new CHAR[len +1];
 			lstrcpyA(name, comment);
 			valuepos = equalpos +1;
@@ -228,14 +228,14 @@ void VorbisComments::modifyTag(unsigned int item, LPCSTR name, LPCWSTR value)
 	{
 		// Set the name
 		delete[] tags[item].name;
-		len = lstrlenA(name);
+		len = lwcslenA(name);
 		tags[item].name = new CHAR[len +1];
 		lstrcpyA(tags[item].name, name);
 		CharUpperA(tags[item].name);
 
 		// Set the value
 		delete[] tags[item].value;
-		len = lstrlenW(value);
+		len = lwcslenW(value);
 		tags[item].value = new WCHAR[len +1];
 		memcpy(tags[item].value, value, sizeof(WCHAR)*(len +1));
 	}
@@ -244,7 +244,7 @@ void VorbisComments::modifyTag(unsigned int item, LPCSTR name, LPCWSTR value)
 // Checks a name for validity
 bool VorbisComments::isValidName(LPCSTR name)
 {
-	if (lstrlenA(name) == 0)
+	if (lwcslenA(name) == 0)
 		return false;
 
 	while (*name != '\0')
@@ -260,7 +260,7 @@ bool VorbisComments::isValidName(LPCSTR name)
 // Checks a value for validity
 bool VorbisComments::isValidValue(LPCWSTR value)
 {
-	if (lstrlenW(value) == 0)
+	if (lwcslenW(value) == 0)
 		return false;
 
 	return true;

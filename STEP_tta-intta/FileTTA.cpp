@@ -62,7 +62,7 @@ static int open_tta_file (const char *filename, tta_info *ttainfo) {
 		return -1;
 	}
 
-	checksum = crc32((unsigned char *) &ttahdr,
+	checksum = crc32((wchar_t *) &ttahdr,
 	sizeof(tta_hdr) - sizeof(long));
 	if (checksum != ttahdr.CRC32) {
 		CloseHandle(ttainfo->HFILE);
@@ -259,7 +259,7 @@ static void get_id3v2_tag (tta_info *ttainfo) {
 	HANDLE hMap;
 	id3v2_tag id3v2;
 	id3v2_frame frame_header;
-	unsigned char *buffer, *ptr;
+	wchar_t *buffer, *ptr;
 	ULONG result;
 	int id3v2_size;
 
@@ -296,7 +296,7 @@ static void get_id3v2_tag (tta_info *ttainfo) {
 	while (ptr - buffer < id3v2_size) {
 		int data_size, frame_id;
 		int size, comments = 0;
-		unsigned char *data;
+		wchar_t *data;
 
 		// get frame header
 		CopyMemory(&frame_header, ptr, sizeof(id3v2_frame));
@@ -362,7 +362,7 @@ static void add_text_frame (char *id, char **dest, char *src) {
 	id3v2_frame frame_header;
 
 	if (*src) {
-		int size = lstrlen(src) + 1;
+		int size = lwcslen(src) + 1;
 		CopyMemory(frame_header.id, id, 4);
 		frame_header.flags = 0;
 		pack_sint32(size, (char*)frame_header.size);
@@ -376,7 +376,7 @@ static void add_comm_frame (char *id, char **dest, char *src) {
 	id3v2_frame frame_header;
 
 	if (*src) {
-		int size = lstrlen(src) + 1;
+		int size = lwcslen(src) + 1;
 		CopyMemory(frame_header.id, id, 4);
 		frame_header.flags = 0;
 		pack_sint32(size + 4, (char*)frame_header.size);
@@ -390,8 +390,8 @@ static void add_comm_frame (char *id, char **dest, char *src) {
 static bool save_id3v2_tag (tta_info *ttainfo) {
 	HANDLE hFile, hMap;
 	id3v2_tag id3v2;
-	unsigned char *buffer, *ptr;
-	unsigned char *tag_data, *tptr;
+	wchar_t *buffer, *ptr;
+	wchar_t *tag_data, *tptr;
 	unsigned long new_size, id3v2_size, tag_size;
 	int offset;
 	ULONG result;
@@ -551,7 +551,7 @@ done:
 #if 0
 static void del_id3v2_tag (tta_info *ttainfo) {
 	HANDLE hFile, hMap;
-	unsigned char *buffer;
+	wchar_t *buffer;
 
 	if (!ttainfo->id3v2.id3has) return;
 
@@ -640,9 +640,9 @@ void StringCopyN(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	ZeroMemory(sDest, nLen);
-	if (strlen(sSrc) < (unsigned int)nLen) {
+	if (wcslen(sSrc) < (unsigned int)nLen) {
 		if (bTerm) strcpy(sDest, sSrc);
-		else       memcpy(sDest, sSrc, strlen(sSrc));
+		else       memcpy(sDest, sSrc, wcslen(sSrc));
 		return;
 	}
 	while(nLen > 0) {
@@ -664,9 +664,9 @@ void StringCopyN2(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	ZeroMemory(sDest, nLen);
-	if (strlen(sSrc) < (unsigned int)nLen) {
+	if (wcslen(sSrc) < (unsigned int)nLen) {
 		if (bTerm) strcpy(sDest, sSrc);
-		else       memcpy(sDest, sSrc, strlen(sSrc));
+		else       memcpy(sDest, sSrc, wcslen(sSrc));
 		return;
 	}
 	bool bCR = false;
@@ -715,13 +715,13 @@ bool WriteAttributeFileTTA(FILE_INFO *pFileMP3)
 			return false;
 		}
 	}
-	if (strlen(GetTrackName(pFileMP3)) > 0
-		|| strlen(GetArtistName(pFileMP3)) > 0
-		|| strlen(GetAlbumName(pFileMP3)) > 0
-		|| strlen(GetYear(pFileMP3)) > 0
+	if (wcslen(GetTrackName(pFileMP3)) > 0
+		|| wcslen(GetArtistName(pFileMP3)) > 0
+		|| wcslen(GetAlbumName(pFileMP3)) > 0
+		|| wcslen(GetYear(pFileMP3)) > 0
 		|| STEPGetGenreCode(GetGenre(pFileMP3)) != 0xFF
 		|| GetBTrackNumber(pFileMP3) > 0
-		|| strlen(GetComment(pFileMP3)) > 0) {
+		|| wcslen(GetComment(pFileMP3)) > 0) {
 		ttainfo.id3v1.id3has = true;
 	}
 	if (ttainfo.id3v1.id3has && !bOptID3TagAutoDelete || bOptID3TagAutoWrite) {

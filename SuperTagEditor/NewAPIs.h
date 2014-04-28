@@ -151,7 +151,7 @@ Emulate_GetLongPathName(LPCTSTR ptszShort, LPTSTR ptszLong, DWORD ctchBuf)
     LPSHELLFOLDER psfDesk;
     HRESULT hr;
     LPITEMIDLIST pidl;
-    TCHAR tsz[MAX_PATH];            /* Scratch TCHAR buffer */
+    wchar_t tsz[MAX_PATH];            /* Scratch wchar_t buffer */
     DWORD dwRc;
     LPMALLOC pMalloc;
 
@@ -166,7 +166,7 @@ Emulate_GetLongPathName(LPCTSTR ptszShort, LPTSTR ptszLong, DWORD ctchBuf)
 
     /*
      *  First convert from relative path to absolute path.
-     *  This uses the scratch TCHAR buffer.
+     *  This uses the scratch wchar_t buffer.
      */
     dwRc = GetFullPathName(ptszShort, MAX_PATH, tsz, NULL);
     if (dwRc == 0) {
@@ -241,7 +241,7 @@ Emulate_GetLongPathName(LPCTSTR ptszShort, LPTSTR ptszLong, DWORD ctchBuf)
                 } else {
                     /*
                      *  Convert the pidl back to a filename in the
-                     *  TCHAR scratch buffer.
+                     *  wchar_t scratch buffer.
                      */
                     dwRc = SHGetPathFromIDList(pidl, tsz);
                     if (dwRc == 0 && tsz[0]) {
@@ -253,7 +253,7 @@ Emulate_GetLongPathName(LPCTSTR ptszShort, LPTSTR ptszLong, DWORD ctchBuf)
                         /*
                          *  Copy the result back to the user's buffer.
                          */
-                        dwRc = lstrlen(tsz);
+                        dwRc = lwcslen(tsz);
                         if (dwRc + 1 > ctchBuf) {
                             /*
                              *  On buffer overflow, return necessary

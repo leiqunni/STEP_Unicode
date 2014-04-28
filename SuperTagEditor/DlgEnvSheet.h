@@ -21,7 +21,7 @@ class CDlgEnvSheet : public COptionSheet/*CPropertySheet*/
 // コンストラクション
 public:
 	CDlgEnvSheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
-	CDlgEnvSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
+	CDlgEnvSheet(LPCWSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
 
 // アトリビュート
 public:

@@ -19,8 +19,8 @@ typedef struct _STEPlugin {
 	CPtrArray arExtInfo;				// サポートしている拡張子情報など
 	UINT nOptionCommandID;
 
-	LPCTSTR (WINAPI *STEPGetToolTipText)(UINT);
-	LPCTSTR (WINAPI *STEPGetStatusMessage)(UINT);
+	LPCWSTR (WINAPI *STEPGetToolTipText)(UINT);
+	LPCWSTR (WINAPI *STEPGetStatusMessage)(UINT);
 	bool (WINAPI *STEPOnUpdateCommand)(UINT);
 	bool (WINAPI *STEPOnCommand)(UINT, HWND hWnd);
 	bool (WINAPI *STEPSupportSIF)(UINT);
@@ -28,14 +28,14 @@ typedef struct _STEPlugin {
 	bool (WINAPI *STEPSupportGenreSIF)(UINT);
 	CONTROLTYPE (WINAPI *STEPGetControlType)(UINT, COLUMNTYPE, bool);
 	int (WINAPI *STEPGetColumnMax)(UINT, COLUMNTYPE, bool);
-	LPCTSTR (WINAPI *STEPGetColumnName)(UINT, COLUMNTYPE);
+	LPCWSTR (WINAPI *STEPGetColumnName)(UINT, COLUMNTYPE);
 	bool (WINAPI *STEPHasSpecificColumnName)(UINT);
-	UINT (WINAPI *STEPLoad)(FILE_INFO *, LPCTSTR);
+	UINT (WINAPI *STEPLoad)(FILE_INFO *, LPCWSTR);
 	UINT (WINAPI *STEPSave)(FILE_INFO *);
 	void (WINAPI *STEPShowOptionDialog)(HWND);
 	void (WINAPI *STEPOnLoadMenu)(HMENU, UINT);
 	void (WINAPI *STEPOnLoadMainMenu)();
-	LPCTSTR (WINAPI *STEPGetPluginInfo)(void);
+	LPCWSTR (WINAPI *STEPGetPluginInfo)(void);
 	void (WINAPI *STEPInitFileSpecificInfo)(FILE_INFO*);
 	bool (WINAPI *STEPOnConvSiFieldToId3tag)(FILE_INFO*);
 
@@ -90,7 +90,7 @@ public:
 		}
 	}
 	/*
-	UINT GetFileTypeID(LPCTSTR szExt) {
+	UINT GetFileTypeID(LPCWSTR szExt) {
 		for (int i=0;arPlugins.GetSize();i++) {
 			PSTEPlugin plugin = (PSTEPlugin)arPlugins.GetAt(i);
 			int j; for (int j=0;j<plugin->arExtInfo.GetSize();j++) {

@@ -60,7 +60,7 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 private:
-	void OutputFormatString(const char *sText);
+	void OutputFormatString(const wchar_t *sText);
 };
 
 //{{AFX_INSERT_LOCATION}}

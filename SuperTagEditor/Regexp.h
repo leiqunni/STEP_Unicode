@@ -6,7 +6,7 @@
 //
 // This code has been derived from work by Henry Spencer. 
 // The main changes are
-// 1. All char variables and functions have been changed to TCHAR
+// 1. All char variables and functions have been changed to wchar_t
 //    counterparts
 // 2. Added GetFindLen() & GetReplaceString() to enable search
 //    and replace operations.
@@ -44,9 +44,9 @@ public:
 	CRegExp();
 	~CRegExp();
 
-	CRegExp *RegComp( const TCHAR *re );
-	int RegFind(const TCHAR *str);
-	TCHAR* GetReplaceString( const TCHAR* sReplaceExp );
+	CRegExp *RegComp( const wchar_t *re );
+	int RegFind(const wchar_t *str);
+	wchar_t* GetReplaceString( const wchar_t* sReplaceExp );
 	int GetFindLen()
 	{
 		if( startp[0] == NULL || endp[0] == NULL )
@@ -57,26 +57,26 @@ public:
 
 
 private:
-	TCHAR *regnext(TCHAR *node);
-	void reginsert(TCHAR op, TCHAR *opnd);
+	wchar_t *regnext(wchar_t *node);
+	void reginsert(wchar_t op, wchar_t *opnd);
 
-	int regtry(TCHAR *string);
-	int regmatch(TCHAR *prog);
-	size_t regrepeat(TCHAR *node);
-	TCHAR *reg(int paren, int *flagp);
-	TCHAR *regbranch(int *flagp);
-	void regtail(TCHAR *p, TCHAR *val);
-	void regoptail(TCHAR *p, TCHAR *val);
-	TCHAR *regpiece(int *flagp);
-	TCHAR *regatom(int *flagp);
+	int regtry(wchar_t *string);
+	int regmatch(wchar_t *prog);
+	size_t regrepeat(wchar_t *node);
+	wchar_t *reg(int paren, int *flagp);
+	wchar_t *regbranch(int *flagp);
+	void regtail(wchar_t *p, wchar_t *val);
+	void regoptail(wchar_t *p, wchar_t *val);
+	wchar_t *regpiece(int *flagp);
+	wchar_t *regatom(int *flagp);
 
 	// Inline functions
 private:
-	TCHAR OP(TCHAR *p) {return *p;};
-	TCHAR *OPERAND( TCHAR *p) {return (TCHAR*)((short *)(p+1)+1); };
+	wchar_t OP(wchar_t *p) {return *p;};
+	wchar_t *OPERAND( wchar_t *p) {return (wchar_t*)((short *)(p+1)+1); };
 
 	// regc - emit (if appropriate) a byte of code
-	void regc(TCHAR b)
+	void regc(wchar_t b)
 	{
 		if (bEmitCode)
 			*regcode++ = b;
@@ -85,7 +85,7 @@ private:
 	};
 
 	// regnode - emit a node
-	TCHAR *	regnode(TCHAR op)
+	wchar_t *	regnode(wchar_t op)
 	{
 		if (!bEmitCode) {
 			regsize += 3;
@@ -103,24 +103,24 @@ private:
 private:
 	BOOL bEmitCode;
 	BOOL bCompiled;
-	TCHAR *sFoundText;
+	wchar_t *sFoundText;
 
-	TCHAR *startp[NSUBEXP];
-	TCHAR *endp[NSUBEXP];
-	TCHAR regstart;		// Internal use only. 
-	TCHAR reganch;		// Internal use only. 
-	TCHAR *regmust;		// Internal use only. 
+	wchar_t *startp[NSUBEXP];
+	wchar_t *endp[NSUBEXP];
+	wchar_t regstart;		// Internal use only. 
+	wchar_t reganch;		// Internal use only. 
+	wchar_t *regmust;		// Internal use only. 
 	int regmlen;		// Internal use only. 
-	TCHAR *program;		// Unwarranted chumminess with compiler. 
+	wchar_t *program;		// Unwarranted chumminess with compiler. 
 
-	TCHAR *regparse;	// Input-scan pointer. 
+	wchar_t *regparse;	// Input-scan pointer. 
 	int regnpar;		// () count. 
-	TCHAR *regcode;		// Code-emit pointer; Rdummy = don't. 
-	TCHAR regdummy[3];	// NOTHING, 0 next ptr 
+	wchar_t *regcode;		// Code-emit pointer; Rdummy = don't. 
+	wchar_t regdummy[3];	// NOTHING, 0 next ptr 
 	long regsize;		// Code size. 
 
-	TCHAR *reginput;	// String-input pointer. 
-	TCHAR *regbol;		// Beginning of input, for ^ check. 
+	wchar_t *reginput;	// String-input pointer. 
+	wchar_t *regbol;		// Beginning of input, for ^ check. 
 };
 
 #endif

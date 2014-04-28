@@ -67,264 +67,264 @@ int	 g_nWriteTagProcFlag = 0;
 // ======================================
 // ジャンル名称テーブル
 GENRE_LIST	g_genreListSCMPX[] = {
-	{true,   0, "Blues"},					// 0(ID3 Tag互換)
-	{true,   1, "Classic Rock"},			// 1(ID3 Tag互換)
-	{true,   2, "Country"},					// 2(ID3 Tag互換)
-	{true,   3, "Dance"},					// 3(ID3 Tag互換)
-	{true,   4, "Disco"},					// 4(ID3 Tag互換)
-	{true,   5, "Funk"},					// 5(ID3 Tag互換)
-	{true,   6, "Grunge"},					// 6(ID3 Tag互換)
-	{true,   7, "Hip-Hop"},					// 7(ID3 Tag互換)
-	{true,   8, "Jazz"},					// 8(ID3 Tag互換)
-	{true,   9, "Metal"},					// 9(ID3 Tag互換)
-	{true,  10, "New Age"},					// 10(ID3 Tag互換)
-	{true,  11, "Oldies"},					// 11(ID3 Tag互換)
-	{true,  12, "Other"},					// 12(ID3 Tag互換)
-	{true,  13, "Pop"},						// 13(ID3 Tag互換)
-	{true,  14, "R&B"},						// 14(ID3 Tag互換)
-	{true,  15, "Rap"},						// 15(ID3 Tag互換)
-	{true,  16, "Reggae"},					// 16(ID3 Tag互換)
-	{true,  17, "Rock"},					// 17(ID3 Tag互換)
-	{true,  18, "Techno"},					// 18(ID3 Tag互換)
-	{true,  19, "Industrial"},				// 19(ID3 Tag互換)
-	{true,  20, "Alternative"},				// 20(ID3 Tag互換)
-	{true,  21, "Ska"},						// 21(ID3 Tag互換)
-	{true,  22, "Death Metal"},				// 22(ID3 Tag互換)
-	{true,  23, "Pranks"},					// 23(ID3 Tag互換)
-	{true,  24, "Soundtrack"},				// 24(ID3 Tag互換)
-	{true,  25, "Euro-Techno"},				// 25(ID3 Tag互換)
-	{true,  26, "Ambient"},					// 26(ID3 Tag互換)
-	{true,  27, "Trip-Hop"},				// 27(ID3 Tag互換)
-	{true,  28, "Vocal"},					// 28(ID3 Tag互換)
-	{true,  29, "Jazz+Funk"},				// 29(ID3 Tag互換)
-	{true,  30, "Fusion"},					// 30(ID3 Tag互換)
-	{true,  31, "Trance"},					// 31(ID3 Tag互換)
-	{true,  32, "Classical"},				// 32(ID3 Tag互換)
-	{true,  33, "Instrumental"},			// 33(ID3 Tag互換)
-	{true,  34, "Acid"},					// 34(ID3 Tag互換)
-	{true,  35, "House"},					// 35(ID3 Tag互換)
-	{true,  36, "Game"},					// 36(ID3 Tag互換)
-	{true,  37, "Sound Clip"},				// 37(ID3 Tag互換)
-	{true,  38, "Gospel"},					// 38(ID3 Tag互換)
-	{true,  39, "Noise"},					// 39(ID3 Tag互換)
-	{true,  40, "AlternRock"},				// 40(ID3 Tag互換)
-	{true,  41, "Bass"},					// 41(ID3 Tag互換)
-	{true,  42, "Soul"},					// 42(ID3 Tag互換)
-	{true,  43, "Punk"},					// 43(ID3 Tag互換)
-	{true,  44, "Space"},					// 44(ID3 Tag互換)
-	{true,  45, "Meditative"},				// 45(ID3 Tag互換)
-	{true,  46, "Instrumental Pop"},		// 46(ID3 Tag互換)
-	{true,  47, "Instrumental Rock"},		// 47(ID3 Tag互換)
-	{true,  48, "Ethnic"},					// 48(ID3 Tag互換)
-	{true,  49, "Gothic"},					// 49(ID3 Tag互換)
-	{true,  50, "Darkwave"},				// 50(ID3 Tag互換)
-	{true,  51, "Techno-Industrial"},		// 51(ID3 Tag互換)
-	{true,  52, "Electronic"},				// 52(ID3 Tag互換)
-	{true,  53, "Pop-Folk"},				// 53(ID3 Tag互換)
-	{true,  54, "Eurodance"},				// 54(ID3 Tag互換)
-	{true,  55, "Dream"},					// 55(ID3 Tag互換)
-	{true,  56, "Southern Rock"},			// 56(ID3 Tag互換)
-	{true,  57, "Comedy"},					// 57(ID3 Tag互換)
-	{true,  58, "Cult"},					// 58(ID3 Tag互換)
-	{true,  59, "Gangsta"},					// 59(ID3 Tag互換)
-	{true,  60, "Top 40"},					// 60(ID3 Tag互換)
-	{true,  61, "Christian Rap"},			// 61(ID3 Tag互換)
-	{true,  62, "Pop/Funk"},				// 62(ID3 Tag互換)
-	{true,  63, "Jungle"},					// 63(ID3 Tag互換)
-	{true,  64, "Native American"},			// 64(ID3 Tag互換)
-	{true,  65, "Cabaret"},					// 65(ID3 Tag互換)
-	{true,  66, "New Wave"},				// 66(ID3 Tag互換)
-	{true,  67, "Psychedelic"},				// 67(ID3 Tag互換)
-	{true,  68, "Rave"},					// 68(ID3 Tag互換)
-	{true,  69, "Showtunes"},				// 69(ID3 Tag互換)
-	{true,  70, "Trailer"},					// 70(ID3 Tag互換)
-	{true,  71, "Lo-Fi"},					// 71(ID3 Tag互換)
-	{true,  72, "Tribal"},					// 72(ID3 Tag互換)
-	{true,  73, "Acid Punk"},				// 73(ID3 Tag互換)
-	{true,  74, "Acid Jazz"},				// 74(ID3 Tag互換)
-	{true,  75, "Polka"},					// 75(ID3 Tag互換)
-	{true,  76, "Retro"},					// 76(ID3 Tag互換)
-	{true,  77, "Musical"},					// 77(ID3 Tag互換)
-	{true,  78, "Rock & Roll"},				// 78(ID3 Tag互換)
-	{true,  79, "Hard Rock"},				// 79(ID3 Tag互換)
-	{true,  80, "Folk"},					// 80(ID3 Tag互換)
-	{true,  81, "Folk/Rock"},				// 81(ID3 Tag互換)
-	{true,  82, "National Folk"},			// 82(ID3 Tag互換)
-	{true,  83, "Swing"},					// 83(ID3 Tag互換)
-	{true,  84, "Fast-Fusion"},				// 84(Winamp互換)
-	{true,  85, "Bebob"},					// 85(Winamp互換)
-	{true,  86, "Latin"},					// 86(Winamp互換)
-	{true,  87, "Revival"},					// 87(Winamp互換)
-	{true,  88, "Celtic"},					// 88(Winamp互換)
-	{true,  89, "Bluegrass"},				// 89(Winamp互換)
-	{true,  90, "Avantgarde"},				// 90(Winamp互換)
-	{true,  91, "Gothic Rock"},				// 91(Winamp互換)
-	{true,  92, "Progressive Rock"},		// 92(Winamp互換)
-	{true,  93, "Psychedelic Rock"},		// 93(Winamp互換)
-	{true,  94, "Symphonic Rock"},			// 94(Winamp互換)
-	{true,  95, "Slow Rock"},				// 95(Winamp互換)
-	{true,  96, "Big Band"},				// 96(Winamp互換)
-	{true,  97, "Chorus"},					// 97(Winamp互換)
-	{true,  98, "Easy Listening"},			// 98(Winamp互換)
-	{true,  99, "Acoustic"},				// 99(Winamp互換)
-	{true, 100, "Humour"},					// 100(Winamp互換)
-	{true, 101, "Speech"},					// 101(Winamp互換)
-	{true, 102, "Chanson"},					// 102(Winamp互換)
-	{true, 103, "Opera"},					// 103(Winamp互換)
-	{true, 104, "Chamber Music"},			// 104(Winamp互換)
-	{true, 105, "Sonata"},					// 105(Winamp互換)
-	{true, 106, "Symphony"},				// 106(Winamp互換)
-	{true, 107, "Booty Bass"},				// 107(Winamp互換)
-	{true, 108, "Primus"},					// 108(Winamp互換)
-	{true, 109, "Porn Groove"},				// 109(Winamp互換)
-	{true, 110, "Satire"},					// 110(Winamp互換)
-	{true, 111, "Slow Jam"},				// 111(Winamp互換)
-	{true, 112, "Club"},					// 112(Winamp互換)
-	{true, 113, "Tango"},					// 113(Winamp互換)
-	{true, 114, "Samba"},					// 114(Winamp互換)
-	{true, 115, "Folklore"},				// 115(Winamp互換)
-	{true, 116, "Ballad"},					// 116(Winamp互換)
-	{true, 117, "Power Ballad"},			// 117(Winamp互換)
-	{true, 118, "Phythmic Soul"},			// 118(Winamp互換)
-	{true, 119, "Freestyle"},				// 119(Winamp互換)
-	{true, 120, "Duet"},					// 120(Winamp互換)
-	{true, 121, "Punk Rock"},				// 121(Winamp互換)
-	{true, 122, "Drum Solo"},				// 122(Winamp互換)
-	{true, 123, "A Cappella"},				// 123(Winamp互換)
-	{true, 124, "Euro-House"},				// 124(Winamp互換)
-	{true, 125, "Dance Hall"},				// 125(Winamp互換)
-	{true, 126, "Goa"},						// 126(Winamp互換)
-	{true, 127, "Drum & Bass"},				// 127(Winamp互換)
-	{true, 128, "Club-House"},				// 128(Winamp互換)
-	{true, 129, "Hardcore"},				// 129(Winamp互換)
-	{true, 130, "Terror"},					// 130(Winamp互換)
-	{true, 131, "Indie"},					// 131(Winamp互換)
-	{true, 132, "BritPop"},					// 132(Winamp互換)
-	{true, 133, "Negerpunk"},				// 133(Winamp互換)
-	{true, 134, "Polsk Punk"},				// 134(Winamp互換)
-	{true, 135, "Beat"},					// 135(Winamp互換)
-	{true, 136, "Christian Gangsta Rap"},	// 136(Winamp互換)
-	{true, 137, "Heavy Metal"},				// 137(Winamp互換)
-	{true, 138, "Black Metal"},				// 138(Winamp互換)
-	{true, 139, "Crossover"},				// 139(Winamp互換)
-	{true, 140, "Contemporary Christian"},	// 140(Winamp互換)
-	{true, 141, "Christian Rock"},			// 141(Winamp互換)
-	{true, 142, "Merengue"},				// 142(Winamp互換)
-	{true, 143, "Salsa"},					// 143(Winamp互換)
-	{true, 144, "Thrash Metal"},			// 144(Winamp互換)
-	{true, 145, "Anime"},					// 145(Winamp互換)
-	{true, 146, "JPop"},					// 146(Winamp互換)
-	{true, 147, "Synthpop"},				// 147(Winamp互換)
-	{false, 148, "未定義(148)"},			// 148
-	{false, 148, "未定義(148)"},			// 148
-	{false, 149, "未定義(149)"},			// 149
-	{false, 150, "未定義(150)"},			// 150
-	{false, 151, "未定義(151)"},			// 151
-	{false, 152, "未定義(152)"},			// 152
-	{false, 153, "未定義(153)"},			// 153
-	{false, 154, "未定義(154)"},			// 154
-	{false, 155, "未定義(155)"},			// 155
-	{false, 156, "未定義(156)"},			// 156
-	{false, 157, "未定義(157)"},			// 157
-	{false, 158, "未定義(158)"},			// 158
-	{false, 159, "未定義(159)"},			// 159
-	{false, 160, "未定義(160)"},			// 160
-	{false, 161, "未定義(161)"},			// 161
-	{false, 162, "未定義(162)"},			// 162
-	{false, 163, "未定義(163)"},			// 163
-	{false, 164, "未定義(164)"},			// 164
-	{false, 165, "未定義(165)"},			// 165
-	{false, 166, "未定義(166)"},			// 166
-	{false, 167, "未定義(167)"},			// 167
-	{false, 168, "未定義(168)"},			// 168
-	{false, 169, "未定義(169)"},			// 169
-	{false, 170, "未定義(170)"},			// 170
-	{false, 171, "未定義(171)"},			// 171
-	{false, 172, "未定義(172)"},			// 172
-	{false, 173, "未定義(173)"},			// 173
-	{false, 174, "未定義(174)"},			// 174
-	{false, 175, "未定義(175)"},			// 175
-	{false, 176, "未定義(176)"},			// 176
-	{false, 177, "未定義(177)"},			// 177
-	{false, 178, "未定義(178)"},			// 178
-	{false, 179, "未定義(179)"},			// 179
-	{false, 180, "未定義(180)"},			// 180
-	{false, 181, "未定義(181)"},			// 181
-	{false, 182, "未定義(182)"},			// 182
-	{false, 183, "未定義(183)"},			// 183
-	{false, 184, "未定義(184)"},			// 184
-	{false, 185, "未定義(185)"},			// 185
-	{false, 186, "未定義(186)"},			// 186
-	{false, 187, "未定義(187)"},			// 187
-	{false, 188, "未定義(188)"},			// 188
-	{false, 189, "未定義(189)"},			// 189
-	{false, 190, "未定義(190)"},			// 190
-	{false, 191, "未定義(191)"},			// 191
-	{false, 192, "未定義(192)"},			// 192
-	{false, 193, "未定義(193)"},			// 193
-	{false, 194, "未定義(194)"},			// 194
-	{false, 195, "未定義(195)"},			// 195
-	{false, 196, "未定義(196)"},			// 196
-	{false, 197, "未定義(197)"},			// 197
-	{false, 198, "未定義(198)"},			// 198
-	{false, 199, "未定義(199)"},			// 199
-	{false, 200, "未定義(200)"},			// 200
-	{false, 201, "未定義(201)"},			// 201
-	{false, 202, "未定義(202)"},			// 202
-	{false, 203, "未定義(203)"},			// 203
-	{false, 204, "未定義(204)"},			// 204
-	{false, 205, "未定義(205)"},			// 205
-	{false, 206, "未定義(206)"},			// 206
-	{false, 207, "未定義(207)"},			// 207
-	{false, 208, "未定義(208)"},			// 208
-	{false, 209, "未定義(209)"},			// 209
-	{false, 210, "未定義(210)"},			// 210
-	{false, 211, "未定義(211)"},			// 211
-	{false, 212, "未定義(212)"},			// 212
-	{false, 213, "未定義(213)"},			// 213
-	{false, 214, "未定義(214)"},			// 214
-	{false, 215, "未定義(215)"},			// 215
-	{false, 216, "未定義(216)"},			// 216
-	{false, 217, "未定義(217)"},			// 217
-	{false, 218, "未定義(218)"},			// 218
-	{false, 219, "未定義(219)"},			// 219
-	{false, 220, "未定義(220)"},			// 220
-	{false, 221, "未定義(221)"},			// 221
-	{false, 222, "未定義(222)"},			// 222
-	{false, 223, "未定義(223)"},			// 223
-	{false, 224, "未定義(224)"},			// 224
-	{false, 225, "未定義(225)"},			// 225
-	{false, 226, "未定義(226)"},			// 226
-	{false, 227, "未定義(227)"},			// 227
-	{false, 228, "未定義(228)"},			// 228
-	{false, 229, "未定義(229)"},			// 229
-	{false, 230, "未定義(230)"},			// 230
-	{false, 231, "未定義(231)"},			// 231
-	{false, 232, "未定義(232)"},			// 232
-	{false, 233, "未定義(233)"},			// 233
-	{false, 234, "未定義(234)"},			// 234
-	{false, 235, "未定義(235)"},			// 235
-	{false, 236, "未定義(236)"},			// 236
-	{false, 237, "未定義(237)"},			// 237
-	{false, 238, "未定義(238)"},			// 238
-	{false, 239, "未定義(239)"},			// 239
-	{false, 240, "未定義(240)"},			// 240
-	{false, 241, "未定義(241)"},			// 241
-	{false, 242, "未定義(242)"},			// 242
-	{false, 243, "未定義(243)"},			// 243
-	{false, 244, "未定義(244)"},			// 244
-	{false, 245, "未定義(245)"},			// 245
-	{false, 246, "未定義(246)"},			// 246
-	{false, 247, "未定義(247)"},			// 247
-	{false, 248, "Heavy Rock(J)"},			// 248(SCMPX互換)
-	{false, 249, "Doom Rock(J)"},			// 249(SCMPX互換)
-	{false, 250, "J-POP(J)"},				// 250(SCMPX互換)
-	{false, 251, "Seiyu(J)"},				// 251(SCMPX互換)
-	{false, 252, "Tecno Ambient(J)"},		// 252(SCMPX互換)
-	{false, 253, "Moemoe(J)"},				// 253(SCMPX互換)
-	{false, 254, "Tokusatsu(J)"},			// 254(SCMPX互換)
-	{false, 255, "Anime(J)"},				// 255(SCMPX互換)
-	{false, 255, "未指定"},					// 255
+	{true,   0, L"Blues"},					// 0(ID3 Tag互換)
+	{true,   1, L"Classic Rock"},			// 1(ID3 Tag互換)
+	{true,   2, L"Country"},					// 2(ID3 Tag互換)
+	{true,   3, L"Dance"},					// 3(ID3 Tag互換)
+	{true,   4, L"Disco"},					// 4(ID3 Tag互換)
+	{true,   5, L"Funk"},					// 5(ID3 Tag互換)
+	{true,   6, L"Grunge"},					// 6(ID3 Tag互換)
+	{true,   7, L"Hip-Hop"},					// 7(ID3 Tag互換)
+	{true,   8, L"Jazz"},					// 8(ID3 Tag互換)
+	{true,   9, L"Metal"},					// 9(ID3 Tag互換)
+	{true,  10, L"New Age"},					// 10(ID3 Tag互換)
+	{true,  11, L"Oldies"},					// 11(ID3 Tag互換)
+	{true,  12, L"Other"},					// 12(ID3 Tag互換)
+	{true,  13, L"Pop"},						// 13(ID3 Tag互換)
+	{true,  14, L"R&B"},						// 14(ID3 Tag互換)
+	{true,  15, L"Rap"},						// 15(ID3 Tag互換)
+	{true,  16, L"Reggae"},					// 16(ID3 Tag互換)
+	{true,  17, L"Rock"},					// 17(ID3 Tag互換)
+	{true,  18, L"Techno"},					// 18(ID3 Tag互換)
+	{true,  19, L"Industrial"},				// 19(ID3 Tag互換)
+	{true,  20, L"Alternative"},				// 20(ID3 Tag互換)
+	{true,  21, L"Ska"},						// 21(ID3 Tag互換)
+	{true,  22, L"Death Metal"},				// 22(ID3 Tag互換)
+	{true,  23, L"Pranks"},					// 23(ID3 Tag互換)
+	{true,  24, L"Soundtrack"},				// 24(ID3 Tag互換)
+	{true,  25, L"Euro-Techno"},				// 25(ID3 Tag互換)
+	{true,  26, L"Ambient"},					// 26(ID3 Tag互換)
+	{true,  27, L"Trip-Hop"},				// 27(ID3 Tag互換)
+	{true,  28, L"Vocal"},					// 28(ID3 Tag互換)
+	{true,  29, L"Jazz+Funk"},				// 29(ID3 Tag互換)
+	{true,  30, L"Fusion"},					// 30(ID3 Tag互換)
+	{true,  31, L"Trance"},					// 31(ID3 Tag互換)
+	{true,  32, L"Classical"},				// 32(ID3 Tag互換)
+	{true,  33, L"Instrumental"},			// 33(ID3 Tag互換)
+	{true,  34, L"Acid"},					// 34(ID3 Tag互換)
+	{true,  35, L"House"},					// 35(ID3 Tag互換)
+	{true,  36, L"Game"},					// 36(ID3 Tag互換)
+	{true,  37, L"Sound Clip"},				// 37(ID3 Tag互換)
+	{true,  38, L"Gospel"},					// 38(ID3 Tag互換)
+	{true,  39, L"Noise"},					// 39(ID3 Tag互換)
+	{true,  40, L"AlternRock"},				// 40(ID3 Tag互換)
+	{true,  41, L"Bass"},					// 41(ID3 Tag互換)
+	{true,  42, L"Soul"},					// 42(ID3 Tag互換)
+	{true,  43, L"Punk"},					// 43(ID3 Tag互換)
+	{true,  44, L"Space"},					// 44(ID3 Tag互換)
+	{true,  45, L"Meditative"},				// 45(ID3 Tag互換)
+	{true,  46, L"Instrumental Pop"},		// 46(ID3 Tag互換)
+	{true,  47, L"Instrumental Rock"},		// 47(ID3 Tag互換)
+	{true,  48, L"Ethnic"},					// 48(ID3 Tag互換)
+	{true,  49, L"Gothic"},					// 49(ID3 Tag互換)
+	{true,  50, L"Darkwave"},				// 50(ID3 Tag互換)
+	{true,  51, L"Techno-Industrial"},		// 51(ID3 Tag互換)
+	{true,  52, L"Electronic"},				// 52(ID3 Tag互換)
+	{true,  53, L"Pop-Folk"},				// 53(ID3 Tag互換)
+	{true,  54, L"Eurodance"},				// 54(ID3 Tag互換)
+	{true,  55, L"Dream"},					// 55(ID3 Tag互換)
+	{true,  56, L"Southern Rock"},			// 56(ID3 Tag互換)
+	{true,  57, L"Comedy"},					// 57(ID3 Tag互換)
+	{true,  58, L"Cult"},					// 58(ID3 Tag互換)
+	{true,  59, L"Gangsta"},					// 59(ID3 Tag互換)
+	{true,  60, L"Top 40"},					// 60(ID3 Tag互換)
+	{true,  61, L"Christian Rap"},			// 61(ID3 Tag互換)
+	{true,  62, L"Pop/Funk"},				// 62(ID3 Tag互換)
+	{true,  63, L"Jungle"},					// 63(ID3 Tag互換)
+	{true,  64, L"Native American"},			// 64(ID3 Tag互換)
+	{true,  65, L"Cabaret"},					// 65(ID3 Tag互換)
+	{true,  66, L"New Wave"},				// 66(ID3 Tag互換)
+	{true,  67, L"Psychedelic"},				// 67(ID3 Tag互換)
+	{true,  68, L"Rave"},					// 68(ID3 Tag互換)
+	{true,  69, L"Showtunes"},				// 69(ID3 Tag互換)
+	{true,  70, L"Trailer"},					// 70(ID3 Tag互換)
+	{true,  71, L"Lo-Fi"},					// 71(ID3 Tag互換)
+	{true,  72, L"Tribal"},					// 72(ID3 Tag互換)
+	{true,  73, L"Acid Punk"},				// 73(ID3 Tag互換)
+	{true,  74, L"Acid Jazz"},				// 74(ID3 Tag互換)
+	{true,  75, L"Polka"},					// 75(ID3 Tag互換)
+	{true,  76, L"Retro"},					// 76(ID3 Tag互換)
+	{true,  77, L"Musical"},					// 77(ID3 Tag互換)
+	{true,  78, L"Rock & Roll"},				// 78(ID3 Tag互換)
+	{true,  79, L"Hard Rock"},				// 79(ID3 Tag互換)
+	{true,  80, L"Folk"},					// 80(ID3 Tag互換)
+	{true,  81, L"Folk/Rock"},				// 81(ID3 Tag互換)
+	{true,  82, L"National Folk"},			// 82(ID3 Tag互換)
+	{true,  83, L"Swing"},					// 83(ID3 Tag互換)
+	{true,  84, L"Fast-Fusion"},				// 84(Winamp互換)
+	{true,  85, L"Bebob"},					// 85(Winamp互換)
+	{true,  86, L"Latin"},					// 86(Winamp互換)
+	{true,  87, L"Revival"},					// 87(Winamp互換)
+	{true,  88, L"Celtic"},					// 88(Winamp互換)
+	{true,  89, L"Bluegrass"},				// 89(Winamp互換)
+	{true,  90, L"Avantgarde"},				// 90(Winamp互換)
+	{true,  91, L"Gothic Rock"},				// 91(Winamp互換)
+	{true,  92, L"Progressive Rock"},		// 92(Winamp互換)
+	{true,  93, L"Psychedelic Rock"},		// 93(Winamp互換)
+	{true,  94, L"Symphonic Rock"},			// 94(Winamp互換)
+	{true,  95, L"Slow Rock"},				// 95(Winamp互換)
+	{true,  96, L"Big Band"},				// 96(Winamp互換)
+	{true,  97, L"Chorus"},					// 97(Winamp互換)
+	{true,  98, L"Easy Listening"},			// 98(Winamp互換)
+	{true,  99, L"Acoustic"},				// 99(Winamp互換)
+	{true, 100, L"Humour"},					// 100(Winamp互換)
+	{true, 101, L"Speech"},					// 101(Winamp互換)
+	{true, 102, L"Chanson"},					// 102(Winamp互換)
+	{true, 103, L"Opera"},					// 103(Winamp互換)
+	{true, 104, L"Chamber Music"},			// 104(Winamp互換)
+	{true, 105, L"Sonata"},					// 105(Winamp互換)
+	{true, 106, L"Symphony"},				// 106(Winamp互換)
+	{true, 107, L"Booty Bass"},				// 107(Winamp互換)
+	{true, 108, L"Primus"},					// 108(Winamp互換)
+	{true, 109, L"Porn Groove"},				// 109(Winamp互換)
+	{true, 110, L"Satire"},					// 110(Winamp互換)
+	{true, 111, L"Slow Jam"},				// 111(Winamp互換)
+	{true, 112, L"Club"},					// 112(Winamp互換)
+	{true, 113, L"Tango"},					// 113(Winamp互換)
+	{true, 114, L"Samba"},					// 114(Winamp互換)
+	{true, 115, L"Folklore"},				// 115(Winamp互換)
+	{true, 116, L"Ballad"},					// 116(Winamp互換)
+	{true, 117, L"Power Ballad"},			// 117(Winamp互換)
+	{true, 118, L"Phythmic Soul"},			// 118(Winamp互換)
+	{true, 119, L"Freestyle"},				// 119(Winamp互換)
+	{true, 120, L"Duet"},					// 120(Winamp互換)
+	{true, 121, L"Punk Rock"},				// 121(Winamp互換)
+	{true, 122, L"Drum Solo"},				// 122(Winamp互換)
+	{true, 123, L"A Cappella"},				// 123(Winamp互換)
+	{true, 124, L"Euro-House"},				// 124(Winamp互換)
+	{true, 125, L"Dance Hall"},				// 125(Winamp互換)
+	{true, 126, L"Goa"},						// 126(Winamp互換)
+	{true, 127, L"Drum & Bass"},				// 127(Winamp互換)
+	{true, 128, L"Club-House"},				// 128(Winamp互換)
+	{true, 129, L"Hardcore"},				// 129(Winamp互換)
+	{true, 130, L"Terror"},					// 130(Winamp互換)
+	{true, 131, L"Indie"},					// 131(Winamp互換)
+	{true, 132, L"BritPop"},					// 132(Winamp互換)
+	{true, 133, L"Negerpunk"},				// 133(Winamp互換)
+	{true, 134, L"Polsk Punk"},				// 134(Winamp互換)
+	{true, 135, L"Beat"},					// 135(Winamp互換)
+	{true, 136, L"Christian Gangsta Rap"},	// 136(Winamp互換)
+	{true, 137, L"Heavy Metal"},				// 137(Winamp互換)
+	{true, 138, L"Black Metal"},				// 138(Winamp互換)
+	{true, 139, L"Crossover"},				// 139(Winamp互換)
+	{true, 140, L"Contemporary Christian"},	// 140(Winamp互換)
+	{true, 141, L"Christian Rock"},			// 141(Winamp互換)
+	{true, 142, L"Merengue"},				// 142(Winamp互換)
+	{true, 143, L"Salsa"},					// 143(Winamp互換)
+	{true, 144, L"Thrash Metal"},			// 144(Winamp互換)
+	{true, 145, L"Anime"},					// 145(Winamp互換)
+	{true, 146, L"JPop"},					// 146(Winamp互換)
+	{true, 147, L"Synthpop"},				// 147(Winamp互換)
+	{false, 148, L"未定義(148)"},			// 148
+	{false, 148, L"未定義(148)"},			// 148
+	{false, 149, L"未定義(149)"},			// 149
+	{false, 150, L"未定義(150)"},			// 150
+	{false, 151, L"未定義(151)"},			// 151
+	{false, 152, L"未定義(152)"},			// 152
+	{false, 153, L"未定義(153)"},			// 153
+	{false, 154, L"未定義(154)"},			// 154
+	{false, 155, L"未定義(155)"},			// 155
+	{false, 156, L"未定義(156)"},			// 156
+	{false, 157, L"未定義(157)"},			// 157
+	{false, 158, L"未定義(158)"},			// 158
+	{false, 159, L"未定義(159)"},			// 159
+	{false, 160, L"未定義(160)"},			// 160
+	{false, 161, L"未定義(161)"},			// 161
+	{false, 162, L"未定義(162)"},			// 162
+	{false, 163, L"未定義(163)"},			// 163
+	{false, 164, L"未定義(164)"},			// 164
+	{false, 165, L"未定義(165)"},			// 165
+	{false, 166, L"未定義(166)"},			// 166
+	{false, 167, L"未定義(167)"},			// 167
+	{false, 168, L"未定義(168)"},			// 168
+	{false, 169, L"未定義(169)"},			// 169
+	{false, 170, L"未定義(170)"},			// 170
+	{false, 171, L"未定義(171)"},			// 171
+	{false, 172, L"未定義(172)"},			// 172
+	{false, 173, L"未定義(173)"},			// 173
+	{false, 174, L"未定義(174)"},			// 174
+	{false, 175, L"未定義(175)"},			// 175
+	{false, 176, L"未定義(176)"},			// 176
+	{false, 177, L"未定義(177)"},			// 177
+	{false, 178, L"未定義(178)"},			// 178
+	{false, 179, L"未定義(179)"},			// 179
+	{false, 180, L"未定義(180)"},			// 180
+	{false, 181, L"未定義(181)"},			// 181
+	{false, 182, L"未定義(182)"},			// 182
+	{false, 183, L"未定義(183)"},			// 183
+	{false, 184, L"未定義(184)"},			// 184
+	{false, 185, L"未定義(185)"},			// 185
+	{false, 186, L"未定義(186)"},			// 186
+	{false, 187, L"未定義(187)"},			// 187
+	{false, 188, L"未定義(188)"},			// 188
+	{false, 189, L"未定義(189)"},			// 189
+	{false, 190, L"未定義(190)"},			// 190
+	{false, 191, L"未定義(191)"},			// 191
+	{false, 192, L"未定義(192)"},			// 192
+	{false, 193, L"未定義(193)"},			// 193
+	{false, 194, L"未定義(194)"},			// 194
+	{false, 195, L"未定義(195)"},			// 195
+	{false, 196, L"未定義(196)"},			// 196
+	{false, 197, L"未定義(197)"},			// 197
+	{false, 198, L"未定義(198)"},			// 198
+	{false, 199, L"未定義(199)"},			// 199
+	{false, 200, L"未定義(200)"},			// 200
+	{false, 201, L"未定義(201)"},			// 201
+	{false, 202, L"未定義(202)"},			// 202
+	{false, 203, L"未定義(203)"},			// 203
+	{false, 204, L"未定義(204)"},			// 204
+	{false, 205, L"未定義(205)"},			// 205
+	{false, 206, L"未定義(206)"},			// 206
+	{false, 207, L"未定義(207)"},			// 207
+	{false, 208, L"未定義(208)"},			// 208
+	{false, 209, L"未定義(209)"},			// 209
+	{false, 210, L"未定義(210)"},			// 210
+	{false, 211, L"未定義(211)"},			// 211
+	{false, 212, L"未定義(212)"},			// 212
+	{false, 213, L"未定義(213)"},			// 213
+	{false, 214, L"未定義(214)"},			// 214
+	{false, 215, L"未定義(215)"},			// 215
+	{false, 216, L"未定義(216)"},			// 216
+	{false, 217, L"未定義(217)"},			// 217
+	{false, 218, L"未定義(218)"},			// 218
+	{false, 219, L"未定義(219)"},			// 219
+	{false, 220, L"未定義(220)"},			// 220
+	{false, 221, L"未定義(221)"},			// 221
+	{false, 222, L"未定義(222)"},			// 222
+	{false, 223, L"未定義(223)"},			// 223
+	{false, 224, L"未定義(224)"},			// 224
+	{false, 225, L"未定義(225)"},			// 225
+	{false, 226, L"未定義(226)"},			// 226
+	{false, 227, L"未定義(227)"},			// 227
+	{false, 228, L"未定義(228)"},			// 228
+	{false, 229, L"未定義(229)"},			// 229
+	{false, 230, L"未定義(230)"},			// 230
+	{false, 231, L"未定義(231)"},			// 231
+	{false, 232, L"未定義(232)"},			// 232
+	{false, 233, L"未定義(233)"},			// 233
+	{false, 234, L"未定義(234)"},			// 234
+	{false, 235, L"未定義(235)"},			// 235
+	{false, 236, L"未定義(236)"},			// 236
+	{false, 237, L"未定義(237)"},			// 237
+	{false, 238, L"未定義(238)"},			// 238
+	{false, 239, L"未定義(239)"},			// 239
+	{false, 240, L"未定義(240)"},			// 240
+	{false, 241, L"未定義(241)"},			// 241
+	{false, 242, L"未定義(242)"},			// 242
+	{false, 243, L"未定義(243)"},			// 243
+	{false, 244, L"未定義(244)"},			// 244
+	{false, 245, L"未定義(245)"},			// 245
+	{false, 246, L"未定義(246)"},			// 246
+	{false, 247, L"未定義(247)"},			// 247
+	{false, 248, L"Heavy Rock(J)"},			// 248(SCMPX互換)
+	{false, 249, L"Doom Rock(J)"},			// 249(SCMPX互換)
+	{false, 250, L"J-POP(J)"},				// 250(SCMPX互換)
+	{false, 251, L"Seiyu(J)"},				// 251(SCMPX互換)
+	{false, 252, L"Tecno Ambient(J)"},		// 252(SCMPX互換)
+	{false, 253, L"Moemoe(J)"},				// 253(SCMPX互換)
+	{false, 254, L"Tokusatsu(J)"},			// 254(SCMPX互換)
+	{false, 255, L"Anime(J)"},				// 255(SCMPX互換)
+	{false, 255, L"未指定"},					// 255
 	{false, 255, NULL},						// 終端コード
 };
 USER_GENRE_LIST*	g_genreListUSER = NULL;
@@ -340,9 +340,9 @@ USER_GENRE_LIST*	g_genreListUSER = NULL;
 // GetGenreNameSIF
 // 概要  : ジャンル番号からジャンル名を取得(SIフィールド用)
 // 引数  : byGenre			= ジャンル番号
-// 戻り値: const char *		= ジャンル名
+// 戻り値: const wchar_t *		= ジャンル名
 // =============================================
-const char *GetGenreNameSIF(BYTE byGenre)
+const wchar_t *GetGenreNameSIF(BYTE byGenre)
 {
 	int		i;
 	for (i = 0; g_genreListSCMPX[i].sName != NULL; i++) {
@@ -354,7 +354,7 @@ const char *GetGenreNameSIF(BYTE byGenre)
 			return(g_genreListSCMPX[i].sName);
 		}
 	}
-	return("");
+	return(L"");
 }
 
 // =============================================
@@ -363,34 +363,34 @@ const char *GetGenreNameSIF(BYTE byGenre)
 // 引数  : sGenre		= ジャンル名
 // 戻り値: int			= ジャンル番号(-1:未対応)
 // =============================================
-int GetGenreCode(const char *sGenre)
+int GetGenreCode(const wchar_t *sGenre)
 {
 	int		i;
 	for (i = 0; g_genreListSCMPX[i].sName != NULL; i++) {
-		if (_strcmpi(g_genreListSCMPX[i].sName, sGenre) == 0) {
+		if (_wcscmpi(g_genreListSCMPX[i].sName, sGenre) == 0) {
 			return(g_genreListSCMPX[i].byGenre);
 		}
 	}
 	for (i = 0; i < USER_GENRE_LIST_MAX; i++) {
-		if (_strcmpi(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
+		if (_wcscmpi(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
 			return(g_genreListUSER[i].byGenre);
 		}
 	}
 	return(-1);
 }
 
-bool IsUserGenre(const char *sGenre)
+bool IsUserGenre(const wchar_t *sGenre)
 {
-	if (strlen(sGenre) == 0) return false; /* WildCherry2 075 */
+	if (wcslen(sGenre) == 0) return false; /* WildCherry2 075 */
 	int		i;
 	for (i = 0; g_genreListSCMPX[i].sName != NULL; i++) {
-		if (_strcmpi(g_genreListSCMPX[i].sName, sGenre) == 0) {
+		if (_wcscmpi(g_genreListSCMPX[i].sName, sGenre) == 0) {
 			return false;
 		}
 	}
 	for (i = 0; i < USER_GENRE_LIST_MAX; i++) { 
 
-		if (_strcmpi(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
+		if (_wcscmpi(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
 			return true;
 		}
 	}
@@ -401,11 +401,11 @@ bool IsUserGenre(const char *sGenre)
 #ifndef iskanji
 #define iskanji(c)		((unsigned char)(c) >= 0x81 && (unsigned char)(c) <= 0x9f || (unsigned char)(c) >= 0xe0 && (unsigned char)(c) <= 0xfc)
 #endif
-void StringCopyN(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
+void StringCopyN(wchar_t *sDest, const wchar_t *sSrc, int nLen, BOOL bTerm)
 {
-	if (strlen(sSrc) < (unsigned int)nLen) {
-		if (bTerm) strcpy(sDest, sSrc);
-		else       memcpy(sDest, sSrc, strlen(sSrc));
+	if (wcslen(sSrc) < (unsigned int)nLen) {
+		if (bTerm) wcscpy(sDest, sSrc);
+		else       memcpy(sDest, sSrc, wcslen(sSrc));
 		return;
 	}
 	while(nLen > 0) {
@@ -424,7 +424,7 @@ void StringCopyN(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
 	}
 }
 
-static	bool MyChangeFileName(const char *sFileName, const char *sNewName)
+static	bool MyChangeFileName(const wchar_t *sFileName, const wchar_t *sNewName)
 {
 	if (MoveFile(sFileName, sNewName) == FALSE) {
 		CString	strBuffer;
@@ -435,15 +435,15 @@ static	bool MyChangeFileName(const char *sFileName, const char *sNewName)
 					  NULL, GetLastError(),
 					  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト言語
 					  (LPTSTR)&lpMsgBuf, 0, NULL);
-		strBuffer.Format("変更前：%s\n変更後：%s\n\n%s", sFileName, sNewName, (const char *)lpMsgBuf);
+		strBuffer.Format(L"変更前：%s\n変更後：%s\n\n%s", sFileName, sNewName, (const wchar_t *)lpMsgBuf);
 		LocalFree(lpMsgBuf);
-		MessageBox(NULL, strBuffer, "ファイル名を変更できませんでした", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+		MessageBox(NULL, strBuffer, L"ファイル名を変更できませんでした", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 		return(false);
 	}
 	return(true);
 }
 
-static	bool MyCopyFile(const char *sFileName, const char *sNewName, bool bMoveFlag)
+static	bool MyCopyFile(const wchar_t *sFileName, const wchar_t *sNewName, bool bMoveFlag)
 {
 	BOOL	bResult;
 
@@ -460,9 +460,9 @@ static	bool MyCopyFile(const char *sFileName, const char *sNewName, bool bMoveFl
 //							  NULL, GetLastError(),
 //							  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト言語
 //							  (LPTSTR)&lpMsgBuf, 0, NULL);
-//				strBuffer.Format("ファイル名：%s\n\n%s", sNewName, (const char *)lpMsgBuf);
+//				strBuffer.Format(L"ファイル名：%s\n\n%s", sNewName, (const wchar_t *)lpMsgBuf);
 //				LocalFree(lpMsgBuf);
-//				MessageBox(NULL, strBuffer, "ファイルの削除に失敗しました", MB_OK/*MB_ABORTRETRYIGNORE*/|MB_TOPMOST);
+//				MessageBox(NULL, strBuffer, L"ファイルの削除に失敗しました", MB_OK/*MB_ABORTRETRYIGNORE*/|MB_TOPMOST);
 //				return(false);
 			}
 		}
@@ -473,9 +473,9 @@ static	bool MyCopyFile(const char *sFileName, const char *sNewName, bool bMoveFl
 
 	// エラー処理
 	if (bResult == FALSE) {
-		static	const char *sMessage[][2] = {
-			{"コピー元：%s\nコピー先：%s\n\n%s", "ファイルのコピーに失敗しました"},
-			{"移動元：%s\n移動先：%s\n\n%s", "ファイルの移動に失敗しました"},
+		static	const wchar_t *sMessage[][2] = {
+			{"コピー元：%s\nコピー先：%s\n\n%s", L"ファイルのコピーに失敗しました"},
+			{"移動元：%s\n移動先：%s\n\n%s", L"ファイルの移動に失敗しました"},
 		};
 		CString	strBuffer;
 		LPVOID lpMsgBuf;
@@ -485,7 +485,7 @@ static	bool MyCopyFile(const char *sFileName, const char *sNewName, bool bMoveFl
 					  NULL, GetLastError(),
 					  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト言語
 					  (LPTSTR)&lpMsgBuf, 0, NULL);
-		strBuffer.Format(sMessage[bMoveFlag?1:0][0], sFileName, sNewName, (const char *)lpMsgBuf);
+		strBuffer.Format(sMessage[bMoveFlag?1:0][0], sFileName, sNewName, (const wchar_t *)lpMsgBuf);
 		LocalFree(lpMsgBuf);
 		MessageBox(NULL, strBuffer, sMessage[bMoveFlag?1:0][1], MB_ICONSTOP|MB_OK|MB_TOPMOST);
 		return(false);
@@ -493,7 +493,7 @@ static	bool MyCopyFile(const char *sFileName, const char *sNewName, bool bMoveFl
 	return(true);
 }
 
-static	void ChangeFileAttr(const char *sFileName, DWORD dwAttr)
+static	void ChangeFileAttr(const wchar_t *sFileName, DWORD dwAttr)
 {
 	DWORD	dwAttrNow;
 	if ((dwAttrNow = GetFileAttributes((LPTSTR)sFileName)) != (DWORD)-1L) {
@@ -504,7 +504,7 @@ static	void ChangeFileAttr(const char *sFileName, DWORD dwAttr)
 }
 
 // 最後が '\\' になっているかどうかのチェック関数
-bool IsFolderName(const char *sName)
+bool IsFolderName(const wchar_t *sName)
 {
 	bool	bResult = false;
 	while(*sName != NULL) {
@@ -623,7 +623,7 @@ void CFileMP3::InitDataSIF(FILE_MP3 *fileMP3)
 	}
 	fileMP3->strTrackNumber.Empty();
 	if (fileMP3->byTrackNumber != 0xFF) {
-		fileMP3->strTrackNumber.Format("%d", fileMP3->byTrackNumber);
+		fileMP3->strTrackNumber.Format(L"%d", fileMP3->byTrackNumber);
 	}
 	fileMP3->strTrackNumberSI.Empty();
 	fileMP3->strWriterSI.Empty();		// 作詞
@@ -653,9 +653,9 @@ void CFileMP3::Initialize(void)
 // 引数  : sBuffer		= 文字列
 // 戻り値: none
 // =============================================
-void CFileMP3::DeleteLineEndSpace(TCHAR *sBuffer)
+void CFileMP3::DeleteLineEndSpace(wchar_t *sBuffer)
 {
-	int		nPos = strlen(sBuffer) - 1;
+	int		nPos = wcslen(sBuffer) - 1;
 	while(nPos >= 0 && sBuffer[nPos] == ' ') {
 		sBuffer[nPos] = '\0';
 		nPos--;
@@ -668,7 +668,7 @@ void CFileMP3::DeleteLineEndSpace(TCHAR *sBuffer)
 //  引数  : sFileName	= ファイル名
 //  戻り値: bool		= true:正常終了 / false:エラー
 // =============================================
-bool CFileMP3::Attach(const char *sFileName)
+bool CFileMP3::Attach(const wchar_t *sFileName)
 {
 	Initialize();
 
@@ -683,15 +683,15 @@ bool CFileMP3::Attach(const char *sFileName)
 	m_fileMP3.lFileSize		= fileStatus.m_size;	// ファイルサイズ
 
 	// フルパスをパス名とファイル名に分解
-	TCHAR	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
+	wchar_t	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
 	ZeroMemory(ext, sizeof(ext));
 	_tsplitpath(sFileName, drive, dir, fname, ext);
-	m_fileMP3.strFilePath.Format("%s%s", drive, dir);
-	m_fileMP3.strFileName.Format("%s%s", fname, ext);
+	m_fileMP3.strFilePath.Format(L"%s%s", drive, dir);
+	m_fileMP3.strFileName.Format(L"%s%s", fname, ext);
 	m_fileMP3.strFullPathName = sFileName;
 
 	// ファイル情報の読み込み
-	extern bool LoadFile(const char *sFileName, const char *sExt, FILE_MP3* pFileMP3);
+	extern bool LoadFile(const wchar_t *sFileName, const wchar_t *sExt, FILE_MP3* pFileMP3);
 	if (LoadFile(sFileName, &ext[1], &m_fileMP3) == false) {
 		Initialize();
 		return(false);
@@ -746,11 +746,11 @@ bool CFileMP3::WriteTag(FILE_MP3 *fileMP3, bool bKeepTimeStamp)
 			// 上書き確認ダイアログを開く
 			CDlgFileOverWrite	dialog;
 			dialog.m_strFileName = fileMP3->strFullPathName;
-			dialog.m_strSize.Format("%ld byte", fileStatus.m_size);
+			dialog.m_strSize.Format(L"%ld byte", fileStatus.m_size);
 			if (fileStatus.m_mtime.GetTime() < 0) {
-				dialog.m_strTimeStamp.Format("----/--/-- --:--:--");
+				dialog.m_strTimeStamp.Format(L"----/--/-- --:--:--");
 			} else {
-				dialog.m_strTimeStamp.Format("%04d/%02d/%02d %02d:%02d:%02d",
+				dialog.m_strTimeStamp.Format(L"%04d/%02d/%02d %02d:%02d:%02d",
 											 fileStatus.m_mtime.GetYear(),
 											 fileStatus.m_mtime.GetMonth(),
 											 fileStatus.m_mtime.GetDay(),
@@ -796,8 +796,8 @@ bool CFileMP3::WriteTag(FILE_MP3 *fileMP3, bool bKeepTimeStamp)
 			}
 			CATCH(CFileException, e) {
 				CString	strMsg;
-				strMsg.Format("%s がオープンできませんでした", fileMP3->strFullPathName);
-				MessageBox(NULL, strMsg, "タイムスタンプの更新エラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+				strMsg.Format(L"%s がオープンできませんでした", fileMP3->strFullPathName);
+				MessageBox(NULL, strMsg, L"タイムスタンプの更新エラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 				bResult = false;
 			}
 			END_CATCH
@@ -819,7 +819,7 @@ bool CFileMP3::WriteTag(FILE_MP3 *fileMP3, bool bKeepTimeStamp)
 //       : sTargetName	= 検索するファイル名
 // 戻り値: CString		= 発見したファイルのフルパス(IsEmpty():未発見)
 // =============================================
-CString CFileMP3::SearchFileReent(const char *sDir, const char *sTargetName)
+CString CFileMP3::SearchFileReent(const wchar_t *sDir, const wchar_t *sTargetName)
 {
 	HANDLE	hFindFile;
 	WIN32_FIND_DATA	data;
@@ -828,12 +828,12 @@ CString CFileMP3::SearchFileReent(const char *sDir, const char *sTargetName)
 	// 同一ディレクトリの全てのファイルを検索
 	// 検索ファイルのパターンを設定
 	CString	strCurFile;
-	strCurFile.Format("%s%s", sDir, sTargetName);
+	strCurFile.Format(L"%s%s", sDir, sTargetName);
 	if ((hFindFile = FindFirstFile(strCurFile, &data)) != INVALID_HANDLE_VALUE) {
 		do {
 			if ((data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
 				// ファイル発見処理
-				strCurFile.Format("%s%s", sDir, data.cFileName);
+				strCurFile.Format(L"%s%s", sDir, data.cFileName);
 				return(strCurFile);
 			}
 		} while(FindNextFile(hFindFile, &data) == TRUE);
@@ -842,15 +842,15 @@ CString CFileMP3::SearchFileReent(const char *sDir, const char *sTargetName)
 
 	// サブディレクトリの検索
 	if (g_bOptSearchLyricsSubDir == true) {
-		strCurFile.Format("%s*.*", sDir);
+		strCurFile.Format(L"%s*.*", sDir);
 		if ((hFindFile = FindFirstFile(strCurFile, &data)) != INVALID_HANDLE_VALUE) {
 			do {
 				if ((data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0) {
-					if (strcmp(data.cFileName, "." ) != 0		// カレントディレクトリ以外
-					&&  strcmp(data.cFileName, "..") != 0		// 親ディレクトリ以外
+					if (wcscmp(data.cFileName, L"." ) != 0		// カレントディレクトリ以外
+					&&  wcscmp(data.cFileName, L"..") != 0		// 親ディレクトリ以外
 					&& (data.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) == 0 /* STEP 032 */) { // 隠しフォルダ以外
 						// サブディレクトリ検索処理
-						strCurFile.Format("%s%s\\", sDir, data.cFileName);
+						strCurFile.Format(L"%s%s\\", sDir, data.cFileName);
 						strTargetFile = SearchFileReent(strCurFile, sTargetName);
 						if (strTargetFile.IsEmpty() == false) {
 							break;				// ファイル発見
@@ -874,19 +874,19 @@ CString CFileMP3::SearchFileReent(const char *sDir, const char *sTargetName)
 // =============================================
 CString CFileMP3::SearchLyricsFile(FILE_MP3 *fileMP3)
 {
-	TCHAR	sTextName[FILENAME_MAX+1];
+	wchar_t	sTextName[FILENAME_MAX+1];
 
 	// まずは MP3 ファイルと同じフォルダをチェック
-	TCHAR	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME];
+	wchar_t	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME];
 	_tsplitpath(fileMP3->strFullPathName, drive, dir, fname, NULL);
 	// .lrc を検索
-	_tmakepath(sTextName, drive, dir, fname, ".lrc");
+	_tmakepath(sTextName, drive, dir, fname, L".lrc");
 	if (GetFileAttributes(sTextName) != 0xFFFFFFFF) {
 		// ファイルを発見
 		return(CString(sTextName));
 	}
 	// .txt を検索
-	_tmakepath(sTextName, drive, dir, fname, ".txt");
+	_tmakepath(sTextName, drive, dir, fname, L".txt");
 	if (GetFileAttributes(sTextName) != 0xFFFFFFFF) {
 		// ファイルを発見
 		return(CString(sTextName));
@@ -895,15 +895,15 @@ CString CFileMP3::SearchLyricsFile(FILE_MP3 *fileMP3)
 	// 歌詞ファイル名作成
 	if (g_bOptSetLyricsDir == true && g_strOptLyricsPath.IsEmpty() == false) {
 		// 指定されたフォルダ
-		TCHAR	sLyricsPath[FILENAME_MAX+1];
+		wchar_t	sLyricsPath[FILENAME_MAX+1];
 		CString	strTarget;
 		_tsplitpath(fileMP3->strFullPathName, NULL, NULL, fname, NULL);
-		strcpy(sLyricsPath, g_strOptLyricsPath);
+		wcscpy(sLyricsPath, g_strOptLyricsPath);
 		if (IsFolderName(sLyricsPath) == false) {
-			strcat(sLyricsPath, "\\");
+			wcscat(sLyricsPath, L"\\");
 		}
 		// .lrc を検索
-		strTarget.Format("%s.lrc", fname);
+		strTarget.Format(L"%s.lrc", fname);
 		strTarget = SearchFileReent(sLyricsPath, strTarget);
 		if (strTarget.IsEmpty() == false
 		&&  GetFileAttributes(strTarget) != 0xFFFFFFFF) {
@@ -911,7 +911,7 @@ CString CFileMP3::SearchLyricsFile(FILE_MP3 *fileMP3)
 			return(strTarget);
 		}
 		// .txt を検索
-		strTarget.Format("%s.txt", fname);
+		strTarget.Format(L"%s.txt", fname);
 		strTarget = SearchFileReent(sLyricsPath, strTarget);
 		if (strTarget.IsEmpty() == false
 		&&  GetFileAttributes(strTarget) != 0xFFFFFFFF) {
@@ -921,7 +921,7 @@ CString CFileMP3::SearchLyricsFile(FILE_MP3 *fileMP3)
 	}
 
 	// 見つからなかった
-	return(CString(""));
+	return(CString(L""));
 }
 
 // =============================================
@@ -935,31 +935,31 @@ bool CFileMP3::ConvFileName(FILE_MP3 *fileMP3)
 {
 	// ファイル名を分解
 	CString	strFileName;
-	TCHAR	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
+	wchar_t	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
 	_tsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
-	strFileName.Format("%s%s", fname, ext);
+	strFileName.Format(L"%s%s", fname, ext);
 
-	if (strcmp(strFileName, fileMP3->strFileName) != 0) {
+	if (wcscmp(strFileName, fileMP3->strFileName) != 0) {
 		// ファイル名が変更されている
 		if (g_bConfFileNameMaxCheck) {
 			if (fileMP3->strFileName.GetLength() > g_nConfFileNameMaxChar) {
 				// ファイル名文字数オーバー
 				_tsplitpath(fileMP3->strFileName, NULL, NULL, fname, ext);
 				CDlgFileNameChange dialog;
-				dialog.m_nMaxChar = g_nConfFileNameMaxChar - strlen(ext);
+				dialog.m_nMaxChar = g_nConfFileNameMaxChar - wcslen(ext);
 				dialog.m_strFileName = fname;
 				dialog.m_strOrgFileName = fname;
-				//dialog.m_strMsg.Format("ファイル名を %d 文字以内に変更してください", dialog.m_nMaxChar);
-				dialog.m_strMsgFormat = "ファイル名を %d(%d) 文字以内に変更してください";
+				//dialog.m_strMsg.Format(L"ファイル名を %d 文字以内に変更してください", dialog.m_nMaxChar);
+				dialog.m_strMsgFormat = L"ファイル名を %d(%d) 文字以内に変更してください";
 				if (dialog.DoModal() == IDOK) {
 					fileMP3->strFileName = dialog.m_strFileName + ext;
 					_tsplitpath(fileMP3->strFileName, NULL, NULL, fname, ext);
 				}
 			}
 		}
-		TCHAR	sNewName[FILENAME_MAX+1];
+		wchar_t	sNewName[FILENAME_MAX+1];
 		_tmakepath(sNewName, drive, dir, NULL, NULL);
-		strcat(sNewName, fileMP3->strFileName);
+		wcscat(sNewName, fileMP3->strFileName);
 		if (MyChangeFileName(fileMP3->strFullPathName, sNewName) == false) {
 			return(false);
 		}
@@ -974,7 +974,7 @@ bool CFileMP3::ConvFileName(FILE_MP3 *fileMP3)
 				_tsplitpath(strLyricsFile, drive, dir, fname, ext);
 
 				// 歌詞ファイルをリネームする
-				TCHAR	sNewText[FILENAME_MAX+1];
+				wchar_t	sNewText[FILENAME_MAX+1];
 				_tsplitpath(fileMP3->strFileName, NULL, NULL, fname, NULL);
 				_tmakepath(sNewText, drive, dir, fname, ext);
 				if (MyChangeFileName(strLyricsFile, sNewText) == false) {
@@ -998,18 +998,18 @@ bool CFileMP3::ConvFileName(FILE_MP3 *fileMP3)
 //        : bMoveFlag	= フラグ(true:移動/false:コピー)
 //  戻り値: bool		= true:正常終了 / false:エラー
 // =============================================
-bool CFileMP3::CopyFile(FILE_MP3 *fileMP3, const char *sNewDir, bool bMoveFlag)
+bool CFileMP3::CopyFile(FILE_MP3 *fileMP3, const wchar_t *sNewDir, bool bMoveFlag)
 {
 	// ファイル名を分解
 	CString	strFileName;
-	TCHAR	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
+	wchar_t	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
 	_tsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
-	strFileName.Format("%s%s", fname, ext);
+	strFileName.Format(L"%s%s", fname, ext);
 
-	if (_strcmpi(fileMP3->strFilePath, sNewDir) != 0) {
+	if (_wcscmpi(fileMP3->strFilePath, sNewDir) != 0) {
 		// ファイル名が変更されている
 		CString	strNewName;
-		strNewName.Format("%s%s", sNewDir, strFileName);
+		strNewName.Format(L"%s%s", sNewDir, strFileName);
 		if (MyCopyFile(fileMP3->strFullPathName, strNewName, bMoveFlag) == false) {
 			// ファイルのコピー／移動に失敗!!
 			return(false);
@@ -1017,7 +1017,7 @@ bool CFileMP3::CopyFile(FILE_MP3 *fileMP3, const char *sNewDir, bool bMoveFlag)
 
 		// 移動の場合は、歌詞ファイルも移動する
 		if (g_bSyncLyricsFileMove && bMoveFlag == true) {
-			TCHAR	sLyricsFile[FILENAME_MAX+1];
+			wchar_t	sLyricsFile[FILENAME_MAX+1];
 			// MP3 ファイルと同じフォルダにある歌詞ファイルを検索
 			_tsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
 			// .lrc => .txt の順で検索
@@ -1027,7 +1027,7 @@ bool CFileMP3::CopyFile(FILE_MP3 *fileMP3, const char *sNewDir, bool bMoveFlag)
 				if (GetFileAttributes(sLyricsFile) != 0xFFFFFFFF) {
 					// ファイルを発見：歌詞ファイルを移動する
 					CString	strNewName;
-					strNewName.Format("%s%s%s", sNewDir, fname, sLyricsExt);
+					strNewName.Format(L"%s%s%s", sNewDir, fname, sLyricsExt);
 					if (MyCopyFile(sLyricsFile, strNewName, true) == false) {
 						// 失敗!!
 						// return(false);
@@ -1068,7 +1068,7 @@ CString CFileMP3::GetIntTrackNo(const CString &no)
 				//return "255";
 			} else {
 				CString track;
-				track.Format("%d",atoi(no.Left(index)));
+				track.Format(L"%d",_wtoi(no.Left(index)));
 				return track;
 			}
 		}
@@ -1086,7 +1086,7 @@ CString CFileMP3::GetIntTrackNo(const CString &no)
 				return "";
 			} else {
 				CString track;
-				track.Format("%d",atoi(no.Right(index)));
+				track.Format(L"%d",_wtoi(no.Right(index)));
 				return track;
 			}
 		}
@@ -1114,7 +1114,7 @@ CString CFileMP3::GetIntDiskNo(const CString &no)
 				//return "255";
 			} else {
 				CString disk;
-				disk.Format("%d",atoi(no.Left(index)));
+				disk.Format(L"%d",_wtoi(no.Left(index)));
 				return disk;
 			}
 		}
@@ -1132,7 +1132,7 @@ CString CFileMP3::GetIntDiskNo(const CString &no)
 				return "";
 			} else {
 				CString disk;
-				disk.Format("%d",atoi(no.Right(index)));
+				disk.Format(L"%d",_wtoi(no.Right(index)));
 				return disk;
 			}
 		}

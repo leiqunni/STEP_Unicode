@@ -74,7 +74,7 @@ void CDlgMoveFolder::OnSelChangeListFormatType()
 	m_editInitPath.SetWindowText(m_userFormatEx[m_nFormatType].strInitFolder); /* STEP 022 */
 }
 
-void CDlgMoveFolder::OutputFormatString(const char *sText)
+void CDlgMoveFolder::OutputFormatString(const wchar_t *sText)
 {
 	m_editFormat.ReplaceSel(sText, FALSE);
 	m_editFormat.SetFocus();
@@ -82,57 +82,57 @@ void CDlgMoveFolder::OutputFormatString(const char *sText)
 
 void CDlgMoveFolder::OnBtAlbumName() 
 {
-	OutputFormatString("%ALBUM_NAME%");
+	OutputFormatString(L"%ALBUM_NAME%");
 }
 
 void CDlgMoveFolder::OnBtArtistName() 
 {
-	OutputFormatString("%ARTIST_NAME%");
+	OutputFormatString(L"%ARTIST_NAME%");
 }
 
 void CDlgMoveFolder::OnBtComment() 
 {
-	OutputFormatString("%COMMENT%");
+	OutputFormatString(L"%COMMENT%");
 }
 
 void CDlgMoveFolder::OnBtFileName() 
 {
-	OutputFormatString("%FILE_NAME%");
+	OutputFormatString(L"%FILE_NAME%");
 }
 
 void CDlgMoveFolder::OnBtFixString() 
 {
-	OutputFormatString("%STRING%");
+	OutputFormatString(L"%STRING%");
 }
 
 //void CDlgMoveFolder::OnBtNumber() 
 //{
-//	OutputFormatString("%NUMBER%");
+//	OutputFormatString(L"%NUMBER%");
 //}
 
 void CDlgMoveFolder::OnBtReleaseYear() 
 {
-	OutputFormatString("%RELEASE_YEAR%");
+	OutputFormatString(L"%RELEASE_YEAR%");
 }
 
 void CDlgMoveFolder::OnBtTrackName() 
 {
-	OutputFormatString("%TRACK_NAME%");
+	OutputFormatString(L"%TRACK_NAME%");
 }
 
 void CDlgMoveFolder::OnBtTrackNumber() 
 {
-	OutputFormatString("%TRACK_NUMBER%");
+	OutputFormatString(L"%TRACK_NUMBER%");
 }
 
 void CDlgMoveFolder::OnBtTrackNumber2() 
 {
-	OutputFormatString("%TRACK_NUMBER2%");
+	OutputFormatString(L"%TRACK_NUMBER2%");
 }
 
 void CDlgMoveFolder::OnBtTrackNumber3() 
 {
-	OutputFormatString("%TRACK_NUMBER3%");
+	OutputFormatString(L"%TRACK_NUMBER3%");
 }
 
 void CDlgMoveFolder::OnBtNameChange() 
@@ -149,7 +149,7 @@ void CDlgMoveFolder::OnBtNameChange()
 		m_listFormatType.ResetContent();
 		int i; for (i = 0; i < USER_MOVE_FODLER_FORMAT_MAX; i++) {
 			CString	strName;
-			strName.Format("%d: %s", i+1, m_userFormatEx[i].strName);
+			strName.Format(L"%d: %s", i+1, m_userFormatEx[i].strName);
 			m_listFormatType.AddString(strName);
 		}
 		// 選択しなおす
@@ -166,7 +166,7 @@ BOOL CDlgMoveFolder::OnInitDialog()
 	m_listFormatType.ResetContent();
 	for (i = 0; i < USER_MOVE_FODLER_FORMAT_MAX; i++) {
 		CString	strName;
-		strName.Format("%d: %s", i+1, m_userFormatEx[i].strName);
+		strName.Format(L"%d: %s", i+1, m_userFormatEx[i].strName);
 		m_listFormatType.AddString(strName);
 	}
 
@@ -198,7 +198,7 @@ void CDlgMoveFolder::OnBtRef()
 
 	// フォルダ選択ダイアログを開く
 	char	sFolderName[_MAX_PATH] = {'\0'};
-	strcpy(sFolderName, strFolder);
+	wcscpy(sFolderName, strFolder);
 
 	CSHBrowseForFolder	browse;
 	browse.SetEnableSubDirButton(false);

@@ -12,7 +12,7 @@ bool LoadAttributeFileVQF(FILE_INFO *pFileMP3)
         return false;
     }
 	DWORD dwSize;
-	unsigned char *data;
+	wchar_t *data;
 	//タイトル
 	data = vqf.GetField('N','A','M','E',&dwSize);
 	if(data){
@@ -53,23 +53,23 @@ bool WriteAttributeFileVQF(FILE_INFO *pFileMP3)
     CString strTmp;
     //タイトル
 	vqf.SetField('N','A','M','E',
-                (const unsigned char *)(LPCSTR)GetTrackNameSI(pFileMP3),
-                strlen(GetTrackNameSI(pFileMP3)));
+                (const wchar_t *)(LPCSTR)GetTrackNameSI(pFileMP3),
+                wcslen(GetTrackNameSI(pFileMP3)));
     //アーティスト
 	vqf.SetField('A','U','T','H',
-                (const unsigned char *)(LPCSTR)GetArtistNameSI(pFileMP3),
-                strlen(GetArtistNameSI(pFileMP3)));
+                (const wchar_t *)(LPCSTR)GetArtistNameSI(pFileMP3),
+                wcslen(GetArtistNameSI(pFileMP3)));
     //保存名
 	//vqf.SetField('F','I','L','E',
     //              ???,
     //              ???);
     //著作権
 	vqf.SetField('(','c',')',' ',
-		        (const unsigned char *)(LPCSTR)GetCopyrightSI(pFileMP3),
-                  strlen(GetCopyrightSI(pFileMP3)));
+		        (const wchar_t *)(LPCSTR)GetCopyrightSI(pFileMP3),
+                  wcslen(GetCopyrightSI(pFileMP3)));
     //コメント
 	vqf.SetField('C','O','M','T',
-                (const unsigned char *)(LPCSTR)GetCommentSI(pFileMP3),
-                strlen(GetCommentSI(pFileMP3)));
+                (const wchar_t *)(LPCSTR)GetCommentSI(pFileMP3),
+                wcslen(GetCommentSI(pFileMP3)));
     return vqf.Save(NULL, GetFullPath(pFileMP3)) == ERROR_SUCCESS;
 }

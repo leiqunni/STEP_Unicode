@@ -75,11 +75,11 @@ void CHeaderCtrlEx::DrawItem( LPDRAWITEMSTRUCT lpDrawItemStruct )
 	
 	// Labels are offset by a certain amount  
 	// This offset is related to the width of a space character
-	int offset = dc.GetTextExtent(_T(" "), 1 ).cx*2;
+	int offset = dc.GetTextExtent(_T(L" "), 1 ).cx*2;
 
 
 	// Get the column text and format
-	TCHAR buf[256];
+	wchar_t buf[256];
 	HD_ITEM hditem;
 	
 	hditem.mask = HDI_TEXT | HDI_FORMAT;

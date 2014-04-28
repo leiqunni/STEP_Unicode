@@ -102,7 +102,7 @@ const unsigned long crc32_table[256] = {
 	(((crc>>8) & 0x00FFFFFF) ^ crc32_table[(crc^x) & 0xFF])
 
 static unsigned long 
-crc32 (unsigned char *buffer, unsigned long len) {
+crc32 (wchar_t *buffer, unsigned long len) {
 	unsigned long	i;
 	unsigned long	crc = 0xFFFFFFFF;
 

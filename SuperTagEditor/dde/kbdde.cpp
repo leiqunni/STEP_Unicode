@@ -5,295 +5,290 @@
 
 //---------------------------------------------------------------------------
 HDDEDATA CALLBACK DefCallback(UINT uType, UINT uFmt,
-    HCONV hConv, HSZ hszTpc1, HSZ hszTpc2, HDDEDATA hdata,
-    DWORD dwData1, DWORD dwData2);
+	HCONV hConv, HSZ hszTpc1, HSZ hszTpc2, HDDEDATA hdata,
+	DWORD dwData1, DWORD dwData2);
 HDDEDATA CALLBACK DefCallback(UINT uType, UINT uFmt,
-    HCONV hConv, HSZ hszTpc1, HSZ hszTpc2, HDDEDATA hdata,
-    DWORD dwData1, DWORD dwData2)
+	HCONV hConv, HSZ hszTpc1, HSZ hszTpc2, HDDEDATA hdata,
+	DWORD dwData1, DWORD dwData2)
 {
-    return NULL;
+	return NULL;
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-KbDDE::KbDDE(PFNCALLBACK pfnCallBack, LPCSTR cszTopic, LPCSTR cszService)
+KbDDE::KbDDE(PFNCALLBACK pfnCallBack, LPCWSTR cszTopic, LPCWSTR cszService)
 {
-    m_ddeInst = 0;
-    m_hszService = NULL;
-    m_hszTopic = NULL;
-    lstrcpy(m_szTopicName, cszTopic);
-    lstrcpy(m_szServiceName, cszService);
-    if(!pfnCallBack){
-        pfnCallBack = DefCallback;
-    }
-    if(DdeInitialize(&m_ddeInst, pfnCallBack, APPCLASS_STANDARD, 0)
-        != DMLERR_NO_ERROR) {
-        m_ddeInst = 0;
-        return;
-    }
-    m_hszService = DdeCreateStringHandle(m_ddeInst, m_szServiceName, CP_WINANSI);
-    m_hszTopic = DdeCreateStringHandle(m_ddeInst, m_szTopicName, CP_WINANSI);
-    if(DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR) {
-        DdeUninitialize(m_ddeInst);
-        m_ddeInst= 0;
-        m_hszService = NULL;
-        m_hszTopic = NULL;
-        return;
-    }
+	m_ddeInst = 0;
+	m_hszService = NULL;
+	m_hszTopic = NULL;
+	wcscpy(m_szTopicName, cszTopic);
+	wcscpy(m_szServiceName, cszService);
+	if (!pfnCallBack) {
+		pfnCallBack = DefCallback;
+	}
+	if (DdeInitialize(&m_ddeInst, pfnCallBack, APPCLASS_STANDARD, 0)
+		!= DMLERR_NO_ERROR) {
+		m_ddeInst = 0;
+		return;
+	}
+	m_hszService = DdeCreateStringHandle(m_ddeInst, m_szServiceName, CP_WINANSI);
+	m_hszTopic = DdeCreateStringHandle(m_ddeInst, m_szTopicName, CP_WINANSI);
+	if (DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR) {
+		DdeUninitialize(m_ddeInst);
+		m_ddeInst = 0;
+		m_hszService = NULL;
+		m_hszTopic = NULL;
+		return;
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 KbDDE::~KbDDE(void)
 {
-    if(!m_ddeInst)
-        return;
-    DdeFreeStringHandle(m_ddeInst, m_hszService);
-    DdeFreeStringHandle(m_ddeInst, m_hszTopic);
-    DdeUninitialize(m_ddeInst);
+	if (!m_ddeInst)
+		return;
+	DdeFreeStringHandle(m_ddeInst, m_hszService);
+	DdeFreeStringHandle(m_ddeInst, m_hszTopic);
+	DdeUninitialize(m_ddeInst);
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-DWORD __fastcall KbDDEServer::QueryString(HSZ hsz, char *szBuffer, int Size)
+DWORD __fastcall KbDDEServer::QueryString(HSZ hsz, wchar_t  *szBuffer, int Size)
 {
-    return DdeQueryString(m_ddeInst, hsz, szBuffer, Size, CP_WINANSI);
+	return DdeQueryString(m_ddeInst, hsz, szBuffer, Size, CP_WINANSI);
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 HDDEDATA __fastcall KbDDEServer::CreateDataHandle(LPBYTE pSrc, DWORD cb, HSZ hsz, UINT wFmt)
 {
-    return DdeCreateDataHandle(m_ddeInst, pSrc, cb, 0, hsz, wFmt, 0);
+	return DdeCreateDataHandle(m_ddeInst, pSrc, cb, 0, hsz, wFmt, 0);
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 /*
 
-    KbDDEServer
+	KbDDEServer
 
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-KbDDEServer::KbDDEServer(PFNCALLBACK pfnCallBack, LPCSTR cszTopic, LPCSTR cszService)
-    :KbDDE(pfnCallBack, cszTopic, cszService)
+KbDDEServer::KbDDEServer(PFNCALLBACK pfnCallBack, LPCWSTR cszTopic, LPCWSTR cszService)
+:KbDDE(pfnCallBack, cszTopic, cszService)
 {
-    DdeNameService(m_ddeInst, m_hszService, 0, DNS_REGISTER);
+	DdeNameService(m_ddeInst, m_hszService, 0, DNS_REGISTER);
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 KbDDEServer::~KbDDEServer(void)
 {
-    if(m_ddeInst)
-        DdeNameService(m_ddeInst, m_hszService, 0, DNS_UNREGISTER);
+	if (m_ddeInst)
+		DdeNameService(m_ddeInst, m_hszService, 0, DNS_UNREGISTER);
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 /*
 
-    KbDDEClient
+	KbDDEClient
 
-*/
+	*/
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-KbDDEClient::KbDDEClient(PFNCALLBACK pfnCallBack, LPCSTR cszTopic, LPCSTR cszService)
-    :KbDDE(pfnCallBack, cszTopic, cszService)
+KbDDEClient::KbDDEClient(PFNCALLBACK pfnCallBack, LPCWSTR cszTopic, LPCWSTR cszService)
+:KbDDE(pfnCallBack, cszTopic, cszService)
 {
-    m_hConv = DdeConnect(m_ddeInst, m_hszService, m_hszTopic, NULL);
+	m_hConv = DdeConnect(m_ddeInst, m_hszService, m_hszTopic, NULL);
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 KbDDEClient::~KbDDEClient(void)
 {
-    if(m_hConv){
-        DdeDisconnect(m_hConv);
-    }
+	if (m_hConv) {
+		DdeDisconnect(m_hConv);
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 HDDEDATA KbDDEClient::ClientTransaction(
-            LPBYTE pData,       // サーバーに渡すデータの先頭バイトのポインタ
-            DWORD cbData,       // データの長さ
-        //    HCONV hConv,        // 通信ハンドル
-            HSZ hszItem,        // データ項目のハンドル
-            UINT wFmt,          // クリップボードフォーマット
-            UINT wType,         // トランザクションタイプ
-            DWORD dwTimeout,    // 待ち時間
-            LPDWORD pdwResult   // トランザクションの結果へのポインタ
-        )
+	LPBYTE pData,       // サーバーに渡すデータの先頭バイトのポインタ
+	DWORD cbData,       // データの長さ
+	//    HCONV hConv,        // 通信ハンドル
+	HSZ hszItem,        // データ項目のハンドル
+	UINT wFmt,          // クリップボードフォーマット
+	UINT wType,         // トランザクションタイプ
+	DWORD dwTimeout,    // 待ち時間
+	LPDWORD pdwResult   // トランザクションの結果へのポインタ
+	)
 {
-    if(!m_hConv)return NULL;
-    return DdeClientTransaction(
-            pData,       // サーバーに渡すデータの先頭バイトのポインタ
-            cbData,      // データの長さ
-            m_hConv,     // 通信ハンドル
-            hszItem,     // データ項目のハンドル
-            wFmt,        // クリップボードフォーマット
-            wType,       // トランザクションタイプ
-            dwTimeout,   // 待ち時間
-            pdwResult    // トランザクションの結果へのポインタ
-           );
+	if (!m_hConv)return NULL;
+	return DdeClientTransaction(
+		pData,       // サーバーに渡すデータの先頭バイトのポインタ
+		cbData,      // データの長さ
+		m_hConv,     // 通信ハンドル
+		hszItem,     // データ項目のハンドル
+		wFmt,        // クリップボードフォーマット
+		wType,       // トランザクションタイプ
+		dwTimeout,   // 待ち時間
+		pdwResult    // トランザクションの結果へのポインタ
+		);
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-bool __fastcall KbDDEClient::Execute(LPCSTR cszFileName, 
-                                     LPCSTR cszCommand)
+bool __fastcall KbDDEClient::Execute(LPCWSTR cszFileName,
+	LPCWSTR cszCommand)
 {
-    HDDEDATA hRet;
-    HSZ hszTopic;
-    static LPCSTR cszEmpty = "";
-    if(!m_hConv){
-        return false;
-    }
-    if(!cszCommand)
-        cszCommand = cszEmpty;
-    if(!cszFileName)
-        cszFileName = cszEmpty;
+	HDDEDATA hRet;
+	HSZ hszTopic;
+	static LPCWSTR cszEmpty = L"";
+	if (!m_hConv) {
+		return false;
+	}
+	if (!cszCommand)
+		cszCommand = cszEmpty;
+	if (!cszFileName)
+		cszFileName = cszEmpty;
 
-    int lenFileName = lstrlen(cszFileName);
-    int lenCommand = lstrlen(cszCommand);
-    int szTopicLen = lenFileName + lenCommand + 8;
-    char *szTopic = new char[szTopicLen + 1];
-    if(lenFileName){
-        szTopic[0] = '\"';
-        lstrcpy(&szTopic[1], cszFileName);
-        lstrcat(szTopic, "\" ");
-    }
-    else{
-        szTopic[0] = 0;
-    }
-    lstrcat(szTopic, cszCommand);
-    hszTopic = DdeCreateStringHandle(m_ddeInst, szTopic, CP_WINANSI);
-    hRet = DdeClientTransaction(
-            (BYTE*)szTopic,
-            szTopicLen,
-            m_hConv,
-            NULL,
-            NULL,/*CF_TEXT,*/
-            XTYP_EXECUTE,
-            2000,//待機時間
-            NULL);
+	int lenFileName = wcslen(cszFileName);
+	int lenCommand = wcslen(cszCommand);
+	int szTopicLen = lenFileName + lenCommand + 8;
+	wchar_t  *szTopic = new wchar_t[szTopicLen + 1];
+	if (lenFileName) {
+		szTopic[0] = '\"';
+		wcscpy(&szTopic[1], cszFileName);
+		wcscat(szTopic, L"\" ");
+	} else {
+		szTopic[0] = 0;
+	}
+	wcscat(szTopic, cszCommand);
+	hszTopic = DdeCreateStringHandle(m_ddeInst, szTopic, CP_WINANSI);
+	hRet = DdeClientTransaction(
+		(BYTE*)szTopic,
+		szTopicLen,
+		m_hConv,
+		NULL,
+		NULL,/*CF_TEXT,*/
+		XTYP_EXECUTE,
+		2000,//待機時間
+		NULL);
 
-    delete[] szTopic;
-    if(!hRet && DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR){
-        //MessageBeep(MB_OK);
-        return false;
-    }
-    else if(hRet){
-        DdeFreeStringHandle(m_ddeInst, hszTopic);
-        DdeFreeDataHandle(hRet);
-    }
-    return true;
+	delete[] szTopic;
+	if (!hRet && DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR) {
+		//MessageBeep(MB_OK);
+		return false;
+	} else if (hRet) {
+		DdeFreeStringHandle(m_ddeInst, hszTopic);
+		DdeFreeDataHandle(hRet);
+	}
+	return true;
 }
 
-bool __fastcall KbDDEClient::Execute2(LPCSTR cszFileName, 
-                                     LPCSTR cszCommand)
+bool __fastcall KbDDEClient::Execute2(LPCWSTR cszFileName,
+	LPCWSTR cszCommand)
 {
-    HDDEDATA hRet;
-    HSZ hszTopic;
-    static LPCSTR cszEmpty = "";
-    if(!m_hConv){
-        return false;
-    }
-    if(!cszCommand)
-        cszCommand = cszEmpty;
-    if(!cszFileName)
-        cszFileName = cszEmpty;
+	HDDEDATA hRet;
+	HSZ hszTopic;
+	static LPCWSTR cszEmpty = L"";
+	if (!m_hConv) {
+		return false;
+	}
+	if (!cszCommand)
+		cszCommand = cszEmpty;
+	if (!cszFileName)
+		cszFileName = cszEmpty;
 
-    int lenFileName = lstrlen(cszFileName);
-    int lenCommand = lstrlen(cszCommand);
-    int szTopicLen = lenFileName + lenCommand + 8;
-    char *szFileName = new char[lenFileName + 3 + 1];
-    if(lenFileName){
-        lstrcpy(szFileName, " \"");
-        lstrcat(&szFileName[2], cszFileName);
-        lstrcat(szFileName, "\"");
-    }
-    else{
-        szFileName[0] = 0;
-    }
-    char *szTopic = new char[szTopicLen + 1];
-    lstrcpy(szTopic, cszCommand);
-    lstrcat(szTopic, szFileName);
-    hszTopic = DdeCreateStringHandle(m_ddeInst, szTopic, CP_WINANSI);
-    hRet = DdeClientTransaction(
-            (BYTE*)szTopic,
-            szTopicLen,
-            m_hConv,
-            NULL,
-            NULL,/*CF_TEXT,*/
-            XTYP_EXECUTE,
-            2000,//待機時間
-            NULL);
+	int lenFileName = wcslen(cszFileName);
+	int lenCommand = wcslen(cszCommand);
+	int szTopicLen = lenFileName + lenCommand + 8;
+	wchar_t  *szFileName = new wchar_t[lenFileName + 3 + 1];
+	if (lenFileName) {
+		wcscpy(szFileName, L" \"");
+		wcscat(&szFileName[2], cszFileName);
+		wcscat(szFileName, L"\"");
+	} else {
+		szFileName[0] = 0;
+	}
+	wchar_t  *szTopic = new wchar_t[szTopicLen + 1];
+	wcscpy(szTopic, cszCommand);
+	wcscat(szTopic, szFileName);
+	hszTopic = DdeCreateStringHandle(m_ddeInst, szTopic, CP_WINANSI);
+	hRet = DdeClientTransaction(
+		(BYTE*)szTopic,
+		szTopicLen,
+		m_hConv,
+		NULL,
+		NULL,/*CF_TEXT,*/
+		XTYP_EXECUTE,
+		2000,//待機時間
+		NULL);
 
-    delete[] szTopic;
+	delete[] szTopic;
 	delete[] szFileName;
-    if(!hRet && DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR){
-        //MessageBeep(MB_OK);
-        return false;
-    }
-    else if(hRet){
-        DdeFreeStringHandle(m_ddeInst, hszTopic);
-        DdeFreeDataHandle(hRet);
-    }
-    return true;
+	if (!hRet && DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR) {
+		//MessageBeep(MB_OK);
+		return false;
+	} else if (hRet) {
+		DdeFreeStringHandle(m_ddeInst, hszTopic);
+		DdeFreeDataHandle(hRet);
+	}
+	return true;
 }
 
-bool __fastcall KbDDEClient::Execute(LPCSTR cszCommand, DWORD dwWait) /* Misirlou 138 */
+bool __fastcall KbDDEClient::Execute(LPCWSTR cszCommand, DWORD dwWait) /* Misirlou 138 */
 {
-    if(!m_hConv){
-        return false;
-    }
-    if(!cszCommand)
-        return false;
-    int cbData = strlen(cszCommand) + 1;
-    BYTE *pData = new BYTE[cbData];
-    strcpy((char*)pData, cszCommand);
-    HDDEDATA hRet = DdeClientTransaction(
-                        pData,
-                        cbData,
-                        m_hConv,
-                        NULL,
-                        CF_TEXT,
-                        XTYP_EXECUTE,
-                        dwWait,//待機時間
-                        NULL);
-    delete[] pData;
-    if(!hRet && DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR){
-        return false;
-    }
-    else{
-        if(hRet){
-            DdeFreeDataHandle(hRet);
-        }
-        return true;
-    }
+	if (!m_hConv) {
+		return false;
+	}
+	if (!cszCommand)
+		return false;
+	int cbData = wcslen(cszCommand) + 1;
+	BYTE *pData = new BYTE[cbData];
+	wcscpy((wchar_t*)pData, cszCommand);
+	HDDEDATA hRet = DdeClientTransaction(
+		pData,
+		cbData,
+		m_hConv,
+		NULL,
+		CF_TEXT,
+		XTYP_EXECUTE,
+		dwWait,//待機時間
+		NULL);
+	delete[] pData;
+	if (!hRet && DdeGetLastError(m_ddeInst) != DMLERR_NO_ERROR) {
+		return false;
+	} else {
+		if (hRet) {
+			DdeFreeDataHandle(hRet);
+		}
+		return true;
+	}
 }
 /*
-const char* __fastcall kbGetCommandLineParams(void)
+const wchar_t* __fastcall kbGetCommandLineParams(void)
 {//起動時のコマンドライン引数を返す
- //（実行ファイル名の部分は除く）
-    const char *szCommandLine = ::GetCommandLine();
-    const char *p = szCommandLine;
-    bool bDblQuote = false;
-    while(*p == ' ')p++;
-    if(*p == '"'){//二重引用符で括られている
-        p++;
-        bDblQuote = true;
-    }
-    while(*p){
-        if(bDblQuote && *p == '"'){//二重引用符の終わり
-            p++;
-            break;
-        }
-        else if(!bDblQuote && *p == ' '){
-            p++;
-            break;
-        }
-        if(IsDBCSLeadByte((BYTE)*p)){
-            p+=2;
-        }
-        else{
-            p++;
-        }
-    }
-    while(*p == ' ')p++;
-    return p;
+//（実行ファイル名の部分は除く）
+const wchar_t *szCommandLine = ::GetCommandLine();
+const wchar_t *p = szCommandLine;
+bool bDblQuote = false;
+while(*p == ' ')p++;
+if(*p == '"'){//二重引用符で括られている
+p++;
+bDblQuote = true;
+}
+while(*p){
+if(bDblQuote && *p == '"'){//二重引用符の終わり
+p++;
+break;
+}
+else if(!bDblQuote && *p == ' '){
+p++;
+break;
+}
+if(IsDBCSLeadByte((BYTE)*p)){
+p+=2;
+}
+else{
+p++;
+}
+}
+while(*p == ' ')p++;
+return p;
 }
 */

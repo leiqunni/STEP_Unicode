@@ -36,21 +36,21 @@ public:
 	}
 	CVqfTag(const CVqfTag &obj)	//コピーコンストラクタ
 	{
-		m_data = (unsigned char *)malloc(obj.m_dwSize+1);
+		m_data = (wchar_t *)malloc(obj.m_dwSize+1);
 		memcpy(m_data,obj.m_data,obj.m_dwSize);
 		m_data[obj.m_dwSize] = '\0';	//Cの文字列として使えるように
 		m_dwSize = obj.m_dwSize;
 	};
 	DWORD GetSize(){return m_dwSize;};
 	void SetSize(DWORD size){m_dwSize = size;};
-	unsigned char *GetData(){return m_data;};
-	void SetData(const unsigned char *data,DWORD size)
+	wchar_t *GetData(){return m_data;};
+	void SetData(const wchar_t *data,DWORD size)
 	{
 		if(m_data)
 		{
 			free(m_data);
 		}
-		m_data = (unsigned char *)malloc(size+1);
+		m_data = (wchar_t *)malloc(size+1);
 		if(!m_data)
 		{
 			return;	//メモリを確保できなかった
@@ -72,8 +72,8 @@ public:
 	virtual ~CVqf();
 	void	Release();
 	BOOL	IsEnable(){return m_bEnable;};
-	BOOL	SetField(char id1,char id2,char id3,char id4,const unsigned char *szData,DWORD dwSize);
-	unsigned char *GetField(char id1,char id2,char id3,char id4,DWORD *pdwSize);
+	BOOL	SetField(char id1,char id2,char id3,char id4,const wchar_t *szData,DWORD dwSize);
+	wchar_t *GetField(char id1,char id2,char id3,char id4,DWORD *pdwSize);
 	DWORD	GetTotalFieldSize();
 
 	DWORD	GetStreamSize(){return m_dwStreamSize;};

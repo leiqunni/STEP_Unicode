@@ -21,17 +21,17 @@ IMPLEMENT_DYNCREATE(CDlgTeikei, CPropertyPage)
 CDlgTeikei::CDlgTeikei() : CPropertyPage(CDlgTeikei::IDD)
 {
 	//{{AFX_DATA_INIT(CDlgTeikei)
-	m_strTeikei1 = _T("");
-	m_strTeikei10 = _T("");
-	m_strTeikei2 = _T("");
-	m_strTeikei3 = _T("");
-	m_strTeikei4 = _T("");
-	m_strTeikei5 = _T("");
-	m_strTeikei6 = _T("");
-	m_strTeikei7 = _T("");
-	m_strTeikei8 = _T("");
-	m_strTeikei9 = _T("");
-	m_strGroupName = _T("");
+	m_strTeikei1 = L"";
+	m_strTeikei10 = L"";
+	m_strTeikei2 = L"";
+	m_strTeikei3 = L"";
+	m_strTeikei4 = L"";
+	m_strTeikei5 = L"";
+	m_strTeikei6 = L"";
+	m_strTeikei7 = L"";
+	m_strTeikei8 = L"";
+	m_strTeikei9 = L"";
+	m_strGroupName = L"";
 	//}}AFX_DATA_INIT
 }
 
@@ -97,11 +97,11 @@ BOOL CDlgTeikei::OnInitDialog()
 		CPropertySheet *poPropSheet = (CPropertySheet *)GetParent();
 		TC_ITEM tcItem;
 		tcItem.mask = TCIF_TEXT;
-		tcItem.pszText = (LPTSTR)((LPCTSTR)"グループ１");
+		tcItem.pszText = (LPTSTR)((LPCWSTR)"グループ１");
 		poPropSheet->GetTabControl()->SetItem(0, &tcItem );
-		tcItem.pszText = (LPTSTR)((LPCTSTR)"グループ２");
+		tcItem.pszText = (LPTSTR)((LPCWSTR)"グループ２");
 		poPropSheet->GetTabControl()->SetItem(1, &tcItem );
-		tcItem.pszText = (LPTSTR)((LPCTSTR)"グループ３");
+		tcItem.pszText = (LPTSTR)((LPCWSTR)"グループ３");
 		poPropSheet->GetTabControl()->SetItem(2, &tcItem );
 	}
 	m_strTeikei1 = m_teikeiInfo[0].strTeikei;

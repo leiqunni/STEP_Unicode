@@ -303,8 +303,8 @@ void CSuperGridCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 
 		LV_ITEM lvi;
-		static _TCHAR szBuff[MAX_PATH];
-		LPCTSTR pszText;
+		static wchar_t szBuff[MAX_PATH];
+		LPCWSTR pszText;
 
 		int nItem = lpDrawItemStruct->itemID;
 		CRect rcItem(lpDrawItemStruct->rcItem);
@@ -612,13 +612,13 @@ void CSuperGridCtrl::MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 
 
 //the basic rutine making the ... thing snatched it from some tedious code example from the MFC rowlist example
-//Arne Schildｴ had a comment on the static const _TCHAR thing. this is now changed
-LPCTSTR CSuperGridCtrl::MakeShortString(CDC* pDC, LPCTSTR lpszLong, int nColumnLen, int nOffset)
+//Arne Schildｴ had a comment on the static const _wchar_t thing. this is now changed
+LPCWSTR CSuperGridCtrl::MakeShortString(CDC* pDC, LPCWSTR lpszLong, int nColumnLen, int nOffset)
 {
-	static const _TCHAR szThreeDots[]=_T("...");
+	static const wchar_t szThreeDots[]=L"...";
 	static CString csShort;
 
-	int nStringLen=lstrlen(lpszLong);
+	int nStringLen=wcslen(lpszLong);
 	if (nStringLen > 256) { /* 2003.06.20 add */
 		nStringLen = 256;
 	}
@@ -2229,8 +2229,8 @@ CSuperGridCtrl::CTreeItem* CSuperGridCtrl::InsertItem(CTreeItem *pParent, CItemI
 		// ディレクトリ(フォルダ同士でソートして追加)
 		{
 			POSITION	pos;
-			const char *sItemText = GetData(pItem)->GetItemText();
-			if (sItemText == NULL || strlen(sItemText) == 0) {
+			const wchar_t *sItemText = GetData(pItem)->GetItemText();
+			if (sItemText == NULL || wcslen(sItemText) == 0) {
 				// 項目名が空
 				pos = NULL;
 			} else {
@@ -2242,9 +2242,9 @@ CSuperGridCtrl::CTreeItem* CSuperGridCtrl::InsertItem(CTreeItem *pParent, CItemI
 				CTreeItem	*pTarget = (CTreeItem *)pParent->m_listChild.GetNext(pos);
 				if (pTarget != NULL) {
 					CItemInfo *pItemInfo = GetData(pTarget);
-					const char *sTargetText = pItemInfo->GetItemText();
+					const wchar_t *sTargetText = pItemInfo->GetItemText();
 					if (pItemInfo->GetLParam() < 0		// フォルダ
-					&&  _mbsicmp((const unsigned char *)sTargetText, (const unsigned char *)sItemText) > 0) {
+					&&  _wcsicmp(sTargetText, sItemText) > 0) {
 						// この位置に挿入
 						pParent->m_listChild.InsertBefore(posTarget, pItem);
 						bAddItem = true;
@@ -3845,14 +3845,14 @@ void CSuperGridCtrl::PreSubclassWindow()
 	CListCtrl::PreSubclassWindow();
 }
 
-int CSuperGridCtrl::MyDrawText(CDC* pDC, LPCTSTR lpszString, int nCount, LPRECT lpRect, UINT nFormat) /* BeachMonster 107 */
+int CSuperGridCtrl::MyDrawText(CDC* pDC, LPCWSTR lpszString, int nCount, LPRECT lpRect, UINT nFormat) /* BeachMonster 107 */
 {
 	CString strText = lpszString;
 	if (g_bOptShowZenSpace && (nFormat & (DT_CENTER | DT_RIGHT)) == 0/* RockDance 125 */ &&
-			((strText.Find("\r\n") != -1 || strText.Find("　") != -1)/* Misirlou 147 */ || strText.Find("\t")/* Baja 156 */)) { /* 2003.06.26 change */
+			((strText.Find(L"\r\n") != -1 || strText.Find(L"　") != -1)/* Misirlou 147 */ || strText.Find(L"\t")/* Baja 156 */)) { /* 2003.06.26 change */
 		COLORREF	colOrg;
-		CString strChar = "";
-		CString strNormal = "";
+		CString strChar = L"";
+		CString strNormal = L"";
 		CRect rect = lpRect;
 		//rect.right = rect.left;
 		colOrg = pDC->SetTextColor(RGB(255, 255, 255));
@@ -3866,7 +3866,7 @@ int CSuperGridCtrl::MyDrawText(CDC* pDC, LPCTSTR lpszString, int nCount, LPRECT 
 			} else {
 				bLead = FALSE;
 				strChar += strText[i];
-				if (strChar == "　") {
+				if (strChar == L"　") {
 					pDC->DrawText(strNormal, rect, nFormat);
 					rect.left += pDC->GetTextExtent(strNormal).cx;
 					CPen pen(PS_SOLID, 1, RGB(192, 192, 192));
@@ -3881,17 +3881,17 @@ int CSuperGridCtrl::MyDrawText(CDC* pDC, LPCTSTR lpszString, int nCount, LPRECT 
 					pDC->LineTo(box.left, box.top);
 					pDC->SelectObject(oldPen);
 					pen.DeleteObject();
-				} else if (strChar == "\r\n") {
+				} else if (strChar == L"\r\n") {
 					pDC->DrawText(strNormal, rect, nFormat);
 					rect.left += pDC->GetTextExtent(strNormal).cx;
 					pDC->SetTextColor(RGB(192, 192, 192));
-					strChar = "↓"; /* RockDance 137 */
+					strChar = L"↓"; /* RockDance 137 */
 					pDC->DrawText(strChar/* RockDance 137 */, 2, rect, nFormat);
-				} else if (strChar == "\t") { /* Baja 156 */
+				} else if (strChar == L"\t") { /* Baja 156 */
 					pDC->DrawText(strNormal, rect, nFormat);
 					rect.left += pDC->GetTextExtent(strNormal).cx;
 					pDC->SetTextColor(RGB(192, 192, 192));
-					strChar = "→";
+					strChar = L"→";
 					pDC->DrawText(strChar, 2, rect, nFormat);
 				} else if (strChar.FindOneOf(g_sOptShowOtherChar) != -1) {
 					pDC->DrawText(strNormal, rect, nFormat);

@@ -181,11 +181,11 @@ void COptionSheet::CommonConstruct(CWnd *pParentWnd, UINT iSelectPage)
 
 COptionSheet::COptionSheet() : CDialog()
 {
-	m_strCaption = _T("");
+	m_strCaption = L"";
 	CommonConstruct(NULL, 0);
 }
 
-COptionSheet::COptionSheet(LPCTSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
+COptionSheet::COptionSheet(LPCWSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
 	: CDialog()
 {
 	ASSERT(NULL != pszCaption);
@@ -214,7 +214,7 @@ void COptionSheet::Construct(UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage
 }
 
 
-void COptionSheet::Construct(LPCTSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
+void COptionSheet::Construct(LPCWSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
 {
 	ASSERT(NULL != pszCaption);
 
@@ -477,15 +477,15 @@ BOOL COptionSheet::SetActivePage(int nPage)
 }
 
 
-void COptionSheet::SetTitle(LPCTSTR lpszText, UINT nStyle)
+void COptionSheet::SetTitle(LPCWSTR lpszText, UINT nStyle)
 {
 	ASSERT(NULL != lpszText);
 
 	// Reset the internal title
-	m_strCaption = _T("");
+	m_strCaption = L"";
 
 	if(nStyle & OSH_OPTIONTITLE) {
-		m_strCaption = CString("Options for ");
+		m_strCaption = CString(L"Options for ");
 	}
 
 	m_strCaption += lpszText;
@@ -508,7 +508,7 @@ void COptionSheet::SetTitle(UINT nID, UINT nStyle)
 }
 
 
-void COptionSheet::SetFinishText(LPCSTR lpszText)
+void COptionSheet::SetFinishText(LPCWSTR lpszText)
 {
 	ASSERT(NULL != lpszText);
 
@@ -734,7 +734,7 @@ void COptionSheet::CalcTreeRect(CRect &rect)
 
 
 
-void COptionSheet::AddButton(char *txt, int x, int w, UINT id, BOOL showButton)
+void COptionSheet::AddButton(wchar_t *txt, int x, int w, UINT id, BOOL showButton)
 {
 	CButton *btn;
 	CRect rect;
@@ -813,24 +813,24 @@ int COptionSheet::AddButtons(BOOL addBut)
 
 		// Add the back button
 		if(TRUE == addBut) {
-			AddButton("< Back", x, m_ButtonWidth, ID_WIZBACK);
+			AddButton(L"< Back", x, m_ButtonWidth, ID_WIZBACK);
 		}
 		x += m_ButtonWidth;
 
 		// Add the next button
 		if(TRUE == addBut) {
-			AddButton("Next >", x, m_ButtonWidth, ID_WIZNEXT);
+			AddButton(L"Next >", x, m_ButtonWidth, ID_WIZNEXT);
 		}
 
 		// Add in the finish button
 		if(m_psh.dwFlags & OSH_WIZARDHASFINISH) {
 			x += (m_ButtonWidth + BUTTON_SPACING);
 			if(TRUE == addBut) {
-				AddButton("Finish", x, m_ButtonWidth, ID_WIZFINISH);
+				AddButton(L"Finish", x, m_ButtonWidth, ID_WIZFINISH);
 			}
 		} else {
 			if(TRUE == addBut) {
-				AddButton("Finish", x, m_ButtonWidth, ID_WIZFINISH, FALSE);
+				AddButton(L"Finish", x, m_ButtonWidth, ID_WIZFINISH, FALSE);
 			}
 		}
 
@@ -841,14 +841,14 @@ int COptionSheet::AddButtons(BOOL addBut)
 
 		// Add the OK button
 		if(TRUE == addBut) {
-			AddButton("OK", x, m_ButtonWidth, IDOK);
+			AddButton(L"OK", x, m_ButtonWidth, IDOK);
 		}
 		x += m_ButtonWidth;
 
 		// Add the Apply button
 		if(!(m_psh.dwFlags & OSH_NOAPPLYNOW)) {
 			if(TRUE == addBut) {
-				AddButton("Apply", x, m_ButtonWidth, ID_APPLY_NOW);
+				AddButton(L"Apply", x, m_ButtonWidth, ID_APPLY_NOW);
 			}
 			x += m_ButtonWidth;
 		}
@@ -858,7 +858,7 @@ int COptionSheet::AddButtons(BOOL addBut)
 	// Add the cancel button
 	x += BUTTON_SPACING;
 	if(TRUE == addBut) {
-		AddButton("Cancel", x, m_ButtonWidth, IDCANCEL);
+		AddButton(L"Cancel", x, m_ButtonWidth, IDCANCEL);
 	}
 	x += m_ButtonWidth;
 
@@ -866,7 +866,7 @@ int COptionSheet::AddButtons(BOOL addBut)
 	if(m_psh.dwFlags & OSH_HASHELP) {
 		x += BUTTON_SPACING;
 		if(TRUE == addBut) {
-			AddButton("Help", x, m_ButtonWidth, IDHELP);
+			AddButton(L"Help", x, m_ButtonWidth, IDHELP);
 		}
 		x += m_ButtonWidth;
 	}

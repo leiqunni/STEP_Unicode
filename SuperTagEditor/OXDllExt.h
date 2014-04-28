@@ -10,18 +10,18 @@
 
 #ifdef _BUILD_UTB_INTO_EXTDLL
 #if !defined(WIN32) || !defined(_AFXEXT)
-#pragma error("Wrong settings for UTB Extension DLL build")
+#pragma error(L"Wrong settings for UTB Extension DLL build")
 #endif
 #endif
 
 #ifdef _LINK_TO_UTB_IN_EXTDLL
 #if !defined(WIN32) || !defined(_AFXDLL)
-#pragma error("Wrong settings for project that uses UTB Extension DLL")
+#pragma error(L"Wrong settings for project that uses UTB Extension DLL")
 #endif
 #endif
 
 #if defined(_LINK_TO_UTB_IN_EXTDLL) && defined(_BUILD_UTB_INTO_EXTDLL)
-#pragma error("Error: both _BUILD_UTB_INTO_EXTDLL and _LINK_TO_UTB_IN_EXTDLL options has been specified")
+#pragma error(L"Error: both _BUILD_UTB_INTO_EXTDLL and _LINK_TO_UTB_IN_EXTDLL options has been specified")
 #endif
 
 // When including UTB classes into a MFC Extension DLL

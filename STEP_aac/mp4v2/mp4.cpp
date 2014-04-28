@@ -3288,8 +3288,8 @@ extern "C" char* MP4MakeIsmaSdpIod(
 		MP4Free(pBytes);
 
 		char* sdpIod = 
-			(char*)MP4Malloc(strlen(iodBase64) + 64);
-		snprintf(sdpIod, strlen(iodBase64) + 64, 
+			(char*)MP4Malloc(wcslen(iodBase64) + 64);
+		snprintf(sdpIod, wcslen(iodBase64) + 64, 
 			"a=mpeg4-iod: \042data:application/mpeg4-iod;base64,%s\042",
 			iodBase64);
 		MP4Free(iodBase64);

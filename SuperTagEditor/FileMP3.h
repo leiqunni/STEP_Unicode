@@ -28,7 +28,7 @@
 // ======================================
 // CString テキストの文字数を制限する
 #define LIMIT_TEXT_LENGTH(sText, nLen)	{	\
-	TCHAR	sWorkBuffer[LIST_SIZE+1];		\
+	wchar_t	sWorkBuffer[LIST_SIZE+1];		\
 	StringCopyN(sWorkBuffer, sText, nLen);	\
 	sWorkBuffer[nLen] = '\0';				\
 	sText = sWorkBuffer;					\
@@ -144,12 +144,12 @@ extern	USER_GENRE_LIST*	g_genreListUSER;
 // ======================================
 // =====     関数プロトタイプ       =====
 // ======================================
-extern	const char *GetGenreName(BYTE);
-extern	const char *GetGenreNameSIF(BYTE byGenre);
-extern	int		GetGenreCode(const char *);
-extern bool IsUserGenre(const char *sGenre);
-extern	void	StringCopyN(char *, const char *, int, BOOL = TRUE);
-extern	bool	IsFolderName(const char *);
+extern	const wchar_t *GetGenreName(BYTE);
+extern	const wchar_t *GetGenreNameSIF(BYTE byGenre);
+extern	int		GetGenreCode(const wchar_t *);
+extern bool IsUserGenre(const wchar_t *sGenre);
+extern	void	StringCopyN(wchar_t *, const wchar_t *, int, BOOL = TRUE);
+extern	bool	IsFolderName(const wchar_t *);
 
 
 
@@ -174,19 +174,19 @@ public:		// ======================================
 	static	void	InitData(FILE_MP3 *);
 	static	void	InitDataSIF(FILE_MP3 *);
 	static	void	InitDataID3(FILE_MP3 *); /* STEP 029 */
-			bool	Attach(const char *);
+			bool	Attach(const wchar_t *);
 			void	Detach(void);
-			bool	LoadFile(const char *, const char *);
-	static	bool	CopyFile(FILE_MP3 *, const char *, bool = false);
+			bool	LoadFile(const wchar_t *, const wchar_t *);
+	static	bool	CopyFile(FILE_MP3 *, const wchar_t *, bool = false);
 	static	bool	WriteTag(FILE_MP3 *, bool = true);
 	static	bool	WriteFileTag(FILE_MP3 *fileMP3);
 	static	bool	ConvFileFormat(FILE_MP3 *, int);
 //	static	bool	AutoConvFileFormatID3(FILE_MP3 *fileMP3);
-//	static	bool	DeleteTagID3(FILE_MP3 *fileMP3/*const char **//* Baja 153 */);
+//	static	bool	DeleteTagID3(FILE_MP3 *fileMP3/*const wchar_t **//* Baja 153 */);
 //	static	bool	IsCreateID3v2(FILE_MP3 *fileMP3);
-//	static	bool	MakeTagID3v2(const char *);
-//	static	bool	DeleteTagID3v2(const char *);
-//	static	bool	GetMpegInfo(const char *, MPEG_INFO *);
+//	static	bool	MakeTagID3v2(const wchar_t *);
+//	static	bool	DeleteTagID3v2(const wchar_t *);
+//	static	bool	GetMpegInfo(const wchar_t *, MPEG_INFO *);
 	static	CString SearchLyricsFile(FILE_MP3 *);
 	static	CString	CFileMP3::GetIntTrackNo(const CString &no);
 	static	CString	CFileMP3::GetIntDiskNo(const CString &no);
@@ -197,25 +197,25 @@ private:	// ======================================
 			// =====     private メンバ関数     =====
 			// ======================================
 			void	Initialize(void);
-	static	void	DeleteLineEndSpace(TCHAR *);
-	static	CString SearchFileReent(const char *, const char *);
+	static	void	DeleteLineEndSpace(wchar_t *);
+	static	CString SearchFileReent(const wchar_t *, const wchar_t *);
 
 
-//	static	bool	ReadTagID3(LPCSTR, FILE_MP3 *, char * = NULL);
+//	static	bool	ReadTagID3(LPCWSTR, FILE_MP3 *, wchar_t * = NULL);
 //	static	bool	WriteTagID3(FILE_MP3 *);
 //	static	void	DeleteFrameID3v2(ID3Tag *pTag, ID3_FrameID frame_id);
-//	static	void	UpdateTagFieldText(ID3Tag *pTag, ID3_FrameID frame_id, const char *sText);
-//	static	void	UpdateTagFieldComment(ID3Tag *pTag, const char *sText);
-//	static	bool	ReadTagID3v2(LPCSTR, FILE_MP3 *);
+//	static	void	UpdateTagFieldText(ID3Tag *pTag, ID3_FrameID frame_id, const wchar_t *sText);
+//	static	void	UpdateTagFieldComment(ID3Tag *pTag, const wchar_t *sText);
+//	static	bool	ReadTagID3v2(LPCWSTR, FILE_MP3 *);
 //	static	bool	WriteTagID3v2(FILE_MP3 *);
-//	static	bool	ReadTagSIF(LPCSTR, FILE_MP3 *);
+//	static	bool	ReadTagSIF(LPCWSTR, FILE_MP3 *);
 //	static	bool	WriteTagSIF(FILE_MP3 *);
 
 protected:	// ======================================
 			// =====    protected メンバ関数    =====
 			// ======================================
 /* RockDance 133 */
-//	static	bool	ReadTagAPE(LPCSTR, FILE_MP3 *);
+//	static	bool	ReadTagAPE(LPCWSTR, FILE_MP3 *);
 //	static	bool	WriteTagAPE(FILE_MP3 *);
 };
 

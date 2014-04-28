@@ -24,7 +24,7 @@ CDlgSetCheck::CDlgSetCheck(CWnd* pParent /*=NULL*/)
 	m_bMatchComplete = FALSE;
 	m_bRangeSelected = FALSE;
 	m_bRegExp = FALSE;
-	m_strSearchWord = _T("");
+	m_strSearchWord = L"";
 	m_nTargetColumn = -1;
 	m_bMatchSelected = FALSE;
 	//}}AFX_DATA_INIT
@@ -72,7 +72,7 @@ BOOL CDlgSetCheck::OnInitDialog()
 
 	// TODO: ‚±‚ÌˆÊ’u‚É‰Šú‰»‚Ì•â‘«ˆ—‚ğ’Ç‰Á‚µ‚Ä‚­‚¾‚³‚¢
 	extern	const char	***g_sNameList;
-	// m_listTargetColumn.AddString("‘S‚Ä‚Ì€–Ú");
+	// m_listTargetColumn.AddString(L"‘S‚Ä‚Ì€–Ú");
 	for (int i = 2; g_sNameList[0][i] != NULL; i++) {
 		m_listTargetColumn.AddString(g_sNameList[0][i]);
 	}

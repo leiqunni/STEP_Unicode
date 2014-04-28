@@ -3,7 +3,7 @@
 
 #define sizeof_array(a) (sizeof(a)/sizeof(a[0]))
 
-void mbsncpy2(unsigned char *dst,unsigned char *src,int c);
+void mbsncpy2(wchar_t *dst,wchar_t *src,int c);
 //DLL‚Ìƒo[ƒWƒ‡ƒ“î•ñ‚ğæ“¾
 BOOL GetDLLVersion(IN LPSTR szDLLFileName,
 				   IN DWORD *pdwMajor,

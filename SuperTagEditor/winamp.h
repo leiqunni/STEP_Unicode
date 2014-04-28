@@ -42,9 +42,9 @@
 	to the playlist (it doesn't change the playing status). Note, if you pass a file with the extension
 	".m3u" it will be treated as a playlist.
 	for example:
-		char *file = "C:\\download\\booga.mp3";
+		wchar_t *file = L"C:\\download\\booga.mp3";
 		int x;
-		for (x = 0; x <= strlen(file); x ++)
+		for (x = 0; x <= wcslen(file); x ++)
 			PostMessage(hwnd_winamp,WM_WA_IPC,(LPARAM)file[x],
               IPC_PLAYFILE);
 	will add "C:\download\booga.mp3" to the end of the playlist
@@ -54,7 +54,7 @@
 	COPYDATASTRUCT cds;
 	cds.dwData = IPC_PLAYFILE;
 	cds.lpData = (void *) file;
-	cds.cbData = strlen((char *) cds.lpData)+1;
+	cds.cbData = wcslen((wchar_t *) cds.lpData)+1;
 	SendMessage(hwnd,WM_COPYDATA,(WPARAM)NULL,(LPARAM)&cds);
 */
 
@@ -74,9 +74,9 @@
 /*
 	IPC_CHDIR is sent to the window for each char of a null terminated string of a directory to change to
 	for example:
-		char *dir = "C:\\Download";
+		wchar_t *dir = L"C:\\Download";
 		int x;
-		for (x = 0; x <= strlen(file); x ++)
+		for (x = 0; x <= wcslen(file); x ++)
 			PostMessage(hwnd_winamp,WM_WA_IPC,(LPARAM)dir[x],IPC_PLAYFILE);
 	will change the winamp process to "C:\download" (useful for relative pathnames and loading playlists)
 
@@ -85,7 +85,7 @@
 	COPYDATASTRUCT cds;
 	cds.dwData = IPC_CHDIR;
 	cds.lpData = (void *) dir;
-	cds.cbData = strlen((char *) cds.lpData)+1;
+	cds.cbData = wcslen((wchar_t *) cds.lpData)+1;
 	SendMessage(hwnd,WM_COPYDATA,(WPARAM)NULL,(LPARAM)&cds);
 
 */

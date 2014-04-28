@@ -63,7 +63,7 @@ static int open_tta_file (const char *filename, tta_info *ttainfo) {
 		return -1;
 	}
 
-	checksum = crc32((unsigned char *) &ttahdr,
+	checksum = crc32((wchar_t *) &ttahdr,
 	sizeof(tta_hdr) - sizeof(long));
 	if (checksum != ttahdr.CRC32) {
 		CloseHandle(ttainfo->HFILE);
@@ -278,9 +278,9 @@ void StringCopyN(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	ZeroMemory(sDest, nLen);
-	if (strlen(sSrc) < (unsigned int)nLen) {
+	if (wcslen(sSrc) < (unsigned int)nLen) {
 		if (bTerm) strcpy(sDest, sSrc);
-		else       memcpy(sDest, sSrc, strlen(sSrc));
+		else       memcpy(sDest, sSrc, wcslen(sSrc));
 		return;
 	}
 	while(nLen > 0) {
@@ -302,9 +302,9 @@ void StringCopyN2(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	ZeroMemory(sDest, nLen);
-	if (strlen(sSrc) < (unsigned int)nLen) {
+	if (wcslen(sSrc) < (unsigned int)nLen) {
 		if (bTerm) strcpy(sDest, sSrc);
-		else       memcpy(sDest, sSrc, strlen(sSrc));
+		else       memcpy(sDest, sSrc, wcslen(sSrc));
 		return;
 	}
 	bool bCR = false;

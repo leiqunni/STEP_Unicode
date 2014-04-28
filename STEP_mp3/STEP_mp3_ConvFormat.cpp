@@ -24,7 +24,7 @@ bool ConvExt(FILE_INFO* pFileMP3)
 	// 拡張子の変更
 	UINT nFormat = GetFormat(pFileMP3);
 	if (bOptChangeFileExt) {
-		TCHAR	fname[_MAX_FNAME];
+		wchar_t	fname[_MAX_FNAME];
 		_tsplitpath(GetFileName(pFileMP3), NULL, NULL, fname, NULL);
 		CString strNewFileName = GetFileName(pFileMP3);
 
@@ -174,12 +174,12 @@ bool ConvFileFormat(FILE_INFO* pFileMP3, UINT nType, HWND hWnd) {
 			SetFormat(pFileMP3, nFileTypeID3V2);
 			extern bool ConvID3tagToSIField(FILE_INFO *pFileMP3);
 			ConvID3tagToSIField(pFileMP3);	// ID3 tag から SIF にコピー
-			if (strlen(GetTrackNumberSI(pFileMP3)) == 0 && GetBTrackNumber(pFileMP3) != (BYTE)0xff) {
+			if (wcslen(GetTrackNumberSI(pFileMP3)) == 0 && GetBTrackNumber(pFileMP3) != (BYTE)0xff) {
 				CString strTrackNumber;
 				strTrackNumber.Format("%d", GetBTrackNumber(pFileMP3));
 				SetTrackNumberSI(pFileMP3, strTrackNumber);
 			}
-			if (strlen(GetDiskNumberSI(pFileMP3)) == 0 && GetBDiskNumber(pFileMP3) != (BYTE)0xff) {
+			if (wcslen(GetDiskNumberSI(pFileMP3)) == 0 && GetBDiskNumber(pFileMP3) != (BYTE)0xff) {
 				CString strDiskNumber;
 				strDiskNumber.Format("%d", GetBDiskNumber(pFileMP3));
 				SetDiskNumberSI(pFileMP3, strDiskNumber);

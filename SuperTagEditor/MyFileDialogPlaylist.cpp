@@ -16,8 +16,8 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNAMIC(CMyFileDialogPlaylist, CFileDialog)
 
-CMyFileDialogPlaylist::CMyFileDialogPlaylist(BOOL bOpenFileDialog, LPCTSTR lpszDefExt, LPCTSTR lpszFileName,
-		DWORD dwFlags, LPCTSTR lpszFilter, CWnd* pParentWnd) :
+CMyFileDialogPlaylist::CMyFileDialogPlaylist(BOOL bOpenFileDialog, LPCWSTR lpszDefExt, LPCWSTR lpszFileName,
+		DWORD dwFlags, LPCWSTR lpszFilter, CWnd* pParentWnd) :
 		CFileDialog(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, lpszFilter, pParentWnd)
 {
 	custom = NULL;

@@ -57,7 +57,7 @@ bool SJIStoUTF8(const char* SJIS, char** UTF8)
 		}
 		delete data;
 	}
-	return *UTF8 != NULL && strlen(*UTF8) > 0;
+	return *UTF8 != NULL && wcslen(*UTF8) > 0;
 }
 
 bool LoadFileAAC(FILE_INFO *pFile)
@@ -321,7 +321,7 @@ bool WriteFileAAC(FILE_INFO *pFile)
 			continue;
 		}
 		MetaData* meta = new MetaData;
-		meta->name = (char*)malloc(strlen(name)+1);
+		meta->name = (char*)malloc(wcslen(name)+1);
 		strcpy(meta->name, name);
 		meta->value = (char*)malloc(size + 1);
 		memcpy(meta->value, value, size);
@@ -332,7 +332,7 @@ bool WriteFileAAC(FILE_INFO *pFile)
 	}
 	if (MP4GetMetadataCoverArt(h, &value, &size) == true) {
 		MetaData* meta = new MetaData;
-		meta->name = (char*)malloc(strlen("covr")+1);
+		meta->name = (char*)malloc(wcslen("covr")+1);
 		strcpy(meta->name, "covr");
 		meta->value = (char*)malloc(size + 1);
 		memcpy(meta->value, value, size);

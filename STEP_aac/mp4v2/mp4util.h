@@ -177,7 +177,7 @@ inline void* MP4Calloc(size_t size) {
 }
 
 inline char* MP4Stralloc(const char* s1) {
-	char* s2 = (char*)MP4Malloc(strlen(s1) + 1);
+	char* s2 = (char*)MP4Malloc(wcslen(s1) + 1);
 	strcpy(s2, s1);
 	return s2;
 }

@@ -19,7 +19,7 @@ CDlgNameChange::CDlgNameChange(CWnd* pParent /*=NULL*/)
 	: CDialog(CDlgNameChange::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CDlgNameChange)
-	m_strName = _T("");
+	m_strName = L"";
 	//}}AFX_DATA_INIT
 }
 
@@ -59,6 +59,6 @@ void CDlgNameChange::OnOK()
 	CDialog::OnOK();
 
 	if (m_strName.IsEmpty() == TRUE) {
-		m_strName = _T("ñºèÃñ¢ê›íË");
+		m_strName = _T(L"ñºèÃñ¢ê›íË");
 	}
 }

@@ -20,8 +20,8 @@ CDlgConv::CDlgConv() : COptionPage(CDlgConv::IDD)
 {
 	//{{AFX_DATA_INIT(CDlgConv)
 	m_bFirstUpperIgnoreWord = FALSE;
-	m_strFirstUpperIgnoreWords = _T("");
-	m_strFirstUpperSentenceSeparator = _T("");
+	m_strFirstUpperIgnoreWords = L"";
+	m_strFirstUpperSentenceSeparator = L"";
 	m_bUserConvAddMenu = FALSE;
 	m_bZenHanKigouKana = FALSE;
 	//}}AFX_DATA_INIT
@@ -81,8 +81,8 @@ BOOL CDlgConv::OnInitDialog()
 void CDlgConv::OnBtResetPage() 
 {
 	// TODO: この位置にコントロール通知ハンドラ用のコードを追加してください
-	m_strFirstUpperIgnoreWords = "a,an,and,at,by,for,in,into,of,on,or,the,to,with";
-	m_strFirstUpperSentenceSeparator = ".";
+	m_strFirstUpperIgnoreWords = L"a,an,and,at,by,for,in,into,of,on,or,the,to,with";
+	m_strFirstUpperSentenceSeparator = L".";
 	m_bFirstUpperIgnoreWord = FALSE;
 	m_bUserConvAddMenu = FALSE;
 

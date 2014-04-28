@@ -59,7 +59,7 @@ int CComboInListView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	POSITION pos = m_lstItems.GetHeadPosition();
 	SetRedraw(FALSE);
 	while(pos != NULL) {
-		AddString((LPCTSTR)(m_lstItems.GetNext(pos)));	
+		AddString((LPCWSTR)(m_lstItems.GetNext(pos)));	
 	}
 	SetRedraw(TRUE);
 	Invalidate();
@@ -97,7 +97,7 @@ void CComboInListView::OnKillFocus(CWnd* pNewWnd)
 	lvDispinfo.item.mask = LVIF_TEXT | LVIF_PARAM;	
 	lvDispinfo.item.iItem = m_iItem;
 	lvDispinfo.item.iSubItem = m_iSubItem;
-	lvDispinfo.item.pszText = m_bVK_ESCAPE ? NULL : LPTSTR((LPCTSTR)str);
+	lvDispinfo.item.pszText = m_bVK_ESCAPE ? NULL : LPTSTR((LPCWSTR)str);
 	lvDispinfo.item.cchTextMax = str.GetLength();
 	lvDispinfo.item.lParam = GetItemData(GetCurSel());
 	if(nIndex!=CB_ERR)

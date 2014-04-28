@@ -11,7 +11,7 @@
 #include "OXToolTipCtrl.h"
 
 
-enum	{
+enum {
 	CONV_STR_UPPER,			// 大文字に変換
 	CONV_STR_LOWER,			// 小文字に変換
 	CONV_STR_HANKAKU,		// 半角に変換
@@ -38,8 +38,8 @@ enum	{
 	CONV_STR_FIXED_UP_LOW,	// 大文字小文字固定変換
 };
 
-struct	COLUMN_STATUS	{
-	char	*sRegKey;		// レジストリーキー名
+struct	COLUMN_STATUS {
+	wchar_t 	*sRegKey;		// レジストリーキー名
 	BOOL	bShowFlag;		// 表示フラグ
 	int		nNumber;		// 項目の順番
 	int		nWidth;			// カラム幅
@@ -48,7 +48,7 @@ struct	COLUMN_STATUS	{
 };
 extern	struct	COLUMN_STATUS	g_columnStatus[COLUMN_MAX];
 
-struct	LIST_WRITE_STATUS	{
+struct	LIST_WRITE_STATUS {
 	CString	strDirectory;			// リストファイル出力先のディレクトリ
 	int		nFileNumber;			// 現在のファイル番号
 	int		nFileCount;				// ファイル総数
@@ -81,7 +81,7 @@ typedef struct _CONTROL_TYPE_TABLE {
 	CONTROLTYPE	url;
 	CONTROLTYPE	encodest;
 	CONTROLTYPE	other;
-} CONTROL_TYPE_TABLE,*PCONTROL_TYPE_TABLE;
+} CONTROL_TYPE_TABLE, *PCONTROL_TYPE_TABLE;
 
 typedef struct _COLUMN_MAX_TABLE {
 	int	file_name;
@@ -105,16 +105,15 @@ typedef struct _COLUMN_MAX_TABLE {
 	int	url;
 	int	encodest;
 	int	other;
-} COLUMN_MAX_TABLE,*PCOLUMN_MAX_TABLE;
+} COLUMN_MAX_TABLE, *PCOLUMN_MAX_TABLE;
 
 ////////////////////////////////////////////////////////////////////////////
 // CMySuperGrid window
 
 // an example of how to use the CSuperGridCtrl class.
 
-class CMySuperGrid : public CSuperGridCtrl
-{
-// Construction
+class CMySuperGrid : public CSuperGridCtrl {
+	// Construction
 public:
 	CMySuperGrid();
 
@@ -127,164 +126,164 @@ public:
 	CSuperGridCtrl::CTreeItem	*m_pItemRoot;
 
 	inline	void	UpdateStatusLocation(void) {
-				unsigned short	wItem		= (unsigned short)GetSelectedItem() + 1;
-				unsigned short	wSubItem	= (unsigned short)GetCurSubItem() + 1;
-				AfxGetMainWnd()->SendMessage(WM_USER_SET_STATUS_POS, 0, (wItem<<16)|(wSubItem));
-			}
+		unsigned short	wItem = (unsigned short)GetSelectedItem() + 1;
+		unsigned short	wSubItem = (unsigned short)GetCurSubItem() + 1;
+		AfxGetMainWnd()->SendMessage(WM_USER_SET_STATUS_POS, 0, (wItem << 16) | (wSubItem));
+	}
 	inline	LPARAM	GetLParamFromIndex(int nIndex) {
-				CTreeItem	*pItem = GetTreeItem(nIndex);
-				CItemInfo	*pInfo = pItem ? GetData(pItem) : NULL;
-				return(pInfo ? pInfo->GetLParam() : -1);
-			}
+		CTreeItem	*pItem = GetTreeItem(nIndex);
+		CItemInfo	*pInfo = pItem ? GetData(pItem) : NULL;
+		return(pInfo ? pInfo->GetLParam() : -1);
+	}
 	inline	void	DeleteItemFromIndex(int nIndex) {
-				DeleteItemExNoRedraw(GetTreeItem(nIndex), nIndex);
-			}
+		DeleteItemExNoRedraw(GetTreeItem(nIndex), nIndex);
+	}
 	inline	void	UpdateFileStatusFromIndex(int nIndex, FILE_MP3 *fileMP3) {
-				UpdateFileStatus(GetTreeItem(nIndex), fileMP3);
-			}
+		UpdateFileStatus(GetTreeItem(nIndex), fileMP3);
+	}
 	inline	void	SetColumnControlType(CItemInfo *pInfo, CONTROLTYPE ctrlType, int nColumnType) {
-				int		nColNum = g_nColumnNumberList[nColumnType];
-				if (nColNum >= 0) pInfo->SetControlType(ctrlType, nColNum-1);
-			}
+		int		nColNum = g_nColumnNumberList[nColumnType];
+		if (nColNum >= 0) pInfo->SetControlType(ctrlType, nColNum - 1);
+	}
 	inline	CONTROLTYPE GetColumnControlType(CItemInfo *pInfo, int nColumnType) {
-				int		nColNum = g_nColumnNumberList[nColumnType];
-				CONTROLTYPE	type = invalid;
-				if (nColNum >= 0) pInfo->GetControlType(nColNum-1, type);
-				return(invalid);
-			}
+		int		nColNum = g_nColumnNumberList[nColumnType];
+		CONTROLTYPE	type = invalid;
+		if (nColNum >= 0) pInfo->GetControlType(nColNum - 1, type);
+		return(invalid);
+	}
 	inline	void	UpdateSyncFolderItemName(void) {
-				if (m_pItemRoot) {
-					int		iItem = NodeToIndex(m_pItemRoot);
-					CItemInfo	*pInfo = GetData(m_pItemRoot);
-					if (iItem >= 0 && pInfo != NULL) {
-						CString	strName;
-						if (g_bEnableFolderSync) {
-							strName.Format("Root[%s]", g_strRootFolder);
-						} else {
-							strName = _T("Root");
-						}
-						pInfo->SetItemText(strName);
-						SetItemText(iItem, -1, strName);
-					}
+		if (m_pItemRoot) {
+			int		iItem = NodeToIndex(m_pItemRoot);
+			CItemInfo	*pInfo = GetData(m_pItemRoot);
+			if (iItem >= 0 && pInfo != NULL) {
+				CString	strName;
+				if (g_bEnableFolderSync) {
+					strName.Format(L"Root[%s]", g_strRootFolder.GetString());
+				} else {
+					strName = L"Root";
 				}
+				pInfo->SetItemText(strName);
+				SetItemText(iItem, -1, strName);
 			}
+		}
+	}
 	inline	BOOL	IsSupportSIF(const FILE_MP3 *fileMP3) {
-				extern BOOL IsPluginSupportSIF(const FILE_MP3 *fileMP3);
-				return IsPluginSupportSIF(fileMP3);
-			}
+		extern BOOL IsPluginSupportSIF(const FILE_MP3 *fileMP3);
+		return IsPluginSupportSIF(fileMP3);
+	}
 	inline	BOOL	IsSupportTrackNumberSIF(const FILE_MP3 *fileMP3) {
-				extern BOOL IsPluginSupportTrackNumberSIF(const FILE_MP3 *fileMP3);
-				return IsPluginSupportTrackNumberSIF(fileMP3);
-			}
+		extern BOOL IsPluginSupportTrackNumberSIF(const FILE_MP3 *fileMP3);
+		return IsPluginSupportTrackNumberSIF(fileMP3);
+	}
 	inline	BOOL	IsSupportGenreSIF(const FILE_MP3 *fileMP3) {
-				extern BOOL IsPluginSupportGenreSIF(const FILE_MP3 *fileMP3);
-				return IsPluginSupportGenreSIF(fileMP3);
-			}
+		extern BOOL IsPluginSupportGenreSIF(const FILE_MP3 *fileMP3);
+		return IsPluginSupportGenreSIF(fileMP3);
+	}
 	inline	BOOL	IsEditFieldSIF(const FILE_MP3 *fileMP3) {
-				return(g_bOptEditFieldSIF && IsSupportSIF(fileMP3));
-			}
+		return(g_bOptEditFieldSIF && IsSupportSIF(fileMP3));
+	}
 	inline	BOOL	IsEditTrackNumberSIF(const FILE_MP3 *fileMP3) {
-				return(g_bOptEditFieldSIF && IsSupportTrackNumberSIF(fileMP3));
-			}
+		return(g_bOptEditFieldSIF && IsSupportTrackNumberSIF(fileMP3));
+	}
 	inline	BOOL	IsEditGenreSIF(const FILE_MP3 *fileMP3) {
-				return(g_bOptEditFieldSIF && IsSupportGenreSIF(fileMP3));
-			}
+		return(g_bOptEditFieldSIF && IsSupportGenreSIF(fileMP3));
+	}
 
-			void	AutoSizeColumns(int col = -1);
-			int		GetColumnCount(void) const;
-			void	DeleteAllEx(void);
-			void	SetItemModifyFlag(CTreeItem *, bool);
-			bool	GetItemModifyFlag(const CTreeItem *);
-			int		GetItemFormat(const CTreeItem *);
-			void	MakeStrListGenre(void);
-			CSuperGridCtrl::CTreeItem *AddDirectory(const char *, CTreeItem * = NULL, int = 2);
-			bool	AddFile(const FILE_MP3 *, CTreeItem * = NULL, LPARAM = 0, bool = true);
-			CSuperGridCtrl::CTreeItem *SearchChildrenItem(const CString &, CTreeItem *);
-			bool	AddFile2(const FILE_MP3 *, CTreeItem * = NULL, LPARAM = 0, bool = true);
-			bool	UpdateFileStatus(CTreeItem *, const FILE_MP3 *);
-			bool	UpdateAllFiles(void);
-			bool	ClipboardCopy(void);
-			bool	ClipboardCut(void);
-			bool	ClipboardPaste(void);
-			void	PasteString(char *);
-			bool	CellCopyDown(void);
-			bool	CellClear(int, int);
-			bool	CellClearSelected(void);
-			bool	SetFillNumber(int, int, bool = false/* Conspiracy 194 */);
-			void	ChangeSubItemText(int, int, const char *);
-			void	CellStateControl(int);
+	void	AutoSizeColumns(int col = -1);
+	int		GetColumnCount(void) const;
+	void	DeleteAllEx(void);
+	void	SetItemModifyFlag(CTreeItem *, bool);
+	bool	GetItemModifyFlag(const CTreeItem *);
+	int		GetItemFormat(const CTreeItem *);
+	void	MakeStrListGenre(void);
+	CSuperGridCtrl::CTreeItem *AddDirectory(const wchar_t *, CTreeItem * = NULL, int = 2);
+	bool	AddFile(const FILE_MP3 *, CTreeItem * = NULL, LPARAM = 0, bool = true);
+	CSuperGridCtrl::CTreeItem *SearchChildrenItem(const CString &, CTreeItem *);
+	bool	AddFile2(const FILE_MP3 *, CTreeItem * = NULL, LPARAM = 0, bool = true);
+	bool	UpdateFileStatus(CTreeItem *, const FILE_MP3 *);
+	bool	UpdateAllFiles(void);
+	bool	ClipboardCopy(void);
+	bool	ClipboardCut(void);
+	bool	ClipboardPaste(void);
+	void	PasteString(wchar_t *);
+	bool	CellCopyDown(void);
+	bool	CellClear(int, int);
+	bool	CellClearSelected(void);
+	bool	SetFillNumber(int, int, bool = false/* Conspiracy 194 */);
+	void	ChangeSubItemText(int, int, const wchar_t *);
+	void	CellStateControl(int);
 
-			int		CompFunc(CString &, CString &, int, bool);
-			int		CompFunc(SORT_STATE *, int, int, int);
-			BOOL	SortTextItems(SORT_STATE *, int, int = 0, int = -1);
-			void	MultiColumnSort(SORT_STATE *, int);
+	int		CompFunc(CString &, CString &, int, bool);
+	int		CompFunc(SORT_STATE *, int, int, int);
+	BOOL	SortTextItems(SORT_STATE *, int, int = 0, int = -1);
+	void	MultiColumnSort(SORT_STATE *, int);
 
-			// 変換
-			bool	ConvTagInfo(int, int, const char * = NULL);
-			bool	ConvTagInfoSelected(int, const char * = NULL);
-			bool	ConvTagInfo(CTreeItem *, int, const char * = NULL, const char * = NULL /* STEP 034 */);
-			bool	ConvUserFormatEx(USER_CONV_FORMAT_EX *);
-			bool	ConvString(int);
-			CString	ReplaceFileName(const FILE_MP3 *, CString);
+	// 変換
+	bool	ConvTagInfo(int, int, const wchar_t * = NULL);
+	bool	ConvTagInfoSelected(int, const wchar_t * = NULL);
+	bool	ConvTagInfo(CTreeItem *, int, const wchar_t * = NULL, const wchar_t * = NULL /* STEP 034 */);
+	bool	ConvUserFormatEx(USER_CONV_FORMAT_EX *);
+	bool	ConvString(int);
+	CString	ReplaceFileName(const FILE_MP3 *, CString);
 
-			bool	WritePlayList(const char *);
-			bool	WritePlayList(const char *, POSITION);
-			bool	WritePlayList(CFile &, CTreeItem *, CString &);
+	bool	WritePlayList(const wchar_t *);
+	bool	WritePlayList(const wchar_t *, POSITION);
+	bool	WritePlayList(CFile &, CTreeItem *, CString &);
 
-			bool	WriteTreePlayList(const char *);
-			bool	WriteTreePlayList(const char *, CTreeItem *, CString &);
+	bool	WriteTreePlayList(const wchar_t *);
+	bool	WriteTreePlayList(const wchar_t *, CTreeItem *, CString &);
 
-			bool	WriteFormatFile(const char *, const CString &, const CString &, const CString &, bool, bool, bool, bool/* BeachMonster5 120 */);
-			bool	WriteFormatFileBody(CFile &, CTreeItem *, const CString &, bool, LIST_WRITE_STATUS *, bool/* BeachMonster5 120 */);
-			bool	WriteFormatFileFoot(CFile &, const CString &, bool, LIST_WRITE_STATUS *, bool/* BeachMonster5 120 */);
-			CString	WriteFormatFileHeader(CFile &file, CTreeItem *pItem, const CString &strHead, bool bIsHtml, LIST_WRITE_STATUS *pStatus, bool bWriteHtml); /* Rumble 190 */
+	bool	WriteFormatFile(const wchar_t *, const CString &, const CString &, const CString &, bool, bool, bool, bool/* BeachMonster5 120 */);
+	bool	WriteFormatFileBody(CFile &, CTreeItem *, const CString &, bool, LIST_WRITE_STATUS *, bool/* BeachMonster5 120 */);
+	bool	WriteFormatFileFoot(CFile &, const CString &, bool, LIST_WRITE_STATUS *, bool/* BeachMonster5 120 */);
+	CString	WriteFormatFileHeader(CFile &file, CTreeItem *pItem, const CString &strHead, bool bIsHtml, LIST_WRITE_STATUS *pStatus, bool bWriteHtml); /* Rumble 190 */
 
-			CString	GetFileColumnText(const FILE_MP3 *, int);
+	CString	GetFileColumnText(const FILE_MP3 *, int);
 
-			const char *GetSelectFileName(void);
+	const wchar_t *GetSelectFileName(void);
 
-			int		MakeSelectFileArray(CArray <int, const int &> &);
-			int		MakeSelectFileArray(int nIndex, CArray <int, const int &> &);
-			int		AddSelectFileArray(int, CArray <int, const int &> &, int);
+	int		MakeSelectFileArray(CArray <int, const int &> &);
+	int		MakeSelectFileArray(int nIndex, CArray <int, const int &> &);
+	int		AddSelectFileArray(int, CArray <int, const int &> &, int);
 
-			void	SetCheckFileSelect(void);
-			void	SetSelectFileCheck(BOOL);
-			void	SetCheckAllFiles(BOOL);
-			void	ReverseCheckFiles(void);
+	void	SetCheckFileSelect(void);
+	void	SetSelectFileCheck(BOOL);
+	void	SetCheckAllFiles(BOOL);
+	void	ReverseCheckFiles(void);
 
-			void	CheckFileAtColumnState(CHECK_WORD_STATE *);
-			void	CheckFileAtColumnState(CHECK_WORD_STATE *, CTreeItem *);
-			bool	IsMatchItem(CHECK_WORD_STATE *, CTreeItem *);
-			int		FindNextMatchItem(int, CHECK_WORD_STATE *, bool);
-			void	ReplaceMatchItem(CHECK_WORD_STATE *, bool);
-			void	ReplaceMatchItem(CHECK_WORD_STATE *, CTreeItem *);
+	void	CheckFileAtColumnState(CHECK_WORD_STATE *);
+	void	CheckFileAtColumnState(CHECK_WORD_STATE *, CTreeItem *);
+	bool	IsMatchItem(CHECK_WORD_STATE *, CTreeItem *);
+	int		FindNextMatchItem(int, CHECK_WORD_STATE *, bool);
+	void	ReplaceMatchItem(CHECK_WORD_STATE *, bool);
+	void	ReplaceMatchItem(CHECK_WORD_STATE *, CTreeItem *);
 
-			void	SelectAndVisibleColumn(int, int);
-			bool	GetSelectedRange(int &, int &, int &, int &);
+	void	SelectAndVisibleColumn(int, int);
+	bool	GetSelectedRange(int &, int &, int &, int &);
 
-			void	ExecFolderTreeSync(const char *, bool);
-			void	ExecFolderTreeSync(const char *, CTreeItem *, bool, bool = false);
-			bool	DirectoryRemove(CString &);
-			bool	DirectoryMake(CString &);
-			bool	FileDelete(const char *);
-			bool	FileCopy(const char *, const char *);
-			void	ChangeFileAttr(const char *, DWORD);
-			bool	CheckFileName(const char *);
-			bool	CheckExist(const char *);
-			void	UpdateCellInfo();
+	void	ExecFolderTreeSync(const wchar_t *, bool);
+	void	ExecFolderTreeSync(const wchar_t *, CTreeItem *, bool, bool = false);
+	bool	DirectoryRemove(CString &);
+	bool	DirectoryMake(CString &);
+	bool	FileDelete(const wchar_t *);
+	bool	FileCopy(const wchar_t *, const wchar_t *);
+	void	ChangeFileAttr(const wchar_t *, DWORD);
+	bool	CheckFileName(const wchar_t *);
+	bool	CheckExist(const wchar_t *);
+	void	UpdateCellInfo();
 
-// Attributes
+	// Attributes
 public:
-// Operations
+	// Operations
 public:
 	//HOWTO:
-	
+
 	void InitializeGrid(void);
 	void SetNewImage(int nItem);
 	CImageList *CreateDragImageEx(int nItem);
 	BOOL m_bDrag;
 	// Overrides
-	bool OnControlLButtonDown(UINT nFlags, CPoint point, LVHITTESTINFO& ht);	
+	bool OnControlLButtonDown(UINT nFlags, CPoint point, LVHITTESTINFO& ht);
 	void OnUpdateListViewItem(CTreeItem* lpItem, LV_ITEM *plvItem);
 	CItemInfo* CopyData(CItemInfo* lpSrc);
 	int GetIcon(const CTreeItem* pItem);
@@ -303,14 +302,14 @@ public:
 	int OnGetColumLimitText(int, int);
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMySuperGrid)
-	public:
+public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	protected:
+protected:
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
 	//}}AFX_VIRTUAL
 
-// Implementation
+	// Implementation
 public:
 	bool ConvSiFieldToId3tag(CTreeItem *pItem);
 	bool ConvSiFieldToId3tag(void);
@@ -320,12 +319,12 @@ public:
 	void MoveToNext();
 	void MoveToParent();
 	void SelectTreeFile();
-	bool ProcessSelectedFiles(LPCTSTR szProgressBarTitle, STEPProcessSelectedFilesCB* callback);
-	bool ProcessSelectedFilesForUpdate(LPCTSTR szProgressBarTitle, STEPProcessSelectedFilesCB* callback);
-	bool DeleteCharSpace(int nPos=0);
+	bool ProcessSelectedFiles(LPCWSTR szProgressBarTitle, STEPProcessSelectedFilesCB* callback);
+	bool ProcessSelectedFilesForUpdate(LPCWSTR szProgressBarTitle, STEPProcessSelectedFilesCB* callback);
+	bool DeleteCharSpace(int nPos = 0);
 	void ClipboardCopyFormat(USER_COPY_FORMAT_FORMAT *pForm);
-	void ChangeSubItemText(int iItem, int iSubItem, const char *sUpdateText, int nPos, bool bAddSpace, const CString& strAddFront, const CString& strAddBack/* FunnyCorn 187 */, bool bUpdateInternal = FALSE/* STEP 037 */);
-	void PasteString(char *sBuffer, int nPastePos, bool bText/* RockDance 124 */, bool bAddSpace/* Baja 171 */, const CString& strAddFront, const CString& strAddBack/* FunnyCorn 187 */);
+	void ChangeSubItemText(int iItem, int iSubItem, const wchar_t *sUpdateText, int nPos, bool bAddSpace, const CString& strAddFront, const CString& strAddBack/* FunnyCorn 187 */, bool bUpdateInternal = FALSE/* STEP 037 */);
+	void PasteString(wchar_t *sBuffer, int nPastePos, bool bText/* RockDance 124 */, bool bAddSpace/* Baja 171 */, const CString& strAddFront, const CString& strAddBack/* FunnyCorn 187 */);
 	bool ClipboardPaste(int nPastePos, bool bAddSpace, const CString& strAddFront, const CString& strAddBack/* FunnyCorn 187 */);
 	void OnUpdateTotal();
 	void OnRefreshTreeItem(CTreeItem* pOldItem, CTreeItem* pNewItem);
@@ -335,8 +334,8 @@ public:
 	void CalcSum(int nIndex);
 	CString quoteForComment(CString& str);
 	int GetSelectedItem();
-	void ChangeSubItemText(int iItem, int iSubItem, const char *sText, int nPos);
-	void PasteString(char *sBuffer, int nPos, bool bText = true);
+	void ChangeSubItemText(int iItem, int iSubItem, const wchar_t *sText, int nPos);
+	void PasteString(wchar_t *sBuffer, int nPos, bool bText = true);
 	void CheckFileNameMax();
 	void SelectTreeColumn();
 	void SetHeaderFont(LOGFONT logFont);
@@ -364,7 +363,7 @@ protected:
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	//}}AFX_MSG
 	afx_msg LRESULT OnSetFont(WPARAM wParam, LPARAM);
-	afx_msg void MeasureItem ( LPMEASUREITEMSTRUCT lpMeasureItemStruct );
+	afx_msg void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 
 	DECLARE_MESSAGE_MAP()
 private:

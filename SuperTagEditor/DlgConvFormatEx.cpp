@@ -70,7 +70,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDlgConvFormatEx メッセージ ハンドラ
 
-void CDlgConvFormatEx::OutputFormatString(const char *sText)
+void CDlgConvFormatEx::OutputFormatString(const wchar_t *sText)
 {
 	m_editFormat.ReplaceSel(sText, FALSE);
 	m_editFormat.SetFocus();
@@ -78,57 +78,57 @@ void CDlgConvFormatEx::OutputFormatString(const char *sText)
 
 void CDlgConvFormatEx::OnBtAlbumName() 
 {
-	OutputFormatString("%ALBUM_NAME%");
+	OutputFormatString(L"%ALBUM_NAME%");
 }
 
 void CDlgConvFormatEx::OnBtArtistName() 
 {
-	OutputFormatString("%ARTIST_NAME%");
+	OutputFormatString(L"%ARTIST_NAME%");
 }
 
 void CDlgConvFormatEx::OnBtComment() 
 {
-	OutputFormatString("%COMMENT%");
+	OutputFormatString(L"%COMMENT%");
 }
 
 void CDlgConvFormatEx::OnBtFileName() 
 {
-	OutputFormatString("%FILE_NAME%");
+	OutputFormatString(L"%FILE_NAME%");
 }
 
 void CDlgConvFormatEx::OnBtFixString() 
 {
-	OutputFormatString("%STRING%");
+	OutputFormatString(L"%STRING%");
 }
 
 void CDlgConvFormatEx::OnBtNumber() 
 {
-	OutputFormatString("%NUMBER%");
+	OutputFormatString(L"%NUMBER%");
 }
 
 void CDlgConvFormatEx::OnBtReleaseYear() 
 {
-	OutputFormatString("%RELEASE_YEAR%");
+	OutputFormatString(L"%RELEASE_YEAR%");
 }
 
 void CDlgConvFormatEx::OnBtTrackName() 
 {
-	OutputFormatString("%TRACK_NAME%");
+	OutputFormatString(L"%TRACK_NAME%");
 }
 
 void CDlgConvFormatEx::OnBtTrackNumber() 
 {
-	OutputFormatString("%TRACK_NUMBER%");
+	OutputFormatString(L"%TRACK_NUMBER%");
 }
 
 void CDlgConvFormatEx::OnBtTrackNumber2() 
 {
-	OutputFormatString("%TRACK_NUMBER2%");
+	OutputFormatString(L"%TRACK_NUMBER2%");
 }
 
 void CDlgConvFormatEx::OnBtTrackNumber3() 
 {
-	OutputFormatString("%TRACK_NUMBER3%");
+	OutputFormatString(L"%TRACK_NUMBER3%");
 }
 
 void CDlgConvFormatEx::OnBtNameChange() 
@@ -145,7 +145,7 @@ void CDlgConvFormatEx::OnBtNameChange()
 		m_listFormatType.ResetContent();
 		int i; for (i = 0; i < USER_CONV_FORMAT_EX_MAX; i++) {
 			CString	strName;
-			strName.Format("%d: %s", i+1, m_userFormatEx[i].strName);
+			strName.Format(L"%d: %s", i+1, m_userFormatEx[i].strName);
 			m_listFormatType.AddString(strName);
 		}
 		// 選択しなおす
@@ -182,7 +182,7 @@ BOOL CDlgConvFormatEx::OnInitDialog()
 	m_listFormatType.ResetContent();
 	for (i = 0; i < USER_CONV_FORMAT_EX_MAX; i++) {
 		CString	strName;
-		strName.Format("%d: %s", i+1, m_userFormatEx[i].strName);
+		strName.Format(L"%d: %s", i+1, m_userFormatEx[i].strName);
 		m_listFormatType.AddString(strName);
 	}
 

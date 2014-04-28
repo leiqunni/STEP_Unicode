@@ -28,27 +28,27 @@ CUIntArray arFormatType; // FILE_MP3.nFormatに設定される値のリスト
 extern "C" {
 extern STEP_API UINT WINAPI STEPGetCommandID(void);
 extern STEP_API HMENU WINAPI STEPGetMenu(UINT);
-extern STEP_API void WINAPI STEPAddToolBarButton(HBITMAP, UINT, char*);
-extern STEP_API UINT WINAPI STEPRegisterExt(UINT, LPCTSTR, HBITMAP);
-extern STEP_API const char* WINAPI STEPGetGenreNameSIF(BYTE byGenre);
-extern STEP_API BYTE WINAPI STEPGetGenreCode(const char* szGenre);
-extern STEP_API bool WINAPI STEPIsUserGenre(const char* szGenre);
-extern STEP_API int WINAPI STEPGetNumericTrackNumber(const char* szTrackNumber, char* szNumericNumber, int size); /* STEP 037 */
-extern STEP_API int WINAPI STEPGetIntegerTrackNumber(const char* szTrackNumber); /* STEP 037 */
-extern STEP_API bool WINAPI STEPIsNumeric(const char* szText); /* STEP 037 */
+extern STEP_API void WINAPI STEPAddToolBarButton(HBITMAP, UINT, wchar_t*);
+extern STEP_API UINT WINAPI STEPRegisterExt(UINT, LPCWSTR, HBITMAP);
+extern STEP_API const wchar_t* WINAPI STEPGetGenreNameSIF(BYTE byGenre);
+extern STEP_API BYTE WINAPI STEPGetGenreCode(const wchar_t* szGenre);
+extern STEP_API bool WINAPI STEPIsUserGenre(const wchar_t* szGenre);
+extern STEP_API int WINAPI STEPGetNumericTrackNumber(const wchar_t* szTrackNumber, wchar_t* szNumericNumber, int size); /* STEP 037 */
+extern STEP_API int WINAPI STEPGetIntegerTrackNumber(const wchar_t* szTrackNumber); /* STEP 037 */
+extern STEP_API bool WINAPI STEPIsNumeric(const wchar_t* szText); /* STEP 037 */
 extern STEP_API void WINAPI STEPConvSiFieldToId3tag(FILE_INFO* pFileInfo); /* STEP 037 */
 }
 
 CPlugin plugins;
 
-PSTEPlugin STEPluginLoadFile(LPCTSTR strPluginFile) {
+PSTEPlugin STEPluginLoadFile(LPCWSTR strPluginFile) {
 	HINSTANCE hLib;
 	CString strPluginFolder;
 	{
-		TCHAR   drive[_MAX_DRIVE];
-		TCHAR   dir[_MAX_DIR];
-		TCHAR   buff[_MAX_PATH] = {'\0'};
-		TCHAR   full[_MAX_PATH] = {'\0'};
+		wchar_t   drive[_MAX_DRIVE];
+		wchar_t   dir[_MAX_DIR];
+		wchar_t   buff[_MAX_PATH] = {'\0'};
+		wchar_t   full[_MAX_PATH] = {'\0'};
 
 		_tsplitpath(strPluginFile, drive, dir, NULL, NULL);
 		_tmakepath_s(buff,_MAX_PATH, drive, dir, NULL, NULL);
@@ -56,64 +56,64 @@ PSTEPlugin STEPluginLoadFile(LPCTSTR strPluginFile) {
 			CSuperTagEditorApp	*pApp = (CSuperTagEditorApp *)AfxGetApp();
 			CString strEXE;
 			{
-				TCHAR*	szName = pApp->MakeFileName("");
-				TCHAR   drive[_MAX_DRIVE];
-				TCHAR   dir[_MAX_DIR];
-				TCHAR   buff[_MAX_PATH] = {'\0'};
+				wchar_t*	szName = pApp->MakeFileName(L"");
+				wchar_t   drive[_MAX_DRIVE];
+				wchar_t   dir[_MAX_DIR];
+				wchar_t   buff[_MAX_PATH] = {'\0'};
 				_tsplitpath(szName, drive, dir, NULL, NULL);
-				_tmakepath_s(buff,_MAX_PATH, drive, dir, "", "");
+				_tmakepath_s(buff,_MAX_PATH, drive, dir, L"", L"");
 				strEXE = buff;
 				delete szName;
 			}
 
-			strcpy_s(full,_MAX_PATH, strEXE);
-			strcat_s(full,_MAX_PATH, dir);
-			_fullpath(buff, full, _MAX_PATH);
+			wcscpy_s(full,_MAX_PATH, strEXE);
+			wcscat_s(full,_MAX_PATH, dir);
+			_wfullpath(buff, full, _MAX_PATH);
 		}
 		strPluginFolder = buff;
-		char* pathvar = getenv("PATH");
-		CString strPath = "PATH=";
+		wchar_t* pathvar = _wgetenv(L"PATH");
+		CString strPath = L"PATH=";
 		strPath = strPath + strPluginFolder + ";" + pathvar;
-		_putenv(strPath);
+		_wputenv(strPath);
 		hLib = LoadLibrary(strPluginFile);
-		strPath = "PATH=";
+		strPath = L"PATH=";
 		strPath = strPath + pathvar;
-		_putenv(strPath);
+		_wputenv(strPath);
 		if (hLib == NULL) return NULL;
 	}
 
 	UINT (WINAPI *STEPGetAPIVersion)(void);
-	bool (WINAPI *STEPInit)(UINT, LPCTSTR);
-	LPCTSTR (WINAPI *STEPGetPluginName)(void);
+	bool (WINAPI *STEPInit)(UINT, LPCWSTR);
+	LPCWSTR (WINAPI *STEPGetPluginName)(void);
 
-	(FARPROC&)STEPInit = GetProcAddress(hLib, "_STEPInit@8");
-	(FARPROC&)STEPGetAPIVersion = GetProcAddress(hLib, "_STEPGetAPIVersion@0");
-	(FARPROC&)STEPGetPluginName = GetProcAddress(hLib, "_STEPGetPluginName@0");
+	(FARPROC&)STEPInit = GetProcAddress(hLib, L"_STEPInit@8");
+	(FARPROC&)STEPGetAPIVersion = GetProcAddress(hLib, L"_STEPGetAPIVersion@0");
+	(FARPROC&)STEPGetPluginName = GetProcAddress(hLib, L"_STEPGetPluginName@0");
 	if (STEPInit == NULL || STEPGetAPIVersion == NULL || STEPGetPluginName == NULL)	return  NULL;
 	if ((STEPGetAPIVersion() & 0xFFFF00) > (STEP_API_VERSION & 0xFFFF00))	return NULL; /* STEP 029 */
 	PSTEPlugin pPlugin = new STEPlugin;
 	pPlugin->hLib = hLib;
 	pPlugin->sFileName = strPluginFile;
 	pPlugin->sPluginName = STEPGetPluginName();
-	(FARPROC&)pPlugin->STEPGetToolTipText = GetProcAddress(hLib, "_STEPGetToolTipText@4");
-	(FARPROC&)pPlugin->STEPGetStatusMessage = GetProcAddress(hLib, "_STEPGetStatusMessage@4");
-	(FARPROC&)pPlugin->STEPOnUpdateCommand = GetProcAddress(hLib, "_STEPOnUpdateCommand@4");
-	(FARPROC&)pPlugin->STEPOnCommand = GetProcAddress(hLib, "_STEPOnCommand@8");
-	(FARPROC&)pPlugin->STEPSupportSIF = GetProcAddress(hLib, "_STEPSupportSIF@4");
-	(FARPROC&)pPlugin->STEPSupportTrackNumberSIF = GetProcAddress(hLib, "_STEPSupportTrackNumberSIF@4");
-	(FARPROC&)pPlugin->STEPSupportGenreSIF = GetProcAddress(hLib, "_STEPSupportGenreSIF@4");
-	(FARPROC&)pPlugin->STEPGetControlType = GetProcAddress(hLib, "_STEPGetControlType@12");
-	(FARPROC&)pPlugin->STEPGetColumnMax = GetProcAddress(hLib, "_STEPGetColumnMax@12");
-	(FARPROC&)pPlugin->STEPGetColumnName = GetProcAddress(hLib, "_STEPGetColumnName@8");
-	(FARPROC&)pPlugin->STEPHasSpecificColumnName = GetProcAddress(hLib, "_STEPHasSpecificColumnName@4");
-	(FARPROC&)pPlugin->STEPLoad = GetProcAddress(hLib, "_STEPLoad@8");
-	(FARPROC&)pPlugin->STEPSave = GetProcAddress(hLib, "_STEPSave@4");
-	(FARPROC&)pPlugin->STEPShowOptionDialog = GetProcAddress(hLib, "_STEPShowOptionDialog@4");
-	(FARPROC&)pPlugin->STEPOnLoadMenu = GetProcAddress(hLib, "_STEPOnLoadMenu@8");
-	(FARPROC&)pPlugin->STEPOnLoadMainMenu = GetProcAddress(hLib, "_STEPOnLoadMainMenu@0");
-	(FARPROC&)pPlugin->STEPGetPluginInfo = GetProcAddress(hLib, "_STEPGetPluginInfo@0");
-	(FARPROC&)pPlugin->STEPInitFileSpecificInfo = GetProcAddress(hLib, "_STEPInitFileSpecificInfo@4");
-	(FARPROC&)pPlugin->STEPOnConvSiFieldToId3tag = GetProcAddress(hLib, "_STEPOnConvSiFieldToId3tag@4");
+	(FARPROC&)pPlugin->STEPGetToolTipText = GetProcAddress(hLib, L"_STEPGetToolTipText@4");
+	(FARPROC&)pPlugin->STEPGetStatusMessage = GetProcAddress(hLib, L"_STEPGetStatusMessage@4");
+	(FARPROC&)pPlugin->STEPOnUpdateCommand = GetProcAddress(hLib, L"_STEPOnUpdateCommand@4");
+	(FARPROC&)pPlugin->STEPOnCommand = GetProcAddress(hLib, L"_STEPOnCommand@8");
+	(FARPROC&)pPlugin->STEPSupportSIF = GetProcAddress(hLib, L"_STEPSupportSIF@4");
+	(FARPROC&)pPlugin->STEPSupportTrackNumberSIF = GetProcAddress(hLib, L"_STEPSupportTrackNumberSIF@4");
+	(FARPROC&)pPlugin->STEPSupportGenreSIF = GetProcAddress(hLib, L"_STEPSupportGenreSIF@4");
+	(FARPROC&)pPlugin->STEPGetControlType = GetProcAddress(hLib, L"_STEPGetControlType@12");
+	(FARPROC&)pPlugin->STEPGetColumnMax = GetProcAddress(hLib, L"_STEPGetColumnMax@12");
+	(FARPROC&)pPlugin->STEPGetColumnName = GetProcAddress(hLib, L"_STEPGetColumnName@8");
+	(FARPROC&)pPlugin->STEPHasSpecificColumnName = GetProcAddress(hLib, L"_STEPHasSpecificColumnName@4");
+	(FARPROC&)pPlugin->STEPLoad = GetProcAddress(hLib, L"_STEPLoad@8");
+	(FARPROC&)pPlugin->STEPSave = GetProcAddress(hLib, L"_STEPSave@4");
+	(FARPROC&)pPlugin->STEPShowOptionDialog = GetProcAddress(hLib, L"_STEPShowOptionDialog@4");
+	(FARPROC&)pPlugin->STEPOnLoadMenu = GetProcAddress(hLib, L"_STEPOnLoadMenu@8");
+	(FARPROC&)pPlugin->STEPOnLoadMainMenu = GetProcAddress(hLib, L"_STEPOnLoadMainMenu@0");
+	(FARPROC&)pPlugin->STEPGetPluginInfo = GetProcAddress(hLib, L"_STEPGetPluginInfo@0");
+	(FARPROC&)pPlugin->STEPInitFileSpecificInfo = GetProcAddress(hLib, L"_STEPInitFileSpecificInfo@4");
+	(FARPROC&)pPlugin->STEPOnConvSiFieldToId3tag = GetProcAddress(hLib, L"_STEPOnConvSiFieldToId3tag@4");
 	
 	plugins.arPlugins.Add(pPlugin);
 
@@ -130,17 +130,17 @@ void STEPluginLoad(HWND hWnd) {
 	CSuperTagEditorApp	*pApp = (CSuperTagEditorApp *)AfxGetApp();
 	CString strINI;
 	{
-		TCHAR*	szName = pApp->MakeFileName("ini");
-		TCHAR   drive[_MAX_DRIVE];
-		TCHAR   dir[_MAX_DIR];
-		TCHAR   buff[_MAX_PATH] = {'\0'};
+		wchar_t*	szName = pApp->MakeFileName(L"ini");
+		wchar_t   drive[_MAX_DRIVE];
+		wchar_t   dir[_MAX_DIR];
+		wchar_t   buff[_MAX_PATH] = {'\0'};
 		_tsplitpath(szName, drive, dir, NULL, NULL);
-		_tmakepath_s(buff,_MAX_PATH, drive, dir, "Plugin", "ini");
+		_tmakepath_s(buff,_MAX_PATH, drive, dir, L"Plugin", L"ini");
 		strINI = buff;
 		BOOL isExists = Profile_Initialize(strINI, TRUE);
 		Profile_Free();
 		if (!isExists) {
-			_tmakepath_s(buff,_MAX_PATH, drive, dir, "DefaultPlugin", "ini");
+			_tmakepath_s(buff,_MAX_PATH, drive, dir, L"DefaultPlugin", L"ini");
 			strINI = buff;
 		}
 		delete szName;
@@ -148,22 +148,22 @@ void STEPluginLoad(HWND hWnd) {
 
 	CString strSection;
 	int i; for ( i=0;;i++) {
-		TCHAR   buff[_MAX_PATH] = {'\0'};
-		strSection.Format("Load%03d", i);
+		wchar_t   buff[_MAX_PATH] = {'\0'};
+		strSection.Format(L"Load%03d", i);
 		Profile_Initialize(strINI, TRUE);
-		Profile_GetString(strSection, "Path", "", buff, sizeof(buff), strINI);
+		Profile_GetString(strSection, L"Path", L"", buff, sizeof(buff), strINI);
 		Profile_Free();
-		if (strlen(buff) == 0) {
+		if (wcslen(buff) == 0) {
 			break;
 		}
 		PSTEPlugin pPlugin = STEPluginLoadFile(buff);
 		if (pPlugin == NULL) {
 			//pPlugin->bUse = false;
-			MessageBox(hWnd, CString("プラグイン(") + buff + ")の読み込みに失敗しました", "プラグインエラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+			MessageBox(hWnd, CString(L"プラグイン(") + buff + L")の読み込みに失敗しました", L"プラグインエラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 			continue;
 		}
 		Profile_Initialize(strINI, TRUE);
-		pPlugin->bUse = Profile_GetInt(strSection, "Use", 1, strINI) ? true : false;
+		pPlugin->bUse = Profile_GetInt(strSection, L"Use", 1, strINI) ? true : false;
 		Profile_Free();
 	}
 	STEP_wndToolBar->UpdatePluginButton();
@@ -191,10 +191,10 @@ bool GetMessageString(UINT nID, CString& strMessage) {
 		PSTEPlugin pPlugin = (PSTEPlugin)plugins.arPlugins.GetAt(i);
 		if (!pPlugin->bUse) continue;
 		if (pPlugin->STEPGetStatusMessage != NULL) {
-			LPCTSTR szText = (*pPlugin->STEPGetStatusMessage)(nID);
-			strMessage = "[";
+			LPCWSTR szText = (*pPlugin->STEPGetStatusMessage)(nID);
+			strMessage = L"[";
 			strMessage += pPlugin->sPluginName;
-			strMessage += "] ";
+			strMessage += L"] ";
 			if (szText != NULL) {
 				strMessage += szText;
 				return true;
@@ -340,7 +340,7 @@ int GetColumnMax(UINT nFormat, COLUMNTYPE nColumn, bool isEditSIF) {
 	return plugin->STEPGetColumnMax(nFormat, nColumn, isEditSIF);
 }
 
-LPCTSTR GetColumnName(UINT nFormat, COLUMNTYPE nColumn) {
+LPCWSTR GetColumnName(UINT nFormat, COLUMNTYPE nColumn) {
 	int nIndex = plugins.GetPluginIndex(nFormat);
 	if (nIndex < 0) {
 		// 対応プラグインなし
@@ -385,7 +385,7 @@ UINT GetFormatTypeIndex(UINT nFormat)
 	return -1;
 }
 
-bool LoadFile(const char *sFileName, const char *sExt, FILE_MP3* pFileMP3)
+bool LoadFile(const wchar_t *sFileName, const wchar_t *sExt, FILE_MP3* pFileMP3)
 {
 	UINT result = false;
 	FILE_INFO fileInfo;
@@ -472,7 +472,7 @@ void GetFileExtList(CStringArray& arExt)
 	}
 }
 
-bool CheckFileExt(const FILE_MP3* pFileMP3, const char* ext)
+bool CheckFileExt(const FILE_MP3* pFileMP3, const wchar_t* ext)
 {
 	if (pFileMP3 == NULL)	return false;
 	int nIndex = plugins.GetPluginIndex(pFileMP3->nFormat);
@@ -483,10 +483,10 @@ bool CheckFileExt(const FILE_MP3* pFileMP3, const char* ext)
 	PSTEPlugin pPlugin = (PSTEPlugin)plugins.arPlugins.GetAt(nIndex);
 	int j; for (j=0;j<pPlugin->arExtInfo.GetSize();j++) {
 		PSTEPExtInfo info = (PSTEPExtInfo)pPlugin->arExtInfo.GetAt(j);
-		if (_strcmpi(ext, info->strExt) == 0) {
+		if (wcscmp(ext, info->strExt) == 0) {
 			return true;
 		}
-		if (ext[0] == '.' && _strcmpi(ext+1, info->strExt) == 0) {
+		if (ext[0] == '.' && wcscmp(ext+1, info->strExt) == 0) {
 			return true;
 		}
 	}
@@ -524,7 +524,7 @@ void ConvSIFieldToID3tag(FILE_MP3* pFileMP3) /* STEP 037 */
 		CString strTextSI = STEP_List->GetFileColumnText(pFileMP3, i);
 		g_bOptEditFieldSIF = FALSE; // 表示フィールド切替
 		// ID3tagフィールドへ入力
-		STEP_List->ChangeSubItemText(nIndex, g_nColumnNumberList[i], strTextSI, 0, false, "", "", true);
+		STEP_List->ChangeSubItemText(nIndex, g_nColumnNumberList[i], strTextSI, 0, false, L"", L"", true);
 	}
 	g_bOptEditFieldSIF = saveEditField; // 表示フィールド戻す
 	STEP_List->UpdateFileStatus((CSuperGridCtrl::CTreeItem*)pFileMP3->pTreeItem, pFileMP3);
@@ -596,7 +596,7 @@ extern "C" 	STEP_API HMENU WINAPI STEPGetMenu(UINT nType)
 	return NULL;
 }
 
-extern "C" 	STEP_API void WINAPI STEPAddToolBarButton(HBITMAP hBitmap, UINT nCommandID, char* lpszRegName)
+extern "C" 	STEP_API void WINAPI STEPAddToolBarButton(HBITMAP hBitmap, UINT nCommandID, wchar_t* lpszRegName)
 {
 	plugins.arHandle.Add(hBitmap);
 	CBitmap* pBitmap = CBitmap::FromHandle(hBitmap);
@@ -614,7 +614,7 @@ extern "C" 	STEP_API void WINAPI STEPAddToolBarButton(HBITMAP hBitmap, UINT nCom
 	STEP_wndToolBar->InsertButton(nButCount, &tb, lpszRegName);
 }
 
-extern "C" STEP_API void WINAPI STEPKeyAssign(UINT nCommandID, char* lpszName, char* lpszRegName)
+extern "C" STEP_API void WINAPI STEPKeyAssign(UINT nCommandID, wchar_t* lpszName, wchar_t* lpszRegName)
 {
 	KEY_CONFIG* key = new KEY_CONFIG;
 	key->wCmdID = nCommandID;
@@ -625,7 +625,7 @@ extern "C" STEP_API void WINAPI STEPKeyAssign(UINT nCommandID, char* lpszName, c
 	plugins.arPluginKey.Add(key);
 }
 
-extern "C" STEP_API UINT WINAPI STEPRegisterExt(UINT nID, LPCTSTR szExt, HBITMAP hBitmap)
+extern "C" STEP_API UINT WINAPI STEPRegisterExt(UINT nID, LPCWSTR szExt, HBITMAP hBitmap)
 {
 	PSTEPlugin plugin = (PSTEPlugin)plugins.arPlugins.GetAt(nID-1);
 	UINT nFormatType = nID << 8 | (plugin->arExtInfo.GetSize());
@@ -645,48 +645,48 @@ extern "C" STEP_API UINT WINAPI STEPRegisterExt(UINT nID, LPCTSTR szExt, HBITMAP
 	return nFormatType;
 }
 
-extern "C" STEP_API const char* WINAPI STEPGetGenreNameSIF(BYTE byGenre)
+extern "C" STEP_API const wchar_t* WINAPI STEPGetGenreNameSIF(BYTE byGenre)
 {
 	return GetGenreNameSIF(byGenre);
 }
 
-extern "C" STEP_API BYTE WINAPI STEPGetGenreCode(const char* szGenre)
+extern "C" STEP_API BYTE WINAPI STEPGetGenreCode(const wchar_t* szGenre)
 {
 	return GetGenreCode(szGenre);
 }
 
-extern "C" STEP_API bool WINAPI STEPIsUserGenre(const char* szGenre)
+extern "C" STEP_API bool WINAPI STEPIsUserGenre(const wchar_t* szGenre)
 {
 	return IsUserGenre(szGenre);
 }
 
-extern "C" STEP_API int WINAPI STEPGetNumericTrackNumber(const char* szTrackNumber, char* szNumericNumber, int size) /* STEP 037 */
+extern "C" STEP_API int WINAPI STEPGetNumericTrackNumber(const wchar_t* szTrackNumber, wchar_t* szNumericNumber, int size) /* STEP 037 */
 {
 	CString strTrackNumber = szTrackNumber;
 	CFileMP3::GetIntTrackNo(strTrackNumber);
-	strncpy(szNumericNumber, strTrackNumber, size);
+	wcsncpy(szNumericNumber, strTrackNumber, size);
 	return strTrackNumber.GetLength();
 }
 
-extern "C" STEP_API int WINAPI STEPGetIntegerTrackNumber(const char* szTrackNumber) /* STEP 037 */
+extern "C" STEP_API int WINAPI STEPGetIntegerTrackNumber(const wchar_t* szTrackNumber) /* STEP 037 */
 {
-	return atoi(CFileMP3::GetIntTrackNo(szTrackNumber));
+	return _wtoi(CFileMP3::GetIntTrackNo(szTrackNumber));
 }
 
-extern "C" STEP_API int WINAPI STEPGetNumericDiskNumber(const char* szDiskNumber, char* szNumericNumber, int size) /* STEP 037 */
+extern "C" STEP_API int WINAPI STEPGetNumericDiskNumber(const wchar_t* szDiskNumber, wchar_t* szNumericNumber, int size) /* STEP 037 */
 {
 	CString strDiskNumber = szDiskNumber;
 	CFileMP3::GetIntDiskNo(strDiskNumber);
-	strncpy(szNumericNumber, strDiskNumber, size);
+	wcsncpy(szNumericNumber, strDiskNumber, size);
 	return strDiskNumber.GetLength();
 }
 
-extern "C" STEP_API int WINAPI STEPGetIntegerDiskNumber(const char* szDiskNumber) /* STEP 037 */
+extern "C" STEP_API int WINAPI STEPGetIntegerDiskNumber(const wchar_t* szDiskNumber) /* STEP 037 */
 {
-	return atoi(CFileMP3::GetIntDiskNo(szDiskNumber));
+	return _wtoi(CFileMP3::GetIntDiskNo(szDiskNumber));
 }
 
-extern "C" STEP_API bool WINAPI STEPIsNumeric(const char* szText) /* STEP 037 */
+extern "C" STEP_API bool WINAPI STEPIsNumeric(const wchar_t* szText) /* STEP 037 */
 {
 	return CFileMP3::IsNumeric(szText);
 }
@@ -698,7 +698,7 @@ extern "C" STEP_API void WINAPI STEPConvSiFieldToId3tag(FILE_INFO* pFileInfo) /*
 	ConvSIFieldToID3tag(pFileMP3);
 }
 
-extern "C" STEP_API LPCTSTR WINAPI STEPGetValue(FILE_INFO* pFileInfo, FIELDTYPE nField)
+extern "C" STEP_API LPCWSTR WINAPI STEPGetValue(FILE_INFO* pFileInfo, FIELDTYPE nField)
 {
 	FILE_MP3* pFileMP3 = (FILE_MP3*)pFileInfo->pFileMP3;
 	switch (nField) {
@@ -777,10 +777,10 @@ extern "C" STEP_API LPCTSTR WINAPI STEPGetValue(FILE_INFO* pFileInfo, FIELDTYPE 
 	case FILED_FILE_TYPE_NAME:			// ファイルタイプ文字列
 		return pFileMP3->strFileTypeName;
 	}
-	return "";
+	return L"";
 }
 
-extern "C" STEP_API void WINAPI STEPSetValue(FILE_INFO* pFileInfo, FIELDTYPE nField, LPCTSTR szValue)
+extern "C" STEP_API void WINAPI STEPSetValue(FILE_INFO* pFileInfo, FIELDTYPE nField, LPCWSTR szValue)
 {
 	FILE_MP3* pFileMP3 = (FILE_MP3*)pFileInfo->pFileMP3;
 	switch (nField) {
@@ -816,18 +816,18 @@ extern "C" STEP_API void WINAPI STEPSetValue(FILE_INFO* pFileInfo, FIELDTYPE nFi
 		break;
 	case FIELD_TRACK_NUMBER:			// トラック番号
 		pFileMP3->strTrackNumber = szValue;
-		if (atoi(szValue) == 0 || atoi(szValue) > 0x0ff) {
+		if (_wtoi(szValue) == 0 || _wtoi(szValue) > 0x0ff) {
 			pFileMP3->byTrackNumber = 0x0ff;
 		} else {
-			pFileMP3->byTrackNumber = atoi(szValue);
+			pFileMP3->byTrackNumber = _wtoi(szValue);
 		}
 		break;
 	case FIELD_DISK_NUMBER:			// トラック番号
 		pFileMP3->strDiskNumber = szValue;
-		if (atoi(szValue) == 0 || atoi(szValue) > 0x0ff) {
+		if (_wtoi(szValue) == 0 || _wtoi(szValue) > 0x0ff) {
 			pFileMP3->byDiskNumber = 0x0ff;
 		} else {
-			pFileMP3->byDiskNumber = atoi(szValue);
+			pFileMP3->byDiskNumber = _wtoi(szValue);
 		}
 		break;
 	case FIELD_GENRE:					// ジャンル名
@@ -990,10 +990,10 @@ extern "C" STEP_API void WINAPI STEPSetIntValue(FILE_INFO* pFileInfo, UINT nFiel
 		pFileMP3->byTrackNumber = nValue;
 		if (pFileMP3->byTrackNumber != 0 && pFileMP3->byTrackNumber < 0xff) {
 			CString strTrackNumber;
-			strTrackNumber.Format("%d", pFileMP3->byTrackNumber);
+			strTrackNumber.Format(L"%d", pFileMP3->byTrackNumber);
 			STEPSetValue(pFileInfo, FIELD_TRACK_NUMBER, strTrackNumber);
 		} else {
-			STEPSetValue(pFileInfo, FIELD_TRACK_NUMBER, "");
+			STEPSetValue(pFileInfo, FIELD_TRACK_NUMBER, L"");
 		}
 		break;
 	case 3:			// ジャンル番号
@@ -1003,10 +1003,10 @@ extern "C" STEP_API void WINAPI STEPSetIntValue(FILE_INFO* pFileInfo, UINT nFiel
 		pFileMP3->byDiskNumber = nValue;
 		if (pFileMP3->byDiskNumber != 0 && pFileMP3->byDiskNumber < 0xff) {
 			CString strDiskNumber;
-			strDiskNumber.Format("%d", pFileMP3->byDiskNumber);
+			strDiskNumber.Format(L"%d", pFileMP3->byDiskNumber);
 			STEPSetValue(pFileInfo, FIELD_DISK_NUMBER, strDiskNumber);
 		} else {
-			STEPSetValue(pFileInfo, FIELD_DISK_NUMBER, "");
+			STEPSetValue(pFileInfo, FIELD_DISK_NUMBER, L"");
 		}
 		break;
 	}
@@ -1032,12 +1032,12 @@ extern "C" STEP_API void WINAPI STEPSetVoidValue(FILE_INFO* pFileInfo, UINT nFie
 	}
 }
 
-extern "C" STEP_API void WINAPI STEPProcessSelectedFiles(LPCTSTR szTitle, STEPProcessSelectedFilesCB* callback)
+extern "C" STEP_API void WINAPI STEPProcessSelectedFiles(LPCWSTR szTitle, STEPProcessSelectedFilesCB* callback)
 {
 	STEP_List->ProcessSelectedFiles(szTitle, callback);
 }
 
-extern "C" STEP_API void WINAPI STEPProcessSelectedFilesForUpdate(LPCTSTR szTitle, STEPProcessSelectedFilesCB* callback)
+extern "C" STEP_API void WINAPI STEPProcessSelectedFilesForUpdate(LPCWSTR szTitle, STEPProcessSelectedFilesCB* callback)
 {
 	STEP_List->ProcessSelectedFilesForUpdate(szTitle, callback);
 }
@@ -1081,13 +1081,13 @@ extern "C" STEP_API bool WINAPI STEPIsItemFile(int nItem)
 	return false;
 }
 
-extern "C" STEP_API void WINAPI STEPChangeSubItemText(int nItem, int nColumn, LPCTSTR szText)
+extern "C" STEP_API void WINAPI STEPChangeSubItemText(int nItem, int nColumn, LPCWSTR szText)
 {
 	STEP_List->ChangeSubItemText(nItem, nColumn, szText);
 	STEP_List->InvalidateItemRect(nItem);
 }
 
-extern "C" STEP_API const char* WINAPI STEPGetSubItemText(int nItem, int nColumn)
+extern "C" STEP_API const wchar_t* WINAPI STEPGetSubItemText(int nItem, int nColumn)
 {
 	CSuperGridCtrl::CTreeItem	*pItem = STEP_List->GetTreeItem(nItem);
 	CItemInfo	*pItemInfo = STEP_List->GetData(pItem);
@@ -1126,10 +1126,10 @@ extern "C" STEP_API void WINAPI STEPInitData(FILE_INFO* pFileInfo) {
 	CFileMP3::InitData(pFileMP3);
 }
 
-extern "C" STEP_API bool WINAPI STEPFileNameChange(FILE_INFO* pFileInfo, LPCTSTR szNewFileName) {
+extern "C" STEP_API bool WINAPI STEPFileNameChange(FILE_INFO* pFileInfo, LPCWSTR szNewFileName) {
 	FILE_MP3* fileMP3 = (FILE_MP3*)pFileInfo->pFileMP3;
 
-	TCHAR	fname[_MAX_FNAME];
+	wchar_t	fname[_MAX_FNAME];
 	CString		strFileNameOld = fileMP3->strFileName;
 	fileMP3->strFileName = szNewFileName;
 	_tsplitpath(fileMP3->strFileName, NULL, NULL, fname, NULL);

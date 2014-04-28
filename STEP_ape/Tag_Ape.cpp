@@ -96,7 +96,7 @@ BOOL CTag_Ape::SetComment(const char *name,const char *value)
 {
 	m_bHasApetag = TRUE;
 	m_comments.erase(name);
-	if(strlen(value) == 0)
+	if(wcslen(value) == 0)
 	{
 		return TRUE;	// 空はセットしない
 	}
@@ -238,7 +238,7 @@ DWORD CTag_Ape::_LoadApeTagV1(HANDLE hFile)
 		char nameBuffer[256];
 		strncpy(nameBuffer,&pRawTag[rawTagOffset],min(sizeof(nameBuffer)-1,rawFieldBytes-rawTagOffset));
 		nameBuffer[255] = '\0';
-		rawTagOffset += strlen(nameBuffer) + 1;
+		rawTagOffset += wcslen(nameBuffer) + 1;
 		// 値
 		if(rawFieldBytes < rawTagOffset)
 		{
@@ -348,7 +348,7 @@ DWORD CTag_Ape::_LoadApeTagV2(HANDLE hFile)
 		char nameBuffer[256];
 		strncpy(nameBuffer,&pRawTag[rawTagOffset],min(sizeof(nameBuffer)-1,rawFieldBytes-rawTagOffset));
 		nameBuffer[255] = '\0';
-		rawTagOffset += strlen(nameBuffer) + 1;
+		rawTagOffset += wcslen(nameBuffer) + 1;
 		if((fieldFlags & APE_FLAG_TEXTINFO_MASK) != APE_FLAG_TEXTINFO_UTF8)
 		{
 			// UTF8文字列でないときはスキップ
@@ -542,20 +542,20 @@ DWORD CTag_Ape::_SaveApeTagV2(const char *szFileName)
 	{
 		TRACE("APE(save):%s:%s\n",(it->first),it->second);
 		int utf8len = 0;
-		unsigned char *dataUtf8 = NULL;
+		wchar_t *dataUtf8 = NULL;
 		{
 			//Ansi -> UNICODE
-			int utf16len = MultiByteToWideChar(CP_ACP,0,it->second,strlen(it->second),0,0);
+			int utf16len = MultiByteToWideChar(CP_ACP,0,it->second,wcslen(it->second),0,0);
 			utf16len = utf16len*sizeof(WCHAR);
-			unsigned char *dataUtf16 = (unsigned char *)malloc(utf16len);
+			wchar_t *dataUtf16 = (wchar_t *)malloc(utf16len);
 			if(!dataUtf16)
 			{
 				continue;
 			}
-			MultiByteToWideChar(CP_ACP,0,it->second,strlen(it->second),(LPWSTR)dataUtf16,utf16len/sizeof(WCHAR));
+			MultiByteToWideChar(CP_ACP,0,it->second,wcslen(it->second),(LPWSTR)dataUtf16,utf16len/sizeof(WCHAR));
 			// UNICODE -> UTF-8
 			utf8len = WideCharToMultiByte(CP_UTF8,0,(WCHAR *)dataUtf16,utf16len/sizeof(WCHAR),NULL,0,NULL,NULL);
-			dataUtf8 = (unsigned char *)malloc(utf8len);
+			dataUtf8 = (wchar_t *)malloc(utf8len);
 			if(!dataUtf8)
 			{
 				free(dataUtf16);
@@ -572,9 +572,9 @@ DWORD CTag_Ape::_SaveApeTagV2(const char *szFileName)
 		WriteFile(hFile,&flag,sizeof(flag),&dwRet,NULL);
 		header.size += 4;
 		footer.size += 4;
-		WriteFile(hFile,it->first,strlen(it->first) + 1,&dwRet,NULL);
-		header.size += strlen(it->first) + 1;
-		footer.size += strlen(it->first) + 1;
+		WriteFile(hFile,it->first,wcslen(it->first) + 1,&dwRet,NULL);
+		header.size += wcslen(it->first) + 1;
+		footer.size += wcslen(it->first) + 1;
 		WriteFile(hFile,dataUtf8,utf8len,&dwRet,NULL);
 		header.size += utf8len;
 		footer.size += utf8len;

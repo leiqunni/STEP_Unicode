@@ -32,7 +32,7 @@ CDlgPluginSetup::CDlgPluginSetup(CWnd* pParent /*=NULL*/)
 	: CDialog(CDlgPluginSetup::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CDlgPluginSetup)
-	m_strPluginInfo = _T("");
+	m_strPluginInfo = L"";
 	//}}AFX_DATA_INIT
 }
 
@@ -74,7 +74,7 @@ BOOL CDlgPluginSetup::OnInitDialog()
 	RECT	rect;
 	m_listPlugin.GetClientRect(&rect);
 
-	m_listPlugin.InsertColumn(1, "プラグイン", LVCFMT_LEFT, rect.right-rect.left-16, -1);
+	m_listPlugin.InsertColumn(1, L"プラグイン", LVCFMT_LEFT, rect.right-rect.left-16, -1);
 	m_listPlugin.DeleteAllItems();					// クリア
 
 	for (int nIndex=0;nIndex<plugins.arPlugins.GetSize();nIndex++) {
@@ -105,7 +105,7 @@ void CDlgPluginSetup::OnItemchangedListPlugin(NMHDR* pNMHDR, LRESULT* pResult)
 	PSTEPlugin pPlugin = (PSTEPlugin)m_listPlugin.GetItemData(nIndex);
 	m_strPluginInfo = pPlugin->sFileName;
 	if (pPlugin->STEPGetPluginInfo != NULL) {
-		m_strPluginInfo += "\r\n";
+		m_strPluginInfo += L"\r\n";
 		m_strPluginInfo += pPlugin->STEPGetPluginInfo();
 	}
 
@@ -145,14 +145,14 @@ extern "C" STEP_API void WINAPI STEPUpdateCellInfo(void);
 void CDlgPluginSetup::OnBtInstall() 
 {
 	// TODO: この位置にコントロール通知ハンドラ用のコードを追加してください
-	char szFilter[] = "STEプラグイン (*.ste)|*.ste|全て (*.*)|*.*||";
-	CFileDialog dialog(TRUE, "ste", NULL, 0, szFilter, this);
+	char szFilter[] = L"STEプラグイン (*.ste)|*.ste|全て (*.*)|*.*||";
+	CFileDialog dialog(TRUE, L"ste", NULL, 0, szFilter, this);
 	if (dialog.DoModal() == IDOK) {
 		CString strPluginFile = dialog.GetPathName();
-		extern PSTEPlugin STEPluginLoadFile(LPCTSTR);
+		extern PSTEPlugin STEPluginLoadFile(LPCWSTR);
 		PSTEPlugin pPlugin = STEPluginLoadFile(strPluginFile);
 		if (pPlugin == NULL) {
-			MessageBox("選択されたプラグインは使用できません。", "プラグインのインストール", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+			MessageBox(L"選択されたプラグインは使用できません。", L"プラグインのインストール", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 			return;
 		}
 		pPlugin->bUse = true;
@@ -196,13 +196,13 @@ void CDlgPluginSetup::OnOK()
 	// TODO: この位置にその他の検証用のコードを追加してください
 	CSuperTagEditorApp	*pApp = (CSuperTagEditorApp *)AfxGetApp();
 	CString strINI;
-	TCHAR   drive[_MAX_DRIVE];
-	TCHAR   dir[_MAX_DIR];
-	TCHAR   buff[_MAX_PATH] = {'\0'};
+	wchar_t   drive[_MAX_DRIVE];
+	wchar_t   dir[_MAX_DIR];
+	wchar_t   buff[_MAX_PATH] = {'\0'};
 	{
-		TCHAR*	szName = pApp->MakeFileName("ini");
+		wchar_t*	szName = pApp->MakeFileName(L"ini");
 		_tsplitpath(szName, drive, dir, NULL, NULL);
-		_tmakepath(buff, drive, dir, "Plugin", "ini");
+		_tmakepath(buff, drive, dir, L"Plugin", L"ini");
 		strINI = buff;
 		delete szName;
 		//DeleteFile(strINI);
@@ -213,20 +213,20 @@ void CDlgPluginSetup::OnOK()
 	for (int nIndex=0;nIndex<m_listPlugin.GetItemCount();nIndex++) {
 		PSTEPlugin pPlugin = (PSTEPlugin)m_listPlugin.GetItemData(nIndex);
 		pPlugin->bUse = ListView_GetCheckState(m_listPlugin.GetSafeHwnd(), nIndex) ? true : false;
-		strSection.Format("Load%03d", nIndex);
+		strSection.Format(L"Load%03d", nIndex);
 		// 相対パスに変換
-		TCHAR   pDrive[_MAX_DRIVE];
-		TCHAR   pDir[_MAX_DIR];
-		TCHAR   pFname[_MAX_FNAME];
-		TCHAR	pExt[_MAX_EXT];
-		TCHAR   pBuff[_MAX_PATH] = {'\0'};
+		wchar_t   pDrive[_MAX_DRIVE];
+		wchar_t   pDir[_MAX_DIR];
+		wchar_t   pFname[_MAX_FNAME];
+		wchar_t	pExt[_MAX_EXT];
+		wchar_t   pBuff[_MAX_PATH] = {'\0'};
 		_tsplitpath(pPlugin->sFileName, pDrive, pDir, pFname, pExt);
-		if (strcmp(pDrive, drive) == 0) {
-			//TCHAR   pWDir[_MAX_DIR];
-			//TCHAR   pWFname[_MAX_FNAME];
-			//TCHAR   pRDir[_MAX_DIR] = {'\0'};
-			//TCHAR   pRFname[_MAX_FNAME];
-			CString strRelDir = "";
+		if (wcscmp(pDrive, drive) == 0) {
+			//wchar_t   pWDir[_MAX_DIR];
+			//wchar_t   pWFname[_MAX_FNAME];
+			//wchar_t   pRDir[_MAX_DIR] = {'\0'};
+			//wchar_t   pRFname[_MAX_FNAME];
+			CString strRelDir = L"";
 			ULONG nPathSeparatorIndex;
 			BOOL  bAnyParent;
 			ULONG i;
@@ -259,13 +259,13 @@ void CDlgPluginSetup::OnOK()
 				while (dir[i] != 0) {
 					if (dir[i] == '\\') {
 						bAnyParent = TRUE;
-						strRelDir += "..\\";
+						strRelDir += L"..\\";
 					}
 					i++;
 				}
 
 				if (!bAnyParent) {
-					strRelDir += ".\\";
+					strRelDir += L".\\";
 				}
 			}
 			strRelDir += pDir+nPathSeparatorIndex+1;
@@ -274,10 +274,10 @@ void CDlgPluginSetup::OnOK()
 			// 変換なし
 			_tmakepath(pBuff, pDrive, pDir, pFname, pExt);
 		}
-		MyWriteProfileString(strSection, "Path", pBuff/*pPlugin->sFileName*/);
-		//WritePrivateProfileString(strSection, "Path", pPlugin->sFileName, strINI);
-		MyWriteProfileString(strSection, "Use", pPlugin->bUse ? "1" : "0");
-		//WritePrivateProfileString(strSection, "Use", pPlugin->bUse ? "1" : "0", strINI);
+		MyWriteProfileString(strSection, L"Path", pBuff/*pPlugin->sFileName*/);
+		//WritePrivateProfileString(strSection, L"Path", pPlugin->sFileName, strINI);
+		MyWriteProfileString(strSection, L"Use", pPlugin->bUse ? "1" : "0");
+		//WritePrivateProfileString(strSection, L"Use", pPlugin->bUse ? "1" : "0", strINI);
 	}
 	Profile_Flush(strINI);
 	Profile_Free();
@@ -287,7 +287,7 @@ void CDlgPluginSetup::OnOK()
 void CDlgPluginSetup::OnBtUninstall() 
 {
 	// TODO: この位置にコントロール通知ハンドラ用のコードを追加してください
-	if (MessageBox("選択されているプラグインをアンインストールしますか？\n※ファイルは削除されません。", "アンインストール", MB_YESNO|MB_TOPMOST) == IDYES) {
+	if (MessageBox(L"選択されているプラグインをアンインストールしますか？\n※ファイルは削除されません。", L"アンインストール", MB_YESNO|MB_TOPMOST) == IDYES) {
 		int nIndex =  ListView_GetSelectedItem(m_listPlugin);
 		PSTEPlugin pPlugin = (PSTEPlugin)m_listPlugin.GetItemData(nIndex);
 		pPlugin->bUse = false;

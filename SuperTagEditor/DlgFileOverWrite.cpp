@@ -19,9 +19,9 @@ CDlgFileOverWrite::CDlgFileOverWrite(CWnd* pParent /*=NULL*/)
 	: CDialog(CDlgFileOverWrite::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CDlgFileOverWrite)
-	m_strFileName = _T("");
-	m_strTimeStamp = _T("");
-	m_strSize = _T("");
+	m_strFileName = L"";
+	m_strTimeStamp = L"";
+	m_strSize = L"";
 	//}}AFX_DATA_INIT
 	m_nResult = 3;
 }

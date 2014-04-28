@@ -53,9 +53,9 @@ CRegExp::~CRegExp()
 }
 
 
-CRegExp* CRegExp::RegComp(const TCHAR *exp)
+CRegExp* CRegExp::RegComp(const wchar_t *exp)
 {
-	TCHAR *scan;
+	wchar_t *scan;
 	int flags;
 
 	if (exp == NULL)
@@ -65,7 +65,7 @@ CRegExp* CRegExp::RegComp(const TCHAR *exp)
 
 	// First pass: determine size, legality. 
 	bEmitCode = FALSE;
-	regparse = (TCHAR *)exp;
+	regparse = (wchar_t *)exp;
 	regnpar = 1;
 	regsize = 0L;
 	regdummy[0] = NOTHING;
@@ -76,15 +76,15 @@ CRegExp* CRegExp::RegComp(const TCHAR *exp)
 
 	// Allocate space. 
 	delete program;
-	program = new TCHAR[regsize];
-	memset( program, 0, regsize * sizeof(TCHAR) );
+	program = new wchar_t[regsize];
+	memset( program, 0, regsize * sizeof(wchar_t) );
 
 	if (program == NULL)
 		return NULL;
 
 	// Second pass: emit code. 
 	bEmitCode = TRUE;
-	regparse = (TCHAR *)exp;
+	regparse = (wchar_t *)exp;
 	regnpar = 1;
 	regcode = program;
 	if (reg(0, &flags) == NULL)
@@ -116,7 +116,7 @@ CRegExp* CRegExp::RegComp(const TCHAR *exp)
 		 
 		if (flags&SPSTART) 
 		{
-			char *longest = NULL;
+			wchar_t *longest = NULL;
 			size_t len = 0;
 
 			for (; scan != NULL; scan = regnext(scan))
@@ -143,11 +143,11 @@ CRegExp* CRegExp::RegComp(const TCHAR *exp)
  
 
 
-TCHAR *CRegExp::reg(int paren, int *flagp)
+wchar_t *CRegExp::reg(int paren, int *flagp)
 {
-	char *ret = NULL;
-	char *br;
-	char *ender;
+	wchar_t *ret = NULL;
+	wchar_t *br;
+	wchar_t *ender;
 	int parno = 0;
 	int flags;
 
@@ -158,7 +158,7 @@ TCHAR *CRegExp::reg(int paren, int *flagp)
 		// Make an OPEN node. 
 		if (regnpar >= NSUBEXP)
 		{
-			TRACE1("Too many (). NSUBEXP is set to %d\n", NSUBEXP );
+			TRACE1(L"Too many (). NSUBEXP is set to %d\n", NSUBEXP );
 			return NULL;
 		}
 		parno = regnpar;
@@ -197,19 +197,19 @@ TCHAR *CRegExp::reg(int paren, int *flagp)
 	// Check for proper termination. 
 	if (paren && *regparse++ != _T(')')) 
 	{
-		TRACE0("unterminated ()\n");
+		TRACE0(L"unterminated ()\n");
 		return NULL;
 	} 
 	else if (!paren && *regparse != _T('\0')) 
 	{
 		if (*regparse == _T(')')) 
 		{
-			TRACE0("unmatched ()\n");
+			TRACE0(L"unmatched ()\n");
 			return NULL;
 		} 
 		else
 		{
-			TRACE0("internal error: junk on end\n");
+			TRACE0(L"internal error: junk on end\n");
 			return NULL;
 		}
 		// NOTREACHED 
@@ -226,11 +226,11 @@ TCHAR *CRegExp::reg(int paren, int *flagp)
 //
 // Implements the concatenation operator.
  
-TCHAR *CRegExp::regbranch(int *flagp)
+wchar_t *CRegExp::regbranch(int *flagp)
 {
-	TCHAR *ret;
-	TCHAR *chain;
-	TCHAR *latest;
+	wchar_t *ret;
+	wchar_t *chain;
+	wchar_t *latest;
 	int flags;
 	int c;
 
@@ -264,11 +264,11 @@ TCHAR *CRegExp::regbranch(int *flagp)
 // It might seem that this node could be dispensed with entirely, but the
 // endmarker role is not redundant.
  
-TCHAR *CRegExp::regpiece(int *flagp)
+wchar_t *CRegExp::regpiece(int *flagp)
 {
-	TCHAR *ret;
-	TCHAR op;
-	TCHAR *next;
+	wchar_t *ret;
+	wchar_t op;
+	wchar_t *next;
 	int flags;
 
 	ret = regatom(&flags);
@@ -283,7 +283,7 @@ TCHAR *CRegExp::regpiece(int *flagp)
 
 	if (!(flags&HASWIDTH) && op != _T('?'))
 	{
-		TRACE0("*+ operand could be empty\n");
+		TRACE0(L"*+ operand could be empty\n");
 		return NULL;
 	}
 
@@ -322,7 +322,7 @@ TCHAR *CRegExp::regpiece(int *flagp)
 	regparse++;
 	if (ISREPN(*regparse))
 	{
-		TRACE0("nested *?+\n");
+		TRACE0(L"nested *?+\n");
 		return NULL;
 	}
 
@@ -337,9 +337,9 @@ TCHAR *CRegExp::regpiece(int *flagp)
 // faster to run.  Backslashed characters are exceptions, each becoming a
 // separate node; the code is simpler that way and it's not worth fixing.
  
-TCHAR *CRegExp::regatom(int *flagp)
+wchar_t *CRegExp::regatom(int *flagp)
 {
-	TCHAR *ret;
+	wchar_t *ret;
 	int flags;
 
 	*flagp = WORST;		// Tentatively. 
@@ -376,11 +376,11 @@ TCHAR *CRegExp::regatom(int *flagp)
 				regc(_T('-'));
 			else 
 			{
-				range = (unsigned) (TCHAR)*(regparse-2);
-				rangeend = (unsigned) (TCHAR)c;
+				range = (unsigned) (wchar_t)*(regparse-2);
+				rangeend = (unsigned) (wchar_t)c;
 				if (range > rangeend)
 				{
-					TRACE0("invalid [] range\n");
+					TRACE0(L"invalid [] range\n");
 					return NULL;
 				}
 				for (range++; range <= rangeend; range++)
@@ -391,7 +391,7 @@ TCHAR *CRegExp::regatom(int *flagp)
 		regc(_T('\0'));
 		if (c != _T(']'))
 		{
-			TRACE0("unmatched []\n");
+			TRACE0(L"unmatched []\n");
 			return NULL;
 		}
 		*flagp |= HASWIDTH|SIMPLE;
@@ -407,19 +407,19 @@ TCHAR *CRegExp::regatom(int *flagp)
 	case _T('|'):
 	case _T(')'):
 		// supposed to be caught earlier 
-		TRACE0("internal error: \\0|) unexpected\n");
+		TRACE0(L"internal error: \\0|) unexpected\n");
 		return NULL;
 		break;
 	case _T('?'):
 	case _T('+'):
 	case _T('*'):
-		TRACE0("?+* follows nothing\n");
+		TRACE0(L"?+* follows nothing\n");
 		return NULL;
 		break;
 	case _T('\\'):
 		if (*regparse == _T('\0'))
 		{
-			TRACE0("trailing \\\n");
+			TRACE0(L"trailing \\\n");
 			return NULL;
 		}
 		ret = regnode(EXACTLY);
@@ -429,13 +429,13 @@ TCHAR *CRegExp::regatom(int *flagp)
 		break;
 	default: {
 		size_t len;
-		TCHAR ender;
+		wchar_t ender;
 
 		regparse--;
 		len = _tcscspn(regparse, META);
 		if (len == 0)
 		{
-			TRACE0("internal error: strcspn 0\n");
+			TRACE0(L"internal error: strcspn 0\n");
 			return NULL;
 		}
 		ender = *(regparse+len);
@@ -461,16 +461,16 @@ TCHAR *CRegExp::regatom(int *flagp)
 //
 // Means relocating the operand.
  
-void CRegExp::reginsert(TCHAR op, TCHAR *opnd)
+void CRegExp::reginsert(wchar_t op, wchar_t *opnd)
 {
-	TCHAR *place;
+	wchar_t *place;
 
 	if (!bEmitCode) {
 		regsize += 3;
 		return;
 	}
 
-	(void) memmove(opnd+3, opnd, (size_t)((regcode - opnd)*sizeof(TCHAR)));
+	(void) memmove(opnd+3, opnd, (size_t)((regcode - opnd)*sizeof(wchar_t)));
 	regcode += 3;
 
 	place = opnd;		// Op node, where operand used to be. 
@@ -482,10 +482,10 @@ void CRegExp::reginsert(TCHAR op, TCHAR *opnd)
 //
 // regtail - set the next-pointer at the end of a node chain
  
-void CRegExp::regtail(TCHAR *p, TCHAR *val)
+void CRegExp::regtail(wchar_t *p, wchar_t *val)
 {
-	TCHAR *scan;
-	TCHAR *temp;
+	wchar_t *scan;
+	wchar_t *temp;
 //	int offset;
 
 	if (!bEmitCode)
@@ -501,7 +501,7 @@ void CRegExp::regtail(TCHAR *p, TCHAR *val)
 
 // regoptail - regtail on operand of first argument; nop if operandless
  
-void CRegExp::regoptail(TCHAR *p, TCHAR *val)
+void CRegExp::regoptail(wchar_t *p, wchar_t *val)
 {
 	// "Operandless" and "op != BRANCH" are synonymous in practice. 
 	if (!bEmitCode || OP(p) != BRANCH)
@@ -515,10 +515,10 @@ void CRegExp::regoptail(TCHAR *p, TCHAR *val)
 //			  if regular expression not found
 // Note		- The regular expression should have been
 //			  previously compiled using RegComp
-int CRegExp::RegFind(const TCHAR *str)
+int CRegExp::RegFind(const wchar_t *str)
 {
-	TCHAR *string = (TCHAR *)str;	// avert const poisoning 
-	TCHAR *s;
+	wchar_t *string = (wchar_t *)str;	// avert const poisoning 
+	wchar_t *s;
 
 	// Delete any previously stored found string
 	delete sFoundText;
@@ -527,14 +527,14 @@ int CRegExp::RegFind(const TCHAR *str)
 	// Be paranoid. 
 	if(string == NULL) 
 	{
-		TRACE0("NULL argument to regexec\n");
+		TRACE0(L"NULL argument to regexec\n");
 		return(-1);
 	}
 
 	// Check validity of regex
 	if (!bCompiled) 
 	{
-		TRACE0("No regular expression provided yet.\n");
+		TRACE0(L"No regular expression provided yet.\n");
 		return(-1);
 	}
 
@@ -551,7 +551,7 @@ int CRegExp::RegFind(const TCHAR *str)
 		if( regtry(string) )
 		{
 			// Save the found substring in case we need it
-			sFoundText = new TCHAR[GetFindLen()+1];
+			sFoundText = new wchar_t[GetFindLen()+1];
 			sFoundText[GetFindLen()] = _T('\0');
 			_tcsncpy(sFoundText, string, GetFindLen() );
 
@@ -564,14 +564,14 @@ int CRegExp::RegFind(const TCHAR *str)
 	// Messy cases:  unanchored match. 
 	if (regstart != _T('\0')) 
 	{
-		// We know what TCHAR it must start with. 
+		// We know what wchar_t it must start with. 
 		for (s = string; s != NULL; s = _tcschr(s+1, regstart))
 			if (regtry(s))
 			{
 				int nPos = s-str;
 
 				// Save the found substring in case we need it later
-				sFoundText = new TCHAR[GetFindLen()+1];
+				sFoundText = new wchar_t[GetFindLen()+1];
 				sFoundText[GetFindLen()] = _T('\0');
 				_tcsncpy(sFoundText, s, GetFindLen() );
 
@@ -589,7 +589,7 @@ int CRegExp::RegFind(const TCHAR *str)
 		int nPos = s-str;
 
 		// Save the found substring in case we need it later
-		sFoundText = new TCHAR[GetFindLen()+1];
+		sFoundText = new wchar_t[GetFindLen()+1];
 		sFoundText[GetFindLen()] = _T('\0');
 		_tcsncpy(sFoundText, s, GetFindLen() );
 
@@ -601,11 +601,11 @@ int CRegExp::RegFind(const TCHAR *str)
 
 // regtry - try match at specific point
  
-int	CRegExp::regtry(TCHAR *string)
+int	CRegExp::regtry(wchar_t *string)
 {
 	int i;
-	TCHAR **stp;
-	TCHAR **enp;
+	wchar_t **stp;
+	wchar_t **enp;
 
 	reginput = string;
 
@@ -635,10 +635,10 @@ int	CRegExp::regtry(TCHAR *string)
 // need to know whether the rest of the match failed) by a loop instead of
 // by recursion.
  
-int	CRegExp::regmatch(TCHAR *prog)
+int	CRegExp::regmatch(wchar_t *prog)
 {
-	TCHAR *scan;	// Current node. 
-	TCHAR *next;		// Next node. 
+	wchar_t *scan;	// Current node. 
+	wchar_t *next;		// Next node. 
 
 	for (scan = prog; scan != NULL; scan = next) {
 		next = regnext(scan);
@@ -659,7 +659,7 @@ int	CRegExp::regmatch(TCHAR *prog)
 			break;
 		case EXACTLY: {
 			size_t len;
-			TCHAR *const opnd = OPERAND(scan);
+			wchar_t *const opnd = OPERAND(scan);
 
 			// Inline the first character, for speed. 
 			if (*opnd != *reginput)
@@ -690,7 +690,7 @@ int	CRegExp::regmatch(TCHAR *prog)
 		case OPEN+4: case OPEN+5: case OPEN+6:
 		case OPEN+7: case OPEN+8: case OPEN+9: {
 			const int no = OP(scan) - OPEN;
-			TCHAR *const input = reginput;
+			wchar_t *const input = reginput;
 
 			if (regmatch(next)) {
 				// Don't set startp if some later
@@ -708,7 +708,7 @@ int	CRegExp::regmatch(TCHAR *prog)
 		case CLOSE+4: case CLOSE+5: case CLOSE+6:
 		case CLOSE+7: case CLOSE+8: case CLOSE+9: {
 			const int no = OP(scan) - CLOSE;
-			TCHAR *const input = reginput;
+			wchar_t *const input = reginput;
 
 			if (regmatch(next)) {
 				// Don't set endp if some later
@@ -723,7 +723,7 @@ int	CRegExp::regmatch(TCHAR *prog)
 			break;
 			}
 		case BRANCH: {
-			TCHAR *const save = reginput;
+			wchar_t *const save = reginput;
 
 			if (OP(next) != BRANCH)		// No choice. 
 				next = OPERAND(scan);	// Avoid recursion. 
@@ -741,10 +741,10 @@ int	CRegExp::regmatch(TCHAR *prog)
 			}
 		case STAR: 
 		case PLUS: {
-			const TCHAR nextch =
+			const wchar_t nextch =
 				(OP(next) == EXACTLY) ? *OPERAND(next) : _T('\0');
 			size_t no;
-			TCHAR *const save = reginput;
+			wchar_t *const save = reginput;
 			const size_t min = (OP(scan) == STAR) ? 0 : 1;
 
 			for (no = regrepeat(OPERAND(scan)) + 1; no > min; no--) {
@@ -761,7 +761,7 @@ int	CRegExp::regmatch(TCHAR *prog)
 			return(1);	// Success! 
 			break;
 		default:
-			TRACE0("regexp corruption\n");
+			TRACE0(L"regexp corruption\n");
 			return(0);
 			break;
 		}
@@ -770,18 +770,18 @@ int	CRegExp::regmatch(TCHAR *prog)
 	// We get here only if there's trouble -- normally "case END" is
 	// the terminating point.
 	 
-	TRACE0("corrupted pointers\n");
+	TRACE0(L"corrupted pointers\n");
 	return(0);
 }
 
 
 // regrepeat - report how many times something simple would match
  
-size_t CRegExp::regrepeat(TCHAR *node)
+size_t CRegExp::regrepeat(wchar_t *node)
 {
 	size_t count;
-	TCHAR *scan;
-	TCHAR ch;
+	wchar_t *scan;
+	wchar_t ch;
 
 	switch (OP(node)) 
 	{
@@ -802,7 +802,7 @@ size_t CRegExp::regrepeat(TCHAR *node)
 		return(_tcscspn(reginput, OPERAND(node)));
 		break;
 	default:		// Oh dear.  Called inappropriately. 
-		TRACE0("internal error: bad call of regrepeat\n");
+		TRACE0(L"internal error: bad call of regrepeat\n");
 		return(0);	// Best compromise. 
 		break;
 	}
@@ -811,7 +811,7 @@ size_t CRegExp::regrepeat(TCHAR *node)
 
 // regnext - dig the "next" pointer out of a node
  
-TCHAR *CRegExp::regnext(TCHAR *p)
+wchar_t *CRegExp::regnext(wchar_t *p)
 {
 	const short &offset = *((short*)(p+1));
 
@@ -824,11 +824,11 @@ TCHAR *CRegExp::regnext(TCHAR *p)
 // GetReplaceString	- Converts a replace expression to a string
 // Returns			- Pointer to newly allocated string
 //					  Caller is responsible for deleting it
-TCHAR* CRegExp::GetReplaceString( const TCHAR* sReplaceExp )
+wchar_t* CRegExp::GetReplaceString( const wchar_t* sReplaceExp )
 {
-	TCHAR *src = (TCHAR *)sReplaceExp;
-	TCHAR *buf;
-	TCHAR c;
+	wchar_t *src = (wchar_t *)sReplaceExp;
+	wchar_t *buf;
+	wchar_t c;
 	int no;
 	size_t len;
 
@@ -864,17 +864,17 @@ TCHAR* CRegExp::GetReplaceString( const TCHAR* sReplaceExp )
 	}
 
 	// Now allocate buf
-	buf = new TCHAR[replacelen+1];
+	buf = new wchar_t[replacelen+1];
 	if( buf == NULL )
 		return NULL;
 
-	TCHAR* sReplaceStr = buf;
+	wchar_t* sReplaceStr = buf;
 
 	// Add null termination
 	buf[replacelen] = _T('\0');
 	
 	// Now we can create the string
-	src = (TCHAR *)sReplaceExp;
+	src = (wchar_t *)sReplaceExp;
 	while ((c = *src++) != _T('\0')) 
 	{
 		if (c == _T('&'))

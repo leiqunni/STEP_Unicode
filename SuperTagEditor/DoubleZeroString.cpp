@@ -36,7 +36,7 @@ void CDoubleZeroString::Empty()
 	m_buf	=	NULL;
 }
 
-bool CDoubleZeroString::Add(const char* str)
+bool CDoubleZeroString::Add(const wchar_t* str)
 {
 	ASSERT(str!=NULL);
 	try
@@ -51,16 +51,16 @@ bool CDoubleZeroString::Add(const char* str)
 	return	true;
 }
 
-bool CDoubleZeroString::AddDoubleZero(const char * dzstring)
+bool CDoubleZeroString::AddDoubleZero(const wchar_t * dzstring)
 {
 	ASSERT(dzstring!=NULL);
-	const char*	p	=	dzstring;
+	const wchar_t*	p	=	dzstring;
 
 	while(*p)
 	{
 		if(Add(p)==false)
 			return	false;
-		p	+=	(strlen(p) + 1);
+		p	+=	(wcslen(p) + 1);
 	}
 	return	true;
 }
@@ -70,7 +70,7 @@ int CDoubleZeroString::GetCount() const
 	return	m_ar.GetSize();
 }
 
-CDoubleZeroString::operator const char*()
+CDoubleZeroString::operator const wchar_t*()
 {
 	delete[]	m_buf;
 	m_buf	=	NULL;
@@ -88,17 +88,17 @@ CDoubleZeroString::operator const char*()
 	m_buf	=	new	char[tlen];
 	ASSERT(m_buf!=NULL);
 	ZeroMemory(m_buf, tlen);
-	char* p = m_buf;
+	wchar_t* p = m_buf;
 	int i; for(i=0;i<m_ar.GetSize();i++)
 	{
-		strcpy(p, m_ar[i]);
+		wcscpy(p, m_ar[i]);
 		p+= (m_ar[i].GetLength() + 1);
 	}
 
 	return	m_buf;
 }
 
-const char* CDoubleZeroString::Get(int index)
+const wchar_t* CDoubleZeroString::Get(int index)
 {
 		// assert on debug builds when index is out of bounds
 	ASSERT(index>=0&&index<=m_ar.GetSize());

@@ -34,7 +34,7 @@
 /* Version 1.50j = 0x00001500 */
 
 // if ( SendMessage( hwnd_scmpx, WM_SMX_IPC, 0, IPC_GETVERSION ) != 0x00000800 )
-// MessageBox( NULL, "Error, SCMPX 0.0.8(Japanese) not found", "Warning", MB_OK );
+// MessageBox( NULL, L"Error, SCMPX 0.0.8(Japanese) not found", L"Warning", MB_OK );
 
 
 
@@ -43,8 +43,8 @@
 /* IPC_PLAYFILE はプレイリストにファイルを追加します */
 /* (拡張子が '.m3u' の場合はプレイリストファイルとして読み込まれます) */
 
-// char file[] = "C:\\Song\\mkr.mp3";
-// for( i = 0; i <= strlen( file ); i++ )
+// char file[] = L"C:\\Song\\mkr.mp3";
+// for( i = 0; i <= wcslen( file ); i++ )
 // SendMessage( hwnd_scmpx, WM_SMX_IPC, file[i], IPC_PLAYFILE );
 
 
@@ -69,8 +69,8 @@
 #define IPC_CHDIR 103
 /* IPC_CHDIR はSCMPXのカレントディレクトリを変更します */
 
-// char dir[] = "C:\\Song";
-// for( i = 0; i <= strlen( dir ); i++ )
+// char dir[] = L"C:\\Song";
+// for( i = 0; i <= wcslen( dir ); i++ )
 // SendMessage( hwnd_scmpx, WM_SMX_IPC, dir[i], IPC_PLAYFILE );
 
 
@@ -113,8 +113,8 @@
 /* IPC_WRITEPLAYLIST はプレイリストを書き出します */
 /* 標準のプレイリストは絶対パスで、指定したリストには相対パスで書き込まれます */
 
-// char favorite[] = "C:\\mp3z\\favorite.m3u";
-// for( i = 0; i <= strlen( favorite ); i++ )
+// char favorite[] = L"C:\\mp3z\\favorite.m3u";
+// for( i = 0; i <= wcslen( favorite ); i++ )
 // SendMessage( hwnd_scmpx, WM_SMX_IPC, favorite[i], IPC_WRITEPLAYLIST );
 
 /*----

@@ -342,8 +342,8 @@ static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
 	_v_writestring(&opb,"vorbis", 6);
 
 	/* vendor */
-	oggpack_write(&opb,strlen(vendor),32);
-	_v_writestring(&opb,vendor, strlen(vendor));
+	oggpack_write(&opb,wcslen(vendor),32);
+	_v_writestring(&opb,vendor, wcslen(vendor));
 
 	/* comments */
 	oggpack_write(&opb,vc->comments,32);
@@ -366,7 +366,7 @@ static int _commentheader_out(vorbis_comment *vc, char *vendor, ogg_packet *op)
 	}
 	oggpack_write(&opb,1,1);
 
-	op->packet = (unsigned char *)_ogg_malloc(oggpack_bytes(&opb));
+	op->packet = (wchar_t *)_ogg_malloc(oggpack_bytes(&opb));
 	memcpy(op->packet, opb.buffer, oggpack_bytes(&opb));
 
 	op->bytes=oggpack_bytes(&opb);
@@ -417,8 +417,8 @@ DWORD CTag_Ogg::Save(const char *szFileName)
 	vorbis_comment		_vc; /* struct that stores all the bitstream user comments */
 	int _mainlen = 0;
 	int _booklen = 0;
-	unsigned char *_mainbuf = NULL;
-	unsigned char *_bookbuf = NULL;
+	wchar_t *_mainbuf = NULL;
+	wchar_t *_bookbuf = NULL;
 	int _serial = 0;
 	int i,j;
 	CStringArray strArray;
@@ -482,7 +482,7 @@ DWORD CTag_Ogg::Save(const char *szFileName)
 		}
 
 		_mainlen = header_main.bytes;
-		_mainbuf = (unsigned char *)malloc(_mainlen);
+		_mainbuf = (wchar_t *)malloc(_mainlen);
 		if(!_mainbuf)
 		{
 			dwWin32errorCode = GetLastError();
@@ -523,7 +523,7 @@ DWORD CTag_Ogg::Save(const char *szFileName)
 						if(i == 1)
 						{
 							_booklen = header->bytes;
-							_bookbuf = (unsigned char *)malloc(_booklen);
+							_bookbuf = (wchar_t *)malloc(_booklen);
 							if(!_bookbuf)
 							{
 								dwWin32errorCode = -1;

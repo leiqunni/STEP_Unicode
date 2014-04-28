@@ -32,23 +32,23 @@ struct	ID3TAG	{						// <<< ID3 Tag のデータ形式 >>>
 #define ID3_LEN_YEAR			4		// リリース年号  (文字列… 4BYTE)
 
 struct	ID3TAG_V10	{							// <<< ID3 Tag v1.0 のデータ形式 >>>
-	TCHAR	sTAG[3];							// "TAG"         (文字列… 3BYTE)
-	TCHAR	sTrackName[ID3_LEN_TRACK_NAME];		// トラック名    (文字列…30BYTE)
-	TCHAR	sArtistName[ID3_LEN_ARTIST_NAME];	// アーティスト名(文字列…30BYTE)
-	TCHAR	sAlbumName[ID3_LEN_ALBUM_NAME];		// アルバム名    (文字列…30BYTE)
-	TCHAR	sYear[4];							// リリース年号  (文字列… 4BYTE)
-	TCHAR	sComment[ID3_LEN_COMMENT];			// コメント      (文字列…30BYTE)
+	wchar_t	sTAG[3];							// "TAG"         (文字列… 3BYTE)
+	wchar_t	sTrackName[ID3_LEN_TRACK_NAME];		// トラック名    (文字列…30BYTE)
+	wchar_t	sArtistName[ID3_LEN_ARTIST_NAME];	// アーティスト名(文字列…30BYTE)
+	wchar_t	sAlbumName[ID3_LEN_ALBUM_NAME];		// アルバム名    (文字列…30BYTE)
+	wchar_t	sYear[4];							// リリース年号  (文字列… 4BYTE)
+	wchar_t	sComment[ID3_LEN_COMMENT];			// コメント      (文字列…30BYTE)
 	BYTE	byGenre;							// ジャンル番号  (数字…… 1BYTE)
 };
 
 struct	ID3TAG_V11	{							// <<< ID3 Tag v1.1 のデータ形式 >>>
-	TCHAR	sTAG[3];							// "TAG"         (文字列… 3BYTE)
-	TCHAR	sTrackName[ID3_LEN_TRACK_NAME];		// トラック名    (文字列…30BYTE)
-	TCHAR	sArtistName[ID3_LEN_ARTIST_NAME];	// アーティスト名(文字列…30BYTE)
-	TCHAR	sAlbumName[ID3_LEN_ALBUM_NAME];		// アルバム名    (文字列…30BYTE)
-	TCHAR	sYear[4];							// リリース年号  (文字列… 4BYTE)
-	TCHAR	sComment[ID3_LEN_COMMENT-2];		// コメント      (文字列…30BYTE)
-	TCHAR	cZero;								// '\0'          (文字列… 1BYTE)
+	wchar_t	sTAG[3];							// "TAG"         (文字列… 3BYTE)
+	wchar_t	sTrackName[ID3_LEN_TRACK_NAME];		// トラック名    (文字列…30BYTE)
+	wchar_t	sArtistName[ID3_LEN_ARTIST_NAME];	// アーティスト名(文字列…30BYTE)
+	wchar_t	sAlbumName[ID3_LEN_ALBUM_NAME];		// アルバム名    (文字列…30BYTE)
+	wchar_t	sYear[4];							// リリース年号  (文字列… 4BYTE)
+	wchar_t	sComment[ID3_LEN_COMMENT-2];		// コメント      (文字列…30BYTE)
+	wchar_t	cZero;								// '\0'          (文字列… 1BYTE)
 	BYTE	byTrackNumber;						// トラック番号  (数字…… 1BYTE)
 	BYTE	byGenre;							// ジャンル番号  (数字…… 1BYTE)
 };
@@ -547,9 +547,9 @@ void	StringCopyN2(char *, const char *, int, BOOL = TRUE);
 void StringCopyN(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-	if (strlen(sSrc) < (unsigned int)nLen) {
+	if (wcslen(sSrc) < (unsigned int)nLen) {
 		if (bTerm) strcpy(sDest, sSrc);
-		else       memcpy(sDest, sSrc, strlen(sSrc));
+		else       memcpy(sDest, sSrc, wcslen(sSrc));
 		return;
 	}
 	while(nLen > 0) {
@@ -597,10 +597,10 @@ void StringCopyN2(char *sDest, const char *sSrc, int nLen, BOOL bTerm)
 	}
 }
 
-void DeleteLineEndSpace(TCHAR *sBuffer)
+void DeleteLineEndSpace(wchar_t *sBuffer)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-	int		nPos = strlen(sBuffer) - 1;
+	int		nPos = wcslen(sBuffer) - 1;
 	while(nPos >= 0 && sBuffer[nPos] == ' ') {
 		sBuffer[nPos] = '\0';
 		nPos--;
@@ -674,7 +674,7 @@ bool ReadTagID3(LPCSTR sFileName, FILE_INFO *pFileMP3, char *sHead)
 			if (IsID3Tag(&tag) == true) {
 				// ID3 tag が存在する
 				ID3TAG_V11	*pTag = (ID3TAG_V11 *)&tag;
-				TCHAR	sBuffer[30+1];
+				wchar_t	sBuffer[30+1];
 				// トラック名
 				StringCopyN(sBuffer, pTag->sTrackName, ID3_LEN_TRACK_NAME);
 				sBuffer[ID3_LEN_TRACK_NAME] = '\0';
@@ -907,29 +907,29 @@ bool WriteTagID3(FILE_INFO *pFileMP3)
 
 			int		nLen;
 			// トラック名
-			nLen = strlen(GetTrackName(pFileMP3));
+			nLen = wcslen(GetTrackName(pFileMP3));
 			if (nLen > ID3_LEN_TRACK_NAME) nLen = ID3_LEN_TRACK_NAME;
 			StringCopyN(&pTag->sTrackName[0], GetTrackName(pFileMP3), nLen, FALSE);
 
 			// アーティスト名
-			nLen = strlen(GetArtistName(pFileMP3));
+			nLen = wcslen(GetArtistName(pFileMP3));
 			if (nLen > ID3_LEN_ARTIST_NAME) nLen = ID3_LEN_ARTIST_NAME;
 			StringCopyN(&pTag->sArtistName[0], GetArtistName(pFileMP3), nLen, FALSE);
 
 			// アルバム名
-			nLen = strlen(GetAlbumName(pFileMP3));
+			nLen = wcslen(GetAlbumName(pFileMP3));
 			if (nLen > ID3_LEN_ALBUM_NAME) nLen = ID3_LEN_ALBUM_NAME;
 			StringCopyN(&pTag->sAlbumName[0], GetAlbumName(pFileMP3), nLen, FALSE);
 
 			// リリース年号
-			nLen = strlen(GetYear(pFileMP3));
+			nLen = wcslen(GetYear(pFileMP3));
 			if (nLen > ID3_LEN_YEAR) nLen = ID3_LEN_YEAR;
 			StringCopyN(&pTag->sYear[0], GetYear(pFileMP3), nLen, FALSE);
 
 			if (GetBTrackNumber(pFileMP3) == 0xff) {
 				// ID3 tag Ver 1.0
 				// コメント
-				nLen = strlen(GetComment(pFileMP3));
+				nLen = wcslen(GetComment(pFileMP3));
 				if (nLen > ID3_LEN_COMMENT) nLen = ID3_LEN_COMMENT;
 				memset(&pTag->sComment[0], 0x00, ID3_LEN_COMMENT);
 				StringCopyN2(&pTag->sComment[0], GetComment(pFileMP3), nLen, FALSE);
@@ -940,7 +940,7 @@ bool WriteTagID3(FILE_INFO *pFileMP3)
 			} else {
 				// ID3 tag Ver 1.1
 				// コメント
-				nLen = strlen(GetComment(pFileMP3));
+				nLen = wcslen(GetComment(pFileMP3));
 				if (nLen > ID3_LEN_COMMENT-2) nLen = ID3_LEN_COMMENT-2;
 				memset(&pTag->sComment[0], 0x00, ID3_LEN_COMMENT-2);
 				StringCopyN2(&pTag->sComment[0], GetComment(pFileMP3), nLen, FALSE);
@@ -985,7 +985,7 @@ bool ConvID3tagToSIField(FILE_INFO *pFileMP3)
 	SetYearSI(pFileMP3, GetYear(pFileMP3));				// リリース年号
 
 #define LIMIT_TEXT_LENGTH(strID3, nLen)	{			\
-	TCHAR	sWorkBuffer[nLen+1];					\
+	wchar_t	sWorkBuffer[nLen+1];					\
 	StringCopyN(sWorkBuffer, GetValue(pFileMP3, strID3), nLen);			\
 	sWorkBuffer[nLen] = '\0';						\
 	SetValue(pFileMP3, strID3, sWorkBuffer);			\
@@ -1004,19 +1004,19 @@ bool ConvID3tagToSIField(FILE_INFO *pFileMP3)
 	// ソフトウェアの設定
 	UINT nFormat = GetFormat(pFileMP3);
 	if (!(nFormat == nFileTypeMP3 || nFormat == nFileTypeMP3V1 || nFormat == nFileTypeMP3V11)) {
-		if (strlen(GetSoftwareSI(pFileMP3)) == 0) {
+		if (wcslen(GetSoftwareSI(pFileMP3)) == 0) {
 			SetSoftwareSI(pFileMP3, strOptSoftwareTag);
 		}
 	}
 
-	if (strlen(GetGenreSI(pFileMP3)) == 0 || false /* 常に再設定→未設定時のみ */) {
+	if (wcslen(GetGenreSI(pFileMP3)) == 0 || false /* 常に再設定→未設定時のみ */) {
 		//SetGenreSI(pFileMP3, STEPGetGenreNameSIF(GetBGenre(pFileMP3)));
 		SetGenreSI(pFileMP3, GetGenre(pFileMP3));
 	}
-	if (strlen(GetTrackNumberSI(pFileMP3)) == 0) { /* 未設定時のみ */
+	if (wcslen(GetTrackNumberSI(pFileMP3)) == 0) { /* 未設定時のみ */
 		SetTrackNumberSI(pFileMP3, GetTrackNumber(pFileMP3));
 	}
-	if (strlen(GetDiskNumberSI(pFileMP3)) == 0) { /* 未設定時のみ */
+	if (wcslen(GetDiskNumberSI(pFileMP3)) == 0) { /* 未設定時のみ */
 		SetDiskNumberSI(pFileMP3, GetDiskNumber(pFileMP3));
 	}
 	return true;
@@ -1036,7 +1036,7 @@ void ConvSIFieldToID3tag(FILE_INFO *pFileMP3)
 // コピー対象のフィールドかどうかをチェックして、必要な場合だけコピーします
 #define COPY_FIELD(strID3, strSIF, len)	{			\
 	if (nOptSIFieldConvType == SIF_CONV_ALL_FIELD	\
-	|| strlen(strSIF) <= (len)) {					\
+	|| wcslen(strSIF) <= (len)) {					\
 		StringCopyN(sBuffer, strSIF, len);			\
 		sBuffer[len] = '\0';						\
 		SetValue(pFileMP3, strID3, sBuffer);		\
@@ -1044,7 +1044,7 @@ void ConvSIFieldToID3tag(FILE_INFO *pFileMP3)
 }
 #define COPY_FIELD2(strID3, strSIF, len)	{			\
 	if (nOptSIFieldConvType == SIF_CONV_ALL_FIELD	\
-	|| strlen(strSIF) <= (len)) {					\
+	|| wcslen(strSIF) <= (len)) {					\
 		StringCopyN2(sBuffer, strSIF, len);			\
 		sBuffer[len] = '\0';						\
 		SetValue(pFileMP3, strID3, sBuffer);		\
@@ -1057,7 +1057,7 @@ void ConvSIFieldToID3tag(FILE_INFO *pFileMP3)
 	// アルバム名
 	COPY_FIELD(FIELD_ALBUM_NAME, GetAlbumNameSI(pFileMP3), ID3_LEN_ALBUM_NAME);
 	// トラック番号 //コメント設定より先に処理する
-	if (strlen(GetTrackNumberSI(pFileMP3)) == 0) {
+	if (wcslen(GetTrackNumberSI(pFileMP3)) == 0) {
 		if (GetFormat(pFileMP3) == nFileTypeID3V2) {
 			SetBTrackNumber(pFileMP3, (BYTE)0xff);
 		}
@@ -1065,7 +1065,7 @@ void ConvSIFieldToID3tag(FILE_INFO *pFileMP3)
 		SetBTrackNumber(pFileMP3, (BYTE)STEPGetIntegerTrackNumber(GetTrackNumberSI(pFileMP3)));
 	}
 	// ディスク番号
-	if (strlen(GetDiskNumberSI(pFileMP3)) == 0) {
+	if (wcslen(GetDiskNumberSI(pFileMP3)) == 0) {
 		if (GetFormat(pFileMP3) == nFileTypeID3V2) {
 			SetBDiskNumber(pFileMP3, (BYTE)0xff);
 		}
@@ -1138,7 +1138,7 @@ bool WriteTagID3v2(FILE_INFO *pFileMP3)
 //		ConvSIFieldToID3tag(pFileMP3);
 //	}
 	// ソフトウェアの設定
-	if (strlen(GetSoftwareSI(pFileMP3)) == 0) {
+	if (wcslen(GetSoftwareSI(pFileMP3)) == 0) {
 		SetSoftwareSI(pFileMP3, strOptSoftwareTag);
 	}
 
@@ -1163,7 +1163,7 @@ bool WriteTagID3v2(FILE_INFO *pFileMP3)
 	CString	strGenre;
 	BYTE	byGenre;
 	byGenre = STEPGetGenreCode(GetGenreSI(pFileMP3));
-	if (!strlen(GetGenreSI(pFileMP3)) == 0) {
+	if (!wcslen(GetGenreSI(pFileMP3)) == 0) {
 		if (byGenre == (BYTE)0xff || STEPIsUserGenre(GetGenreSI(pFileMP3)) || bOptID3v2GenreAddNumber == false) strGenre.Format("%s", GetGenreSI(pFileMP3));
 		else                       strGenre.Format("(%d)%s", STEPGetGenreCode(GetGenreSI(pFileMP3)), GetGenreSI(pFileMP3));
 	}
@@ -1181,7 +1181,7 @@ bool WriteTagID3v2(FILE_INFO *pFileMP3)
 bool WriteTagSIF(FILE_INFO *pFileMP3)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-	if (strlen(GetSoftwareSI(pFileMP3)) == 0) {
+	if (wcslen(GetSoftwareSI(pFileMP3)) == 0) {
 		SetSoftwareSI(pFileMP3, strOptSoftwareTag);
 	}
 
@@ -1193,13 +1193,13 @@ bool WriteTagSIF(FILE_INFO *pFileMP3)
 	}
 
 	bool isNeedID3 = false;
-	if (strlen(GetTrackName(pFileMP3))	> 0)	isNeedID3 = true;
-	if (strlen(GetArtistName(pFileMP3))	> 0)	isNeedID3 = true;
-	if (strlen(GetAlbumName(pFileMP3))	> 0)	isNeedID3 = true;
-	if (strlen(GetComment(pFileMP3))	> 0)	isNeedID3 = true;
-	if (strlen(GetYear(pFileMP3))		> 0)	isNeedID3 = true;
-	if (strlen(GetGenre(pFileMP3))		> 0)	isNeedID3 = true;
-	if (strlen(GetTrackNumber(pFileMP3))> 0)	isNeedID3 = true;
+	if (wcslen(GetTrackName(pFileMP3))	> 0)	isNeedID3 = true;
+	if (wcslen(GetArtistName(pFileMP3))	> 0)	isNeedID3 = true;
+	if (wcslen(GetAlbumName(pFileMP3))	> 0)	isNeedID3 = true;
+	if (wcslen(GetComment(pFileMP3))	> 0)	isNeedID3 = true;
+	if (wcslen(GetYear(pFileMP3))		> 0)	isNeedID3 = true;
+	if (wcslen(GetGenre(pFileMP3))		> 0)	isNeedID3 = true;
+	if (wcslen(GetTrackNumber(pFileMP3))> 0)	isNeedID3 = true;
 	if (isNeedID3 && !rmp.HasId3tag()) {
 		rmp.SetHasId3tag(TRUE);
 	}
@@ -1239,22 +1239,22 @@ bool WriteTagSIF(FILE_INFO *pFileMP3)
 
 bool IsCreateID3v2(FILE_INFO *pFileMP3)
 {
-	if (strlen(GetTrackName(pFileMP3))	> ID3_LEN_TRACK_NAME)	return true;
-	if (strlen(GetArtistName(pFileMP3))	> ID3_LEN_ARTIST_NAME)	return true;
-	if (strlen(GetAlbumName(pFileMP3))	> ID3_LEN_ALBUM_NAME)	return true;
-	if (strlen(GetComment(pFileMP3))	> ID3_LEN_COMMENT-2)	return true;
-	if (strlen(GetYear(pFileMP3))		> ID3_LEN_YEAR)			return true;
+	if (wcslen(GetTrackName(pFileMP3))	> ID3_LEN_TRACK_NAME)	return true;
+	if (wcslen(GetArtistName(pFileMP3))	> ID3_LEN_ARTIST_NAME)	return true;
+	if (wcslen(GetAlbumName(pFileMP3))	> ID3_LEN_ALBUM_NAME)	return true;
+	if (wcslen(GetComment(pFileMP3))	> ID3_LEN_COMMENT-2)	return true;
+	if (wcslen(GetYear(pFileMP3))		> ID3_LEN_YEAR)			return true;
 	if (STEPIsUserGenre(GetGenreSI(pFileMP3)))					return true;
 	if (CString(GetComment(pFileMP3)).Find('\n') > -1)			return true;
 	if (!STEPIsNumeric(GetTrackNumberSI(pFileMP3)))				return true;
 	if (!STEPIsNumeric(GetDiskNumberSI(pFileMP3)))				return true;
 	/*
-	if (strlen(GetCopyrightSI(pFileMP3)) > 0)					return true;	// 著作権
-	if (strlen(GetComposerSI(pFileMP3)) > 0)					return true;	// 作曲
-	if (strlen(GetOrigArtistSI(pFileMP3)) > 0)					return true;	// Orig.アーティスト
-	if (strlen(GetURLSI(pFileMP3)) > 0)							return true;	// URL
-	if (strlen(GetEncodest(pFileMP3)) > 0)						return true;	// エンコードした人
-	if (strlen(GetSoftwareSI(pFileMP3)) > 0
+	if (wcslen(GetCopyrightSI(pFileMP3)) > 0)					return true;	// 著作権
+	if (wcslen(GetComposerSI(pFileMP3)) > 0)					return true;	// 作曲
+	if (wcslen(GetOrigArtistSI(pFileMP3)) > 0)					return true;	// Orig.アーティスト
+	if (wcslen(GetURLSI(pFileMP3)) > 0)							return true;	// URL
+	if (wcslen(GetEncodest(pFileMP3)) > 0)						return true;	// エンコードした人
+	if (wcslen(GetSoftwareSI(pFileMP3)) > 0
 		&& strcmp(GetSoftwareSI(pFileMP3), strOptSoftwareTag) != 0)		return true;	// ソフトウェア
 	*/
 	return false;
@@ -1262,14 +1262,14 @@ bool IsCreateID3v2(FILE_INFO *pFileMP3)
 
 bool IsCreateRMP(FILE_INFO *pFileMP3)
 {
-	if (strlen(GetTrackName(pFileMP3))	> ID3_LEN_TRACK_NAME)	return true;
-	if (strlen(GetArtistName(pFileMP3))	> ID3_LEN_ARTIST_NAME)	return true;
-	if (strlen(GetAlbumName(pFileMP3))	> ID3_LEN_ALBUM_NAME)	return true;
-	if (strlen(GetComment(pFileMP3))	> ID3_LEN_COMMENT-2)	return true;
-	if (strlen(GetYear(pFileMP3))		> ID3_LEN_YEAR)			return true;
+	if (wcslen(GetTrackName(pFileMP3))	> ID3_LEN_TRACK_NAME)	return true;
+	if (wcslen(GetArtistName(pFileMP3))	> ID3_LEN_ARTIST_NAME)	return true;
+	if (wcslen(GetAlbumName(pFileMP3))	> ID3_LEN_ALBUM_NAME)	return true;
+	if (wcslen(GetComment(pFileMP3))	> ID3_LEN_COMMENT-2)	return true;
+	if (wcslen(GetYear(pFileMP3))		> ID3_LEN_YEAR)			return true;
 	if (STEPIsUserGenre(GetGenreSI(pFileMP3)))					return true;
 	/*
-	if (strlen(GetCopyrightSI(pFileMP3))	> 0)	return true;
+	if (wcslen(GetCopyrightSI(pFileMP3))	> 0)	return true;
 	rmp.SetENG(GetEngineerSI(pFileMP3));	// エンジニア
 	rmp.SetSRC(GetSourceSI(pFileMP3));		// ソース
 	rmp.SetSFT(GetSoftwareSI(pFileMP3));	// ソフトウェア
@@ -1284,25 +1284,25 @@ bool IsCreateRMP(FILE_INFO *pFileMP3)
 
 bool IsCreateID3v2SI(FILE_INFO *pFileMP3, bool bID3v1Only = FALSE)
 {
-	if (strlen(GetTrackNameSI(pFileMP3))	> ID3_LEN_TRACK_NAME)	return true;
-	if (strlen(GetArtistNameSI(pFileMP3))	> ID3_LEN_ARTIST_NAME)	return true;
-	if (strlen(GetAlbumNameSI(pFileMP3))	> ID3_LEN_ALBUM_NAME)	return true;
-	if (strlen(GetCommentSI(pFileMP3))		> ID3_LEN_COMMENT-2)	return true;
-	if (strlen(GetYearSI(pFileMP3))			> ID3_LEN_YEAR)			return true;
+	if (wcslen(GetTrackNameSI(pFileMP3))	> ID3_LEN_TRACK_NAME)	return true;
+	if (wcslen(GetArtistNameSI(pFileMP3))	> ID3_LEN_ARTIST_NAME)	return true;
+	if (wcslen(GetAlbumNameSI(pFileMP3))	> ID3_LEN_ALBUM_NAME)	return true;
+	if (wcslen(GetCommentSI(pFileMP3))		> ID3_LEN_COMMENT-2)	return true;
+	if (wcslen(GetYearSI(pFileMP3))			> ID3_LEN_YEAR)			return true;
 	if (STEPIsUserGenre(GetGenreSI(pFileMP3)))						return true;
 	if (CString(GetCommentSI(pFileMP3)).Find('\n') > -1)			return true;
 	if (!STEPIsNumeric(GetTrackNumberSI(pFileMP3)))					return true;
 	if (!STEPIsNumeric(GetDiskNumberSI(pFileMP3)))					return true;
 	if (bID3v1Only == TRUE)	return false;
-	if (strlen(GetCopyrightSI(pFileMP3)) > 0)						return true;	// 著作権
-	if (strlen(GetComposerSI(pFileMP3)) > 0)						return true;	// 作曲
-	if (strlen(GetOrigArtistSI(pFileMP3)) > 0)						return true;	// Orig.アーティスト
-	if (strlen(GetAlbumArtistSI(pFileMP3)) > 0)						return true;	// Albm.アーティスト
-	if (strlen(GetWriterSI(pFileMP3)) > 0)							return true;	// 作詞者
-	if (strlen(GetURLSI(pFileMP3)) > 0)								return true;	// URL
-	if (strlen(GetEncodest(pFileMP3)) > 0)							return true;	// エンコードした人
-	if (strlen(GetEngineerSI(pFileMP3)) > 0)						return true;	// エンジニア
-	if (strlen(GetSoftwareSI(pFileMP3)) > 0
+	if (wcslen(GetCopyrightSI(pFileMP3)) > 0)						return true;	// 著作権
+	if (wcslen(GetComposerSI(pFileMP3)) > 0)						return true;	// 作曲
+	if (wcslen(GetOrigArtistSI(pFileMP3)) > 0)						return true;	// Orig.アーティスト
+	if (wcslen(GetAlbumArtistSI(pFileMP3)) > 0)						return true;	// Albm.アーティスト
+	if (wcslen(GetWriterSI(pFileMP3)) > 0)							return true;	// 作詞者
+	if (wcslen(GetURLSI(pFileMP3)) > 0)								return true;	// URL
+	if (wcslen(GetEncodest(pFileMP3)) > 0)							return true;	// エンコードした人
+	if (wcslen(GetEngineerSI(pFileMP3)) > 0)						return true;	// エンジニア
+	if (wcslen(GetSoftwareSI(pFileMP3)) > 0
 		&& strcmp(GetSoftwareSI(pFileMP3), strOptSoftwareTag) != 0)		return true;	// ソフトウェア
 	return false;
 }

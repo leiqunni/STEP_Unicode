@@ -566,7 +566,7 @@ extern "C" char* MP4Info(
 					trackId = MP4FindTrackId(mp4File, i);
 					char* trackInfo = PrintTrackInfo(mp4File, trackId);
 					strncat(info, trackInfo, buflen);
-					uint newlen = strlen(trackInfo);
+					uint newlen = wcslen(trackInfo);
 					if (newlen > buflen) buflen = 0;
 					else buflen -= newlen;
 					MP4Free(trackInfo);

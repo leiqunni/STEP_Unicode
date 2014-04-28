@@ -69,7 +69,7 @@ BOOL CHistoryComboEx::PreCreateWindow(CREATESTRUCT& cs)
 	// warn if creating with CBS_SORT style
 	// (unfortunately we can't turn it off)
 	if (cs.style & CBS_SORT)
-		TRACE("WARNING: Creating History combo with CBS_SORT style\n");
+		TRACE(L"WARNING: Creating History combo with CBS_SORT style\n");
 	
 	return CComboBoxEx::PreCreateWindow(cs);
 }
@@ -100,9 +100,9 @@ int CHistoryComboEx::InsertItem(const COMBOBOXEXITEM *pCBItem)
 	cbiTemp = *pCBItem;
 	CString str = (CString) cbiTemp.pszText;
 	
-	//str.TrimLeft(" ");
-	//str.TrimRight(" ");
-	cbiTemp.pszText = (LPTSTR)(LPCTSTR) str;	
+	//str.TrimLeft(L" ");
+	//str.TrimRight(L" ");
+	cbiTemp.pszText = (LPTSTR)(LPCWSTR) str;	
 	cbiTemp.iItem = 0;
 	//nRet = CComboBoxEx::InsertItem(&cbiTemp);
 	
@@ -124,7 +124,7 @@ int CHistoryComboEx::InsertItem(CString strItem)
 
 	pCBItem.mask = CBEIF_TEXT;
 	pCBItem.iItem = 0;
-	pCBItem.pszText = (LPTSTR)(LPCTSTR)strItem;
+	pCBItem.pszText = (LPTSTR)(LPCWSTR)strItem;
 
 	return InsertItem (&pCBItem);
 }
@@ -133,7 +133,7 @@ int CHistoryComboEx::InsertItem(CString strItem)
 // text selected
 // the profile area is kept so that in doesn't need to specified again
 // when saving the history
-CString CHistoryComboEx::LoadHistory(LPCTSTR lpszSection, LPCTSTR lpszKeyPrefix, BOOL bSaveRestoreLastCurrent, LPCTSTR lpszKeyCurItem)
+CString CHistoryComboEx::LoadHistory(LPCWSTR lpszSection, LPCWSTR lpszKeyPrefix, BOOL bSaveRestoreLastCurrent, LPCWSTR lpszKeyCurItem)
 {
 	if (lpszSection == NULL || lpszKeyPrefix == NULL || *lpszSection == '\0')
 		return "";
@@ -157,9 +157,9 @@ CString CHistoryComboEx::LoadHistory(LPCTSTR lpszSection, LPCTSTR lpszKeyPrefix,
 	do
 	{
 		CString sKey;
-		sKey.Format("%s%d", m_sKeyPrefix, n++);
+		sKey.Format(L"%s%d", m_sKeyPrefix, n++);
 		sText = MyGetProfileString(m_sSection, sKey, NULL);
-		cbiItem.pszText = (LPSTR) (LPCSTR) sText;
+		cbiItem.pszText = (LPSTR) (LPCWSTR) sText;
     
 		if (!sText.IsEmpty()) {
 			CComboBoxEx::InsertItem(&cbiItem);
@@ -174,7 +174,7 @@ CString CHistoryComboEx::LoadHistory(LPCTSTR lpszSection, LPCTSTR lpszKeyPrefix,
 		if (!m_sKeyCurItem.IsEmpty())
 			sKey = m_sKeyCurItem;
 		else if (m_sKeyPrefix.IsEmpty())
-			sKey = "Last";
+			sKey = L"Last";
 		else
 			sKey = m_sKeyPrefix;
     
@@ -216,7 +216,7 @@ CString CHistoryComboEx::LoadHistory(CRecentFileList *pListMRU, BOOL bSelectMost
 
 	for (int n = 0; n < nNumItems; n++)
 	{		
-		cbiItem.pszText = (LPSTR) (LPCTSTR) (*pListMRU)[n];
+		cbiItem.pszText = (LPSTR) (LPCWSTR) (*pListMRU)[n];
 		CComboBoxEx::InsertItem(&cbiItem);
 	}
 	
@@ -256,7 +256,7 @@ void CHistoryComboEx::SaveHistory(BOOL bAddCurrentItemtoHistory)
 		
 		if (!sCurItem.IsEmpty())
 		{
-			cbiItem.pszText = (LPSTR) (LPCSTR) (sCurItem);
+			cbiItem.pszText = (LPSTR) (LPCWSTR) (sCurItem);
 			InsertItem(&cbiItem);
 		}
 	}
@@ -267,7 +267,7 @@ void CHistoryComboEx::SaveHistory(BOOL bAddCurrentItemtoHistory)
 	for (int n = 0; n < nMax; n++)
 	{
 		CString sKey;
-		sKey.Format("%s%d", m_sKeyPrefix, n);
+		sKey.Format(L"%s%d", m_sKeyPrefix, n);
 		CString sText;
 		GetLBText(n, sText);
 		//pApp->WriteProfileString(m_sSection, sKey, sText);		
@@ -283,7 +283,7 @@ void CHistoryComboEx::SaveHistory(BOOL bAddCurrentItemtoHistory)
 		if (!m_sKeyCurItem.IsEmpty())
 			sKey = m_sKeyCurItem;
 		else if (m_sKeyPrefix.IsEmpty())
-			sKey = "Last";
+			sKey = L"Last";
 		else
 			sKey = m_sKeyPrefix;
     
@@ -307,13 +307,13 @@ void CHistoryComboEx::ClearHistory(BOOL bDeleteRegistryEntries)
 		// get the actual reg key used
 		CWinApp* pApp = AfxGetApp();
 		CRegKey rk;
-		CString sKey = "SOFTWARE\\";
+		CString sKey = L"SOFTWARE\\";
     
 		if (pApp->m_pszRegistryKey == NULL || pApp->m_pszAppName == NULL)
 			return;
     
-		sKey += pApp->m_pszRegistryKey + CString("\\");    
-		sKey += pApp->m_pszAppName + CString("\\");
+		sKey += pApp->m_pszRegistryKey + CString(L"\\");    
+		sKey += pApp->m_pszAppName + CString(L"\\");
 		sKey += m_sSection;
 		if (rk.Open(HKEY_CURRENT_USER, sKey) != ERROR_SUCCESS)
 			return;
@@ -323,14 +323,14 @@ void CHistoryComboEx::ClearHistory(BOOL bDeleteRegistryEntries)
     
 		for (int n = 0; n < nMax; n++)
 		{
-			sKey.Format("%s%d", m_sKeyPrefix, n);
+			sKey.Format(L"%s%d", m_sKeyPrefix, n);
 			rk.DeleteValue(sKey);
 		}
     
 		if (!m_sKeyCurItem.IsEmpty())
 			sKey = m_sKeyCurItem;
 		else if (m_sKeyPrefix.IsEmpty())
-			sKey = "Last";
+			sKey = L"Last";
 		else
 			sKey = m_sKeyPrefix;
 		

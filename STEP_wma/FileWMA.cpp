@@ -4,7 +4,7 @@
 //
 
 #include "stdafx.h"
-#include <TCHAR.h>
+#include <wchar_t.h>
 #include <stdio.h>
 #include <string.h>
 #include "wmsdk.h"
@@ -159,9 +159,9 @@ bool WriteAttributeFileWMA(FILE_INFO *pFileMP3)
 			break ;
 		}
 		// ƒ^ƒOî•ñ‚Ìo—Í
-		if (strlen(GetTrackNumberSI(pFileMP3)) > 0 && atoi(GetTrackNumberSI(pFileMP3)) > 0) {
-			WriteAttributeDWORD(pHeaderInfo, L"WM/Track", atoi(GetTrackNumberSI(pFileMP3)) - 1);
-			WriteAttributeDWORD(pHeaderInfo, L"WM/TrackNumber", atoi(GetTrackNumberSI(pFileMP3)));
+		if (wcslen(GetTrackNumberSI(pFileMP3)) > 0 && _wtoi(GetTrackNumberSI(pFileMP3)) > 0) {
+			WriteAttributeDWORD(pHeaderInfo, L"WM/Track", _wtoi(GetTrackNumberSI(pFileMP3)) - 1);
+			WriteAttributeDWORD(pHeaderInfo, L"WM/TrackNumber", _wtoi(GetTrackNumberSI(pFileMP3)));
 		}
 		WriteAttributeStr(pHeaderInfo, L"WM/PartOfSet" , GetDiskNumberSI(pFileMP3));
 		WriteAttributeStr(pHeaderInfo, L"WM/AlbumTitle", GetAlbumNameSI(pFileMP3));

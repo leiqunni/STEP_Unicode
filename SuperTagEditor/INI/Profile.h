@@ -31,13 +31,13 @@
 	Function Prototypes
 **************************************************************************/
 
-BOOL Profile_Initialize(const TCHAR *path, const BOOL ReadFlag);
-BOOL Profile_Flush(const TCHAR *path);
+BOOL Profile_Initialize(const wchar_t *path, const BOOL ReadFlag);
+BOOL Profile_Flush(const wchar_t *path);
 void Profile_Free(void);
-long Profile_GetString(const TCHAR *Section, const TCHAR *Key, const TCHAR *Default, TCHAR *ret, const long size, const TCHAR *File);
-int Profile_GetInt(const TCHAR *Section, const TCHAR *Key, const int Default, const TCHAR *File);
-BOOL Profile_WriteString(const TCHAR *Section, const TCHAR *Key, const TCHAR *str, const TCHAR *File);
-BOOL Profile_WriteInt(const TCHAR *Section, const TCHAR *Key, const int num, const TCHAR *File);
+long Profile_GetString(const wchar_t *Section, const wchar_t *Key, const wchar_t *Default, wchar_t *ret, const long size, const wchar_t *File);
+int Profile_GetInt(const wchar_t *Section, const wchar_t *Key, const int Default, const wchar_t *File);
+BOOL Profile_WriteString(const wchar_t *Section, const wchar_t *Key, const wchar_t *str, const wchar_t *File);
+BOOL Profile_WriteInt(const wchar_t *Section, const wchar_t *Key, const int num, const wchar_t *File);
 
 #endif
 /* End of source */

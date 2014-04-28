@@ -101,7 +101,7 @@ BOOL CSMLStatic::SetSMLText(UINT nID)
 }
 
 
-BOOL CSMLStatic::SetSMLText(LPCSTR stream)
+BOOL CSMLStatic::SetSMLText(LPCWSTR stream)
 {
 	BOOL result;
 
@@ -119,7 +119,7 @@ BOOL CSMLStatic::SetSMLText(LPCSTR stream)
 }
 
 
-BOOL CSMLStatic::SetPlainText(LPCSTR lpszText)
+BOOL CSMLStatic::SetPlainText(LPCWSTR lpszText)
 {
 	if(NULL != m_Document) {
 		delete m_Document;
@@ -228,9 +228,9 @@ void CSMLStatic::InsertDocument()
 			}
 			
 			if(typeface.GetLength() >= LF_FACESIZE) {
-				TRACE1("Typeface %s is too long for CHARFORMAT member\n", typeface.GetBuffer(0));
+				TRACE1(L"Typeface %s is too long for CHARFORMAT member\n", typeface.GetBuffer(0));
 			} else {
-				strcpy(charFmt.szFaceName, typeface);
+				wcscpy(charFmt.szFaceName, typeface);
 				charFmt.bPitchAndFamily = FF_DONTCARE;
 				charFmt.dwMask |= CFM_FACE;
 			}
@@ -254,7 +254,7 @@ void CSMLStatic::InsertDocument()
 			ReplaceSel(blk->GetText(), FALSE);
 		}
 
-		ReplaceSel("\n", FALSE);
+		ReplaceSel(L"\n", FALSE);
 	}
 
 

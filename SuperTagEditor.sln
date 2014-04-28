@@ -16,14 +16,14 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Debug|Win32.Build.0 = Debug|Win32
-		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicDebug|Win32.ActiveCfg = PublicDebug|Win32
-		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicDebug|Win32.Build.0 = PublicDebug|Win32
-		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicRelease|Win32.ActiveCfg = PublicRelease|Win32
-		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicRelease|Win32.Build.0 = PublicRelease|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicDebug|Win32.ActiveCfg = Debug|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicDebug|Win32.Build.0 = Debug|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicRelease|Win32.ActiveCfg = Release|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.PublicRelease|Win32.Build.0 = Release|Win32
 		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Release|Win32.ActiveCfg = Release|Win32
 		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Release|Win32.Build.0 = Release|Win32
-		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Template|Win32.ActiveCfg = Template|Win32
-		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Template|Win32.Build.0 = Template|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Template|Win32.ActiveCfg = Release|Win32
+		{E18DA30E-6AC6-4BD5-A16A-32420644345F}.Template|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
