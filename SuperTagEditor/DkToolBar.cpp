@@ -110,7 +110,7 @@ BOOL CDkToolBar::Create(CWnd *pParentWnd, DWORD dwStyle, UINT nID,
 	// else default processing failed
 	else
 	{
-		TRACE0(L"Failed to create toolbar\n");
+		TRACE0("Failed to create toolbar\n");
 		success = FALSE;
 	}
 
@@ -306,7 +306,7 @@ void CDkToolBar::OnToolBarGetButtonInfo(NMHDR *notify, LRESULT *result)
 
 		// copy the text for the button label in the dialog
 		wcscpy(tbStruct->pszText, toolBarInfo[tbStruct->iItem].btnText);
-		TRACE0(toolBarInfo[tbStruct->iItem].btnText);
+		TRACE(toolBarInfo[tbStruct->iItem].btnText);
 
 		// indicate valid data was sent
 		*result = TRUE;

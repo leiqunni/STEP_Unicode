@@ -64,7 +64,7 @@ BOOL CDlgAddUserGenre::OnInitDialog()
 	m_listGenre.InsertColumn(1, L"ジャンル", LVCFMT_LEFT, rect.right-rect.left-16, -1);
 	m_listGenre.DeleteAllItems();					// クリア
 
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		CString	strText;
 		strText.Format(L"%3d：%s", pGenre->byGenre, pGenre->sName);

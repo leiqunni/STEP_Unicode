@@ -26,7 +26,7 @@ IMPLEMENT_DYNCREATE(CDlgEditShowColumn, COptionPage)
 CDlgEditShowColumn::CDlgEditShowColumn() : COptionPage(CDlgEditShowColumn::IDD)
 {
 	//{{AFX_DATA_INIT(CDlgEditShowColumn)
-		// メモ - ClassWizard はこの位置にマッピング用のマクロを追加または削除します。
+	// メモ - ClassWizard はこの位置にマッピング用のマクロを追加または削除します。
 	//}}AFX_DATA_INIT
 }
 
@@ -74,7 +74,7 @@ BOOL CDlgEditShowColumn::OnInitDialog()
 	RECT	rect;
 	m_listColumn.GetClientRect(&rect);
 
-	m_listColumn.InsertColumn(0, L"項目名", LVCFMT_LEFT, rect.right-rect.left-16-48);
+	m_listColumn.InsertColumn(0, L"項目名", LVCFMT_LEFT, rect.right - rect.left - 16 - 48);
 	m_listColumn.InsertColumn(1, L"最大幅", LVCFMT_LEFT, 48, 1);
 	m_listColumn.DeleteAllItems();					// クリア
 
@@ -83,11 +83,11 @@ BOOL CDlgEditShowColumn::OnInitDialog()
 		for (int nType = COLUMN_TREE_ITEM; nType < COLUMN_MAX; nType++) {
 			struct COLUMN_STATUS	*Stat = &g_columnStatus[nType];
 			if (Stat->nNumber == nColumn) {
-				extern	const char	***g_sNameList;
+				extern	const wchar_t	***g_sNameList;
 				int		nIndex = m_listColumn.GetItemCount();
 				CString	strMax;
 				strMax.Format(L"%d", Stat->nWidthMax);
-				m_listColumn.InsertItem(nIndex, g_sNameList[0][1+nType]);
+				m_listColumn.InsertItem(nIndex, g_sNameList[0][1 + nType]);
 				m_listColumn.SetItemText(nIndex, 1, strMax);
 				m_listColumn.SetItemData(nIndex, nType);
 				ListView_SetCheckState(m_listColumn.GetSafeHwnd(), nIndex, Stat->bShowFlag);
@@ -100,11 +100,11 @@ BOOL CDlgEditShowColumn::OnInitDialog()
 	}
 	if (!bFoundFormat) { /* Conspiracy 198 */
 		struct COLUMN_STATUS	*Stat = &g_columnStatus[COLUMN_FORMAT];
-		extern	const char	***g_sNameList;
+		extern	const wchar_t	***g_sNameList;
 		int		nIndex = m_listColumn.GetItemCount();
 		CString	strMax;
 		strMax.Format(L"%d", Stat->nWidthMax);
-		m_listColumn.InsertItem(nIndex, g_sNameList[0][1+COLUMN_FORMAT]);
+		m_listColumn.InsertItem(nIndex, g_sNameList[0][1 + COLUMN_FORMAT]);
 		m_listColumn.SetItemText(nIndex, 1, strMax);
 		m_listColumn.SetItemData(nIndex, COLUMN_FORMAT);
 		ListView_SetCheckState(m_listColumn.GetSafeHwnd(), nIndex, Stat->bShowFlag);
@@ -113,13 +113,13 @@ BOOL CDlgEditShowColumn::OnInitDialog()
 	SelChangeList();
 
 	return TRUE;  // コントロールにフォーカスを設定しないとき、戻り値は TRUE となります
-	              // 例外: OCX プロパティ ページの戻り値は FALSE となります
+	// 例外: OCX プロパティ ページの戻り値は FALSE となります
 }
 
 void CDlgEditShowColumn::SwapListItem(int nNum1, int nNum2)
 {
 	LV_ITEM	item1, item2;
-	_wchar_t	szBuff1[256], szBuff2[256];
+	wchar_t	szBuff1[256], szBuff2[256];
 	item1.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE | LVIF_INDENT | LVIF_PARAM;
 	item1.iItem = nNum1;
 	item1.iSubItem = 0;
@@ -151,10 +151,10 @@ void CDlgEditShowColumn::OnBtDown()
 	int		nIndex;
 	nIndex = ListView_GetSelectedItem(m_listColumn);
 	if (nIndex >= 1) {
-		if (nIndex < m_listColumn.GetItemCount()-1) {
+		if (nIndex < m_listColumn.GetItemCount() - 1) {
 			// データを入れ変える
-			SwapListItem(nIndex, nIndex+1);
-			m_listColumn.EnsureVisible(nIndex+1, FALSE);
+			SwapListItem(nIndex, nIndex + 1);
+			m_listColumn.EnsureVisible(nIndex + 1, FALSE);
 		}
 	}
 }
@@ -165,8 +165,8 @@ void CDlgEditShowColumn::OnBtUp()
 	nIndex = ListView_GetSelectedItem(m_listColumn);
 	if (nIndex >= 1) {
 		// データを入れ変える
-		SwapListItem(nIndex, nIndex-1);
-		m_listColumn.EnsureVisible(nIndex-1, FALSE);
+		SwapListItem(nIndex, nIndex - 1);
+		m_listColumn.EnsureVisible(nIndex - 1, FALSE);
 	}
 }
 
@@ -183,10 +183,8 @@ void CDlgEditShowColumn::OnOK()
 	}
 
 	if (g_columnStatus[COLUMN_FILE_NAME].bShowFlag == false) {
-		MessageBox(L"[表示項目設定]でファイル名が非表示に設定されています\n\n"
-		           "STE 上でファイル名を変更したい場合は、ファイル名の表示を\n"
-				   "有効にしてください",
-		           "警告", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+		MessageBox(L"[表示項目設定]でファイル名が非表示に設定されています\n\nSTE 上でファイル名を変更したい場合は、ファイル名の表示を\n有効にしてください",
+			L"警告", MB_ICONSTOP | MB_OK | MB_TOPMOST);
 	}
 
 	COptionPage::OnOK();
@@ -198,18 +196,18 @@ void CDlgEditShowColumn::OnBtResetPage()
 	m_listColumn.DeleteAllItems();					// クリア
 
 	static	int		nColumnMax[] = {
-		0,0,0,0,0,48,48,48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,128,128,128,128,128,0,128,128/* 2003.06.19 add */ /* Conspiracy 196 */ /* Fix 2010 Mimura */
+		0, 0, 0, 0, 0, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 128, 128, 128, 128, 128, 0, 128, 128/* 2003.06.19 add */ /* Conspiracy 196 */ /* Fix 2010 Mimura */
 	};
 
 	for (int nType = COLUMN_TREE_ITEM; nType < COLUMN_MAX; nType++) {
-		extern	const char	***g_sNameList;
+		extern	const wchar_t	***g_sNameList;
 		int		nIndex = m_listColumn.GetItemCount();
 		struct COLUMN_STATUS	*Stat;
 		//Stat = &g_columnStatus[m_listColumn.GetItemData(nType)];
 		Stat = &g_columnStatus[nType];
 		CString	strMax;
 		strMax.Format(L"%d", nColumnMax[nType]);
-		m_listColumn.InsertItem(nIndex, g_sNameList[0][1+nType]);
+		m_listColumn.InsertItem(nIndex, g_sNameList[0][1 + nType]);
 		m_listColumn.SetItemText(nIndex, 1, strMax);
 		m_listColumn.SetItemData(nIndex, nType);
 		ListView_SetCheckState(m_listColumn.GetSafeHwnd(), nIndex, Stat->bShowFlag);
@@ -250,7 +248,7 @@ void CDlgEditShowColumn::SelChangeList(void)
 			GetDlgItem(IDC_BT_DOWN)->EnableWindow(FALSE);
 		} else {
 			GetDlgItem(IDC_BT_UP)->EnableWindow((nIndex == 1) ? FALSE : TRUE);
-			GetDlgItem(IDC_BT_DOWN)->EnableWindow((nIndex == m_listColumn.GetItemCount()-1) ? FALSE : TRUE);
+			GetDlgItem(IDC_BT_DOWN)->EnableWindow((nIndex == m_listColumn.GetItemCount() - 1) ? FALSE : TRUE);
 		}
 		GetDlgItem(IDC_EDIT_MAX_WIDTH)->EnableWindow(TRUE);
 	} else {
@@ -266,7 +264,7 @@ void CDlgEditShowColumn::OnItemChangingListColumn(NMHDR* pNMHDR, LRESULT* pResul
 
 	// MP3 List のチェック状態は変更不可
 	if (pNMListView->iItem == 0) {
-		BOOL bChecked = (BOOL)(((pNMListView->uNewState & LVIS_STATEIMAGEMASK)>>12)-1);
+		BOOL bChecked = (BOOL)(((pNMListView->uNewState & LVIS_STATEIMAGEMASK) >> 12) - 1);
 		bChecked = (bChecked < 0) ? FALSE : TRUE;
 		if (bChecked) {								// チェックしようとしている
 			// 無効化

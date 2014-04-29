@@ -83,7 +83,7 @@ BOOL CDlgReplaceWord::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO: この位置に初期化の補足処理を追加してください
-	extern	const char	***g_sNameList;
+	extern	const wchar_t	***g_sNameList;
 	// m_listTargetColumn.AddString(L"全ての項目");
 	for (int i = 2; g_sNameList[0][i] != NULL; i++) {
 		m_listTargetColumn.AddString(g_sNameList[0][i]);
@@ -91,7 +91,7 @@ BOOL CDlgReplaceWord::OnInitDialog()
 	/*m_listTargetColumn.AddString(L"(全項目)");*/
 	m_listTargetColumn.SetCurSel(m_nTargetColumn);
 
-	SetWindowText(m_bModeReplace ? "置換" : "検索");
+	SetWindowText(m_bModeReplace ? L"置換" : L"検索");
 
 	UpdateStatus();
 

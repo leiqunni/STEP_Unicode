@@ -144,7 +144,7 @@ CString CHistoryComboEx::LoadHistory(LPCWSTR lpszSection, LPCWSTR lpszKeyPrefix,
 
 	m_sSection = lpszSection;
 	m_sKeyPrefix = lpszKeyPrefix;
-	m_sKeyCurItem = lpszKeyCurItem == NULL ? "" : lpszKeyCurItem;
+	m_sKeyCurItem = lpszKeyCurItem == NULL ? L"" : lpszKeyCurItem;
 	m_bSaveRestoreLastCurrent = bSaveRestoreLastCurrent;
 	//CWinApp* pApp = AfxGetApp();
 
@@ -159,7 +159,7 @@ CString CHistoryComboEx::LoadHistory(LPCWSTR lpszSection, LPCWSTR lpszKeyPrefix,
 		CString sKey;
 		sKey.Format(L"%s%d", m_sKeyPrefix, n++);
 		sText = MyGetProfileString(m_sSection, sKey, NULL);
-		cbiItem.pszText = (LPSTR) (LPCWSTR) sText;
+		cbiItem.pszText = (LPWSTR)sText.GetString();
     
 		if (!sText.IsEmpty()) {
 			CComboBoxEx::InsertItem(&cbiItem);
@@ -215,8 +215,9 @@ CString CHistoryComboEx::LoadHistory(CRecentFileList *pListMRU, BOOL bSelectMost
 	cbiItem.iItem = 0;
 
 	for (int n = 0; n < nNumItems; n++)
-	{		
-		cbiItem.pszText = (LPSTR) (LPCWSTR) (*pListMRU)[n];
+	{
+		CString tmp = (*pListMRU)[n];
+		cbiItem.pszText = (LPWSTR)tmp.GetString();
 		CComboBoxEx::InsertItem(&cbiItem);
 	}
 	
@@ -256,7 +257,7 @@ void CHistoryComboEx::SaveHistory(BOOL bAddCurrentItemtoHistory)
 		
 		if (!sCurItem.IsEmpty())
 		{
-			cbiItem.pszText = (LPSTR) (LPCWSTR) (sCurItem);
+			cbiItem.pszText = (LPWSTR)sCurItem.GetString();
 			InsertItem(&cbiItem);
 		}
 	}

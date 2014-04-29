@@ -59,6 +59,6 @@ void CDlgNameChange::OnOK()
 	CDialog::OnOK();
 
 	if (m_strName.IsEmpty() == TRUE) {
-		m_strName = _T(L"ñºèÃñ¢ê›íË");
+		m_strName = L"ñºèÃñ¢ê›íË";
 	}
 }

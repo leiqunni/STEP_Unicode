@@ -295,7 +295,7 @@ BOOL COptionPage::OnSetActive()
 	ASSERT_VALID(this);
 	if (!UpdateData(FALSE))
 	{
-		TRACE0(L"UpdateData failed during page activation\n");
+		TRACE0("UpdateData failed during page activation\n");
 		return FALSE;
 	}
 	return TRUE;
@@ -308,7 +308,7 @@ BOOL COptionPage::OnKillActive()
 	ASSERT_VALID(this);
 	if (!UpdateData())
 	{
-		TRACE0(L"UpdateData failed during page deactivation\n");
+		TRACE0("UpdateData failed during page deactivation\n");
 		return FALSE;
 	}
 	OnOK(); /* 2005.09.08 add */

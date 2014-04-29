@@ -354,7 +354,7 @@ bool WriteFileAAC(FILE_INFO *pFile)
 		unsigned __int16 trkn = 0, tot = 0;
 		int t1 = 0, t2 = 0;
 		LPCTSTR strTrackNo = GetTrackNumberSI(pFile);
-		if (strstr(strTrackNo, "/") != NULL) {
+		if (wcsstr(strTrackNo, "/") != NULL) {
 			sscanf(strTrackNo, "%d/%d", &t1, &t2);
 			trkn = t1, tot = t2;
 		} else {
@@ -369,7 +369,7 @@ bool WriteFileAAC(FILE_INFO *pFile)
 		unsigned __int16 trkn = 0, tot = 0;
 		int t1 = 0, t2 = 0;
 		LPCTSTR strDiskNo = GetDiskNumberSI(pFile);
-		if (strstr(strDiskNo, "/") != NULL) {
+		if (wcsstr(strDiskNo, "/") != NULL) {
 			sscanf(strDiskNo, "%d/%d", &t1, &t2);
 			trkn = t1, tot = t2;
 		} else {

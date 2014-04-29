@@ -120,7 +120,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		"ToolBar Settings") ||
 		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
 	{
-		TRACE0(L"Failed to create toolbar\n");
+		TRACE0("Failed to create toolbar\n");
 		return -1;      // çÏê¨Ç…é∏îs
 	}
 
@@ -129,7 +129,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// É_ÉCÉAÉçÉOÉoÅ[çÏê¨
 //	if (!m_wndDlgBar.Create(this, IDR_MAINFRAME, CBRS_ALIGN_TOP, AFX_IDW_DIALOGBAR)) {
-//		TRACE0(L"Failed to create dialogbar\n");
+//		TRACE0("Failed to create dialogbar\n");
 //		return -1;		// çÏê¨Ç…é∏îs
 //	}
 
@@ -137,14 +137,14 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		!m_wndReBar.AddBar(&m_wndToolBar)/* ||
 		!m_wndReBar.AddBar(&m_wndDlgBar)*/)
 	{
-		TRACE0(L"Failed to create rebar\n");
+		TRACE0("Failed to create rebar\n");
 		return -1;      // çÏê¨Ç…é∏îs
 	}
 
 	if (!m_wndStatusBar.Create(this) ||
 		!m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT)))
 	{
-		TRACE0(L"Failed to create status bar\n");
+		TRACE0("Failed to create status bar\n");
 		return -1;      // çÏê¨Ç…é∏îs
 	}
 
@@ -159,7 +159,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //			LoadBarState(_T(L"ToolBar"));
 //		}
 //	} else {
-		LoadBarState(_T(L"ToolBar"));
+		LoadBarState(L"ToolBar");
 //	}
 
 	{ /* AstralCircle 041 */
@@ -263,7 +263,7 @@ void CMainFrame::OnSize(UINT nType, int cx, int cy)
 
 void CMainFrame::OnClose() 
 {
-	SaveBarState(_T(L"ToolBar"));
+	SaveBarState(L"ToolBar");
 
 	CFrameWnd::OnClose();
 }
@@ -273,7 +273,7 @@ void CMainFrame::OnUpdateFrameTitle(BOOL bAddToTitle)
 	CFrameWnd::OnUpdateFrameTitle(bAddToTitle);
 
 	CString	strTitle;
-	strTitle.Format(PROG_NAME" Ver "PROG_VERSION);
+	strTitle.Format(PROG_NAME L" Ver " PROG_VERSION);
 	/*strTitle += L"â¸";*/
 	SetWindowText(strTitle);
 }

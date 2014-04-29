@@ -197,7 +197,7 @@ bool CSHBrowseForFolder::Exec(wchar_t *sLocal)
 {
 	BOOL			bResult = FALSE;
 	BROWSEINFO		bi;
-	LPSTR			lpBuffer;
+	LPWSTR			lpBuffer;
 	LPITEMIDLIST	pidlRoot;	   // ブラウズのルートPIDL
 	LPITEMIDLIST	pidlBrowse;    // ユーザーが選択したPIDL
 	LPMALLOC		lpMalloc = NULL;
@@ -208,7 +208,7 @@ bool CSHBrowseForFolder::Exec(wchar_t *sLocal)
 	HWND	hwnd = AfxGetMainWnd()->GetSafeHwnd();
 
 	// ブラウズ情報受け取りバッファ領域の確保
-	if ((lpBuffer = (LPSTR) lpMalloc->Alloc(_MAX_PATH)) == NULL) {
+	if ((lpBuffer = (LPWSTR) lpMalloc->Alloc(_MAX_PATH)) == NULL) {
 		lpMalloc->Release(); /* WildCherry2 080 */
 		return(FALSE);
 	}

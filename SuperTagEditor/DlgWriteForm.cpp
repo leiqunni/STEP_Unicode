@@ -106,11 +106,9 @@ void CDlgWriteForm::OnBtRefFile()
 	m_editFileName.GetWindowText(strFileName);
 
 	// ファイル選択ダイアログを開く
-	static	LPCWSTR	sFileFilter =	"書式ファイル(*.txt)|*.txt|" \
-									"All Files(*.*)|*.*|";
+	static	LPCWSTR	sFileFilter =	L"書式ファイル(*.txt)|*.txt|All Files(*.*)|*.*|";
 	CFileDialog		dialog(TRUE, L".txt", strFileName,
-	                       OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_EXTENSIONDIFFERENT | OFN_PATHMUSTEXIST,
-	                       sFileFilter, NULL);
+	                       OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_EXTENSIONDIFFERENT | OFN_PATHMUSTEXIST, sFileFilter, NULL);
 	if (dialog.DoModal() == IDOK) {
 		m_editFileName.SetWindowText(dialog.GetPathName());
 	}

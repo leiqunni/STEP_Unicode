@@ -197,7 +197,7 @@ void CDlgMoveFolder::OnBtRef()
 	GetDlgItemText(IDC_EDIT_INIT_PATH, strFolder);
 
 	// フォルダ選択ダイアログを開く
-	char	sFolderName[_MAX_PATH] = {'\0'};
+	wchar_t	sFolderName[_MAX_PATH] = {'\0'};
 	wcscpy(sFolderName, strFolder);
 
 	CSHBrowseForFolder	browse;

@@ -110,7 +110,7 @@ struct	FILE_MP3	{
 struct	GENRE_LIST	{		// ジャンルリスト
 	bool	bAddList;		// リストに追加するかどうか
 	BYTE	byGenre;		// ジャンル番号
-	char	*sName;			// ジャンル名(NULL:リスト終端)
+	CString	sName;			// ジャンル名(NULL:リスト終端)
 };
 struct	USER_GENRE_LIST	{	// ユーザジャンルリスト
 	bool	bAddList;		// リストに追加するかどうか

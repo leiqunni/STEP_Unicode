@@ -141,11 +141,11 @@ BOOL CDlgKeyConfig::OnInitDialog()
 	m_bExecCommandChange = false;
 
 	// コマンドグループの作成
-	static	char	*sGroupList[COMMAND_GROUP_MAX+1] = {
-		"ファイル", L"編集", L"表示", L"変換"/* 2006.03.02 */, L"プレイリスト", L"プレイヤー制御", L"プラグイン", NULL
+	static	wchar_t	*sGroupList[COMMAND_GROUP_MAX+1] = {
+		L"ファイル", L"編集", L"表示", L"変換"/* 2006.03.02 */, L"プレイリスト", L"プレイヤー制御", L"プラグイン", NULL
 	};
 	m_listGroup.ResetContent();
-	for (int nGroup = 0; sGroupList[nGroup] != NULL; nGroup++) {
+	for (int nGroup = 0; sGroupList[nGroup] != L'\0'; nGroup++) {
 		m_listGroup.AddString(sGroupList[nGroup]);
 	}
 	m_listGroup.SetCurSel(g_nLastSelectGroup);
@@ -162,7 +162,7 @@ void CDlgKeyConfig::UpdateHotKey(void)
 {
 	KEY_CONFIG *pKeyData;
 	WORD	wCmdID = (WORD)m_listCommand.GetItemData(m_listCommand.GetCurSel());
-	if (wCmdID != 0x0000 && (pKeyData = SearchKeyConfigID(wCmdID)) != NULL) {
+	if (wCmdID != 0x0000 && (pKeyData = SearchKeyConfigID(wCmdID)) != L'\0') {
 		// ホットキーコードを取得＆更新
 		WORD	wKeyCode, wModifiers;
 		wKeyCode = (WORD)m_listKey.GetItemData(m_listKey.GetCurSel());
@@ -173,7 +173,7 @@ void CDlgKeyConfig::UpdateHotKey(void)
 
 		// 既に登録されていないかどうかをチェック
 		if (wKeyCode != 0x0000) {
-			int i; for (i = 0; g_listKeyConfig[i].sName != NULL; i++) {
+			int i; for (i = 0; g_listKeyConfig[i].sName != L'\0'; i++) {
 				if (&g_listKeyConfig[i] != pKeyData
 				&&  g_listKeyConfig[i].dwKeyCode == pKeyData->dwKeyCode) {
 					CString	strBuffer;
@@ -203,15 +203,15 @@ void CDlgKeyConfig::UpdateKeyList(void)
 	bool	bAlt = m_btAlt.GetCheck() ? true : false;
 
 	CString	strExt;
-	if (bCtrl) strExt += _T(L"Ctrl+");
-	if (bAlt) strExt += _T(L"Alt+");
+	if (bCtrl) strExt += L"Ctrl+";
+	if (bAlt) strExt += L"Alt+";
 
 	// 現在の選択を保存
 	int		nOldSel = m_listKey.GetCurSel();
 
 	// キー一覧の作成
 	m_listKey.ResetContent();
-	int i; for (i = 0; g_keyData[i].sKeyName != NULL; i++) {
+	int i; for (i = 0; g_keyData[i].sKeyName != L'\0'; i++) {
 		int		nIndex;
 		CString	strName;
 		WORD	wKeyCode = g_keyData[i].wKeyCode;
@@ -241,7 +241,7 @@ void CDlgKeyConfig::UpdateCommandList(void)
 {
 	// コマンド一覧の作成
 	m_listCommand.ResetContent();
-	int i; for (i = 0; g_listKeyConfig[i].sName != NULL; i++) {
+	int i; for (i = 0; g_listKeyConfig[i].sName != L'\0'; i++) {
 		KEY_CONFIG	*pKey = &g_listKeyConfig[i];
 		if (pKey->nGroupID == m_listGroup.GetCurSel()) {
 			int		nIndex;
@@ -468,7 +468,7 @@ void CDlgKeyConfig::OnSelChangeListCommand()
 
 	KEY_CONFIG *pKeyData;
 	WORD	wCmdID = (WORD)m_listCommand.GetItemData(m_listCommand.GetCurSel());
-	if (wCmdID != 0x0000 && (pKeyData = SearchKeyConfigID(wCmdID)) != NULL) {
+	if (wCmdID != 0x0000 && (pKeyData = SearchKeyConfigID(wCmdID)) != L'\0') {
 		// ホットキーコードを取得
 		WORD	wKeyCode, wModifiers;
 		wKeyCode = (WORD)pKeyData->dwKeyCode;
@@ -487,7 +487,7 @@ void CDlgKeyConfig::OnSelChangeListCommand()
 		}
 
 		// キーを選択状態にする
-		int i; for (i = 0; g_keyData[i].sKeyName != NULL; i++) {
+		int i; for (i = 0; g_keyData[i].sKeyName != L'\0'; i++) {
 			if (wKeyCode == g_keyData[i].wKeyCode) {
 				m_listKey.SetCurSel(i);
 				break;

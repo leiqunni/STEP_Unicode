@@ -180,7 +180,7 @@ void CDlgCommonProgress::UpdatePercent(int nNewPos)
 
     // パーセンテージを表示します。
     CString strBuf;
-    strBuf.Format(_T(L"%d%c"),nPercent,_T('%'));
+    strBuf.Format(L"%d%c",nPercent,_T('%'));
 
 	CString strCur; // 現在のパーセンテージを取得
     pWndPercent->GetWindowText(strCur);

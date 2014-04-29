@@ -145,7 +145,7 @@ extern "C" STEP_API void WINAPI STEPUpdateCellInfo(void);
 void CDlgPluginSetup::OnBtInstall() 
 {
 	// TODO: この位置にコントロール通知ハンドラ用のコードを追加してください
-	char szFilter[] = L"STEプラグイン (*.ste)|*.ste|全て (*.*)|*.*||";
+	wchar_t szFilter[] = L"STEプラグイン (*.ste)|*.ste|全て (*.*)|*.*||";
 	CFileDialog dialog(TRUE, L"ste", NULL, 0, szFilter, this);
 	if (dialog.DoModal() == IDOK) {
 		CString strPluginFile = dialog.GetPathName();
@@ -276,8 +276,8 @@ void CDlgPluginSetup::OnOK()
 		}
 		MyWriteProfileString(strSection, L"Path", pBuff/*pPlugin->sFileName*/);
 		//WritePrivateProfileString(strSection, L"Path", pPlugin->sFileName, strINI);
-		MyWriteProfileString(strSection, L"Use", pPlugin->bUse ? "1" : "0");
-		//WritePrivateProfileString(strSection, L"Use", pPlugin->bUse ? "1" : "0", strINI);
+		MyWriteProfileString(strSection, L"Use", pPlugin->bUse ? L"1" : L"0");
+		//WritePrivateProfileString(strSection, L"Use", pPlugin->bUse ? L"1" : L"0", strINI);
 	}
 	Profile_Flush(strINI);
 	Profile_Free();

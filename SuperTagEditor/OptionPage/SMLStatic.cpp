@@ -228,7 +228,7 @@ void CSMLStatic::InsertDocument()
 			}
 			
 			if(typeface.GetLength() >= LF_FACESIZE) {
-				TRACE1(L"Typeface %s is too long for CHARFORMAT member\n", typeface.GetBuffer(0));
+				TRACE1("Typeface %s is too long for CHARFORMAT member\n", typeface.GetBuffer(0));
 			} else {
 				wcscpy(charFmt.szFaceName, typeface);
 				charFmt.bPitchAndFamily = FF_DONTCARE;

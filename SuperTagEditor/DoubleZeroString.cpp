@@ -85,7 +85,7 @@ CDoubleZeroString::operator const wchar_t*()
 		tlen=1;
 	tlen++;	//	for the double zeroterminator
 
-	m_buf	=	new	char[tlen];
+	m_buf = new	wchar_t[tlen];
 	ASSERT(m_buf!=NULL);
 	ZeroMemory(m_buf, tlen);
 	wchar_t* p = m_buf;

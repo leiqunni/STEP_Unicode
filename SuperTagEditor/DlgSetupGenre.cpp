@@ -77,7 +77,7 @@ BOOL CDlgSetupGenre::OnInitDialog()
 	m_listGenre.InsertColumn(1, L"ジャンル", LVCFMT_LEFT, rect.right-rect.left-16, -1);
 	m_listGenre.DeleteAllItems();					// クリア
 
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		CString	strText;
 		strText.Format(L"%3d：%s", pGenre->byGenre, pGenre->sName);
@@ -94,7 +94,7 @@ BOOL CDlgSetupGenre::OnInitDialog()
 
 void CDlgSetupGenre::OnBtCheckAll() 
 {
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		ListView_SetCheckState(m_listGenre.GetSafeHwnd(), nIndex, TRUE);
 	}
 	int i; for (i = 0; i < USER_GENRE_LIST_MAX; i++) {
@@ -109,7 +109,7 @@ void CDlgSetupGenre::OnBtCheckAll()
 
 void CDlgSetupGenre::OnBtUncheckAll() 
 {
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		ListView_SetCheckState(m_listGenre.GetSafeHwnd(), nIndex, FALSE);
 	}
 	int i; for (i = 0; i < USER_GENRE_LIST_MAX; i++) {
@@ -124,7 +124,7 @@ void CDlgSetupGenre::OnBtUncheckAll()
 
 void CDlgSetupGenre::OnBtCheckId3() 
 {
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		ListView_SetCheckState(m_listGenre.GetSafeHwnd(), nIndex, (pGenre->byGenre <= 83) ? TRUE : FALSE);
 	}
@@ -140,7 +140,7 @@ void CDlgSetupGenre::OnBtCheckId3()
 
 void CDlgSetupGenre::OnBtCheckWinamp() 
 {
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		ListView_SetCheckState(m_listGenre.GetSafeHwnd(), nIndex, (pGenre->byGenre <= 147) ? TRUE : FALSE);
 	}
@@ -156,7 +156,7 @@ void CDlgSetupGenre::OnBtCheckWinamp()
 
 void CDlgSetupGenre::OnBtCheckScmpx() 
 {
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		ListView_SetCheckState(m_listGenre.GetSafeHwnd(), nIndex, TRUE);
 	}
@@ -175,7 +175,7 @@ void CDlgSetupGenre::OnOK()
 	// 編集後の状態を保存
 	//int nIndex; for (nIndex = 0; nIndex < m_listGenre.GetItemCount(); nIndex++) {
 	if (!::IsWindow(m_hWnd))	return;
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 		GENRE_LIST	*pGenre = &g_genreListSCMPX[nIndex];
 		pGenre->bAddList = ListView_GetCheckState(m_listGenre.GetSafeHwnd(), nIndex) ? true : false;
 	}
@@ -218,7 +218,7 @@ void CDlgSetupGenre::OnBtAddUser()
 	if (dialog.DoModal() == IDOK) {
 	}
 	// ユーザ指定ジャンルを再表示
-	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != NULL; nIndex++) {
+	int nIndex; for (nIndex = 0; g_genreListSCMPX[nIndex].sName != L'\0'; nIndex++) {
 	}
 	int i; for (i = 0; i < USER_GENRE_LIST_MAX; i++) {
 		if (m_listGenre.GetItemCount() > nIndex) {
@@ -237,7 +237,7 @@ void CDlgSetupGenre::OnBtDelUser()
 	}
 	int nIndex = m_listGenre.GetNextSelectedItem(pos);
 	// 選択されているのがユーザジャンルかチェック
-	int i; for (i = 0; g_genreListSCMPX[i].sName != NULL; i++) {
+	int i; for (i = 0; g_genreListSCMPX[i].sName != L'\0'; i++) {
 	}
 	if (nIndex >= i) {
 		m_listGenre.DeleteItem(nIndex);
@@ -253,7 +253,7 @@ void CDlgSetupGenre::AddUserGenre(int nIndex)
 		}
 		CString	strText;
 		CString strDefaultName;
-		for (int j = 0; g_genreListSCMPX[j].sName != NULL; j++) {
+		for (int j = 0; g_genreListSCMPX[j].sName != L'\0'; j++) {
 			GENRE_LIST	*pGenreSCMPX = &g_genreListSCMPX[j];
 			if (pGenreSCMPX->byGenre == pGenre->byGenre) {
 				strDefaultName = pGenreSCMPX->sName;

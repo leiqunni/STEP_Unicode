@@ -63,8 +63,7 @@ void CDlgEnvPlayer::OnBtRefWinamp()
 	GetDlgItemText(IDC_ED_WINAMP_PATH, strFileName);
 
 	// ファイル選択ダイアログを開く
-	static	LPCWSTR	sFileFilter =	"Execute File(*.exe)|*.EXE|" \
-									"All Files(*.*)|*.*|";
+	static	LPCWSTR	sFileFilter =	L"Execute File(*.exe)|*.EXE|All Files(*.*)|*.*|";
 	CFileDialog		dialog(TRUE, L".exe", strFileName,
 	                       OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
 	                       sFileFilter, NULL);

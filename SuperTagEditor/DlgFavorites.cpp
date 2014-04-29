@@ -149,7 +149,7 @@ void CDlgFavorites::OnBtRefFavorites9()
 void CDlgFavorites::OnBtRefFavorites(CString &strFavorite)
 {
 	// フォルダ選択ダイアログを開く
-	char	sFolderName[_MAX_PATH] = {'\0'};
+	wchar_t	sFolderName[_MAX_PATH] = { '\0' };
 	wcscpy(sFolderName, strFavorite);
 	if (SelectDirectory(sFolderName) == TRUE) {
 		strFavorite = sFolderName;

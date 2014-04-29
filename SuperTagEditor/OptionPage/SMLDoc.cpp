@@ -44,28 +44,28 @@ enum {
 
 
 struct tagInfo {
-	char	*tag;
+	wchar_t	*tag;
 	DWORD	idStart;
 	DWORD	idEnd;
 };
 
 static tagInfo STagInfo[] = {
-	{"body", BEGIN_BODY, END_BODY},
-	{"center", BEGIN_CENTER, END_CENTER},
-	{"left", BEGIN_LEFTJUST, END_LEFTJUST},
-	{"right", BEGIN_RIGHTJUST, END_RIGHTJUST},
-	{"font", BEGIN_FONT, END_FONT},
-	{"b", BEGIN_BOLD, END_BOLD},
-	{"u", BEGIN_UNDERLINE, END_UNDERLINE},
-	{"i", BEGIN_ITALICS, END_ITALICS},
-	{"br", NEWLINE, NEWLINE},
-	{"h1", HEADER1, TAG_UNKNOWN},
-	{"h2", HEADER2, TAG_UNKNOWN},
-	{"h3", HEADER3, TAG_UNKNOWN},
-	{"h4", HEADER4, TAG_UNKNOWN},
-	{"h5", HEADER5, TAG_UNKNOWN},
-	{"h", TAG_UNKNOWN, END_HEADER},
-	{NULL, 0, 0}
+	{ L"body", BEGIN_BODY, END_BODY },
+	{ L"center", BEGIN_CENTER, END_CENTER },
+	{ L"left", BEGIN_LEFTJUST, END_LEFTJUST },
+	{ L"right", BEGIN_RIGHTJUST, END_RIGHTJUST },
+	{ L"font", BEGIN_FONT, END_FONT },
+	{ L"b", BEGIN_BOLD, END_BOLD },
+	{ L"u", BEGIN_UNDERLINE, END_UNDERLINE },
+	{ L"i", BEGIN_ITALICS, END_ITALICS },
+	{ L"br", NEWLINE, NEWLINE },
+	{ L"h1", HEADER1, TAG_UNKNOWN },
+	{ L"h2", HEADER2, TAG_UNKNOWN },
+	{ L"h3", HEADER3, TAG_UNKNOWN },
+	{ L"h4", HEADER4, TAG_UNKNOWN },
+	{ L"h5", HEADER5, TAG_UNKNOWN },
+	{ L"h", TAG_UNKNOWN, END_HEADER },
+	{ NULL, 0, 0 }
 };
 
 static DWORD headerFontSizes[5] = {8, 10, 12, 14, 18};
@@ -271,24 +271,24 @@ CString CSMLDoc::CSMLTagOptionList::GetParamTypeface(CString &defaultFace) {
 	CString *value;
 
 	// Get the 'face' param
-	value = GetParam(_T(L"face"));
+	value = GetParam(L"face");
 
 	if(NULL != value) {
 		LPCWSTR faceStr = *value;
 		UINT id = 0;
 
 		// Translate the typeface
-		if(0 == _stricmp(faceStr, L"ANSI_FIXED_FONT")) {
+		if (0 == _wcsicmp(faceStr, L"ANSI_FIXED_FONT")) {
 			id = ANSI_FIXED_FONT;
-		} else if(0 == _stricmp(faceStr, L"ANSI_VAR_FONT")) {
+		} else if (0 == _wcsicmp(faceStr, L"ANSI_VAR_FONT")) {
 			id = ANSI_VAR_FONT;
-		} else if(0 == _stricmp(faceStr, L"DEFAULT_GUI_FONT")) {
+		} else if (0 == _wcsicmp(faceStr, L"DEFAULT_GUI_FONT")) {
 			id = DEFAULT_GUI_FONT;
-		} else if(0 == _stricmp(faceStr, L"OEM_FIXED_FONT")) {
+		} else if (0 == _wcsicmp(faceStr, L"OEM_FIXED_FONT")) {
 			id = OEM_FIXED_FONT;
-		} else if(0 == _stricmp(faceStr, L"SYSTEM_FONT")) {
+		} else if (0 == _wcsicmp(faceStr, L"SYSTEM_FONT")) {
 			id = SYSTEM_FONT;
-		} else if(0 == _stricmp(faceStr, L"SYSTEM_FIXED_FONT")) {
+		} else if (0 == _wcsicmp(faceStr, L"SYSTEM_FIXED_FONT")) {
 			id = SYSTEM_FIXED_FONT;
 		}
 
@@ -313,7 +313,7 @@ DWORD CSMLDoc::CSMLTagOptionList::GetParamSize(DWORD defaultSize)
 	CString *value;
 
 	// Find the 'size' parameter
-	value = GetParam(_T(L"size"));
+	value = GetParam(L"size");
 	if(NULL != value) {
 		// It was found, so translate it to a number
 		defaultSize = _wtoi(*value);
@@ -344,74 +344,74 @@ static BOOL GetHexNibble(char ch, UCHAR *out)
 // Translate a color value or windows system color into an RGB value 
 static COLORREF ConvertColor(COLORREF defaultColor, const wchar_t *srcTxt)
 {
-	if(0 == _wcsnicmp(srcTxt, _T(L"COLOR_"), 6)) {
+	if(0 == _wcsnicmp(srcTxt, L"COLOR_", 6)) {
 		srcTxt = &(srcTxt[6]);
-		if(0 == _stricmp(srcTxt, L"3DDKSHADOW")) {
+		if (0 == _wcsicmp(srcTxt, L"3DDKSHADOW")) {
 			defaultColor = COLOR_3DDKSHADOW;
-		} else if(0 == _stricmp(srcTxt, L"3DFACE")) {
+		} else if (0 == _wcsicmp(srcTxt, L"3DFACE")) {
 			defaultColor = COLOR_3DFACE;
-		} else if(0 == _stricmp(srcTxt, L"BTNFACE")) {
+		} else if (0 == _wcsicmp(srcTxt, L"BTNFACE")) {
 			defaultColor = COLOR_BTNFACE;
-		} else if(0 == _stricmp(srcTxt, L"3DHILIGHT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"3DHILIGHT")) {
 			defaultColor = COLOR_3DHILIGHT;
-		} else if(0 == _stricmp(srcTxt, L"3DLIGHT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"3DLIGHT")) {
 			defaultColor = COLOR_3DLIGHT;
-		} else if(0 == _stricmp(srcTxt, L"3DSHADOW")) {
+		} else if (0 == _wcsicmp(srcTxt, L"3DSHADOW")) {
 			defaultColor = COLOR_3DSHADOW;
-		} else if(0 == _stricmp(srcTxt, L"ACTIVEBORDER")) {
+		} else if (0 == _wcsicmp(srcTxt, L"ACTIVEBORDER")) {
 			defaultColor = COLOR_ACTIVEBORDER;
-		} else if(0 == _stricmp(srcTxt, L"ACTIVECAPTION")) {
+		} else if (0 == _wcsicmp(srcTxt, L"ACTIVECAPTION")) {
 			defaultColor = COLOR_ACTIVECAPTION;
-		} else if(0 == _stricmp(srcTxt, L"APPWORKSPACE")) {
+		} else if (0 == _wcsicmp(srcTxt, L"APPWORKSPACE")) {
 			defaultColor = COLOR_APPWORKSPACE;
-		} else if(0 == _stricmp(srcTxt, L"BACKGROUND")) {
+		} else if (0 == _wcsicmp(srcTxt, L"BACKGROUND")) {
 			defaultColor = COLOR_BACKGROUND;
-		} else if(0 == _stricmp(srcTxt, L"BTNTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"BTNTEXT")) {
 			defaultColor = COLOR_BTNTEXT;
-		} else if(0 == _stricmp(srcTxt, L"CAPTIONTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"CAPTIONTEXT")) {
 			defaultColor = COLOR_CAPTIONTEXT;
 #ifdef COLOR_GRADIENTACTIVECAPTION
-		} else if(0 == _stricmp(srcTxt, L"GRADIENTACTIVECAPTION")) {
+		} else if (0 == _wcsicmp(srcTxt, L"GRADIENTACTIVECAPTION")) {
 			defaultColor = COLOR_GRADIENTACTIVECAPTION;
 #endif
 #ifdef GRADIENTINACTIVECAPTION
 		} else if(0 == _stricmp(srcTxt, L"GRADIENTINACTIVECAPTION")) {
 			defaultColor = COLOR_GRADIENTINACTIVECAPTION;
 #endif
-		} else if(0 == _stricmp(srcTxt, L"GRAYTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"GRAYTEXT")) {
 			defaultColor = COLOR_GRAYTEXT;
-		} else if(0 == _stricmp(srcTxt, L"HIGHLIGHT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"HIGHLIGHT")) {
 			defaultColor = COLOR_HIGHLIGHT;
-		} else if(0 == _stricmp(srcTxt, L"HIGHLIGHTTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"HIGHLIGHTTEXT")) {
 			defaultColor = COLOR_HIGHLIGHTTEXT;
 #ifdef HOTLIGHT
 		} else if(0 == _stricmp(srcTxt, L"HOTLIGHT")) {
 			defaultColor = COLOR_HOTLIGHT;
 #endif
-		} else if(0 == _stricmp(srcTxt, L"INACTIVEBORDER")) {
+		} else if (0 == _wcsicmp(srcTxt, L"INACTIVEBORDER")) {
 			defaultColor = COLOR_INACTIVEBORDER;
-		} else if(0 == _stricmp(srcTxt, L"INACTIVECAPTION")) {
+		} else if (0 == _wcsicmp(srcTxt, L"INACTIVECAPTION")) {
 			defaultColor = COLOR_INACTIVECAPTION;
-		} else if(0 == _stricmp(srcTxt, L"INACTIVECAPTIONTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"INACTIVECAPTIONTEXT")) {
 			defaultColor = COLOR_INACTIVECAPTIONTEXT;
-		} else if(0 == _stricmp(srcTxt, L"INFOBK")) {
+		} else if (0 == _wcsicmp(srcTxt, L"INFOBK")) {
 			defaultColor = COLOR_INFOBK;
-		} else if(0 == _stricmp(srcTxt, L"INFOTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"INFOTEXT")) {
 			defaultColor = COLOR_INFOTEXT;
-		} else if(0 == _stricmp(srcTxt, L"MENU")) {
+		} else if (0 == _wcsicmp(srcTxt, L"MENU")) {
 			defaultColor = COLOR_MENU;
-		} else if(0 == _stricmp(srcTxt, L"MENUTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"MENUTEXT")) {
 			defaultColor = COLOR_MENUTEXT;
-		} else if(0 == _stricmp(srcTxt, L"SCROLLBAR")) {
+		} else if (0 == _wcsicmp(srcTxt, L"SCROLLBAR")) {
 			defaultColor = COLOR_SCROLLBAR;
-		} else if(0 == _stricmp(srcTxt, L"WINDOW")) {
+		} else if (0 == _wcsicmp(srcTxt, L"WINDOW")) {
 			defaultColor = COLOR_WINDOW;
-		} else if(0 == _stricmp(srcTxt, L"WINDOWFRAME")) {
+		} else if (0 == _wcsicmp(srcTxt, L"WINDOWFRAME")) {
 			defaultColor = COLOR_WINDOWFRAME;
-		} else if(0 == _stricmp(srcTxt, L"WINDOWTEXT")) {
+		} else if (0 == _wcsicmp(srcTxt, L"WINDOWTEXT")) {
 			defaultColor = COLOR_WINDOWTEXT;
 		} else {
-			TRACE1(L"Unknown system color %s\n", srcTxt);
+			TRACE1("Unknown system color %s\n", srcTxt);
 			return defaultColor;
 		}
 
@@ -460,7 +460,7 @@ COLORREF CSMLDoc::CSMLTagOptionList::GetParamColor(COLORREF defaultColor)
 	CString *value;
 
 	// Get the color argument
-	value = GetParam(_T(L"color"));
+	value = GetParam(L"color");
 
 	if(NULL != value) {
 		// Go translate the color
@@ -476,7 +476,7 @@ DWORD CSMLDoc::CSMLTagOptionList::GetBkgndColor(COLORREF defaultColor)
 	CString *value;
 
 	// Get the background color argument
-	value = GetParam(_T(L"bgcolor"));
+	value = GetParam(L"bgcolor");
 
 	if(NULL != value) {
 		// Trnaslate the color
@@ -913,7 +913,7 @@ BOOL CSMLDoc::ParseSMLText(LPCWSTR src)
 			// Process the tag
 			switch(tagID) {
 			case TAG_UNKNOWN:
-				TRACE1(L"Unknown tag: \"%s\"\n", tagString.GetBuffer(0));
+				TRACE1("Unknown tag: \"%s\"\n", tagString.GetBuffer(0));
 				break;
 
 			case HEADER1:
@@ -1053,7 +1053,7 @@ BOOL CSMLDoc::ParseSMLText(LPCWSTR src)
 
 			// Make sure we are in the text body before adding anything
 			if(true == inBody && length > 0) {
-				wchar_t *txtBuf = new char[length + 1];
+				wchar_t *txtBuf = new wchar_t[length + 1];
 				wchar_t *dst = txtBuf;
 
 				// Collect and convert the text stream

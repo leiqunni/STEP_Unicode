@@ -93,7 +93,7 @@ void CDlgFolderSync::OnBtRefRoot()
 
 	// フォルダ選択ダイアログを開く
 	extern	BOOL SelectDirectory(wchar_t *);
-	char	sFolderName[_MAX_PATH] = {'\0'};
+	wchar_t	sFolderName[_MAX_PATH] = { '\0' };
 	wcscpy(sFolderName, strFileName);
 	if (SelectDirectory(sFolderName) == TRUE) {
 		SetDlgItemText(IDC_ED_ROOT_FOLDER, sFolderName);

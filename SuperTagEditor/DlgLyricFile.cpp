@@ -99,7 +99,7 @@ void CDlgLyricFile::OnBtRefLyrics()
 	GetDlgItemText(IDC_ED_LYRICS_PATH, strFileName);
 
 	// フォルダ選択ダイアログを開く
-	char	sFolderName[_MAX_PATH] = {'\0'};
+	wchar_t	sFolderName[_MAX_PATH] = {'\0'};
 	wcscpy(sFolderName, strFileName);
 	if (SelectDirectory(sFolderName) == TRUE) {
 		SetDlgItemText(IDC_ED_LYRICS_PATH, sFolderName);

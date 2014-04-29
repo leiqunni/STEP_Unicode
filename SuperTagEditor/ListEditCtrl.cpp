@@ -72,7 +72,7 @@ BOOL CListEditCtrl::PreTranslateMessage(MSG* pMsg)
 			return 1;
 		}
 	}
-	//TRACE1(L"CListEditCtrl::PreTranslateMessage %x\n", pMsg->message);
+	//TRACE1("CListEditCtrl::PreTranslateMessage %x\n", pMsg->message);
 	return CEdit::PreTranslateMessage(pMsg);
 }
 

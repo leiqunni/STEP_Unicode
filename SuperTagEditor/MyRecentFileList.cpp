@@ -83,7 +83,7 @@ void CMyRecentFileList::UpdateMenu(CCmdUI* pCmdUI) /* StartInaction 053 */
 
         // insert mnemonic + the file name
         wchar_t buf[10];
-        wsprintf(buf, _T(L"&%d "), (iMRU+1+m_nStart) % 10);
+        wsprintf(buf, L"&%d ", (iMRU+1+m_nStart) % 10);
 
         // Note we use our pMenu which may not be pCmdUI->m_pMenu
         pMenu->InsertMenu(pCmdUI->m_nIndex++,

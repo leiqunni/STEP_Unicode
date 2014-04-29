@@ -35,40 +35,40 @@ static char THIS_FILE[] = __FILE__;
 #define MINCOLWIDTH			24  /* or whatever */
 
 const wchar_t *g_sNameListDefault[] = {
-	_T(L"未指定"),
-	_T(L"Audio List"),
-	_T(L"ファイル名"),
-	_T(L"トラック名"),
-	_T(L"アーティスト名"),
-	_T(L"アルバム名"),
-	_T(L"TrackNo"),
-	_T(L"DiskNo"),
-	_T(L"年号"),
-	_T(L"ジャンル"),
-	_T(L"コメント"),
-	_T(L"著作権"),
-	_T(L"製作者"),
-	_T(L"ソース"),
-	_T(L"ソフトウェア"),
-	_T(L"キーワード"),
-	_T(L"技術者"),
-	_T(L"歌詞"),
-	_T(L"コミッション"),
-	_T(L"作詞者"),
-	_T(L"作曲者"), /* Baja 154 */
-	_T(L"Albm.アーティスト"), /* Baja 154 */
-	_T(L"Orig.アーティスト"), /* Baja 154 */
-	_T(L"URL"), /* Baja 154 */
-	_T(L"エンコードした人"), /* Baja 154 */
-	_T(L"サイズ"),
-	_T(L"更新日"),
-	_T(L"パス名"),
-	_T(L"演奏時間"),
-	_T(L"歌詞ファイル"),
-	_T(L"ファイルの種類"),
-	_T(L"フォーマット"), 	//_T(L"BitRate"), /* Conspiracy 198 */
-	_T(L"その他"), /* Conspiracy 196 */
-	_T(L"作成日"), /* 2003.06.19 add */
+	L"未指定",
+	L"Audio List",
+	L"ファイル名",
+	L"トラック名",
+	L"アーティスト名",
+	L"アルバム名",
+	L"TrackNo",
+	L"DiskNo",
+	L"年号",
+	L"ジャンル",
+	L"コメント",
+	L"著作権",
+	L"製作者",
+	L"ソース",
+	L"ソフトウェア",
+	L"キーワード",
+	L"技術者",
+	L"歌詞",
+	L"コミッション",
+	L"作詞者",
+	L"作曲者", /* Baja 154 */
+	L"Albm.アーティスト", /* Baja 154 */
+	L"Orig.アーティスト", /* Baja 154 */
+	L"URL", /* Baja 154 */
+	L"エンコードした人", /* Baja 154 */
+	L"サイズ",
+	L"更新日",
+	L"パス名",
+	L"演奏時間",
+	L"歌詞ファイル",
+	L"ファイルの種類",
+	L"フォーマット", 	//L"BitRate", /* Conspiracy 198 */
+	L"その他", /* Conspiracy 196 */
+	L"作成日", /* 2003.06.19 add */
 	NULL,
 };
 
@@ -199,7 +199,7 @@ static wchar_t *GetTokenQuote(wchar_t *buffer, wchar_t *sToken)
 		*pBuffer = '\0';
 		pBuffer++;
 	} else {
-		pBuffer = strstr(pBuffer, sToken);
+		pBuffer = wcsstr(pBuffer, sToken);
 		if (pBuffer != NULL) {
 			*pBuffer = '\0';
 			pBuffer++;
@@ -1276,7 +1276,7 @@ void CMySuperGrid::MakeStrListGenre(void)
 //	m_strListGenre.AddTail(_T(L"-NotSupported-"));
 
 	// SCMPX互換ジャンル番号の登録
-	for (nGenre = 0; g_genreListSCMPX[nGenre].sName != NULL; nGenre++) {
+	for (nGenre = 0; g_genreListSCMPX[nGenre].sName != L'\0'; nGenre++) {
 		if (g_genreListSCMPX[nGenre].bAddList) {
 			m_strListGenre.AddTail(g_genreListSCMPX[nGenre].sName);
 		}
@@ -1817,7 +1817,7 @@ BOOL CMySuperGrid::PreTranslateMessage(MSG* pMsg)
 #undef IS_RANGE
 
 
-void ShowLastError(LPSTR title)
+void ShowLastError(LPWSTR title)
 {
     LPVOID lpMsgBuf;
     FormatMessage(
@@ -1871,26 +1871,26 @@ bool CMySuperGrid::ClipboardCopy(void)
 					_tsplitpath(str, NULL, NULL, fname, NULL);
 					str = fname;
 				}
-				if (nColumn != sx) strBuffer += _T(L"\t");
-				if (nColumn != sx) strBufferText += _T(L"\t"); /* RockDance 124 */
+				if (nColumn != sx) strBuffer += L"\t";
+				if (nColumn != sx) strBufferText += L"\t"; /* RockDance 124 */
 				strBuffer += quoteForComment(str)/* RockDance 124 */;
 				strBufferText += str; /* RockDance 124 */
 			}
-			if (nItem < ey) strBuffer += _T(L"\r\n");
-			if (nItem < ey) strBufferText += _T(L"\r\n"); /* RockDance 124 */
+			if (nItem < ey) strBuffer += L"\r\n";
+			if (nItem < ey) strBufferText += L"\r\n"; /* RockDance 124 */
 		}
 	}
 
 	// クリップボード転送用のバッファを確保
-	LPSTR pBuffer;
+	LPWSTR pBuffer;
 	HGLOBAL hMem, hMem2/* RockDance 124 */;
 	hMem = GlobalAlloc(GHND|GMEM_DDESHARE, strBuffer.GetLength()+1);
-	pBuffer = (LPSTR)GlobalLock(hMem);
+	pBuffer = (LPWSTR)GlobalLock(hMem);
 	wcscpy(pBuffer, strBuffer);
 	GlobalUnlock(hMem);
 	/* RockDance 124 */
 	hMem2 = GlobalAlloc(GHND|GMEM_DDESHARE, strBufferText.GetLength()+1);
-	pBuffer = (LPSTR)GlobalLock(hMem2);
+	pBuffer = (LPWSTR)GlobalLock(hMem2);
 	wcscpy(pBuffer, strBufferText);
 	GlobalUnlock(hMem2);
 
@@ -2093,8 +2093,8 @@ int CMySuperGrid::CompFunc(CString &str1, CString &str2, int nColum, bool bSortA
 	} else if (nColum == g_nColumnNumberList[COLUMN_FILE_SIZE]) { /* RockDance 127 */
 		result = (int)(_wtof(str1)*100 - _wtof(str2)*100);
 	} else {
-		char	*buffer1 = new char[str1.GetLength()*2+2];
-		char	*buffer2 = new char[str2.GetLength()*2+2];
+		wchar_t	*buffer1 = new wchar_t[str1.GetLength() * 2 + 2];
+		wchar_t	*buffer2 = new wchar_t[str2.GetLength() * 2 + 2];
 		CString strComp1 = str1; /* FunnyCorn 179 */
 		CString strComp2 = str2; /* FunnyCorn 179 */
 		if (g_bOptSortIgnoreKataHira) { /* FunnyCorn 179 */
@@ -2696,7 +2696,7 @@ void CMySuperGrid::CellStateControl(int nMode)
 			strKey.Format(L"%sWidthMax", Stat->sRegKey);
 			Stat->nWidthMax = MyGetProfileInt(sSectionColumnState, strKey, Stat->nWidthMax);
 
-			if(wcscmp(Stat->sRegKey,"DiskNo") == 0) {
+			if(wcscmp(Stat->sRegKey,L"DiskNo") == 0) {
 				if((dVersion == 1.04)|(dVersion == 1.041))
 					ColNumFix++;
 			}
@@ -2842,11 +2842,11 @@ bool CMySuperGrid::ConvTagInfo(CTreeItem *pItem, int nType, const wchar_t *sForm
 			// ファイル名部分を取得
 			CItemInfo	*pInfo = GetData(pItem);
 			FILE_MP3	*fileMP3 = m_pDoc->GetListMP3((int)pInfo->GetLParam());
-			char	*pFileName; /* STEP 034 */
+			wchar_t	*pFileName; /* STEP 034 */
 			CString strFileName; /* STEP 034 */
 			if (nType == 4) { /* STEP 034 */
-				char	sFileName[_MAX_FNAME];
-				char	sDirName[_MAX_DIR];	// 2003.06.18 add */
+				wchar_t	sFileName[_MAX_FNAME];
+				wchar_t	sDirName[_MAX_DIR];	// 2003.06.18 add */
 				_tsplitpath(fileMP3->strFullPathName, NULL, sDirName, sFileName, NULL); /* 2003.06.18 add */
 	//			_tsplitpath(fileMP3->strFileName, NULL, NULL, sFileName, NULL); /* 2003.06.18 del */
 	/* 2003.06.18 start */
@@ -2860,10 +2860,10 @@ bool CMySuperGrid::ConvTagInfo(CTreeItem *pItem, int nType, const wchar_t *sForm
 					if (sFormat[nPos] == '\\') {
 						sDirName[wcslen(sDirName)-1] = '\0';
 						CString sPathName = sDirName;
-						char	sExtName[_MAX_EXT];
+						wchar_t	sExtName[_MAX_EXT];
 						_tsplitpath(sPathName, NULL, sDirName, sFileName, sExtName); /* 2003.06.18 add */
 						if (wcslen(sFileName) == 0)	break;
-						strFileName = CString(sFileName) + sExtName + "\\" + strFileName;
+						strFileName = CString(sFileName) + sExtName + L"\\" + strFileName;
 					}
 				}
 	//			char	*pFileName = &sFileName[0];
@@ -3773,8 +3773,8 @@ bool CMySuperGrid::ConvUserFormatEx(USER_CONV_FORMAT_EX *pForm)
 	}
 
 	// 連番変換書式の設定
-	char	sNumFormat[20] = {0};
-	sprintf_s(sNumFormat,20,"%s0%dd","%",pForm->nColumnCount);
+	wchar_t	sNumFormat[20] = { 0 };
+	swprintf_s(sNumFormat,20,L"%s0%dd","%",pForm->nColumnCount);
 
 	int		nNumber = pForm->nInitNumber;
 	int		fileCount = 0;
@@ -4076,7 +4076,7 @@ bool CMySuperGrid::CheckExist(const wchar_t *sTarget)
 //	int		nLen = wcslen(sTarget);
 
 	if ((sTarget[0] == '\\' && sTarget[1] == '\\')
-	&&  _mbschr((const wchar_t *)(sTarget+2), '\\') == NULL) {
+		&& wcsrchr((sTarget + 2), '\\') == NULL) {
 		// "\\ネットワーク名" のみの場合は常に真
 		bReturn = true;
 	} else {
@@ -4126,7 +4126,7 @@ bool CMySuperGrid::CheckExist(const wchar_t *sTarget)
 bool CMySuperGrid::CheckFileName(const wchar_t *sTarget)
 {
 	if ((sTarget[0] == '\\' && sTarget[1] == '\\')
-	&&  _mbschr((const wchar_t *)(sTarget+2), '\\') == NULL) {
+		&& wcsrchr((sTarget + 2), '\\') == NULL) {
 		// "\\ネットワーク名" のみの場合は常に真
 		return(true);
 	}
@@ -4156,7 +4156,7 @@ void CMySuperGrid::ChangeFileAttr(const wchar_t *sFileName, DWORD dwAttr)
 
 bool CMySuperGrid::DirectoryMake(CString &strDir)
 {
-	char	*sTemp;
+	wchar_t	*sTemp;
 	int		i, nLen = strDir.GetLength();
 
 	// 必ずドライブ名を含む絶対パスで指定すること
@@ -4209,7 +4209,7 @@ bool CMySuperGrid::DirectoryRemove(CString &strDir)
 	// 削除するディレクトリの属性をクリア
 	ChangeFileAttr(strDir, CFile::normal);
 
-	char	*buffer;
+	wchar_t	*buffer;
 	buffer = strDir.GetBuffer(strDir.GetLength());
 	if (RemoveDirectory(buffer) == FALSE) {
 //		CString	strBuffer;
@@ -4567,7 +4567,7 @@ CString	CMySuperGrid::ReplaceFileName(const FILE_MP3 *fileMP3, CString strName)
 			case 0:// そのまま
 				break;
 			case 1://小文字
-				conv_lower((unsigned wchar_t*)ext);
+				conv_lower((wchar_t*)ext);
 				break;
 			case 2://大文字
 				conv_upper((wchar_t *)ext);
@@ -4822,9 +4822,8 @@ bool CMySuperGrid::MoveFolderFormat(USER_MOVE_FODLER_FORMAT *pForm, CString strF
 		if (!(nNumber >= 0))	continue;
 		FILE_MP3	*fileMP3 = m_pDoc->GetListMP3(nNumber);
 		if (fileMP3->bModifyFlag == true) {
-			MessageBox(L"変更が保存されていないファイルが含まれています\n\n"
-					   "変更が保存されていないファイルは無視します",
-					   "選択ファイルを移動/コピー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
+			MessageBox(L"変更が保存されていないファイルが含まれています\n\n変更が保存されていないファイルは無視します",
+					   L"選択ファイルを移動/コピー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 			continue;
 		}
 
@@ -4939,8 +4938,8 @@ bool CMySuperGrid::MoveFolderFormat(USER_MOVE_FODLER_FORMAT *pForm, CString strF
 			// ディレクトリを1つずつ繰り返し作成
 			CString strNewPath = strPathName;
 			strPathName.TrimRight('\\');
-			strPathName += _T(L"\\");
-			while(strMakePath + _T(L"\\") != strPathName)
+			strPathName += L"\\";
+			while(strMakePath + L"\\" != strPathName)
 			{
 				// 作成するディレクトリ名を設定
 				nStart = strPathName.Find('\\', nStart + 1);
@@ -4973,12 +4972,12 @@ bool CMySuperGrid::MoveFolderFormat(USER_MOVE_FODLER_FORMAT *pForm, CString strF
 				MessageBox(strNewPath + " が作成できませんでした", L"移動/コピーエラー", MB_ICONSTOP|MB_OK|MB_TOPMOST);
 				break;
 			}
-			strNewPath += _T(L"\\");
+			strNewPath += L"\\";
 			SHFILEOPSTRUCT sfo;
 			ZeroMemory(&sfo, sizeof(sfo));
 			sfo.hwnd = GetSafeHwnd();
 			sfo.wFunc = FO_MOVE;
-			sfo.lpszProgressTitle = _T(L"移動しています...");
+			sfo.lpszProgressTitle = L"移動しています...";
 			CDoubleZeroString strFile;
 			strFile.Add(GetFileColumnText(fileMP3, COLUMN_FULL_PATH_NAME) + GetFileColumnText(fileMP3, COLUMN_FILE_NAME));
 			{
@@ -4988,7 +4987,7 @@ bool CMySuperGrid::MoveFolderFormat(USER_MOVE_FODLER_FORMAT *pForm, CString strF
 				_tsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
 				// .lrc => .txt の順で検索
 				int i; for (i = 0; i < 2; i++) {
-					LPSTR	sLyricsExt = (i == 0) ? ".lrc" : ".txt";
+					LPWSTR	sLyricsExt = (i == 0) ? L".lrc" : L".txt";
 					_tmakepath_s(sLyricsFile,FILENAME_MAX+1, drive, dir, fname, sLyricsExt);
 					if (GetFileAttributes(sLyricsFile) != 0xFFFFFFFF) {
 						// ファイルを発見：歌詞ファイルを加える
@@ -5043,7 +5042,7 @@ bool CMySuperGrid::MoveFolderFormat(USER_MOVE_FODLER_FORMAT *pForm, CString strF
 			}
 			if (isCopy) {
 				sfo.wFunc = FO_COPY;
-				sfo.lpszProgressTitle = _T(L"コピーしています...");
+				sfo.lpszProgressTitle = L"コピーしています...";
 			}
 			CString strStatus;
 			if (isCopy) {
@@ -5190,7 +5189,7 @@ void CMySuperGrid::UpdateParentAtDeleteItem(UINT nIndex, FILE_MP3 *fileMP3)
 				strBuffer = pInfo->GetSubItem(nColNum-1);
 				if ((pTotalParent == pItemParent || nIndex == 0) && strBuffer.Find(L"/") == -1) {
 					nTotalTime = Time2Sec(strBuffer) - nTotalTime;
-					strBuffer.Format(_T(L"%d:%02d"), nTotalTime/60, nTotalTime%60);
+					strBuffer.Format(L"%d:%02d", nTotalTime/60, nTotalTime%60);
 				} else {
 					if (strBuffer.Find(L"/") != -1) {
 						strLeft = strBuffer.Left(strBuffer.Find(L"/"));
@@ -5199,10 +5198,10 @@ void CMySuperGrid::UpdateParentAtDeleteItem(UINT nIndex, FILE_MP3 *fileMP3)
 						if (pTotalParent != pItemParent) {
 						} else {
 							UINT nTotalTimeTemp = Time2Sec(strLeft) - nTotalTime;
-							strLeft.Format(_T(L"%d:%02d"), nTotalTimeTemp/60, nTotalTimeTemp%60);
+							strLeft.Format(L"%d:%02d", nTotalTimeTemp/60, nTotalTimeTemp%60);
 						}
 						UINT nTotalTimeTemp = Time2Sec(strRight) - nTotalTime;
-						strBuffer.Format(_T(L"%s/%d:%02d"), strLeft, nTotalTimeTemp/60, nTotalTimeTemp%60);
+						strBuffer.Format(L"%s/%d:%02d", strLeft, nTotalTimeTemp/60, nTotalTimeTemp%60);
 					} else {
 						if (pTotalParent == pItemParent) {
 							ASSERT(0);
@@ -5212,9 +5211,9 @@ void CMySuperGrid::UpdateParentAtDeleteItem(UINT nIndex, FILE_MP3 *fileMP3)
 						} else {
 							nTotalTime = Time2Sec(strBuffer) - nTotalTime;
 							if (nTotalTime > 0) {
-								strBuffer.Format(_T(L"%s/%d:%02d"), strBuffer, nTotalTime/60, nTotalTime%60);
+								strBuffer.Format(L"%s/%d:%02d", strBuffer, nTotalTime/60, nTotalTime%60);
 							} else {
-								strBuffer.Format(_T(L"%s"), strBuffer);
+								strBuffer.Format(L"%s", strBuffer);
 							}
 						}
 					}
@@ -5291,10 +5290,10 @@ BOOL CMySuperGrid::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
     TOOLTIPTEXT *pTTT = (TOOLTIPTEXT *)pNMHDR;
 	if (ht.iItem > -1) {
 		if (m_nPrevTipItem != ht.iItem || m_nPrevTipSubItem != ht.iSubItem) {
-			TRACE1(L"CMySuperGrid::OnToolTipNotify [%d]\n", m_nPrevTipItem);
-			TRACE1(L"CMySuperGrid::OnToolTipNotify [%d]\n", ht.iItem);
-			TRACE1(L"CMySuperGrid::OnToolTipNotify [%d]\n", m_nPrevTipSubItem);
-			TRACE1(L"CMySuperGrid::OnToolTipNotify [%d]\n", ht.iSubItem);
+			TRACE1("CMySuperGrid::OnToolTipNotify [%d]\n", m_nPrevTipItem);
+			TRACE1("CMySuperGrid::OnToolTipNotify [%d]\n", ht.iItem);
+			TRACE1("CMySuperGrid::OnToolTipNotify [%d]\n", m_nPrevTipSubItem);
+			TRACE1("CMySuperGrid::OnToolTipNotify [%d]\n", ht.iSubItem);
 			m_nPrevTipItem = ht.iItem;
 			m_nPrevTipSubItem = ht.iSubItem;
 			CTreeItem *pItem = GetTreeItem(ht.iItem);
@@ -5321,7 +5320,7 @@ BOOL CMySuperGrid::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
 			}
 			if (strToolTip.GetLength() == 0) {
 				m_toolTip.Pop();
-				TRACE0(L"CMySuperGrid::OnToolTipNotify NO TOOLTIP1\n");
+				TRACE0("CMySuperGrid::OnToolTipNotify NO TOOLTIP1\n");
 				m_nPrevTipItem = -1;
 				m_nPrevTipSubItem = -1;
 				return FALSE;
@@ -5332,30 +5331,30 @@ BOOL CMySuperGrid::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
 					int		nColNum = g_nColumnNumberList[COLUMN_TRACK_NUMBER];
 					if (nColNum >= 0) {
 						if (pInfo->GetSubItem(nColNum-1).GetLength() > 0) {
-							strToolTip += (_T(L"\n[Track数] ") + pInfo->GetSubItem(nColNum-1));
+							strToolTip += (L"\n[Track数] " + pInfo->GetSubItem(nColNum-1));
 						}
 					}
 					nColNum = g_nColumnNumberList[COLUMN_PLAY_TIME];
 					if (nColNum >= 0) {
 						if (pInfo->GetSubItem(nColNum-1).GetLength() > 0) {
-							strToolTip += (_T(L"\n[全演奏時間] ") + pInfo->GetSubItem(nColNum-1));
+							strToolTip += (L"\n[全演奏時間] " + pInfo->GetSubItem(nColNum-1));
 						}
 					}
 					nColNum = g_nColumnNumberList[COLUMN_FILE_SIZE];
 					if (nColNum >= 0) {
 						if (pInfo->GetSubItem(nColNum-1).GetLength() > 0) {
-							strToolTip += (_T(L"\n[サイズ合計] ") + pInfo->GetSubItem(nColNum-1));
+							strToolTip += (L"\n[サイズ合計] " + pInfo->GetSubItem(nColNum-1));
 						}
 					}
 				} else if ((int)pInfo->GetLParam() >= 0) {
 					FILE_MP3	*fileMP3 = m_pDoc->GetListMP3((int)pInfo->GetLParam());
-					strToolTip += (_T(L"\r[ﾀｲﾄﾙ] ") + GetFileColumnText(fileMP3, COLUMN_TRACK_NAME));
-					strToolTip += (_T(L"\n[ｱｰﾃｨｽﾄ] ") + GetFileColumnText(fileMP3, COLUMN_ARTIST_NAME));
-					strToolTip += (_T(L"\n[ｱﾙﾊﾞﾑ] ") + GetFileColumnText(fileMP3, COLUMN_ALBUM_NAME));
-					strToolTip += (_T(L"\n[TrackNo] ") + GetFileColumnText(fileMP3, COLUMN_TRACK_NUMBER));
-					strToolTip += (_T(L"\n[演奏時間] ") + GetFileColumnText(fileMP3, COLUMN_PLAY_TIME));
-					strToolTip += (_T(L"\n[年] ") + GetFileColumnText(fileMP3, COLUMN_YEAR));
-					strToolTip += (_T(L"\n[ｼﾞｬﾝﾙ] ") + GetFileColumnText(fileMP3, COLUMN_GENRE));
+					strToolTip += (L"\r[ﾀｲﾄﾙ] " + GetFileColumnText(fileMP3, COLUMN_TRACK_NAME));
+					strToolTip += (L"\n[ｱｰﾃｨｽﾄ] " + GetFileColumnText(fileMP3, COLUMN_ARTIST_NAME));
+					strToolTip += (L"\n[ｱﾙﾊﾞﾑ] " + GetFileColumnText(fileMP3, COLUMN_ALBUM_NAME));
+					strToolTip += (L"\n[TrackNo] " + GetFileColumnText(fileMP3, COLUMN_TRACK_NUMBER));
+					strToolTip += (L"\n[演奏時間] " + GetFileColumnText(fileMP3, COLUMN_PLAY_TIME));
+					strToolTip += (L"\n[年] " + GetFileColumnText(fileMP3, COLUMN_YEAR));
+					strToolTip += (L"\n[ｼﾞｬﾝﾙ] " + GetFileColumnText(fileMP3, COLUMN_GENRE));
 					CString strComment = GetFileColumnText(fileMP3, COLUMN_COMMENT);
 					{
 						BOOL bLead = FALSE;
@@ -5372,7 +5371,7 @@ BOOL CMySuperGrid::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
 						}
 					}
 					//strComment.Remove(_T('\r'));
-					strToolTip += (_T(L"\n[ｺﾒﾝﾄ] ") + strComment);
+					strToolTip += (L"\n[ｺﾒﾝﾄ] " + strComment);
 					/* Conspiracy 198 */
 					strComment = GetFileColumnText(fileMP3, COLUMN_FORMAT);
 					{
@@ -5389,9 +5388,9 @@ BOOL CMySuperGrid::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
 							}
 						}
 					}
-					strToolTip += (_T(L"\n[ﾌｫｰﾏｯﾄ] ") + strComment);
-					strToolTip += (_T(L"\n[ファイル] ") + GetFileColumnText(fileMP3, COLUMN_FILE_NAME));
-					strToolTip += (_T(L"\n[ﾊﾟｽ] ") + GetFileColumnText(fileMP3, COLUMN_FULL_PATH_NAME));
+					strToolTip += (L"\n[ﾌｫｰﾏｯﾄ] " + strComment);
+					strToolTip += (L"\n[ファイル] " + GetFileColumnText(fileMP3, COLUMN_FILE_NAME));
+					strToolTip += (L"\n[ﾊﾟｽ] " + GetFileColumnText(fileMP3, COLUMN_FULL_PATH_NAME));
 				}
 			}
 			//if (m_strToolTip != strToolTip) {
@@ -5401,14 +5400,14 @@ BOOL CMySuperGrid::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
 			pTTT->lpszText = m_strToolTip.GetBuffer(0);
 			return TRUE;
 		} else {
-			TRACE0(L"CMySuperGrid::OnToolTipNotify NO TOOLTIP\n");
+			TRACE0("CMySuperGrid::OnToolTipNotify NO TOOLTIP\n");
 			return FALSE;
 		}
 	}
 	m_toolTip.Pop();
 	m_nPrevTipItem = -1;
 	m_nPrevTipSubItem = -1;
-	TRACE0(L"CMySuperGrid::OnToolTipNotify RESET\n");
+	TRACE0("CMySuperGrid::OnToolTipNotify RESET\n");
 	return FALSE;
 }
 
@@ -5647,11 +5646,11 @@ bool CMySuperGrid::isOneCellClipboard(CString strBuffer) /* RockDance 124 */
 	//if (ey >= GetItemCount()) ey = GetItemCount() - 1;
 	int nCount = 0;
 	// 選択範囲のセルの内容を文字列に変換
-	char	*pBuffer = strBuffer.GetBuffer(nLength);
+	wchar_t	*pBuffer = strBuffer.GetBuffer(nLength);
 	int		nPos = 0;
 	while (true) {
 		// １行分のバッファを取得
-		char	*pLineTop = pBuffer + nPos;
+		wchar_t	*pLineTop = pBuffer + nPos;
 		int nQuote = 0;
 		nPos--;
 		do {
@@ -5667,7 +5666,7 @@ bool CMySuperGrid::isOneCellClipboard(CString strBuffer) /* RockDance 124 */
 		pBuffer[nPos] = '\0';
 		nPos++;
 
-		char	*pStr;
+		wchar_t	*pStr;
 		if ((pStr = GetToken(pLineTop, L"\t")) != NULL) {
 			nCount++;
 			while (true) {
@@ -5843,7 +5842,7 @@ void CMySuperGrid::CalcSum(CTreeItem* pTop, CTreeItem *pItemParent) /* RockDance
 					strBuffer = pInfo->GetSubItem(nColNum-1);
 					if ((pTotalParent == pItemParent || nIndex == 0) && strBuffer.Find(L"/") == -1) {
 						nTotalTime += Time2Sec(strBuffer);
-						strBuffer.Format(_T(L"%d:%02d"), nTotalTime/60, nTotalTime%60);
+						strBuffer.Format(L"%d:%02d", nTotalTime/60, nTotalTime%60);
 					} else {
 						if (strBuffer.Find(L"/") != -1) {
 							strLeft = strBuffer.Left(strBuffer.Find(L"/"));
@@ -5855,14 +5854,14 @@ void CMySuperGrid::CalcSum(CTreeItem* pTop, CTreeItem *pItemParent) /* RockDance
 							strRight = strBuffer;
 							strRight = strBuffer.Mid(strBuffer.Find(L"/")+1);;
 							nTotalTime += Time2Sec(strRight);
-							strBuffer.Format(_T(L"%s/%d:%02d"), strLeft, nTotalTime/60, nTotalTime%60);
+							strBuffer.Format(L"%s/%d:%02d", strLeft, nTotalTime/60, nTotalTime%60);
 						} else {
 							if (pTotalParent == pItemParent) {
 								ASSERT(0);
 							} else {
 								nTotalTime += Time2Sec(strBuffer);
 								CString strOrg = strBuffer;
-								strBuffer.Format(_T(L"%s/%d:%02d"), strOrg, nTotalTime/60, nTotalTime%60);
+								strBuffer.Format(L"%s/%d:%02d", strOrg, nTotalTime/60, nTotalTime%60);
 							}
 						}
 					}
@@ -5928,8 +5927,8 @@ bool CMySuperGrid::ClipboardPaste(int nPastePos, bool bAddSpace, const CString& 
 	CloseClipboard();
 
 	if (hMem != NULL) {
-		LPSTR pBuffer;
-		if ((pBuffer = (LPSTR)GlobalLock(hMem)) != NULL) {
+		LPWSTR pBuffer;
+		if ((pBuffer = (LPWSTR)GlobalLock(hMem)) != NULL) {
 			/* RockDance 124 *///PasteString(pBuffer);
 #ifdef FLICKERFREE
 			//SetRedraw(FALSE);
@@ -5980,7 +5979,7 @@ void CMySuperGrid::PasteString(wchar_t *sBuffer, int nPastePos, bool bText, bool
 		}
 		// タブか改行が含まれているか？
 		 /* RockDance 124 *///if (strchr(sBuffer, '\t') == NULL && strchr(sBuffer, '\n') == NULL) {
-		if ((bText == true && strchr(sBuffer, '\t') == NULL && strchr(sBuffer, '\n') == NULL) || (bText == false && isOneCellClipboard(sBuffer))) {  /* RockDance 124 */
+		if ((bText == true && wcschr(sBuffer, '\t') == NULL && wcsrchr(sBuffer, '\n') == NULL) || (bText == false && isOneCellClipboard(sBuffer))) {  /* RockDance 124 */
 			CString	strBuffer = sBuffer;
 			// 含まれていない場合は、選択されている範囲全てにペースト
 			for (int nItem = sy; nItem <= ey; nItem++) {
@@ -6025,7 +6024,7 @@ void CMySuperGrid::PasteString(wchar_t *sBuffer, int nPastePos, bool bText, bool
 	if (ey >= GetItemCount()) ey = GetItemCount() - 1;
 
 	// 選択範囲のセルの内容を文字列に変換
-	char	*pBuffer = strBuffer.GetBuffer(nLength);
+	wchar_t	*pBuffer = strBuffer.GetBuffer(nLength);
 	int		nPos = 0;
 	int		nEndColumn = 0; /* RockDance 130 */
 	for (int nItem = sy; nItem <= ey; nItem++) {
@@ -6034,7 +6033,7 @@ void CMySuperGrid::PasteString(wchar_t *sBuffer, int nPastePos, bool bText, bool
 			CItemInfo	*pItemInfo = GetData(pItem);
 
 			// １行分のバッファを取得
-			char	*pLineTop = pBuffer + nPos;
+			wchar_t	*pLineTop = pBuffer + nPos;
 			if (bText == false ) { /* RockDance 124  */
 				int nQuote = 0;
 				nPos--;
@@ -6067,7 +6066,7 @@ void CMySuperGrid::PasteString(wchar_t *sBuffer, int nPastePos, bool bText, bool
 			//	nPos++;
 			//}
 
-			char	*pStr;
+			wchar_t	*pStr;
 			if ((pStr = GetToken(pLineTop, L"\t")) != NULL) {
 				for (int nColumn = sx; nColumn <= ex; nColumn++) {
 					nEndColumn = nColumn; /* RockDance 130 */
@@ -6158,7 +6157,7 @@ void CMySuperGrid::ChangeSubItemText(int iItem, int iSubItem, const wchar_t *sUp
 			int		nLimit = OnGetColumLimitText(iItem, iSubItem);
 			if (nLimit < (int)wcslen(sText)) {
 				// 文字数を最大文字数に収まるように調整
-				wchar_t*	sBuffer = new char[nLimit+1];
+				wchar_t*	sBuffer = new wchar_t[nLimit + 1];
 				StringCopyN(sBuffer, sText, nLimit);
 				sBuffer[nLimit] = '\0';
 				strText = sBuffer;
@@ -6213,8 +6212,8 @@ void CMySuperGrid::ChangeSubItemText(int iItem, int iSubItem, const wchar_t *sUp
 					CTime	time = fileMP3->time;
 					// 入力されたタイムスタンプを解析
 					if (strText.GetLength() > 0) {
-						char	*sBuffer = new char[strText.GetLength()+1];
-						char	*ptr;
+						wchar_t	*sBuffer = new wchar_t[strText.GetLength() + 1];
+						wchar_t	*ptr;
 						wcscpy(sBuffer, sText);
 						int		nYear = 2000, nMonth = 1, nDay = 1, nHour = 0, nMin = 0, nSec = 0;
 						if ((ptr = wcstok(sBuffer, L"/")) != NULL) {		// 年
@@ -6699,10 +6698,10 @@ void CMySuperGrid::ClipboardCopyFormat(USER_COPY_FORMAT_FORMAT *pForm) /* FunnyC
 		}
 		strClipboard += strText;
 	}
-	LPSTR pBuffer;
+	LPWSTR pBuffer;
 	HGLOBAL hMem;
 	hMem = GlobalAlloc(GHND|GMEM_DDESHARE, strClipboard.GetLength()+1);
-	pBuffer = (LPSTR)GlobalLock(hMem);
+	pBuffer = (LPWSTR)GlobalLock(hMem);
 	wcscpy(pBuffer, strClipboard);
 	GlobalUnlock(hMem);
 
@@ -6919,7 +6918,7 @@ CString CMySuperGrid::MakeFormatFileBody(FILE_MP3	*fileMP3, const CString &strBo
 	strText = StrReplaceEx(strText, L"%FILE_SIZE_BYTE%"  , ConvNumber(strFileSizeByte), bIsHtml);
 	strText = StrReplaceEx(strText, L"%FILE_TIME%"       , strFileTime, bIsHtml);
 	strText = StrReplaceEx(strText, L"%FILE_CTIME%"      , strFileTimeCreate, bIsHtml);
-	strText = StrReplaceEx(strText, L"%EXIST_LYRIC_FILE%", strLyricFile.IsEmpty() ? "なし" : "あり", bIsHtml);
+	strText = StrReplaceEx(strText, L"%EXIST_LYRIC_FILE%", strLyricFile.IsEmpty() ? L"なし" : L"あり", bIsHtml);
 	strText = StrReplaceEx(strText, L"%LYRIC_FILE_NAME%" , ConvHTML(strLyricFile, bWriteHtml), bIsHtml); /* Rumble 191 */
 	strText = StrReplaceEx(strText, L"%LYRIC_FILE_NAME_SHORT%" , ConvHTML(strLyricFileShort, bWriteHtml), bIsHtml); /* Rumble 191 */
 	strText = StrReplaceEx(strText, L"%FILE_EXTENSION%"  , strExt, bIsHtml); /* Baja 162 */

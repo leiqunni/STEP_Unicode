@@ -325,9 +325,9 @@ GENRE_LIST	g_genreListSCMPX[] = {
 	{false, 254, L"Tokusatsu(J)"},			// 254(SCMPX互換)
 	{false, 255, L"Anime(J)"},				// 255(SCMPX互換)
 	{false, 255, L"未指定"},					// 255
-	{false, 255, NULL},						// 終端コード
+	{ false, 255, L'\0' },						// 終端コード
 };
-USER_GENRE_LIST*	g_genreListUSER = NULL;
+USER_GENRE_LIST*	g_genreListUSER = L'\0';
 
 
 
@@ -345,11 +345,11 @@ USER_GENRE_LIST*	g_genreListUSER = NULL;
 const wchar_t *GetGenreNameSIF(BYTE byGenre)
 {
 	int		i;
-	for (i = 0; g_genreListSCMPX[i].sName != NULL; i++) {
+	for (i = 0; g_genreListSCMPX[i].sName != L'\0'; i++) {
 		if (g_genreListSCMPX[i].byGenre == byGenre) {
 			if (byGenre == 0xff) {
 				// SCMPX 互換かどうかで文字列を変える
-				return(g_genreListSCMPX[i].bAddList ? "Anime(J)" : "");
+				return(g_genreListSCMPX[i].bAddList ? L"Anime(J)" : L"");
 			}
 			return(g_genreListSCMPX[i].sName);
 		}
@@ -366,13 +366,13 @@ const wchar_t *GetGenreNameSIF(BYTE byGenre)
 int GetGenreCode(const wchar_t *sGenre)
 {
 	int		i;
-	for (i = 0; g_genreListSCMPX[i].sName != NULL; i++) {
-		if (_wcscmpi(g_genreListSCMPX[i].sName, sGenre) == 0) {
+	for (i = 0; g_genreListSCMPX[i].sName != L'\0'; i++) {
+		if (_wcsicmp(g_genreListSCMPX[i].sName, sGenre) == 0) {
 			return(g_genreListSCMPX[i].byGenre);
 		}
 	}
 	for (i = 0; i < USER_GENRE_LIST_MAX; i++) {
-		if (_wcscmpi(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
+		if (_wcsicmp(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
 			return(g_genreListUSER[i].byGenre);
 		}
 	}
@@ -383,14 +383,14 @@ bool IsUserGenre(const wchar_t *sGenre)
 {
 	if (wcslen(sGenre) == 0) return false; /* WildCherry2 075 */
 	int		i;
-	for (i = 0; g_genreListSCMPX[i].sName != NULL; i++) {
-		if (_wcscmpi(g_genreListSCMPX[i].sName, sGenre) == 0) {
+	for (i = 0; g_genreListSCMPX[i].sName != L'\0'; i++) {
+		if (_wcsicmp(g_genreListSCMPX[i].sName, sGenre) == 0) {
 			return false;
 		}
 	}
 	for (i = 0; i < USER_GENRE_LIST_MAX; i++) { 
 
-		if (_wcscmpi(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
+		if (_wcsicmp(g_genreListUSER[i].sName, sGenre) == 0 && g_genreListUSER[i].bUse) {
 			return true;
 		}
 	}
@@ -474,8 +474,8 @@ static	bool MyCopyFile(const wchar_t *sFileName, const wchar_t *sNewName, bool b
 	// エラー処理
 	if (bResult == FALSE) {
 		static	const wchar_t *sMessage[][2] = {
-			{"コピー元：%s\nコピー先：%s\n\n%s", L"ファイルのコピーに失敗しました"},
-			{"移動元：%s\n移動先：%s\n\n%s", L"ファイルの移動に失敗しました"},
+			{L"コピー元：%s\nコピー先：%s\n\n%s", L"ファイルのコピーに失敗しました"},
+			{L"移動元：%s\n移動先：%s\n\n%s", L"ファイルの移動に失敗しました"},
 		};
 		CString	strBuffer;
 		LPVOID lpMsgBuf;
@@ -1003,10 +1003,10 @@ bool CFileMP3::CopyFile(FILE_MP3 *fileMP3, const wchar_t *sNewDir, bool bMoveFla
 	// ファイル名を分解
 	CString	strFileName;
 	wchar_t	drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
-	_tsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
+	_wsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
 	strFileName.Format(L"%s%s", fname, ext);
 
-	if (_wcscmpi(fileMP3->strFilePath, sNewDir) != 0) {
+	if (_wcsicmp(fileMP3->strFilePath, sNewDir) != 0) {
 		// ファイル名が変更されている
 		CString	strNewName;
 		strNewName.Format(L"%s%s", sNewDir, strFileName);
@@ -1019,11 +1019,11 @@ bool CFileMP3::CopyFile(FILE_MP3 *fileMP3, const wchar_t *sNewDir, bool bMoveFla
 		if (g_bSyncLyricsFileMove && bMoveFlag == true) {
 			wchar_t	sLyricsFile[FILENAME_MAX+1];
 			// MP3 ファイルと同じフォルダにある歌詞ファイルを検索
-			_tsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
+			_wsplitpath(fileMP3->strFullPathName, drive, dir, fname, ext);
 			// .lrc => .txt の順で検索
 			int i; for (i = 0; i < 2; i++) {
-				LPSTR	sLyricsExt = (i == 0) ? ".lrc" : ".txt";
-				_tmakepath(sLyricsFile, drive, dir, fname, sLyricsExt);
+				LPWSTR	sLyricsExt = (i == 0) ? L".lrc" : L".txt";
+				_wmakepath(sLyricsFile, drive, dir, fname, sLyricsExt);
 				if (GetFileAttributes(sLyricsFile) != 0xFFFFFFFF) {
 					// ファイルを発見：歌詞ファイルを移動する
 					CString	strNewName;

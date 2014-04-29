@@ -75,7 +75,7 @@ void CHeaderCtrlEx::DrawItem( LPDRAWITEMSTRUCT lpDrawItemStruct )
 	
 	// Labels are offset by a certain amount  
 	// This offset is related to the width of a space character
-	int offset = dc.GetTextExtent(_T(L" "), 1 ).cx*2;
+	int offset = dc.GetTextExtent(L" ", 1 ).cx*2;
 
 
 	// Get the column text and format

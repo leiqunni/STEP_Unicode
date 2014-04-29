@@ -151,12 +151,10 @@ static wchar_t *StrCpy_Profile(wchar_t *ret, const wchar_t *buf)
 static BOOL WriteAsciiFile(const HANDLE hFile, const wchar_t *buf, const int len)
 {
 #ifdef UNICODE
-	wchar_t *str;
 	DWORD ret;
-	int clen;
 
-	clen = WideCharToMultiByte(CP_ACP, 0, buf, -1, NULL, 0, NULL, NULL);
-	str = (wchar_t *)LocalAlloc(LMEM_FIXED, clen + 1);
+	int clen = WideCharToMultiByte(CP_ACP, 0, buf, -1, NULL, 0, NULL, NULL);
+	LPSTR str = (LPSTR)LocalAlloc(LMEM_FIXED, clen + 1);
 	if(str == NULL){
 		return FALSE;
 	}
@@ -169,7 +167,6 @@ static BOOL WriteAsciiFile(const HANDLE hFile, const wchar_t *buf, const int len
 	return TRUE;
 #else
 	DWORD ret;
-
 	return WriteFile(hFile, buf, len, &ret, NULL);
 #endif
 }
@@ -205,7 +202,7 @@ static BOOL AddSection(const wchar_t *SectionName)
 		SectionInfo = TmpSection;
 	}
 	//セクション追加
-	wcscpyn((SectionInfo + SectionCnt)->SectionName, SectionName, BUF_SIZE);
+	lstrcpyn((SectionInfo + SectionCnt)->SectionName, SectionName, BUF_SIZE);
 	Trim((SectionInfo + SectionCnt)->SectionName);
 	(SectionInfo + SectionCnt)->hash = str2hash((SectionInfo + SectionCnt)->SectionName);
 
@@ -236,7 +233,7 @@ static int FindSection(const wchar_t *SectionName)
 		if((SectionInfo + i)->hash != hash){
 			continue;
 		}
-		if(wcscmpi((SectionInfo + i)->SectionName, SectionName) == 0){
+		if (lstrcmpi((SectionInfo + i)->SectionName, SectionName) == 0) {
 			return i;
 		}
 	}
@@ -279,7 +276,7 @@ static BOOL AddKey(SECTION_INFO *si, const wchar_t *KeyName, const wchar_t *Stri
 	if((si->KeyInfo + si->KeyCnt)->String == NULL){
 		return FALSE;
 	}
-	wcscpyn((si->KeyInfo + si->KeyCnt)->KeyName, KeyName, BUF_SIZE);
+	lstrcpyn((si->KeyInfo + si->KeyCnt)->KeyName, KeyName, BUF_SIZE);
 	Trim((si->KeyInfo + si->KeyCnt)->KeyName);
 	if(cFlag == FALSE){
 		(si->KeyInfo + si->KeyCnt)->hash = str2hash((si->KeyInfo + si->KeyCnt)->KeyName);
@@ -315,7 +312,7 @@ static int FindKey(const SECTION_INFO *si, const wchar_t *KeyName)
 			(si->KeyInfo + i)->hash != hash){
 			continue;
 		}
-		if(wcscmpi((si->KeyInfo + i)->KeyName, KeyName) == 0){
+		if (lstrcmpi((si->KeyInfo + i)->KeyName, KeyName) == 0) {
 			return i;
 		}
 	}
@@ -336,7 +333,7 @@ BOOL Profile_Initialize(const wchar_t *path, const BOOL ReadFlag)
 	HANDLE hFile;
 	wchar_t *buf, *p, *r, *s;
 	wchar_t tmp[BUF_SIZE];
-	wchar_t *cBuf;
+	LPSTR  cBuf;
 	DWORD fSizeLow, fSizeHigh;
 	DWORD ret;
 	long FileSize;
@@ -363,7 +360,7 @@ BOOL Profile_Initialize(const wchar_t *path, const BOOL ReadFlag)
 	FileSize = (long)fSizeLow;
 
 	//読み取る領域の確保
-	cBuf = (wchar_t *)LocalAlloc(LMEM_FIXED, FileSize + 1);
+	cBuf = (LPSTR)LocalAlloc(LMEM_FIXED, FileSize + 1);
 	if(cBuf == NULL){
 		CloseHandle(hFile);
 		return FALSE;
@@ -426,7 +423,7 @@ BOOL Profile_Initialize(const wchar_t *path, const BOOL ReadFlag)
 					*s = *p;
 				}
 				*s = TEXT('\0');
-				AddKey((SectionInfo + SectionCnt - 1), tmp, TEXT(L""), TRUE);
+				AddKey((SectionInfo + SectionCnt - 1), tmp, L"", TRUE);
 			}else{
 				//キーの追加
 				for(s = tmp; p < r; p++, s++){
@@ -514,7 +511,7 @@ BOOL Profile_Flush(const wchar_t *path)
 		if(i != 0){
 			*(p++) = TEXT('[');
 			p = StrCpy_Profile(p, (SectionInfo + i)->SectionName);
-			p = StrCpy_Profile(p, TEXT(L"]\r\n"));
+			p = StrCpy_Profile(p, L"]\r\n");
 		}
 
 		for(j = 0; j < (SectionInfo + i)->KeyCnt; j++){
@@ -531,9 +528,9 @@ BOOL Profile_Flush(const wchar_t *path)
 					p = StrCpy_Profile(p, ((SectionInfo + i)->KeyInfo + j)->String);
 				}
 			}
-			p = StrCpy_Profile(p, TEXT(L"\r\n"));
+			p = StrCpy_Profile(p, L"\r\n");
 		}
-		p = StrCpy_Profile(p, TEXT(L"\r\n"));
+		p = StrCpy_Profile(p, L"\r\n");
 	}
 	*p = TEXT('\0');
 
@@ -611,14 +608,14 @@ long Profile_GetString(const wchar_t *Section, const wchar_t *Key, const wchar_t
 	//セクションの検索
 	SectionIndex = FindSection(Section);
 	if(SectionIndex == -1){
-		wcscpyn(ret, Default, size);
+		lstrcpyn(ret, Default, size);
 		return wcslen(ret);
 	}
 
 	//キーの検索
 	KeyIndex = FindKey((SectionInfo + SectionIndex), Key);
 	if(KeyIndex == -1 || ((SectionInfo + SectionIndex)->KeyInfo + KeyIndex)->String == NULL){
-		wcscpyn(ret, Default, size);
+		lstrcpyn(ret, Default, size);
 		return wcslen(ret);
 	}
 
@@ -632,10 +629,10 @@ long Profile_GetString(const wchar_t *Section, const wchar_t *Key, const wchar_t
 		if(len > 0){
 			if(*(p + len - 1) == TEXT('\"')) *(p + len - 1) = TEXT('\0');
 		}
-		wcscpyn(ret, p, size);
+		lstrcpyn(ret, p, size);
 		LocalFree(buf);
 	}else{
-		wcscpyn(ret, ((SectionInfo + SectionIndex)->KeyInfo + KeyIndex)->String, size);
+		lstrcpyn(ret, ((SectionInfo + SectionIndex)->KeyInfo + KeyIndex)->String, size);
 	}
 	return wcslen(ret);
 }
@@ -781,16 +778,16 @@ BOOL Profile_WriteString(const wchar_t *Section, const wchar_t *Key, const wchar
 	BOOL ret;
 
 	if(str == NULL || *str == TEXT('\0')){
-		return Profile_WriteData(Section, Key, TEXT(L""), File);
+		return Profile_WriteData(Section, Key, L"", File);
 	}
 
 	buf = (wchar_t *)LocalAlloc(LMEM_FIXED, sizeof(wchar_t) * (wcslen(str) + 3));
 	if(buf == NULL){
 		return Profile_WriteData(Section, Key, str, File);
 	}
-	p = StrCpy_Profile(buf, TEXT(L"\""));
+	p = StrCpy_Profile(buf, L"\"");
 	p = StrCpy_Profile(p, str);
-	p = StrCpy_Profile(p, TEXT(L"\""));
+	p = StrCpy_Profile(p, L"\"");
 	ret = Profile_WriteData(Section, Key, buf, File);
 	LocalFree(buf);
 	return ret;
@@ -809,7 +806,7 @@ BOOL Profile_WriteInt(const wchar_t *Section, const wchar_t *Key, const int num,
 {
 	wchar_t ret[BUF_SIZE];
 
-	wsprintf(ret, TEXT(L"%d"), num);
+	wsprintf(ret, L"%d", num);
 	return Profile_WriteData(Section, Key, ret, File);
 }
 /* End of source */
