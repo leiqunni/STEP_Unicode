@@ -21,15 +21,15 @@ struct NONCLIENTMETRICS_X501	// NONCLIENTMETRICS 0x501
     int     iScrollHeight;
     int     iCaptionWidth;
     int     iCaptionHeight;
-    LOGFONTA lfCaptionFont;
+    LOGFONT lfCaptionFont;
     int     iSmCaptionWidth;
     int     iSmCaptionHeight;
-    LOGFONTA lfSmCaptionFont;
+    LOGFONT lfSmCaptionFont;
     int     iMenuWidth;
     int     iMenuHeight;
-    LOGFONTA lfMenuFont;
-    LOGFONTA lfStatusFont;
-    LOGFONTA lfMessageFont;
+    LOGFONT lfMenuFont;
+    LOGFONT lfStatusFont;
+    LOGFONT lfMessageFont;
 };
 
 #ifdef _DEBUG
@@ -843,16 +843,16 @@ CString COXToolTipCtrl::GetTooltipText(COXToolTipInfo *pToolTip)
 
 LPLOGFONT COXToolTipCtrl::GetSystemToolTipFont() const
 {
-    static LOGFONT LogFont;
+	static LOGFONT LogFont;
 
-	NONCLIENTMETRICS_X501 ncm = {0};
-    ncm.cbSize = sizeof(NONCLIENTMETRICS_X501);
-    if (!SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS_X501), &ncm, 0))
-        return FALSE;
+	NONCLIENTMETRICS_X501 ncm = { 0 };
+	ncm.cbSize = sizeof(NONCLIENTMETRICS_X501);
+	if (!SystemParametersInfo(SPI_GETNONCLIENTMETRICS, sizeof(NONCLIENTMETRICS_X501), &ncm, 0))
+		return FALSE;
 
-    memcpy(&LogFont, &ncm.lfStatusFont, sizeof(LOGFONT));
+	memcpy(&LogFont, &ncm.lfStatusFont, sizeof(LOGFONT));
 
-    return &LogFont; 
+	return &LogFont;
 }
 
 BOOL COXToolTipCtrl::SetLogFont(LPLOGFONT lpLogFont, BOOL bRedraw /*=TRUE*/)

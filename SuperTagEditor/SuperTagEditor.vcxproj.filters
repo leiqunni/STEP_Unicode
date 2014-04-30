@@ -2,25 +2,25 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{3046fbe3-48b0-4ec4-8502-f57cf252a3bf}</UniqueIdentifier>
+      <UniqueIdentifier>{617ffeb1-c19e-4620-ba14-1cea33ee4873}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{0bec1e52-a474-4f5e-afce-c889c1da6da8}</UniqueIdentifier>
+      <UniqueIdentifier>{c5ff9bfa-4be6-4c5a-a75f-6bd1dc3b437f}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{77ae14c4-e4eb-4f17-a663-cab4a8bddaeb}</UniqueIdentifier>
+      <UniqueIdentifier>{ae920279-ddc4-4d58-b31f-488413bafc2a}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
     <Filter Include="オプション設定関連">
-      <UniqueIdentifier>{d1161c49-ff7d-459a-88ff-588bee5e344b}</UniqueIdentifier>
+      <UniqueIdentifier>{5937c2d2-e005-4bad-99a6-3219216f0c63}</UniqueIdentifier>
     </Filter>
     <Filter Include="HELP">
-      <UniqueIdentifier>{3ac76566-8652-4656-b518-8479843bb949}</UniqueIdentifier>
+      <UniqueIdentifier>{b9000e2b-eec3-4922-87bb-8c24301a5f89}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugin">
-      <UniqueIdentifier>{174dd619-dbba-496c-a9b2-daec61433a17}</UniqueIdentifier>
+      <UniqueIdentifier>{92e22b63-7edf-4777-a221-33e709b349fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -498,40 +498,13 @@
     <None Include="res\bin00001.bin">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\check.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\cursor1.cur">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\folders.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\icon1.ico">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\rt_manif.bin">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\subitems.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\SuperTagEditor.ico">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\SuperTagEditor.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\SuperTagEditorDoc.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\Toolbar.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\toolbar_.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\tree.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Help\history.html">
@@ -543,13 +516,44 @@
     <None Include="Help\schedule.html">
       <Filter>HELP</Filter>
     </None>
-    <None Include="..\STEP_SDK\STEP_API.txt">
-      <Filter>Plugin</Filter>
-    </None>
-    <None Include="..\STEP.txt" />
     <None Include="SuperTagEditor.reg" />
-    <None Include="..\var_list.txt" />
-    <None Include="..\var_list2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\check.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\folders.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\subitems.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SuperTagEditor.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SuperTagEditorDoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\toolbar_.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\tree.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\STEP_SDK\STEP_API.txt">
+      <Filter>Plugin</Filter>
+    </Text>
+    <Text Include="..\STEP.txt" />
+    <Text Include="..\var_list.txt" />
+    <Text Include="..\var_list2.txt" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="VisualStyle.manifest" />
